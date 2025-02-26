@@ -27,18 +27,18 @@ times = ['2003,05,08,21,00,00', '2003,05,08,21,05,00', '2003,05,08,21,10,00', '2
 
 for time in times:
 
-    os.system("python /work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py --exper RUN_LETKF/RUN_LETKF.exp -t %s --freq -300" % (time))
+    os.system("python /work/jessica.mcdonald/CM1_LETKF_2025/run_filter.py --exper RUN_LETKF/RUN_LETKF.exp -t %s --freq -300" % (time))
 
     if time != times[-1]:  # dont the crefs or last 5 min forecast - do the pure forecast at the end
 
 #       os.system("/Users/Louis.Wicker/cm1_letkf_2020/ens.py -e RUN_LETKF/RUN_LETKF.exp --crefperts -t %s --write" % (time))
 
-        os.system("python /work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py -e RUN_LETKF/RUN_LETKF.exp --run_time 300 -t %s --nthreads 1" % (time))
+        os.system("python /work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py -e RUN_LETKF/RUN_LETKF.exp --run_time 300 -t %s --nthreads 1" % (time))
 
 #--------------------------------------------------------------------------
 # Make a 30 minute forecast
 
-    os.system("python /work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py -e RUN_LETKF/RUN_LETKF.exp --run_time 1800 -t 2003,5,8,22,00,00 --nthreads 1")
+    os.system("python /work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py -e RUN_LETKF/RUN_LETKF.exp --run_time 1800 -t 2003,5,8,22,00,00 --nthreads 1")
 
 #--------------------------------------------------------------------------
 # Completed (hopefully) simple synchronous experiment
@@ -47,9 +47,9 @@ for time in times:
 # Make a few plots every 10 minutes
 
 for time in times[::2]:
-    os.system("python /work/jessica.mcdonald/CM1_LETKF_2020/ens.py -e RUN_LETKF/RUN_LETKF.exp -t %s -v W --plot9" % (time))
-    os.system("python /work/jessica.mcdonald/CM1_LETKF_2020/ens.py -e RUN_LETKF/RUN_LETKF.exp -t %s -v WZ --plot9" % (time))
-    os.system("python /work/jessica.mcdonald/CM1_LETKF_2020/ens.py -e RUN_LETKF/RUN_LETKF.exp -t %s -v DBZ --plot8" % (time))
+    os.system("python /work/jessica.mcdonald/CM1_LETKF_2025/ens.py -e RUN_LETKF/RUN_LETKF.exp -t %s -v W --plot9" % (time))
+    os.system("python /work/jessica.mcdonald/CM1_LETKF_2025/ens.py -e RUN_LETKF/RUN_LETKF.exp -t %s -v WZ --plot9" % (time))
+    os.system("python /work/jessica.mcdonald/CM1_LETKF_2025/ens.py -e RUN_LETKF/RUN_LETKF.exp -t %s -v DBZ --plot8" % (time))
 
 #--------------------------------------------------------------------------
 # Creat DA diagnostics 
