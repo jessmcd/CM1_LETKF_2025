@@ -1,0 +1,380 @@
+
+Starting run_simple_exper.py
+sh: create_run_letkf.py: command not found
+sh: run_fcst.py: command not found
+sh: ens.py: command not found
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+
+  ----------------------------------------------------------------------
+
+               BEGIN PROGRAM RUN_FILTER                                 
+
+  This script sets the parameters to create Hx's and runs the letkf code
+
+  ----------------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 58, in <module>
+    with open(options.exper, 'rb') as p:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+
+  ----------------------------------------------------------------------
+
+               BEGIN PROGRAM RUN_FILTER                                 
+
+  This script sets the parameters to create Hx's and runs the letkf code
+
+  ----------------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 58, in <module>
+    with open(options.exper, 'rb') as p:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+
+  ----------------------------------------------------------------------
+
+               BEGIN PROGRAM RUN_FILTER                                 
+
+  This script sets the parameters to create Hx's and runs the letkf code
+
+  ----------------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 58, in <module>
+    with open(options.exper, 'rb') as p:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+
+  ----------------------------------------------------------------------
+
+               BEGIN PROGRAM RUN_FILTER                                 
+
+  This script sets the parameters to create Hx's and runs the letkf code
+
+  ----------------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 58, in <module>
+    with open(options.exper, 'rb') as p:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+
+  ----------------------------------------------------------------------
+
+               BEGIN PROGRAM RUN_FILTER                                 
+
+  This script sets the parameters to create Hx's and runs the letkf code
+
+  ----------------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 58, in <module>
+    with open(options.exper, 'rb') as p:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+
+  ----------------------------------------------------------------------
+
+               BEGIN PROGRAM RUN_FILTER                                 
+
+  This script sets the parameters to create Hx's and runs the letkf code
+
+  ----------------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 58, in <module>
+    with open(options.exper, 'rb') as p:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+
+  ----------------------------------------------------------------------
+
+               BEGIN PROGRAM RUN_FILTER                                 
+
+  This script sets the parameters to create Hx's and runs the letkf code
+
+  ----------------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 58, in <module>
+    with open(options.exper, 'rb') as p:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+
+  ----------------------------------------------------------------------
+
+               BEGIN PROGRAM RUN_FILTER                                 
+
+  This script sets the parameters to create Hx's and runs the letkf code
+
+  ----------------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 58, in <module>
+    with open(options.exper, 'rb') as p:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+
+  ----------------------------------------------------------------------
+
+               BEGIN PROGRAM RUN_FILTER                                 
+
+  This script sets the parameters to create Hx's and runs the letkf code
+
+  ----------------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 58, in <module>
+    with open(options.exper, 'rb') as p:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+
+  ----------------------------------------------------------------------
+
+               BEGIN PROGRAM RUN_FILTER                                 
+
+  This script sets the parameters to create Hx's and runs the letkf code
+
+  ----------------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 58, in <module>
+    with open(options.exper, 'rb') as p:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+
+  ----------------------------------------------------------------------
+
+               BEGIN PROGRAM RUN_FILTER                                 
+
+  This script sets the parameters to create Hx's and runs the letkf code
+
+  ----------------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 58, in <module>
+    with open(options.exper, 'rb') as p:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+
+  ----------------------------------------------------------------------
+
+               BEGIN PROGRAM RUN_FILTER                                 
+
+  This script sets the parameters to create Hx's and runs the letkf code
+
+  ----------------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 58, in <module>
+    with open(options.exper, 'rb') as p:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+
+  ----------------------------------------------------------------------
+
+               BEGIN PROGRAM RUN_FILTER                                 
+
+  This script sets the parameters to create Hx's and runs the letkf code
+
+  ----------------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 58, in <module>
+    with open(options.exper, 'rb') as p:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 82, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 13, in <module>
+    import matplotlib
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 13, in <module>
+    import matplotlib
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 13, in <module>
+    import matplotlib
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 13, in <module>
+    import matplotlib
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 13, in <module>
+    import matplotlib
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 13, in <module>
+    import matplotlib
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 13, in <module>
+    import matplotlib
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 13, in <module>
+    import matplotlib
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 13, in <module>
+    import matplotlib
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 13, in <module>
+    import matplotlib
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 13, in <module>
+    import matplotlib
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 13, in <module>
+    import matplotlib
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 13, in <module>
+    import matplotlib
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 13, in <module>
+    import matplotlib
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 13, in <module>
+    import matplotlib
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 13, in <module>
+    import matplotlib
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 13, in <module>
+    import matplotlib
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 13, in <module>
+    import matplotlib
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 13, in <module>
+    import matplotlib
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 13, in <module>
+    import matplotlib
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 13, in <module>
+    import matplotlib
+ModuleNotFoundError: No module named 'matplotlib'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/DBZ_CR.py", line 8, in <module>
+    import pylab as P
+ModuleNotFoundError: No module named 'pylab'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/DBZ_INV.py", line 8, in <module>
+    import pylab as P
+ModuleNotFoundError: No module named 'pylab'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/VR_CR.py", line 10, in <module>
+    import pylab as P
+ModuleNotFoundError: No module named 'pylab'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2020/VR_INV.py", line 10, in <module>
+    import pylab as P
+ModuleNotFoundError: No module named 'pylab'
+
+Ended run_simple_exper.py
