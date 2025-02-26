@@ -1,3 +1,5 @@
+2025 update
+
 Install a miniconda2 env in your home directory.
 
 Update conda:  conda update conda
