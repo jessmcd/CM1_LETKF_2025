@@ -22,7 +22,6 @@ from pyDart import dll_2_dxy, dxy_2_dll
 import pyDart
 import datetime
 from subprocess import *
-import ctablesf
 #from cbook2 import *
 from optparse import OptionParser
 import scipy.interpolate
