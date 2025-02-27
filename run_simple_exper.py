@@ -16,7 +16,7 @@ os.system("python ens.py -e RUN_LETKF/RUN_LETKF.exp --init0 -t 2003,5,8,20,40,0 
 #--------------------------------------------------------------------------
 # this is the cook period....
 
-os.system("python /work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py -e RUN_LETKF/RUN_LETKF.exp --run_time 1200 -t 2003,05,08,20,40,00 --nthreads 1")
+os.system("python /work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py -e RUN_LETKF/RUN_LETKF.exp --run_time 1200 -t 2003,05,08,20,40,00 --nthreads 1")
 
 #--------------------------------------------------------------------------
 # Now loop through the cycling at 5 min intervals
