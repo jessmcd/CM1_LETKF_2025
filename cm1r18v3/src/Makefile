@@ -12,7 +12,9 @@ NETCDF    = $(NETCDF_DIR)
 OUTPUTINC = -I$(NETCDF_INC) -I/home/jessica.mcdonald/miniconda3/envs/letkf_env/include -pthread -I/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib
 OUTPUTLIB = -L$(NETCDF_LIB)
 OUTPUTOPT = -DNETCDF -DNCFPLUS
-LINKOPTS  = -L/home/jessica.mcdonald/mminiconda3/envs/letkf_env/lib -Wl,-rpath -Wl,/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib -Wl,--enable-new-dtags -lmpi_usempif08 -lmpi_usempi_ignore_tkr -lmpi_mpifh -lmpi -L/usr/local/lib -lgfortran -fopenmp -Wl,--allow-shlib-undefined
+#LINKOPTS  = -L/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib -Wl,-rpath -Wl,/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib -Wl,--enable-new-dtags -lmpi_usempif08 -lmpi_usempi_ignore_tkr -lmpi_mpifh -lmpi -L/usr/local/lib -lgfortran -fopenmp -Wl,--allow-shlib-undefined
+
+LINKOPTS  = -L/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib -Wl,-rpath -Wl,/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib -Wl,--enable-new-dtags -Wl,--allow-shlib-undefined
 
 
 #-----------------------------------------------------------------------------
@@ -113,7 +115,7 @@ LINKOPTS  = -L/home/jessica.mcdonald/mminiconda3/envs/letkf_env/lib -Wl,-rpath -
 #-----------------------------------------------------------------------------
 #  single processor, gnu compiler
 FC   = gfortran
-OPTS = -ffree-form -ffree-line-length-none -I../include -O2
+OPTS = -ffree-form -ffree-line-length-none -I../include -O2 -O0 -g
 CPP  = cpp -C -P -traditional -Wno-invalid-pp-token
 #-----------------------------------------------------------------------------
 #  multiple processors, distributed memory (MPI), gnu compiler

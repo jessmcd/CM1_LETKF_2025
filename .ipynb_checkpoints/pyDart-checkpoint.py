@@ -702,8 +702,8 @@ class pyDART():
         if self.verbose:
             print(("  PyDART SEARCH START TIME  %s  /  UTIME_START: %s" % (self.start, utime_start)))
             print(("  PyDART SEARCH END   TIME  %s  /  UTIME_END:   %s" % (self.end, utime_end)))
-            print(("  PyDART converted utimes: %s" % sec_utime.num2date(utime_start)))
-
+            #print(("  PyDART converted utimes: %s" % sec_utime.num2date(utime_start))) 
+            print(("  PyDART converted utimes: %s" % cftime.num2date(utime_start, sec_utime))) #JEDIT, UPDATE TO CFTIME
 # Create string for search
         
         if len(cond) != 0:
@@ -1064,7 +1064,7 @@ class pyDART():
             self.index = N.arange(table.nrows)
             if self.verbose: print("pyDART.get_data, return all rows of table!")
         
-        if self.debug:  start = time.clock()
+        if self.debug: py_datetime.now()# JEDIT...idk start = time.clock()
         
         data = table.read_coordinates(self.index)
 

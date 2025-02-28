@@ -8,16 +8,16 @@ Starting run_simple_exper.py
 Creating directory structure and linking/copying CM1 files
 
 
-LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2020/cm1r18v3/run/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/cm1.exe
-Copied /work/jessica.mcdonald/CM1_LETKF_2020/cm1r18v3/run/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/cm1.exe
-LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2020/cm1r18v3/run/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/onefile.F
-Copied /work/jessica.mcdonald/CM1_LETKF_2020/cm1r18v3/run/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/onefile.F
-LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2020/cm1r18v3/run/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/namelist.input
-Copied /work/jessica.mcdonald/CM1_LETKF_2020/cm1r18v3/run/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/namelist.input
-LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2020/cm1r18v3/run/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/LANDUSE.TBL
-Copied /work/jessica.mcdonald/CM1_LETKF_2020/cm1r18v3/run/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/LANDUSE.TBL
-LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2020/Obs/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/input_sounding
-Copied /work/jessica.mcdonald/CM1_LETKF_2020/Obs/input_sounding to directory  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/input_sounding
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/run/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/cm1.exe
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/run/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/cm1.exe
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/run/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/onefile.F
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/run/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/onefile.F
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/run/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/namelist.input
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/run/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/namelist.input
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/run/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/LANDUSE.TBL
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/run/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/LANDUSE.TBL
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/Obs/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/input_sounding
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/Obs/input_sounding to directory  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/input_sounding
 &param0
     nx = 60
     ny = 60
@@ -336,36 +336,36 @@ Copied /work/jessica.mcdonald/CM1_LETKF_2020/Obs/input_sounding to directory  /w
     cnor = 8000000.0
     cnoh = 40000.0
 /
-LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001/cm1.exe
-Copied /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001/cm1.exe
-LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001/onefile.F
-Linked /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001/onefile.F
-LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001/namelist.input
-Linked /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001/namelist.input
-LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001/LANDUSE.TBL
-Linked /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001/LANDUSE.TBL
-LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001/input_sounding
-Copied /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/input_sounding to directory  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001/input_sounding
-LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member002/cm1.exe
-Copied /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member002/cm1.exe
-LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member002/onefile.F
-Linked /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member002/onefile.F
-LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member002/namelist.input
-Linked /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member002/namelist.input
-LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member002/LANDUSE.TBL
-Linked /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member002/LANDUSE.TBL
-LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member002/input_sounding
-Copied /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/input_sounding to directory  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member002/input_sounding
-LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member003/cm1.exe
-Copied /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member003/cm1.exe
-LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member003/onefile.F
-Linked /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member003/onefile.F
-LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member003/namelist.input
-Linked /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member003/namelist.input
-LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member003/LANDUSE.TBL
-Linked /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member003/LANDUSE.TBL
-LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member003/input_sounding
-Copied /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/input_sounding to directory  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member003/input_sounding
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1.exe
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1.exe
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/onefile.F
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/onefile.F
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/namelist.input
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/namelist.input
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/LANDUSE.TBL
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/LANDUSE.TBL
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/input_sounding
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/input_sounding to directory  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/input_sounding
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002/cm1.exe
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002/cm1.exe
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002/onefile.F
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002/onefile.F
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002/namelist.input
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002/namelist.input
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002/LANDUSE.TBL
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002/LANDUSE.TBL
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002/input_sounding
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/input_sounding to directory  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002/input_sounding
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003/cm1.exe
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003/cm1.exe
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003/onefile.F
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003/onefile.F
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003/namelist.input
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003/namelist.input
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003/LANDUSE.TBL
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003/LANDUSE.TBL
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003/input_sounding
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/input_sounding to directory  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003/input_sounding
 
  Run_Fcst Script: IMPORTANT:  Run time not supplied...defaulting to init mode!!!
 
@@ -375,45 +375,45 @@ Copied /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/input_sounding to directo
 
  Run_Fcst Script: Initializing 003 ensemble members
 
- Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001
-/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001/cm1.exe is the model path
-/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001/cm1.out is the outputfile path
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1.out is the outputfile path
 
- Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member002
-/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member002/cm1.exe is the model path
-/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member002/cm1.out is the outputfile path
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002/cm1.out is the outputfile path
 
- Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member003
-/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member003/cm1.exe is the model path
-/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member003/cm1.out is the outputfile path
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003/cm1.out is the outputfile path
 
- Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001 ; ./cm1.exe >> cm1.out 
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001 ; ./cm1.exe >> cm1.out 
 Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG
 STOP 55556
  cwccn, cck, ccne =    2.00000000E+09  0.600000024       342431840.      0.989282310      0.346153885    
 
- cd /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001 ; ./cm1.exe >> cm1.out completed....
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001 ; ./cm1.exe >> cm1.out completed....
 
- Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member002 ; ./cm1.exe >> cm1.out 
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002 ; ./cm1.exe >> cm1.out 
 Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG
 STOP 55556
  cwccn, cck, ccne =    2.00000000E+09  0.600000024       342431840.      0.989282310      0.346153885    
 
- cd /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member002 ; ./cm1.exe >> cm1.out completed....
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002 ; ./cm1.exe >> cm1.out completed....
 
- Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member003 ; ./cm1.exe >> cm1.out 
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003 ; ./cm1.exe >> cm1.out 
 Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG
 STOP 55556
  cwccn, cck, ccne =    2.00000000E+09  0.600000024       342431840.      0.989282310      0.346153885    
 
- cd /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member003 ; ./cm1.exe >> cm1.out completed....
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003 ; ./cm1.exe >> cm1.out completed....
 
-Run_Fcst Script: Model runs initialized for experiment   1.728000  CPU secs
+Run_Fcst Script: Model runs initialized for experiment   3.517000  CPU secs
 
 
  ==> FindRestartFiles: Date and time supplied is 2003_05_08 20:40:00
 
- ==> FindRestartFile:  Found time 0 in file:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001/cm1out_rst_000000.nc
+ ==> FindRestartFile:  Found time 0 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000000.nc
 
  ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
 
@@ -423,15 +423,15 @@ Run_Fcst Script: Model runs initialized for experiment   1.728000  CPU secs
  ==> READ_CM1_ENS: reading from state TIME:  2003-05-08 20:40:00 
 
 
- Wallclock time for serial read netCDF ensemble files: 0.136  sec
+ Wallclock time for serial read netCDF ensemble files: 0.133  sec
 
- Wallclock time to convert from C to A grid: 0.093  sec
+ Wallclock time to convert from C to A grid: 0.039  sec
 
  Wallclock time to create ensemble means: 0.067  sec
 
- Wallclock time to read arrays from netCDF ensemble files: 0.333  sec
+ Wallclock time to read arrays from netCDF ensemble files: 0.276  sec
 
- Wallclock time to create coordinates: 0.008  sec
+ Wallclock time to create coordinates: 0.017  sec
 
  ==> ens_IC_pertUV: Max/Min  u  perturbations: 4.713547448587625 -4.935828675819298
 
@@ -443,17 +443,33 @@ Run_Fcst Script: Model runs initialized for experiment   1.728000  CPU secs
 
  ==> ens_IC_pertUV: ensemble UV perturbations created - BUT NOT WRITTEN BACK OUT!!
 0.0 1.0 0.0 2.0 0.0
-Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 2625, in <module>
-    ens_IC_pert_from_box(state, plot=options.plot, writeout=False)
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 1482, in ens_IC_pert_from_box
-    me          = N.int(ens.ne/2)  # which member to plot
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/__init__.py", line 394, in __getattr__
-    raise AttributeError(__former_attrs__[attr])
-AttributeError: module 'numpy' has no attribute 'int'.
-`np.int` was a deprecated alias for the builtin `int`. To avoid this error in existing code, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
-The aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:
-    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations. Did you mean: 'inf'?
+
+ ==> ens_IC_pert3D: NE:  0  NegPert_Min:  -0.500000  NegPert_Max:  0.500000
+
+ ==> ens_IC_pert3D: NE:  0  PosPert_Min:  0.000000  PosPert_Max:  1.000000
+
+ ==> ens_IC_pert3D: NE:  1  NegPert_Min:  -0.500000  NegPert_Max:  0.500000
+
+ ==> ens_IC_pert3D: NE:  1  PosPert_Min:  0.000000  PosPert_Max:  1.000000
+
+ ==> ens_IC_pert3D: NE:  2  NegPert_Min:  -0.500000  NegPert_Max:  0.500000
+
+ ==> ens_IC_pert3D: NE:  2  PosPert_Min:  0.000000  PosPert_Max:  1.000000
+
+  ==> Overwriting restart files with new IC's
+
+
+ ==> WRITE_CM1_ENS:  Writing ensemble into time_index 0 at time 0
+
+ ==> WRITE_CM1_ENS: WARNING:  Overwriting CM1 restart file, no fcst restart files will be saved
+
+ Wallclock time to convert from A to C grid: 0.043  sec
+
+ ==> WRITE_CM1_ENS:  Now writing out prior ensemble mean into /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member000/cm1out_prior_000000.nc
+
+ ==> WRITE_CM1_ENS:  Closed file /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member000/cm1out_prior_000000.nc
+
+ ==> Wallclock time to write out fcst/anal to files: 0.458  sec
 
  ==> RUN_FCST: Date&time supplied: 2003 05-08 20:40:00, which corresponds to a local model time of 0 sec
 
@@ -463,60 +479,103 @@ The aliases was originally deprecated in NumPy 1.20; for more details and guidan
 
  Run_Fcst Script: Integrating 003 ensemble members for 1200 seconds
 
- Found time 0 in file:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001/cm1out_rst_000000.nc
+ Found time 0 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000000.nc
 0
 
- Found time 0 in file:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001/cm1out_rst_000000.nc
+ Found time 0 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000000.nc
 
- Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001
-/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001/cm1.exe is the model path
-/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001/cm1.out is the outputfile path
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1.out is the outputfile path
 
- Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member002
-/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member002/cm1.exe is the model path
-/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member002/cm1.out is the outputfile path
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002/cm1.out is the outputfile path
 
- Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member003
-/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member003/cm1.exe is the model path
-/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member003/cm1.out is the outputfile path
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003/cm1.out is the outputfile path
 
- Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001 ; ./cm1.exe >> cm1.out 
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001 ; ./cm1.exe >> cm1.out 
 Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
 
 Program received signal SIGSEGV: Segmentation fault - invalid memory reference.
 
 Backtrace for this error:
-#0  0x7f967914b66f in ???
-#1  0x7f9678cc956a in ???
-#2  0x7f9678b61325 in ???
-#3  0x7f9678cd0620 in ???
-#4  0x7f9678cb7be3 in ???
-#5  0x7f9678cc0518 in ???
-#6  0x7f9678ada836 in ???
-#7  0x7f9678b5f4b0 in ???
-#8  0x7f9678adc102 in ???
-#9  0x7f9678a2060e in ???
-#10  0x7f967914dd8b in ???
-#11  0x7f967914debf in ???
-#12  0x557706312f3b in ???
-#13  0x5577062c262e in ???
-#14  0x7f96791378a4 in ???
-#15  0x5577062c2660 in ???
-sh: line 1: 824825 Segmentation fault      (core dumped) ./cm1.exe >> cm1.out
+#0  0x7f6a1448166f in ???
+#1  0x7f6a1405056a in ???
+#2  0x7f6a13ee8325 in ???
+#3  0x7f6a14057620 in ???
+#4  0x7f6a1403ebe3 in ???
+#5  0x7f6a14047518 in ???
+#6  0x7f6a13e61836 in ???
+#7  0x7f6a13ee64b0 in ???
+#8  0x7f6a13e63102 in ???
+#9  0x7f6a13da760e in ???
+#10  0x7f6a14483d8b in ???
+#11  0x7f6a14483ebf in ???
+#12  0x557ecfea16d4 in cm1
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:1762
+#13  0x557ecfea1841 in main
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:5
+sh: line 1: 3031900 Segmentation fault      (core dumped) ./cm1.exe >> cm1.out
 
- cd /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001 ; ./cm1.exe >> cm1.out completed....
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001 ; ./cm1.exe >> cm1.out completed....
 
- Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member002 ; ./cm1.exe >> cm1.out 
-Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 204, in <module>
-    pool.join()
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/multiprocessing/pool.py", line 665, in join
-    self._worker_handler.join()
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/threading.py", line 1096, in join
-    self._wait_for_tstate_lock()
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/threading.py", line 1116, in _wait_for_tstate_lock
-    if lock.acquire(block, timeout):
-KeyboardInterrupt
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002 ; ./cm1.exe >> cm1.out 
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+
+Program received signal SIGSEGV: Segmentation fault - invalid memory reference.
+
+Backtrace for this error:
+#0  0x7f59893d266f in ???
+#1  0x7f5988fa156a in ???
+#2  0x7f5988e39325 in ???
+#3  0x7f5988fa8620 in ???
+#4  0x7f5988f8fbe3 in ???
+#5  0x7f5988f98518 in ???
+#6  0x7f5988db2836 in ???
+#7  0x7f5988e374b0 in ???
+#8  0x7f5988db4102 in ???
+#9  0x7f5988cf860e in ???
+#10  0x7f59893d4d8b in ???
+#11  0x7f59893d4ebf in ???
+#12  0x5570d9c446d4 in cm1
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:1762
+#13  0x5570d9c44841 in main
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:5
+sh: line 1: 3035857 Segmentation fault      (core dumped) ./cm1.exe >> cm1.out
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002 ; ./cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003 ; ./cm1.exe >> cm1.out 
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+
+Program received signal SIGSEGV: Segmentation fault - invalid memory reference.
+
+Backtrace for this error:
+#0  0x7f2e43ac766f in ???
+#1  0x7f2e4369656a in ???
+#2  0x7f2e4352e325 in ???
+#3  0x7f2e4369d620 in ???
+#4  0x7f2e43684be3 in ???
+#5  0x7f2e4368d518 in ???
+#6  0x7f2e434a7836 in ???
+#7  0x7f2e4352c4b0 in ???
+#8  0x7f2e434a9102 in ???
+#9  0x7f2e433ed60e in ???
+#10  0x7f2e43ac9d8b in ???
+#11  0x7f2e43ac9ebf in ???
+#12  0x560922d946d4 in cm1
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:1762
+#13  0x560922d94841 in main
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:5
+sh: line 1: 3039477 Segmentation fault      (core dumped) ./cm1.exe >> cm1.out
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003 ; ./cm1.exe >> cm1.out completed....
+
+Run_Fcst Script: Model runs integrated out 1200 seconds, used   1316.858000  CPU secs
+
 
   ----------------------------------------------------------------------
 
@@ -543,13 +602,198 @@ KeyboardInterrupt
   -->  Run_Filter calling computeHx for time 2003,05,08,21,00,00  
 
 
-  computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,00,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
+  python computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,00,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
 
-sh: computeHx.py: command not found
+
+  ----------------------------------------------------------------------
+
+                BEGIN PROGRAM ComputeHx                                 
+
+    WALLCLOCK START TIME:  2025-02-28 11:25 
+
+
+  ----------------------------------------------------------------------
+
+ --> ComputeHx:  using the obs errors from the EXPER file:  {'11': ['VR', 2.0], '12': ['DBZ', 5.0]}
+
+ --> ComputeHx:  using the window from the command line:  +/- 150 secs
+
+ --> ComputeHx:  using the observation file from the command line:  Obs/obs_seq_8may03_2km.h5
+
+ --> ComputeHx: obs outlier is from EXPER file:  3
+
+ --> ComputeHx:  Reading in model state for HxF at 2003-05-08 21:00:00 
+
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:00:00
+
+ ==> FindRestartFile:  Found time 1200 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000004.nc
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2003-05-08 21:00:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 0.092  sec
+
+ Wallclock time to convert from C to A grid: 0.008  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 0.12  sec
+
+ Wallclock time to convert from C to A grid: 0.008  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ --> ComputeHx:  Using pyDart to search with condition: ( 34.335943398784124 < lat < 35.68577330060794 )  & ( -98.56368330339824 < lon < -96.91106834830089 ) 
+
+ --> ComputeHx:  Using pyDart to search with begin time of:  (2003, 5, 8, 20, 57, 30)
+
+ --> ComputeHx:  Using pyDart to search with end   time of:  (2003, 5, 8, 21, 2, 30)
+  pyDART.search:  no variable supplied....all vars dumped
+  pyDART.search:  Start datetime:  2003-05-08 20:57:30
+  pyDART.search:  End datetime:  2003-05-08 20:57:30
+
+  pyDART file is version:  pyDART_file_version_2.3 
+  \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+
+  PyDART SEARCH START TIME  2003-05-08 20:57:30  /  UTIME_START: 1052427450
+  PyDART SEARCH END   TIME  2003-05-08 21:02:30  /  UTIME_END:   1052427750
+  PyDART converted utimes: 2003-05-08 20:57:30
+
+  PyDART SEARCH CONDITION IS: (1052427450 <= utime) & (utime < 1052427750)
+
+ --> ComputeHx:  Total number of obs found at search time: 16306 
+
+
+  pyDART file is version:  pyDART_file_version_2.3 
+  \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+
+ calcHx:  OBS   LAT MIN/MAX:   34.2821332934523 36.0279125698343
+ calcHx:  MODEL LAT MIN/MAX:   34.344942279737324 35.67677441965474
+ calcHx:  OBS   LON MIN/MAX:   -98.66811726033694 -96.73412870628039
+ calcHx:  MODEL LON MIN/MAX:   -98.55266587036425 -96.92208578133487
+ calcHx:  OBS   HGT MIN/MAX:   414.662789553404 11261.8197202683
+ calcHx:  MODEL HGT MIN/MAX:   450.69254 20073.0
+
+ --> ComputeHx:  Total number of obs found is: 15671 
+
+
+ --> ComputeHx:  Changing VR observational error to:  2.0
+
+ --> ComputeHx:  Changing DBZ observational error to:  5.0
+ write_prior:  Prior obs file found, opening Prior.nc 
+
+ write_prior:  Previous number of obs 0 
+
+ write_prior:  Adding 15671 to netcdf file 
+
+/work/jessica.mcdonald/CM1_LETKF_2025/nc_prior_file.py:142: FutureWarning: In the future `np.str` will be defined as the corresponding NumPy scalar.
+  ltypes = N.empty([obs,stringlen], dtype=N.str)
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 170, in <module>
-    os.rename("Prior.nc", newPriorFile)
-FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/Prior_2003-05-08_21:00:00.nc'
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/computeHx.py", line 282, in <module>
+    write_prior(state.ne, kind, value, dates, err_var, xs, ys, zs, Hxf, Hxfbar, lat, lon, elev, azimuth, status, outlier)
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/nc_prior_file.py", line 142, in write_prior
+    ltypes = N.empty([obs,stringlen], dtype=N.str)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/__init__.py", line 394, in __getattr__
+    raise AttributeError(__former_attrs__[attr])
+AttributeError: module 'numpy' has no attribute 'str'.
+`np.str` was a deprecated alias for the builtin `str`. To avoid this error in existing code, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+The aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:
+    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations. Did you mean: 'std'?
+
+  --> Moved Prior.nc file to /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:00:00.nc
+
+
+  >================ Run_Filter:  Running LETKF at time: 2003-05-08_21:00:00 ===================<  
+
+
+  python letkf.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,00,00 --nthreads 1  --aInflate 1
+
+----------------------------------------------------------------------
+
+              BEGIN PROGRAM LETKF                                     
+ 
+  WALLCLOCK START TIME:  2025-02-28 11:25 
+
+  --------------------------------------------------------------------
+
+
+ --> LETKF:  Number of threads requested is from command line:  1
+
+ --> LETKF:  No netCDF Priors file specified, using default priors file
+
+ --> LETKF:  Using prior file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:00:00.nc
+
+
+ --> LETKF:  Trying to find inflation file: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Inflation_2003-05-08_20:55:00.nc
+
+ --> LETKF:  Could not find inflation file....none will be used.
+
+ --> LETKF: saveWeights is from EXPER file:  False
+
+ --> LETKF: readWeights is from EXPER file:  False
+
+ --> LETKF: obs outlier is from EXPER file:  3
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:00:00
+
+ ==> FindRestartFile:  Found time 1200 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000004.nc
+
+  ---->LETKF:  Reading in model state for analysis at 2003 05-08 21:00:00 
+
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2003-05-08 21:00:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 0.165  sec
+
+ Wallclock time to convert from C to A grid: 0.019  sec
+
+ Wallclock time to create ensemble means: 0.068  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 0.292  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ Wallclock time to create ensemble means: 0.068  sec
+
+  ---->Analysis state read in for time 2003 05-08 21:00:00 
+
+  ---->Analysis state universal time 1052427600.000000
+
+ ==> WRITE_CM1_ENS:  Now writing out prior ensemble mean into /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member000/cm1out_prior_000004.nc
+
+ ==> WRITE_CM1_ENS:  Closed file /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member000/cm1out_prior_000004.nc
+
+ ==> Wallclock time to write out fcst/anal to files: 0.291  sec
+
+  ----> LETKF:  Reading in Prior file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:00:00.nc 
+
+Prior obs file found, opening /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:00:00.nc 
+
+Total number of obs in /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:00:00.nc file is 0 
+
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/letkf.py", line 259, in <module>
+    kind, value, error, lat, lon, xob, yob, zob, tob, Hxf, Hxfbar, outlier = read_prior(analysis_time, file=prior_file, sort=True)
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/nc_prior_file.py", line 248, in read_prior
+    ('kind', N.int),  ('index', N.int64), ('outlier',N.float64)])
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/__init__.py", line 394, in __getattr__
+    raise AttributeError(__former_attrs__[attr])
+AttributeError: module 'numpy' has no attribute 'int'.
+`np.int` was a deprecated alias for the builtin `int`. To avoid this error in existing code, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+The aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:
+    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations. Did you mean: 'inf'?
+
+  ----------------------------------------------------------------------
+
+                 END PROGRAM RUN_FILTER                                 
+
+  ----------------------------------------------------------------------
 
  ==> RUN_FCST: Date&time supplied: 2003 05-08 21:00:00, which corresponds to a local model time of 1200 sec
 
@@ -559,34 +803,103 @@ FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jes
 
  Run_Fcst Script: Integrating 003 ensemble members for 0300 seconds
 
- Found time 1200 in file:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001/cm1out_rst_000004.nc
+ Found time 1200 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000004.nc
 4
 
- Found time 1200 in file:  /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001/cm1out_rst_000004.nc
+ Found time 1200 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000004.nc
 
- Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001
-/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001/cm1.exe is the model path
-/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001/cm1.out is the outputfile path
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1.out is the outputfile path
 
- Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member002
-/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member002/cm1.exe is the model path
-/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member002/cm1.out is the outputfile path
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002/cm1.out is the outputfile path
 
- Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member003
-/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member003/cm1.exe is the model path
-/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member003/cm1.out is the outputfile path
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003/cm1.out is the outputfile path
 
- Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/member001 ; ./cm1.exe >> cm1.out 
-Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 204, in <module>
-    pool.join()
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/multiprocessing/pool.py", line 665, in join
-    self._worker_handler.join()
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/threading.py", line 1096, in join
-    self._wait_for_tstate_lock()
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/threading.py", line 1116, in _wait_for_tstate_lock
-    if lock.acquire(block, timeout):
-KeyboardInterrupt
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001 ; ./cm1.exe >> cm1.out 
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+
+Program received signal SIGSEGV: Segmentation fault - invalid memory reference.
+
+Backtrace for this error:
+#0  0x7ffa0ea1666f in ???
+#1  0x7ffa0e5e556a in ???
+#2  0x7ffa0e47d325 in ???
+#3  0x7ffa0e5ec620 in ???
+#4  0x7ffa0e5d3be3 in ???
+#5  0x7ffa0e5dc518 in ???
+#6  0x7ffa0e3f6836 in ???
+#7  0x7ffa0e47b4b0 in ???
+#8  0x7ffa0e3f8102 in ???
+#9  0x7ffa0e33c60e in ???
+#10  0x7ffa0ea18d8b in ???
+#11  0x7ffa0ea18ebf in ???
+#12  0x55e2d0ec56d4 in cm1
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:1762
+#13  0x55e2d0ec5841 in main
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:5
+sh: line 1: 3042913 Segmentation fault      (core dumped) ./cm1.exe >> cm1.out
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001 ; ./cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002 ; ./cm1.exe >> cm1.out 
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+
+Program received signal SIGSEGV: Segmentation fault - invalid memory reference.
+
+Backtrace for this error:
+#0  0x7f5ac22c066f in ???
+#1  0x7f5ac1e8f56a in ???
+#2  0x7f5ac1d27325 in ???
+#3  0x7f5ac1e96620 in ???
+#4  0x7f5ac1e7dbe3 in ???
+#5  0x7f5ac1e86518 in ???
+#6  0x7f5ac1ca0836 in ???
+#7  0x7f5ac1d254b0 in ???
+#8  0x7f5ac1ca2102 in ???
+#9  0x7f5ac1be660e in ???
+#10  0x7f5ac22c2d8b in ???
+#11  0x7f5ac22c2ebf in ???
+#12  0x5600ca2e26d4 in cm1
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:1762
+#13  0x5600ca2e2841 in main
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:5
+sh: line 1: 3044030 Segmentation fault      (core dumped) ./cm1.exe >> cm1.out
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002 ; ./cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003 ; ./cm1.exe >> cm1.out 
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+
+Program received signal SIGSEGV: Segmentation fault - invalid memory reference.
+
+Backtrace for this error:
+#0  0x7fab3496066f in ???
+#1  0x7fab3452f56a in ???
+#2  0x7fab343c7325 in ???
+#3  0x7fab34536620 in ???
+#4  0x7fab3451dbe3 in ???
+#5  0x7fab34526518 in ???
+#6  0x7fab34340836 in ???
+#7  0x7fab343c54b0 in ???
+#8  0x7fab34342102 in ???
+#9  0x7fab3428660e in ???
+#10  0x7fab34962d8b in ???
+#11  0x7fab34962ebf in ???
+#12  0x55fb897eb6d4 in cm1
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:1762
+#13  0x55fb897eb841 in main
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:5
+sh: line 1: 3045304 Segmentation fault      (core dumped) ./cm1.exe >> cm1.out
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003 ; ./cm1.exe >> cm1.out completed....
+
+Run_Fcst Script: Model runs integrated out 300 seconds, used   346.685000  CPU secs
+
 
  ==> RUN_FCST: Date&time supplied: 2003 05-08 22:00:00, which corresponds to a local model time of 4800 sec
 
@@ -604,6 +917,219 @@ FindRestartFile: A file with the restart time of 4800 cannot be found, exiting!!
 
 ERROR!!!
 
+  ----------------------------------------------------------------------
+
+               BEGIN PROGRAM RUN_FILTER                                 
+
+  This script sets the parameters to create Hx's and runs the letkf code
+
+  ----------------------------------------------------------------------
+
+
+ --> Run_Filter:  using the window from the EXPER file:  +/- 150 secs
+
+ --> Run_Filter:  using Synchronous DA with freq from command line:  -300 secs
+
+ --> Run_Filter:  using the observation file from the EXPER file:  Obs/obs_seq_8may03_2km.h5
+
+ --> Run_Filter:  Number of threads requested is from EXPER file:  1
+
+ --> Run_Filter:  using the inflation method from EXPER file:  1
+
+  >=======================  Run_Filter:  Now creating Priors =============================<  
+
+
+  -->  Run_Filter calling computeHx for time 2003,05,08,21,05,00  
+
+
+  python computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,05,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
+
+
+  ----------------------------------------------------------------------
+
+                BEGIN PROGRAM ComputeHx                                 
+
+    WALLCLOCK START TIME:  2025-02-28 11:31 
+
+
+  ----------------------------------------------------------------------
+
+ --> ComputeHx:  using the obs errors from the EXPER file:  {'11': ['VR', 2.0], '12': ['DBZ', 5.0]}
+
+ --> ComputeHx:  using the window from the command line:  +/- 150 secs
+
+ --> ComputeHx:  using the observation file from the command line:  Obs/obs_seq_8may03_2km.h5
+
+ --> ComputeHx: obs outlier is from EXPER file:  3
+
+ --> ComputeHx:  Reading in model state for HxF at 2003-05-08 21:05:00 
+
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:05:00
+
+ ==> FindRestartFile:  Found time 1500 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000005.nc
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2003-05-08 21:05:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 0.1  sec
+
+ Wallclock time to convert from C to A grid: 0.007  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 0.127  sec
+
+ Wallclock time to convert from C to A grid: 0.007  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ --> ComputeHx:  Using pyDart to search with condition: ( 34.335943398784124 < lat < 35.68577330060794 )  & ( -98.56368330339824 < lon < -96.91106834830089 ) 
+
+ --> ComputeHx:  Using pyDart to search with begin time of:  (2003, 5, 8, 21, 2, 30)
+
+ --> ComputeHx:  Using pyDart to search with end   time of:  (2003, 5, 8, 21, 7, 30)
+  pyDART.search:  no variable supplied....all vars dumped
+  pyDART.search:  Start datetime:  2003-05-08 21:02:30
+  pyDART.search:  End datetime:  2003-05-08 21:02:30
+
+  pyDART file is version:  pyDART_file_version_2.3 
+  \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+
+  PyDART SEARCH START TIME  2003-05-08 21:02:30  /  UTIME_START: 1052427750
+  PyDART SEARCH END   TIME  2003-05-08 21:07:30  /  UTIME_END:   1052428050
+  PyDART converted utimes: 2003-05-08 21:02:30
+
+  PyDART SEARCH CONDITION IS: (1052427750 <= utime) & (utime < 1052428050)
+
+ --> ComputeHx:  Total number of obs found at search time: 14872 
+
+
+  pyDART file is version:  pyDART_file_version_2.3 
+  \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+
+ calcHx:  OBS   LAT MIN/MAX:   34.2821332934523 36.04591011829749
+ calcHx:  MODEL LAT MIN/MAX:   34.344942279737324 35.67677441965474
+ calcHx:  OBS   LON MIN/MAX:   -98.54067959080271 -96.73621874416631
+ calcHx:  MODEL LON MIN/MAX:   -98.55266587036425 -96.92208578133487
+ calcHx:  OBS   HGT MIN/MAX:   413.00555318594 13890.8556699753
+ calcHx:  MODEL HGT MIN/MAX:   450.69254 20073.0
+
+ --> ComputeHx:  Total number of obs found is: 14308 
+
+
+ --> ComputeHx:  Changing VR observational error to:  2.0
+
+ --> ComputeHx:  Changing DBZ observational error to:  5.0
+ write_prior:  Prior obs file found, opening Prior.nc 
+
+ write_prior:  Previous number of obs 0 
+
+ write_prior:  Adding 14308 to netcdf file 
+
+/work/jessica.mcdonald/CM1_LETKF_2025/nc_prior_file.py:142: FutureWarning: In the future `np.str` will be defined as the corresponding NumPy scalar.
+  ltypes = N.empty([obs,stringlen], dtype=N.str)
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/computeHx.py", line 282, in <module>
+    write_prior(state.ne, kind, value, dates, err_var, xs, ys, zs, Hxf, Hxfbar, lat, lon, elev, azimuth, status, outlier)
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/nc_prior_file.py", line 142, in write_prior
+    ltypes = N.empty([obs,stringlen], dtype=N.str)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/__init__.py", line 394, in __getattr__
+    raise AttributeError(__former_attrs__[attr])
+AttributeError: module 'numpy' has no attribute 'str'.
+`np.str` was a deprecated alias for the builtin `str`. To avoid this error in existing code, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+The aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:
+    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations. Did you mean: 'std'?
+
+  --> Moved Prior.nc file to /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:05:00.nc
+
+
+  >================ Run_Filter:  Running LETKF at time: 2003-05-08_21:05:00 ===================<  
+
+
+  python letkf.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,05,00 --nthreads 1  --aInflate 1
+
+----------------------------------------------------------------------
+
+              BEGIN PROGRAM LETKF                                     
+ 
+  WALLCLOCK START TIME:  2025-02-28 11:31 
+
+  --------------------------------------------------------------------
+
+
+ --> LETKF:  Number of threads requested is from command line:  1
+
+ --> LETKF:  No netCDF Priors file specified, using default priors file
+
+ --> LETKF:  Using prior file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:05:00.nc
+
+
+ --> LETKF:  Trying to find inflation file: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Inflation_2003-05-08_21:00:00.nc
+
+ --> LETKF:  Could not find inflation file....none will be used.
+
+ --> LETKF: saveWeights is from EXPER file:  False
+
+ --> LETKF: readWeights is from EXPER file:  False
+
+ --> LETKF: obs outlier is from EXPER file:  3
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:05:00
+
+ ==> FindRestartFile:  Found time 1500 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000005.nc
+
+  ---->LETKF:  Reading in model state for analysis at 2003 05-08 21:05:00 
+
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2003-05-08 21:05:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 0.182  sec
+
+ Wallclock time to convert from C to A grid: 0.024  sec
+
+ Wallclock time to create ensemble means: 0.07  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 0.319  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ Wallclock time to create ensemble means: 0.069  sec
+
+  ---->Analysis state read in for time 2003 05-08 21:05:00 
+
+  ---->Analysis state universal time 1052427900.000000
+
+ ==> WRITE_CM1_ENS:  Now writing out prior ensemble mean into /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member000/cm1out_prior_000005.nc
+
+ ==> WRITE_CM1_ENS:  Closed file /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member000/cm1out_prior_000005.nc
+
+ ==> Wallclock time to write out fcst/anal to files: 0.611  sec
+
+  ----> LETKF:  Reading in Prior file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:05:00.nc 
+
+Prior obs file found, opening /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:05:00.nc 
+
+Total number of obs in /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:05:00.nc file is 0 
+
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/letkf.py", line 259, in <module>
+    kind, value, error, lat, lon, xob, yob, zob, tob, Hxf, Hxfbar, outlier = read_prior(analysis_time, file=prior_file, sort=True)
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/nc_prior_file.py", line 247, in read_prior
+    ('lat', N.float64), ('lon', N.float64), ('secs', int64), \
+NameError: name 'int64' is not defined
+
+  ----------------------------------------------------------------------
+
+                 END PROGRAM RUN_FILTER                                 
+
+  ----------------------------------------------------------------------
+
  ==> RUN_FCST: Date&time supplied: 2003 05-08 21:05:00, which corresponds to a local model time of 1500 sec
 
  Run_Fcst Script:  1 threads requested....
@@ -612,33 +1138,119 @@ ERROR!!!
 
  Run_Fcst Script: Integrating 003 ensemble members for 0300 seconds
 
+ Found time 1500 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000005.nc
+5
+
+ Found time 1500 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000005.nc
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003/cm1.out is the outputfile path
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001 ; ./cm1.exe >> cm1.out 
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+
+Program received signal SIGSEGV: Segmentation fault - invalid memory reference.
+
+Backtrace for this error:
+#0  0x7fcbfceb066f in ???
+#1  0x7fcbfca7f56a in ???
+#2  0x7fcbfc917325 in ???
+#3  0x7fcbfca86620 in ???
+#4  0x7fcbfca6dbe3 in ???
+#5  0x7fcbfca76518 in ???
+#6  0x7fcbfc890836 in ???
+#7  0x7fcbfc9154b0 in ???
+#8  0x7fcbfc892102 in ???
+#9  0x7fcbfc7d660e in ???
+#10  0x7fcbfceb2d8b in ???
+#11  0x7fcbfceb2ebf in ???
+#12  0x564948ed76d4 in cm1
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:1762
+#13  0x564948ed7841 in main
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:5
+sh: line 1: 3046307 Segmentation fault      (core dumped) ./cm1.exe >> cm1.out
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001 ; ./cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002 ; ./cm1.exe >> cm1.out 
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+
+Program received signal SIGSEGV: Segmentation fault - invalid memory reference.
+
+Backtrace for this error:
+#0  0x7f2fa3abc66f in ???
+#1  0x7f2fa368b56a in ???
+#2  0x7f2fa3523325 in ???
+#3  0x7f2fa3692620 in ???
+#4  0x7f2fa3679be3 in ???
+#5  0x7f2fa3682518 in ???
+#6  0x7f2fa349c836 in ???
+#7  0x7f2fa35214b0 in ???
+#8  0x7f2fa349e102 in ???
+#9  0x7f2fa33e260e in ???
+#10  0x7f2fa3abed8b in ???
+#11  0x7f2fa3abeebf in ???
+#12  0x55e9353276d4 in cm1
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:1762
+#13  0x55e935327841 in main
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:5
+sh: line 1: 3047340 Segmentation fault      (core dumped) ./cm1.exe >> cm1.out
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002 ; ./cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003 ; ./cm1.exe >> cm1.out 
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+
+Program received signal SIGSEGV: Segmentation fault - invalid memory reference.
+
+Backtrace for this error:
+#0  0x7fb72ba2266f in ???
+#1  0x7fb72b5f156a in ???
+#2  0x7fb72b489325 in ???
+#3  0x7fb72b5f8620 in ???
+#4  0x7fb72b5dfbe3 in ???
+#5  0x7fb72b5e8518 in ???
+#6  0x7fb72b402836 in ???
+#7  0x7fb72b4874b0 in ???
+#8  0x7fb72b404102 in ???
+#9  0x7fb72b34860e in ???
+#10  0x7fb72ba24d8b in ???
+#11  0x7fb72ba24ebf in ???
+#12  0x5581227c46d4 in cm1
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:1762
+#13  0x5581227c4841 in main
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:5
+sh: line 1: 3048326 Segmentation fault      (core dumped) ./cm1.exe >> cm1.out
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003 ; ./cm1.exe >> cm1.out completed....
+
+Run_Fcst Script: Model runs integrated out 300 seconds, used   354.340000  CPU secs
+
+
+ ==> RUN_FCST: Date&time supplied: 2003 05-08 22:00:00, which corresponds to a local model time of 4800 sec
+
+ Run_Fcst Script:  1 threads requested....
+
+ Run_Fcst Script: Number ensemble members to run not supplied, defaulting to experiment file:  3
+
+ Run_Fcst Script: Integrating 003 ensemble members for 1800 seconds
+
 
 ERROR!!!
 
-FindRestartFile: A file with the restart time of 1500 cannot be found, exiting!!!
+FindRestartFile: A file with the restart time of 4800 cannot be found, exiting!!!
 
 
 ERROR!!!
-Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 5, in <module>
-    import os, sys, glob
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/glob.py", line 206, in <module>
-    magic_check_bytes = re.compile(b'([*?[])')
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/re.py", line 251, in compile
-    return _compile(pattern, flags)
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/re.py", line 303, in _compile
-    p = sre_compile.compile(pattern, flags)
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/sre_compile.py", line 792, in compile
-    code = _code(p, flags)
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/sre_compile.py", line 631, in _code
-    _compile(code, p.data, flags)
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/sre_compile.py", line 184, in _compile
-    _compile(code, p, _combine_flags(flags, add_flags, del_flags))
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/sre_compile.py", line 146, in _compile
-    _compile_charset(charset, flags, code)
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/sre_compile.py", line 269, in _compile_charset
-    emit(op)
-KeyboardInterrupt
 
   ----------------------------------------------------------------------
 
@@ -665,39 +1277,614 @@ KeyboardInterrupt
   -->  Run_Filter calling computeHx for time 2003,05,08,21,10,00  
 
 
-  computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,10,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
+  python computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,10,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
 
-sh: computeHx.py: command not found
-Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 170, in <module>
-    os.rename("Prior.nc", newPriorFile)
-FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/Prior_2003-05-08_21:10:00.nc'
-Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 9, in <module>
-    import numpy as N
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/__init__.py", line 114, in <module>
-    from numpy.__config__ import show as show_config
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/__config__.py", line 4, in <module>
-    from numpy._core._multiarray_umath import (
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/_core/__init__.py", line 74, in <module>
-    from . import numeric
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/_core/numeric.py", line 26, in <module>
-    from . import shape_base
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/_core/shape_base.py", line 12, in <module>
-    from . import fromnumeric as _from_nx
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/_core/fromnumeric.py", line 16, in <module>
-    from . import _methods
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/_core/_methods.py", line 16, in <module>
-    from numpy._core._ufunc_config import _no_nep50_warning
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/_core/_ufunc_config.py", line 9, in <module>
-    import contextvars
-  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
-  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
-  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
-  File "<frozen importlib._bootstrap_external>", line 879, in exec_module
-  File "<frozen importlib._bootstrap_external>", line 975, in get_code
-  File "<frozen importlib._bootstrap_external>", line 1074, in get_data
-KeyboardInterrupt
+
+  ----------------------------------------------------------------------
+
+                BEGIN PROGRAM ComputeHx                                 
+
+    WALLCLOCK START TIME:  2025-02-28 11:37 
+
+
+  ----------------------------------------------------------------------
+
+ --> ComputeHx:  using the obs errors from the EXPER file:  {'11': ['VR', 2.0], '12': ['DBZ', 5.0]}
+
+ --> ComputeHx:  using the window from the command line:  +/- 150 secs
+
+ --> ComputeHx:  using the observation file from the command line:  Obs/obs_seq_8may03_2km.h5
+
+ --> ComputeHx: obs outlier is from EXPER file:  3
+
+ --> ComputeHx:  Reading in model state for HxF at 2003-05-08 21:10:00 
+
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:10:00
+
+ ==> FindRestartFile:  Found time 1800 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000006.nc
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2003-05-08 21:10:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 0.115  sec
+
+ Wallclock time to convert from C to A grid: 0.008  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 0.143  sec
+
+ Wallclock time to convert from C to A grid: 0.007  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ --> ComputeHx:  Using pyDart to search with condition: ( 34.335943398784124 < lat < 35.68577330060794 )  & ( -98.56368330339824 < lon < -96.91106834830089 ) 
+
+ --> ComputeHx:  Using pyDart to search with begin time of:  (2003, 5, 8, 21, 7, 30)
+
+ --> ComputeHx:  Using pyDart to search with end   time of:  (2003, 5, 8, 21, 12, 30)
+  pyDART.search:  no variable supplied....all vars dumped
+  pyDART.search:  Start datetime:  2003-05-08 21:07:30
+  pyDART.search:  End datetime:  2003-05-08 21:07:30
+
+  pyDART file is version:  pyDART_file_version_2.3 
+  \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+
+  PyDART SEARCH START TIME  2003-05-08 21:07:30  /  UTIME_START: 1052428050
+  PyDART SEARCH END   TIME  2003-05-08 21:12:30  /  UTIME_END:   1052428350
+  PyDART converted utimes: 2003-05-08 21:07:30
+
+  PyDART SEARCH CONDITION IS: (1052428050 <= utime) & (utime < 1052428350)
+
+ --> ComputeHx:  Total number of obs found at search time: 14263 
+
+
+  pyDART file is version:  pyDART_file_version_2.3 
+  \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+
+ calcHx:  OBS   LAT MIN/MAX:   34.264135744989105 36.04591011829749
+ calcHx:  MODEL LAT MIN/MAX:   34.344942279737324 35.67677441965474
+ calcHx:  OBS   LON MIN/MAX:   -98.49756743676187 -96.7567298022438
+ calcHx:  MODEL LON MIN/MAX:   -98.55266587036425 -96.92208578133487
+ calcHx:  OBS   HGT MIN/MAX:   414.361990988255 15541.2806272507
+ calcHx:  MODEL HGT MIN/MAX:   450.69254 20073.0
+
+ --> ComputeHx:  Total number of obs found is: 13583 
+
+
+ --> ComputeHx:  Changing VR observational error to:  2.0
+
+ --> ComputeHx:  Changing DBZ observational error to:  5.0
+ write_prior:  Prior obs file found, opening Prior.nc 
+
+ write_prior:  Previous number of obs 0 
+
+ write_prior:  Adding 13583 to netcdf file 
+
+ write_prior:  Total number of obs in Prior.nc file is 13583 
+
+
+  ---------------------------------------
+
+  --> ComputeHx:  Total time for ensemble I/O ... Time in seconds for I/O: 0.225000 
+
+  ---------------------------------------
+
+
+  ---------------------------------------
+
+  --> ComputeHx:  Time for searching ob table and computing priors ... Time in seconds for HxF: 5.236000 
+
+  ---------------------------------------
+
+
+  ---------------------------------------
+
+  --> ComputeHx:  Total time in minutes ... Time in minutes for MAIN Program: 0.087000
+
+  ---------------------------------------
+
+
+  ----------------------------------------------------------------------
+
+                END PROGRAM ComputeHx                                   
+
+      WALLCLOCK END TIME:  2025-02-28 11:37 
+
+  ----------------------------------------------------------------------
+
+
+  --> Moved Prior.nc file to /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:10:00.nc
+
+
+  >================ Run_Filter:  Running LETKF at time: 2003-05-08_21:10:00 ===================<  
+
+
+  python letkf.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,10,00 --nthreads 1  --aInflate 1
+
+----------------------------------------------------------------------
+
+              BEGIN PROGRAM LETKF                                     
+ 
+  WALLCLOCK START TIME:  2025-02-28 11:37 
+
+  --------------------------------------------------------------------
+
+
+ --> LETKF:  Number of threads requested is from command line:  1
+
+ --> LETKF:  No netCDF Priors file specified, using default priors file
+
+ --> LETKF:  Using prior file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:10:00.nc
+
+
+ --> LETKF:  Trying to find inflation file: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Inflation_2003-05-08_21:05:00.nc
+
+ --> LETKF:  Could not find inflation file....none will be used.
+
+ --> LETKF: saveWeights is from EXPER file:  False
+
+ --> LETKF: readWeights is from EXPER file:  False
+
+ --> LETKF: obs outlier is from EXPER file:  3
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:10:00
+
+ ==> FindRestartFile:  Found time 1800 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000006.nc
+
+  ---->LETKF:  Reading in model state for analysis at 2003 05-08 21:10:00 
+
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2003-05-08 21:10:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 0.193  sec
+
+ Wallclock time to convert from C to A grid: 0.025  sec
+
+ Wallclock time to create ensemble means: 0.069  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 0.333  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ Wallclock time to create ensemble means: 0.068  sec
+
+  ---->Analysis state read in for time 2003 05-08 21:10:00 
+
+  ---->Analysis state universal time 1052428200.000000
+
+ ==> WRITE_CM1_ENS:  Now writing out prior ensemble mean into /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member000/cm1out_prior_000006.nc
+
+ ==> WRITE_CM1_ENS:  Closed file /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member000/cm1out_prior_000006.nc
+
+ ==> Wallclock time to write out fcst/anal to files: 0.334  sec
+
+  ----> LETKF:  Reading in Prior file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:10:00.nc 
+
+Prior obs file found, opening /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:10:00.nc 
+
+Total number of obs in /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:10:00.nc file is 13583 
+
+
+  ----> LETKF:  Prior file has 13583 obs at analysis time 2003 05-08 21:10:00 
+
+
+  --> LETKF called with an outlier threshold of 3 standard deviations
+('Mask before Vr mask:  ', 13583)
+('Mask after Vr mask:  ', 13583)
+
+  >=====================================================================<
+
+  --> LETKF:  Number of total    obs = 13583
+
+  --> LETKF:  Number of rejected obs = 0
+
+  --> LETKF:  Max outlier: 3.000000  Min outlier:  3.000000
+
+
+  >==============================================================================================<
+
+  LETKF:  2003-05-08_21:10:00  Total number of observations:  13583
+
+  <==============================================================================================<
+
+  LETKF:  Obs Space Diagnostic for forecast computed via Dowell and Wicker, MWR 2009, Additive Noise
+
+
+  LETKF:  Obs Std  |  Root-Mean-Sq-Error  |    Bias    |  Spread (obsErr^2+Hxf_var^2)  |   Consistency Ratio
+
+  >==============================================================================================<
+
+
+ -->  LETKF:  2003-05-08_21:10:00  NOBS: 06764     VR: 2.0  RMSI:  4.513  M-Innov:   1.795  Spread:  2.744  CRatio:  0.3697 
+
+ -->  LETKF:  2003-05-08_21:10:00  NOBS: 04080  DBZ>0: 5.0  RMSI: 12.836  M-Innov:   9.063  Spread:  6.348  CRatio:  0.2446 
+
+ --> LETKF:2003-05-08_21:10:00  NOBS: 02739  DBZ<0: 5.0  RMSI:  4.799  M-Innov:  -6.559  Spread:  5.190  CRatio:  1.1698 
+
+  >============================================================================================<
+
+
+ -->  LETKF:  Adaptive inflation is turned on....
+
+
+ -->  LETKF: Adaptive inflation cannot find the previous inflation file, initializing inflation array to 1.0 
+
+
+  >=======================  >>BEGIN FILTER<< ===========================================<
+
+
+ -->  LETKF:ALL OBS TYPES BEING ASSIMULATED SIMULTANEOUSLY: MULTIPASS==False
+
+ COMPUTE_LETKF:  NX/NY/NZ/NE:             75          75          51           4
+ COMPUTE_LETKF:  NOBS:                 13583
+ COMPUTE_LETKF:  X_OB Max/Min:     149002.16837677144        6034.1185644207117     
+ COMPUTE_LETKF:  Y_OB Max/Min:     148020.29432127354        2020.2643997397427     
+ COMPUTE_LETKF:  Z_OB Max/Min:     15541.280627250700        451.38130336999899     
+ COMPUTE_LETKF:  T_OB Max/Min:     141.00000000000000       -126.00000000000000     
+ COMPUTE_LETKF:  T_Analysis:       1052428200.0000000     
+ COMPUTE_LETKF:  X_GD Max/Min:     149000.000       1000.00000    
+ COMPUTE_LETKF:  Y_GD Max/Min:     149000.000       1000.00000    
+ COMPUTE_LETKF:  Z_GD Max/Min:     19700.0000       77.6925354    
+ COMPUTE_LETKF:  RHORIZ:           9000.0000000000000     
+ COMPUTE_LETKF:  RVERT:            4500.0000000000000     
+ COMPUTE_LETKF:  RTIME:           -600.00000000000000     
+ COMPUTE_LETKF:  Hx shape              13583           3
+ COMPUTE_LETKF:  UPDATE THETA FLAG:             1
+ COMPUTE_LETKF, NTHREADS:             1
+ COMPUTE_LETKF, MULTIPLICATIVE ADAPTIVE INFLATION IS ON
+ Min value of AI:     1.0000000000000000     
+ Max value of AI:     1.0000000000000000     
+ Max value of limited AI:     1.0000000000000000     
+
+ COMPUTE_LETKF, POSITIVE DEFINITE SCHEME IS:             1
+ COMPUTE_LETKF, POSITIVE DEFINITE FLOOR VALUE:     1.00000001E-07
+
+ COMPUTE_LETKF, MAXIMUM NUMBER OF THREADS AVAILABLE:             1
+ COMPUTE_LETKF, NUMBER OF THREADS TO USE IS:                     1
+
+
+ COMPUTE_LETKF:  Fortran WALLCLOCK CPU FOR ALL  :     25.430097654927522       secs
+ COMPUTE_LETKF:  Fortran WALLCLOCK CPU for CORE :    0.60592312668450177       secs
+ COMPUTE_LETKF:  Fortran WALLCLOCK CPU for LOCAL:     24.407856258680113       secs
+ COMPUTE_LETKF:  Number of grid points updated is:       138758
+ COMPUTE_LETKF:  Number of observations used is:     14638988
+
+
+ -->  LETKF:  Adaptive Inflation stats:  Max AI:  3.9  Min AI 0.8  Mean AI: 1.0  StdDev:  0.106
+
+
+ -->  Writing ./Inflation_2003-05-08_21:10:00.nc as the adaptive inflation file...
+
+ -->  LETKF:  Moved ./Inflation_2003-05-08_21:10:00.nc file to directory /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF
+
+  >=======================  >>END FILTER<< ===========================================<
+
+          Z |           UA                    VA                  WA                  TH                  DBZ                QR
+                    mean  std             mean  std           mean  std           mean  std           mean   std         mean  std
+ Prior       |  -2.68393   1.75362     9.97955   1.74876   0.00015   0.03378  305.40079   0.06146   0.01813   0.39705   0.00000   0.00001
+        77.69|  -2.63991   2.02884     9.84058   1.90572  -0.00095   0.04174  305.40891   0.08716   0.04858   0.83951   0.00000   0.00003 
+
+ Prior       |  -1.60340   1.69094    12.36496   1.68498   0.00042   0.09955  305.41797   0.06710   0.02346   0.47603   0.00000   0.00002
+       235.87|  -1.62049   1.88489    12.22766   1.77046  -0.00289   0.12132  305.42648   0.08865   0.06209   0.97822   0.00000   0.00004 
+
+ Prior       |  -0.92175   1.73830    13.64620   1.63927   0.00068   0.16310  305.44388   0.10122   0.03039   0.56873   0.00000   0.00003
+       399.72|  -0.99658   1.84482    13.47316   1.77259  -0.00513   0.19393  305.44931   0.11703   0.07626   1.12350   0.00000   0.00007 
+
+ Prior       |  -0.18311   1.96741    14.62183   1.63085   0.00094   0.22608  305.51337   0.23681   0.03831   0.66579   0.00000   0.00004
+       569.45|  -0.32060   1.92922    14.39968   1.81104  -0.00809   0.26346  305.50842   0.26898   0.09196   1.26576   0.00001   0.00011 
+
+ Prior       |   1.81724   2.42955    15.97178   1.55013   0.00138   0.28606  305.86340   0.56335   0.04742   0.77191   0.00000   0.00007
+       745.28|   1.62452   2.39304    15.68086   1.74861  -0.01096   0.32742  305.84235   0.62759   0.10784   1.39836   0.00001   0.00018 
+
+ Prior       |   6.88696   2.24804    15.95406   1.65282   0.00192   0.34058  307.47983   0.68686   0.05771   0.87896   0.00001   0.00012
+       927.42|   6.56839   2.34286    15.59582   1.96456  -0.01273   0.38418  307.41116   0.85369   0.12357   1.51234   0.00001   0.00028 
+
+ Prior       |  10.94356   2.05335    14.22365   1.73915   0.00232   0.39059  309.43454   0.46416   0.07023   0.99182   0.00001   0.00020
+      1116.10|  10.67228   2.26144    14.19134   2.15946  -0.01454   0.43310  309.38824   0.63754   0.13991   1.60157   0.00002   0.00045 
+
+ Prior       |  12.59368   2.10557    13.26145   1.67948   0.00254   0.43930  310.21838   0.43897   0.08606   1.11514   0.00001   0.00033
+      1311.56|  12.23774   2.30921    13.34448   1.92903  -0.01643   0.47748  310.17435   0.60449   0.15717   1.66498   0.00003   0.00069 
+
+ Prior       |  14.56191   2.15859    12.31068   1.80907   0.00279   0.48962  310.98599   0.43014   0.10810   1.25502   0.00002   0.00053
+      1514.03|  14.04635   2.31278    12.23814   2.24509  -0.01761   0.52485  310.94357   0.59934   0.17423   1.70778   0.00005   0.00101 
+
+ Prior       |  16.84162   2.00735    11.83422   2.14951   0.00299   0.54142  311.77518   0.37559   0.13500   1.40462   0.00003   0.00081
+      1723.77|  16.59866   2.25352    11.75053   2.65424  -0.01963   0.57764  311.74222   0.53283   0.19214   1.73700   0.00007   0.00139 
+
+ Prior       |  17.00990   2.02101    12.76076   1.90027   0.00313   0.59273  312.33374   0.29530   0.16669   1.57790   0.00005   0.00120
+      1941.04|  16.66619   2.26221    12.57822   2.11823  -0.02211   0.62663  312.30377   0.42934   0.21085   1.76476   0.00009   0.00181 
+
+ Prior       |  19.09167   1.91917    12.86304   1.85275   0.00336   0.64220  312.40677   0.23084   0.20274   1.77023   0.00008   0.00171
+      2166.11|  19.07671   2.09097    12.62426   1.92784  -0.02298   0.66182  312.37961   0.31833   0.23221   1.80584   0.00013   0.00232 
+
+ Prior       |  20.65552   1.86143    14.07067   1.78731   0.00335   0.68925  312.55801   0.23372   0.24476   1.98113   0.00012   0.00236
+      2399.26|  20.47095   1.98288    14.05513   1.80817  -0.02244   0.68437  312.51846   0.28046   0.25849   1.87241   0.00017   0.00294 
+
+ Prior       |  21.56799   1.78924    15.13743   1.73907   0.00298   0.73569  312.90866   0.28425   0.29173   2.21283   0.00017   0.00314
+      2640.78|  21.50114   1.87430    15.27120   1.80931  -0.02144   0.70084  312.87427   0.29974   0.29065   1.97961   0.00022   0.00370 
+
+ Prior       |  23.10225   2.01387    15.73609   1.73866   0.00325   0.78370  313.42505   0.50226   0.34150   2.45177   0.00024   0.00408
+      2890.97|  23.08361   2.10023    15.88863   1.85853  -0.02021   0.71966  313.46365   0.57401   0.33016   2.12461   0.00031   0.00466 
+
+ Prior       |  26.33424   1.99331    15.36557   1.82186   0.00383   0.83294  315.21371   0.52424   0.39909   2.72293   0.00033   0.00513
+      3150.14|  25.88831   2.18375    15.08683   2.08997  -0.01820   0.74474  315.21744   0.57299   0.38410   2.33096   0.00041   0.00573 
+
+ Prior       |  28.79898   2.20805    15.96258   1.58225   0.00394   0.88038  316.86688   0.53562   0.46214   3.01796   0.00041   0.00608
+      3418.61|  28.47537   2.40764    16.03098   1.60843  -0.01569   0.77311  316.87167   0.56649   0.44719   2.59185   0.00052   0.00663 
+
+ Prior       |  29.21505   1.62346    18.52778   1.72740   0.00387   0.92437  318.28064   0.48457   0.53062   3.32903   0.00047   0.00658
+      3696.73|  29.06335   1.48921    18.62763   1.72183  -0.01471   0.80782  318.28458   0.48289   0.51963   2.88832   0.00059   0.00697 
+
+ Prior       |  29.85418   1.86988    20.23784   1.98614   0.00347   0.96623  318.97498   0.38644   0.60318   3.64673   0.00050   0.00698
+      3984.83|  29.42640   2.12253    19.76393   2.62980  -0.01265   0.84991  318.97726   0.36862   0.59505   3.19144   0.00061   0.00714 
+
+ Prior       |  31.21688   1.81510    20.67683   1.57655   0.00323   1.00609  319.34698   0.31909   0.67495   3.95488   0.00055   0.00931
+      4283.27|  30.97364   1.73715    20.64113   1.51862  -0.01032   0.89053  319.35629   0.29897   0.66687   3.48022   0.00068   0.01018 
+
+ Prior       |  31.82794   2.08443    21.92122   1.69293   0.00235   1.04173  320.12427   0.51301   0.74345   4.22987   0.00064   0.01315
+      4592.43|  31.50088   2.23988    21.68341   1.84323  -0.00861   0.92256  320.14047   0.53196   0.72976   3.71990   0.00085   0.01545 
+
+ Prior       |  28.69338   2.10327    21.68053   1.67389   0.00085   1.07380  322.44266   0.63698   0.80968   4.45981   0.00070   0.01613
+      4912.68|  28.32006   2.27226    21.89292   1.86851  -0.00743   0.94841  322.46188   0.64623   0.78684   3.91448   0.00095   0.01933 
+
+ Prior       |  26.90566   2.15548    20.63469   1.34482  -0.00127   1.10643  324.26556   0.55682   0.87267   4.65114   0.00064   0.01424
+      5244.43|  26.68178   2.10688    20.54930   1.38489  -0.00683   0.97439  324.27814   0.53807   0.83628   4.06326   0.00084   0.01670 
+
+ Prior       |  24.62546   1.72634    17.85786   1.33597  -0.00417   1.14030  325.39584   0.47972   0.94024   4.83035   0.00054   0.00961
+      5588.10|  24.49146   1.53759    17.90584   1.29737  -0.00566   0.99873  325.40714   0.46254   0.88546   4.19342   0.00064   0.01038 
+
+ Prior       |  26.20827   2.86179    17.06101   1.28109  -0.00588   1.17163  326.64636   0.43679   1.01771   5.01338   0.00052   0.00903
+      5944.10|  25.89782   2.89821    17.06587   1.18857  -0.00440   1.01589  326.65057   0.41778   0.93757   4.31736   0.00056   0.00886 
+
+ Prior       |  29.31727   2.69204    19.84142   1.50134  -0.00728   1.20243  327.41971   0.36445   1.10436   5.20342   0.00054   0.01030
+      6312.88|  29.08664   2.70317    19.81965   1.49068  -0.00550   1.02640  327.42087   0.33394   0.99240   4.44612   0.00056   0.00969 
+
+ Prior       |  30.46662   1.56810    21.57537   1.83617  -0.00887   1.24050  327.88943   0.36146   1.19638   5.39252   0.00058   0.01178
+      6694.90|  30.48161   1.34773    21.62672   1.89964  -0.00910   1.03516  327.88715   0.31048   1.05224   4.57130   0.00057   0.01064 
+
+ Prior       |  30.31669   1.53817    23.87763   1.48946  -0.01135   1.28799  328.41553   0.42156   1.28619   5.56672   0.00061   0.01320
+      7090.63|  30.26705   1.29748    23.74767   1.51839  -0.01457   1.04259  328.40747   0.34265   1.11476   4.68739   0.00057   0.01127 
+
+ Prior       |  30.83213   2.25177    22.42912   2.67397  -0.01380   1.34030  329.09668   0.49525   1.37564   5.72826   0.00062   0.01521
+      7500.58|  30.58407   2.17073    22.08781   2.86592  -0.01950   1.05037  329.08392   0.38798   1.18333   4.80792   0.00054   0.01211 
+
+ Prior       |  33.97258   2.10910    23.04926   2.27001  -0.01675   1.39341  329.85110   0.57877   1.46364   5.87662   0.00059   0.01685
+      7925.23|  33.85268   1.89283    22.97957   2.24639  -0.02228   1.06356  329.83304   0.43602   1.25932   4.94358   0.00047   0.01259 
+
+ Prior       |  34.44928   2.76430    21.98743   2.48172  -0.01958   1.44621  330.62216   0.69347   1.54963   6.00118   0.00044   0.01565
+      8365.14|  34.30239   2.65158    22.43633   3.28262  -0.02489   1.08243  330.59744   0.52079   1.34028   5.08602   0.00033   0.01140 
+
+ Prior       |  36.52065   2.74331    24.40744   2.96521  -0.02278   1.49649  331.50101   0.87452   1.62752   6.09035   0.00019   0.01018
+      8820.84|  36.06047   3.12991    24.66340   3.31105  -0.03289   1.11353  331.46515   0.71582   1.42037   5.21634   0.00014   0.00801 
+
+ Prior       |  38.24800   3.89409    21.60127   2.46719  -0.02549   1.54353  333.03577   1.11938   1.69987   6.14847   0.00002   0.00082
+      9292.89|  37.78562   3.96741    21.38741   2.61582  -0.03684   1.16525  332.98795   1.02170   1.50029   5.34618   0.00001   0.00069 
+
+ Prior       |  46.55839   3.23744    17.97356   2.67165  -0.02875   1.58866  335.96646   1.06589   1.76638   6.18308   0.00001   0.00030
+      9781.90|  46.31985   3.21413    18.28936   3.01114  -0.03912   1.23335  335.94098   1.02668   1.57470   5.46823   0.00000   0.00027 
+
+ Prior       |  41.46797   3.17027    13.67833   3.10768  -0.03538   1.62488  338.74792   0.78406   1.81697   6.20306   0.00000   0.00000
+     10288.46|  41.03763   3.61755    13.59248   3.15530  -0.04646   1.31437  338.73663   0.76183   1.62474   5.55351   0.00000   0.00000 
+
+ Prior       |  39.33478   2.56456    12.23647   2.84232  -0.03958   1.64234  340.68564   0.66746   1.83697   6.17306   0.00000   0.00000
+     10813.20|  39.27410   2.51279    12.40526   3.06456  -0.05636   1.39648  340.68567   0.64137   1.64563   5.57496   0.00000   0.00000 
+
+ Prior       |  39.17612   2.69909    15.46912   4.10325  -0.04402   1.63829  342.50598   0.78767   1.81875   6.07405   0.00000   0.00000
+     11356.79|  39.21600   2.64757    15.04707   4.60820  -0.05973   1.46441  342.49442   0.77448   1.64113   5.54462   0.00000   0.00000 
+
+ Prior       |  36.96754   3.27457    10.39694   4.16360  -0.05075   1.60378  345.60916   1.07649   1.73081   5.85891   0.00000   0.00000
+     11919.88|  36.98576   3.34203    10.84558   4.90990  -0.05161   1.48336  345.60294   1.05545   1.58508   5.41125   0.00000   0.00000 
+
+ Prior       |  35.38393   4.14349     7.00844   4.59602  -0.05641   1.53188  351.60291   1.22356   1.53009   5.44382   0.00000   0.00000
+     12503.20|  35.49476   4.24125     7.27107   4.91737  -0.04699   1.43759  351.61053   1.15395   1.41686   5.08316   0.00000   0.00000 
+
+ Prior       |  32.14703   4.79794     8.84499   4.08445  -0.06233   1.42872  355.52112   1.38064   1.21143   4.78082   0.00000   0.00000
+     13100.00|  32.24603   4.77190     8.80667   4.08354  -0.04516   1.36394  355.53421   1.31902   1.13903   4.53397   0.00000   0.00000 
+
+ Prior       |  29.38391   5.19683     8.94774   4.37415  -0.06656   1.29404  359.21732   1.58896   0.84609   3.91382   0.00000   0.00000
+     13700.00|  29.39568   5.13437     8.82748   4.40603  -0.04467   1.27506  359.22525   1.56952   0.82387   3.79417   0.00000   0.00000 
+
+ Prior       |  26.79926   4.78216    14.90133   4.96321  -0.06857   1.13602  363.06284   1.91222   0.48710   2.92044   0.00000   0.00000
+     14300.00|  26.79926   4.78216    14.90133   4.96321  -0.06857   1.13602  363.06284   1.91222   0.48710   2.92044   0.00000   0.00000 
+
+ Prior       |  27.34143   3.71764    15.39098   3.49071  -0.07182   0.94568  372.22955   3.04721   0.20306   1.93565   0.00000   0.00000
+     14900.00|  27.34143   3.71764    15.39098   3.49071  -0.07182   0.94568  372.22955   3.04721   0.20306   1.93565   0.00000   0.00000 
+
+ Prior       |  26.99333   3.45520    11.73542   2.84649  -0.07319   0.77831  384.35995   3.25602   0.07944   1.29529   0.00000   0.00000
+     15500.00|  26.99333   3.45520    11.73542   2.84649  -0.07319   0.77831  384.35995   3.25602   0.07944   1.29529   0.00000   0.00000 
+
+ Prior       |  27.18706   2.56597    13.32229   2.39388  -0.07231   0.78991  397.13501   2.96664   0.02477   0.65443   0.00000   0.00000
+     16100.00|  27.18706   2.56597    13.32229   2.39388  -0.07231   0.78991  397.13501   2.96664   0.02477   0.65443   0.00000   0.00000 
+
+ Prior       |  27.67571   1.86761    13.26483   1.78907  -0.06946   0.82903  409.79956   2.13482   0.00211   0.12332   0.00000   0.00000
+     16700.00|  27.67571   1.86761    13.26483   1.78907  -0.06946   0.82903  409.79956   2.13482   0.00211   0.12332   0.00000   0.00000 
+
+ Prior       |  27.99362   1.65500    13.23373   1.49801  -0.06458   0.84464  415.16083   2.28756   0.00000   0.00000   0.00000   0.00000
+     17300.00|  27.99362   1.65500    13.23373   1.49801  -0.06458   0.84464  415.16083   2.28756   0.00000   0.00000   0.00000   0.00000 
+
+ Prior       |  28.02048   1.62836    13.25832   1.34243  -0.05535   0.80923  433.89343   2.58309   0.00000   0.00000   0.00000   0.00000
+     17900.00|  28.02048   1.62836    13.25832   1.34243  -0.05535   0.80923  433.89343   2.58309   0.00000   0.00000   0.00000   0.00000 
+
+ Prior       |  28.02799   1.72036    13.25067   1.34676  -0.04191   0.70186  445.35391   1.97823   0.00000   0.00000   0.00000   0.00000
+     18500.00|  28.02799   1.72036    13.25067   1.34676  -0.04191   0.70186  445.35391   1.97823   0.00000   0.00000   0.00000   0.00000 
+
+ Prior       |  28.06915   1.87765    13.22842   1.48974  -0.02695   0.49500  466.20627   1.74974   0.00000   0.00000   0.00000   0.00000
+     19100.00|  28.06915   1.87765    13.22842   1.48974  -0.02695   0.49500  466.20627   1.74974   0.00000   0.00000   0.00000   0.00000 
+
+ Prior       |  28.10802   2.06406    13.21760   1.67158  -0.00917   0.17806  488.34863   0.75356   0.00000   0.00000   0.00000   0.00000
+     19700.00|  28.10802   2.06406    13.21760   1.67158  -0.00917   0.17806  488.34863   0.75356   0.00000   0.00000   0.00000   0.00000 
+
+
+ -->  LETKF:  state data now written back out!
+
+ ==> WRITE_CM1_ENS:  Writing ensemble into time_index 0 at time 1800
+
+ ==> WRITE_CM1_ENS:  CM1 prior files creation completed
+
+ Wallclock time to convert from A to C grid: 0.037  sec
+
+ ==> WRITE_CM1_ENS:  Now writing out posterior ensemble mean into /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member000/cm1out_post_000006.nc
+
+ ==> WRITE_CM1_ENS:  Closed file /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member000/cm1out_post_000006.nc
+
+ ==> Wallclock time to write out fcst/anal to files: 7.727  sec
+
+  ---------------------------------------
+
+   ... Time in seconds for HxF: 0.251000 
+
+  ---------------------------------------
+
+
+  ---------------------------------------
+
+   ... Time in seconds for Filter: 25.543000 
+
+  ---------------------------------------
+
+
+  ---------------------------------------
+
+   ... Time in seconds for I/O: 8.533000 
+
+  ---------------------------------------
+
+
+  ---------------------------------------
+
+   ... Time in seconds for Program: 34.418000 
+
+  ---------------------------------------
+
+
+  ----------------------------------------------------------------------
+
+                END PROGRAM LETKF                                        
+
+  WALLCLOCK END TIME:  2025-02-28 11:37 
+
+
+  -----------------------------------------------------------------------
+
+
+  ----------------------------------------------------------------------
+
+                 END PROGRAM RUN_FILTER                                 
+
+  ----------------------------------------------------------------------
+
+ ==> RUN_FCST: Date&time supplied: 2003 05-08 21:10:00, which corresponds to a local model time of 1800 sec
+
+ Run_Fcst Script:  1 threads requested....
+
+ Run_Fcst Script: Number ensemble members to run not supplied, defaulting to experiment file:  3
+
+ Run_Fcst Script: Integrating 003 ensemble members for 0300 seconds
+
+ Found time 1800 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000006.nc
+6
+
+ Found time 1800 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000006.nc
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003/cm1.out is the outputfile path
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001 ; ./cm1.exe >> cm1.out 
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+
+Program received signal SIGSEGV: Segmentation fault - invalid memory reference.
+
+Backtrace for this error:
+#0  0x7f5faedfe66f in ???
+#1  0x7f5fae9cd56a in ???
+#2  0x7f5fae865325 in ???
+#3  0x7f5fae9d4620 in ???
+#4  0x7f5fae9bbbe3 in ???
+#5  0x7f5fae9c4518 in ???
+#6  0x7f5fae7de836 in ???
+#7  0x7f5fae8634b0 in ???
+#8  0x7f5fae7e0102 in ???
+#9  0x7f5fae72460e in ???
+#10  0x7f5faee00d8b in ???
+#11  0x7f5faee00ebf in ???
+#12  0x55a9718086d4 in cm1
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:1762
+#13  0x55a971808841 in main
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:5
+sh: line 1: 3049531 Segmentation fault      (core dumped) ./cm1.exe >> cm1.out
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001 ; ./cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002 ; ./cm1.exe >> cm1.out 
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+
+Program received signal SIGSEGV: Segmentation fault - invalid memory reference.
+
+Backtrace for this error:
+#0  0x7f0c98d3e66f in ???
+#1  0x7f0c9890d56a in ???
+#2  0x7f0c987a5325 in ???
+#3  0x7f0c98914620 in ???
+#4  0x7f0c988fbbe3 in ???
+#5  0x7f0c98904518 in ???
+#6  0x7f0c9871e836 in ???
+#7  0x7f0c987a34b0 in ???
+#8  0x7f0c98720102 in ???
+#9  0x7f0c9866460e in ???
+#10  0x7f0c98d40d8b in ???
+#11  0x7f0c98d40ebf in ???
+#12  0x5582530dc6d4 in cm1
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:1762
+#13  0x5582530dc841 in main
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:5
+sh: line 1: 3050616 Segmentation fault      (core dumped) ./cm1.exe >> cm1.out
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002 ; ./cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003 ; ./cm1.exe >> cm1.out 
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+
+Program received signal SIGSEGV: Segmentation fault - invalid memory reference.
+
+Backtrace for this error:
+#0  0x7f3bcde8866f in ???
+#1  0x7f3bcda5756a in ???
+#2  0x7f3bcd8ef325 in ???
+#3  0x7f3bcda5e620 in ???
+#4  0x7f3bcda45be3 in ???
+#5  0x7f3bcda4e518 in ???
+#6  0x7f3bcd868836 in ???
+#7  0x7f3bcd8ed4b0 in ???
+#8  0x7f3bcd86a102 in ???
+#9  0x7f3bcd7ae60e in ???
+#10  0x7f3bcde8ad8b in ???
+#11  0x7f3bcde8aebf in ???
+#12  0x55556e0256d4 in cm1
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:1762
+#13  0x55556e025841 in main
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:5
+sh: line 1: 3051621 Segmentation fault      (core dumped) ./cm1.exe >> cm1.out
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003 ; ./cm1.exe >> cm1.out completed....
+
+Run_Fcst Script: Model runs integrated out 300 seconds, used   365.933000  CPU secs
+
 
  ==> RUN_FCST: Date&time supplied: 2003 05-08 22:00:00, which corresponds to a local model time of 4800 sec
 
@@ -740,13 +1927,472 @@ ERROR!!!
   -->  Run_Filter calling computeHx for time 2003,05,08,21,15,00  
 
 
-  computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,15,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
+  python computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,15,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
 
-sh: computeHx.py: command not found
+
+  ----------------------------------------------------------------------
+
+                BEGIN PROGRAM ComputeHx                                 
+
+    WALLCLOCK START TIME:  2025-02-28 11:43 
+
+
+  ----------------------------------------------------------------------
+
+ --> ComputeHx:  using the obs errors from the EXPER file:  {'11': ['VR', 2.0], '12': ['DBZ', 5.0]}
+
+ --> ComputeHx:  using the window from the command line:  +/- 150 secs
+
+ --> ComputeHx:  using the observation file from the command line:  Obs/obs_seq_8may03_2km.h5
+
+ --> ComputeHx: obs outlier is from EXPER file:  3
+
+ --> ComputeHx:  Reading in model state for HxF at 2003-05-08 21:15:00 
+
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:15:00
+
+ ==> FindRestartFile:  Found time 2100 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000007.nc
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2003-05-08 21:15:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 0.115  sec
+
+ Wallclock time to convert from C to A grid: 0.007  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 0.146  sec
+
+ Wallclock time to convert from C to A grid: 0.006  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ --> ComputeHx:  Using pyDart to search with condition: ( 34.335943398784124 < lat < 35.68577330060794 )  & ( -98.56368330339824 < lon < -96.91106834830089 ) 
+
+ --> ComputeHx:  Using pyDart to search with begin time of:  (2003, 5, 8, 21, 12, 30)
+
+ --> ComputeHx:  Using pyDart to search with end   time of:  (2003, 5, 8, 21, 17, 30)
+  pyDART.search:  no variable supplied....all vars dumped
+  pyDART.search:  Start datetime:  2003-05-08 21:12:30
+  pyDART.search:  End datetime:  2003-05-08 21:12:30
+
+  pyDART file is version:  pyDART_file_version_2.3 
+  \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+
+  PyDART SEARCH START TIME  2003-05-08 21:12:30  /  UTIME_START: 1052428350
+  PyDART SEARCH END   TIME  2003-05-08 21:17:30  /  UTIME_END:   1052428650
+  PyDART converted utimes: 2003-05-08 21:12:30
+
+  PyDART SEARCH CONDITION IS: (1052428350 <= utime) & (utime < 1052428650)
+
+ --> ComputeHx:  Total number of obs found at search time: 14966 
+
+
+  pyDART file is version:  pyDART_file_version_2.3 
+  \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+
+ calcHx:  OBS   LAT MIN/MAX:   34.2821332934523 35.72195083086911
+ calcHx:  MODEL LAT MIN/MAX:   34.344942279737324 35.67677441965474
+ calcHx:  OBS   LON MIN/MAX:   -98.23178428558919 -97.0210308023668
+ calcHx:  MODEL LON MIN/MAX:   -98.55266587036425 -96.92208578133487
+ calcHx:  OBS   HGT MIN/MAX:   484.174087643623 17824.068903923
+ calcHx:  MODEL HGT MIN/MAX:   450.69254 20073.0
+
+ --> ComputeHx:  Total number of obs found is: 14852 
+
+
+ --> ComputeHx:  Changing VR observational error to:  2.0
+
+ --> ComputeHx:  Changing DBZ observational error to:  5.0
+ write_prior:  Prior obs file found, opening Prior.nc 
+
+ write_prior:  Previous number of obs 0 
+
+ write_prior:  Adding 14852 to netcdf file 
+
+ write_prior:  Total number of obs in Prior.nc file is 14852 
+
+
+  ---------------------------------------
+
+  --> ComputeHx:  Total time for ensemble I/O ... Time in seconds for I/O: 0.236000 
+
+  ---------------------------------------
+
+
+  ---------------------------------------
+
+  --> ComputeHx:  Time for searching ob table and computing priors ... Time in seconds for HxF: 5.205000 
+
+  ---------------------------------------
+
+
+  ---------------------------------------
+
+  --> ComputeHx:  Total time in minutes ... Time in minutes for MAIN Program: 0.087000
+
+  ---------------------------------------
+
+
+  ----------------------------------------------------------------------
+
+                END PROGRAM ComputeHx                                   
+
+      WALLCLOCK END TIME:  2025-02-28 11:44 
+
+  ----------------------------------------------------------------------
+
+
+  --> Moved Prior.nc file to /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:15:00.nc
+
+
+  >================ Run_Filter:  Running LETKF at time: 2003-05-08_21:15:00 ===================<  
+
+
+  python letkf.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,15,00 --nthreads 1  --aInflate 1
+
+----------------------------------------------------------------------
+
+              BEGIN PROGRAM LETKF                                     
+ 
+  WALLCLOCK START TIME:  2025-02-28 11:44 
+
+  --------------------------------------------------------------------
+
+
+ --> LETKF:  Number of threads requested is from command line:  1
+
+ --> LETKF:  No netCDF Priors file specified, using default priors file
+
+ --> LETKF:  Using prior file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:15:00.nc
+
+
+ --> LETKF:  Trying to find inflation file: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Inflation_2003-05-08_21:10:00.nc
+
+ --> LETKF:  Using inflation file: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Inflation_2003-05-08_21:10:00.nc
+
+ --> LETKF: saveWeights is from EXPER file:  False
+
+ --> LETKF: readWeights is from EXPER file:  False
+
+ --> LETKF: obs outlier is from EXPER file:  3
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:15:00
+
+ ==> FindRestartFile:  Found time 2100 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000007.nc
+
+  ---->LETKF:  Reading in model state for analysis at 2003 05-08 21:15:00 
+
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2003-05-08 21:15:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 0.24  sec
+
+ Wallclock time to convert from C to A grid: 0.023  sec
+
+ Wallclock time to create ensemble means: 0.064  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 0.455  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ Wallclock time to create ensemble means: 0.062  sec
+
+  ---->Analysis state read in for time 2003 05-08 21:15:00 
+
+  ---->Analysis state universal time 1052428500.000000
+
+ ==> WRITE_CM1_ENS:  Now writing out prior ensemble mean into /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member000/cm1out_prior_000007.nc
+
+ ==> WRITE_CM1_ENS:  Closed file /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member000/cm1out_prior_000007.nc
+
+ ==> Wallclock time to write out fcst/anal to files: 0.312  sec
+
+  ----> LETKF:  Reading in Prior file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:15:00.nc 
+
+Prior obs file found, opening /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:15:00.nc 
+
+Total number of obs in /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:15:00.nc file is 14852 
+
+
+  ----> LETKF:  Prior file has 14852 obs at analysis time 2003 05-08 21:15:00 
+
+
+  --> LETKF called with an outlier threshold of 3 standard deviations
+('Mask before Vr mask:  ', 14852)
+('Mask after Vr mask:  ', 14852)
+
+  >=====================================================================<
+
+  --> LETKF:  Number of total    obs = 14852
+
+  --> LETKF:  Number of rejected obs = 0
+
+  --> LETKF:  Max outlier: 3.000000  Min outlier:  3.000000
+
+
+  >==============================================================================================<
+
+  LETKF:  2003-05-08_21:15:00  Total number of observations:  14852
+
+  <==============================================================================================<
+
+  LETKF:  Obs Space Diagnostic for forecast computed via Dowell and Wicker, MWR 2009, Additive Noise
+
+
+  LETKF:  Obs Std  |  Root-Mean-Sq-Error  |    Bias    |  Spread (obsErr^2+Hxf_var^2)  |   Consistency Ratio
+
+  >==============================================================================================<
+
+
+ -->  LETKF:  2003-05-08_21:15:00  NOBS: 07116     VR: 2.0  RMSI:  4.226  M-Innov:   1.911  Spread:  2.200  CRatio:  0.2711 
+
+ -->  LETKF:  2003-05-08_21:15:00  NOBS: 03979  DBZ>0: 5.0  RMSI: 18.591  M-Innov:   9.566  Spread:  6.988  CRatio:  0.1413 
+
+ --> LETKF:2003-05-08_21:15:00  NOBS: 03757  DBZ<0: 5.0  RMSI:  6.673  M-Innov:  -7.668  Spread:  6.308  CRatio:  0.8934 
+
+  >============================================================================================<
+
+
+ -->  LETKF:  Adaptive inflation is turned on....
+
+
+ -->  LETKF:  Adaptive inflation is using prior file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Inflation_2003-05-08_21:10:00.nc
+
+
+  >=======================  >>BEGIN FILTER<< ===========================================<
+
+
+ -->  LETKF:ALL OBS TYPES BEING ASSIMULATED SIMULTANEOUSLY: MULTIPASS==False
+
+ COMPUTE_LETKF:  NX/NY/NZ/NE:             75          75          51           4
+ COMPUTE_LETKF:  NOBS:                 14852
+ COMPUTE_LETKF:  X_OB Max/Min:     140773.36284718240        30343.816519289903     
+ COMPUTE_LETKF:  Y_OB Max/Min:     148020.29432127354        38020.276976330395     
+ COMPUTE_LETKF:  Z_OB Max/Min:     15805.339694023100        484.17408764362301     
+ COMPUTE_LETKF:  T_OB Max/Min:     148.00000000000000       -120.00000000000000     
+ COMPUTE_LETKF:  T_Analysis:       1052428500.0000000     
+ COMPUTE_LETKF:  X_GD Max/Min:     149000.000       1000.00000    
+ COMPUTE_LETKF:  Y_GD Max/Min:     149000.000       1000.00000    
+ COMPUTE_LETKF:  Z_GD Max/Min:     19700.0000       77.6925354    
+ COMPUTE_LETKF:  RHORIZ:           9000.0000000000000     
+ COMPUTE_LETKF:  RVERT:            4500.0000000000000     
+ COMPUTE_LETKF:  RTIME:           -600.00000000000000     
+ COMPUTE_LETKF:  Hx shape              14852           3
+ COMPUTE_LETKF:  UPDATE THETA FLAG:             1
+ COMPUTE_LETKF, NTHREADS:             1
+ COMPUTE_LETKF, MULTIPLICATIVE ADAPTIVE INFLATION IS ON
+ Min value of AI:    0.84738895997543673     
+ Max value of AI:     3.9392851699325884     
+ Max value of limited AI:     3.9392851699325884     
+
+ COMPUTE_LETKF, POSITIVE DEFINITE SCHEME IS:             1
+ COMPUTE_LETKF, POSITIVE DEFINITE FLOOR VALUE:     1.00000001E-07
+
+ COMPUTE_LETKF, MAXIMUM NUMBER OF THREADS AVAILABLE:             1
+ COMPUTE_LETKF, NUMBER OF THREADS TO USE IS:                     1
+
+
+ COMPUTE_LETKF:  Fortran WALLCLOCK CPU FOR ALL  :     27.640171581995673       secs
+ COMPUTE_LETKF:  Fortran WALLCLOCK CPU for CORE :    0.62277952302247286       secs
+ COMPUTE_LETKF:  Fortran WALLCLOCK CPU for LOCAL:     26.627490071929060       secs
+ COMPUTE_LETKF:  Number of grid points updated is:        92969
+ COMPUTE_LETKF:  Number of observations used is:     16866218
+
+
+ -->  LETKF:  Adaptive Inflation stats:  Max AI:  4.2  Min AI 0.9  Mean AI: 1.0  StdDev:  0.155
+
+
+ -->  Writing ./Inflation_2003-05-08_21:15:00.nc as the adaptive inflation file...
+
+ -->  LETKF:  Moved ./Inflation_2003-05-08_21:15:00.nc file to directory /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF
+
+  >=======================  >>END FILTER<< ===========================================<
+
+          Z |           UA                    VA                  WA                  TH                  DBZ                QR
+                    mean  std             mean  std           mean  std           mean  std           mean   std         mean  std
+ Prior       |  -2.47785   1.94778     9.89487   1.88784   0.00155   0.04241  305.43106   0.08569   1.17986   5.75554   0.00060   0.00686
+        77.69|  -2.51689   1.99572     9.80713   2.05828   0.00236   0.04373  305.43646   0.09161   0.71701   3.97934   0.00031   0.00335 
+
+ Prior       |  -1.47997   1.80620    12.04252   1.77828   0.00469   0.12279  305.44836   0.09489   1.20989   5.81922   0.00069   0.00748
+       235.87|  -1.54287   1.84635    11.95553   1.96090   0.00717   0.12707  305.45419   0.10063   0.70791   3.90713   0.00036   0.00382 
+
+ Prior       |  -0.86278   1.77869    13.18707   1.75851   0.00799   0.19548  305.47751   0.14060   1.24107   5.89011   0.00079   0.00811
+       399.72|  -0.94428   1.83175    13.09523   1.96760   0.01224   0.20338  305.48322   0.14632   0.70119   3.83082   0.00042   0.00440 
+
+ Prior       |  -0.13520   1.88978    14.14278   1.76315   0.01144   0.26358  305.56100   0.28829   1.27167   5.96299   0.00086   0.00842
+       569.45|  -0.24665   1.97664    14.03358   2.01504   0.01752   0.27673  305.56467   0.29925   0.69032   3.74903   0.00046   0.00454 
+
+ Prior       |   1.84381   2.31844    15.42150   1.68828   0.01523   0.32606  305.93335   0.58361   1.30281   6.02782   0.00093   0.00877
+       745.28|   1.66472   2.46217    15.26178   2.06151   0.02247   0.34437  305.92361   0.62070   0.68764   3.70915   0.00050   0.00483 
+
+ Prior       |   6.68217   2.29674    15.54007   1.87007   0.01958   0.38453  307.43832   0.76013   1.33547   6.08442   0.00101   0.00941
+       927.42|   6.43268   2.45874    15.36972   2.19775   0.02760   0.40927  307.38434   0.82716   0.69713   3.71972   0.00059   0.00564 
+
+ Prior       |  10.84091   2.24071    14.19935   1.88041   0.02352   0.44167  309.36429   0.54407   1.37082   6.14447   0.00113   0.01035
+      1116.10|  10.60548   2.40276    14.16357   1.91089   0.03216   0.47446  309.34729   0.57119   0.71881   3.78042   0.00072   0.00706 
+
+ Prior       |  12.41413   2.27762    13.30577   1.62578   0.02701   0.49454  310.17993   0.48350   1.40833   6.21176   0.00127   0.01158
+      1311.56|  12.12484   2.53367    13.27694   1.69796   0.03546   0.53431  310.16608   0.50469   0.74784   3.87502   0.00089   0.00908 
+
+ Prior       |  14.26325   2.21121    12.21236   1.94895   0.03097   0.54246  310.95932   0.47719   1.45339   6.28434   0.00145   0.01310
+      1514.03|  13.86817   2.60037    12.08823   2.01542   0.03990   0.58882  310.95178   0.50156   0.78689   3.98820   0.00112   0.01176 
+
+ Prior       |  16.68773   2.10721    11.81694   2.46560   0.03478   0.58304  311.76340   0.43409   1.49325   6.35175   0.00167   0.01482
+      1723.77|  16.40808   2.27650    11.64758   2.52672   0.04546   0.63592  311.76233   0.45633   0.82907   4.11982   0.00142   0.01520 
+
+ Prior       |  16.91793   2.10441    12.61959   1.98999   0.03855   0.61432  312.28772   0.35876   1.53722   6.41544   0.00190   0.01661
+      1941.04|  16.60583   2.21544    12.36053   2.31553   0.05258   0.67491  312.28644   0.38164   0.87810   4.26863   0.00175   0.01906 
+
+ Prior       |  19.20512   2.08877    12.76835   1.80362   0.04339   0.63842  312.38205   0.27142   1.57595   6.46835   0.00214   0.01844
+      2166.11|  19.03124   2.11754    12.61190   1.91284   0.06313   0.70911  312.37411   0.30644   0.92575   4.41238   0.00212   0.02295 
+
+ Prior       |  20.69819   1.98986    14.17867   1.61991   0.04834   0.65863  312.54913   0.25997   1.60021   6.48708   0.00238   0.02024
+      2399.26|  20.48307   2.09138    14.08175   1.78248   0.07391   0.73912  312.52997   0.30748   0.98033   4.59546   0.00247   0.02627 
+
+ Prior       |  21.60387   1.91823    15.18335   1.58221   0.05281   0.67605  312.85721   0.30521   1.59121   6.43719   0.00259   0.02159
+      2640.78|  21.44409   2.00989    15.19881   1.84452   0.08223   0.76688  312.84808   0.35441   1.01632   4.69704   0.00276   0.02828 
+
+ Prior       |  23.22833   2.24867    15.87858   1.65980   0.05810   0.69464  313.47232   0.50992   1.55063   6.34476   0.00269   0.02192
+      2890.97|  23.07091   2.27238    15.82473   2.03566   0.09093   0.80021  313.50766   0.62383   1.03349   4.76883   0.00293   0.02844 
+
+ Prior       |  26.07933   2.23610    15.19636   1.89241   0.06462   0.71707  315.18927   0.57869   1.56834   6.36010   0.00265   0.02128
+      3150.14|  25.72176   2.70629    14.92129   2.48675   0.10184   0.83710  315.21014   0.66003   1.06208   4.83730   0.00297   0.02686 
+
+ Prior       |  28.54893   2.39508    16.06487   1.51639   0.07123   0.73955  316.86066   0.61730   1.59594   6.39404   0.00246   0.02035
+      3418.61|  28.31392   2.69647    16.06684   1.85613   0.10935   0.86090  316.86774   0.74363   1.09612   4.93220   0.00282   0.02397 
+
+ Prior       |  29.20818   1.63879    18.64003   1.61759   0.07730   0.76209  318.25931   0.59035   1.62618   6.44888   0.00212   0.01969
+      3696.73|  29.00930   1.96361    18.58288   1.94963   0.11162   0.87198  318.25708   0.68072   1.11883   5.01466   0.00237   0.01975 
+
+ Prior       |  29.65984   2.01035    19.86732   2.36426   0.08395   0.78742  318.94128   0.47553   1.66816   6.53626   0.00162   0.01884
+      3984.83|  29.30082   2.66514    19.48821   3.16203   0.11605   0.89076  318.93375   0.53882   1.13990   5.05967   0.00159   0.01466 
+
+ Prior       |  31.17424   1.81840    20.63015   1.66857   0.09155   0.81220  319.33630   0.37603   1.69593   6.58146   0.00126   0.01718
+      4283.27|  30.95622   2.17682    20.52903   2.04379   0.12052   0.91348  319.33701   0.43808   1.15642   5.07109   0.00112   0.01189 
+
+ Prior       |  31.56107   2.11363    21.67864   1.87065   0.09918   0.83071  320.17166   0.51764   1.71777   6.60462   0.00105   0.01521
+      4592.43|  31.24446   2.68878    21.54071   2.17408   0.12161   0.92684  320.19180   0.61823   1.18008   5.05810   0.00093   0.01125 
+
+ Prior       |  28.62145   2.20971    21.83877   1.68519   0.10647   0.84492  322.39529   0.77505   1.73201   6.60540   0.00090   0.01432
+      4912.68|  28.29887   2.72747    21.91609   1.99234   0.11807   0.92884  322.41980   0.85181   1.20630   5.04025   0.00082   0.01254 
+
+ Prior       |  26.83768   2.04946    20.57584   1.36279   0.11350   0.86238  324.20007   0.69926   1.74681   6.60190   0.00082   0.01592
+      5244.43|  26.64089   2.28867    20.51839   1.51909   0.11376   0.93363  324.21149   0.74848   1.24254   5.05412   0.00077   0.01530 
+
+ Prior       |  24.76518   1.69616    17.95285   1.29572   0.12063   0.88752  325.37561   0.55706   1.76881   6.60112   0.00078   0.01859
+      5588.10|  24.59999   1.75589    17.95783   1.32360   0.11147   0.95391  325.38474   0.58999   1.29752   5.11335   0.00073   0.01771 
+
+ Prior       |  26.18354   2.75755    17.22371   1.21506   0.12882   0.91161  326.60834   0.49254   1.80779   6.62179   0.00076   0.02147
+      5944.10|  26.00596   2.90428    17.23912   1.23013   0.11145   0.97117  326.61206   0.51220   1.36606   5.21267   0.00071   0.01865 
+
+ Prior       |  29.25468   2.65226    19.79574   1.59098   0.13760   0.93326  327.38324   0.36666   1.85910   6.65501   0.00075   0.02380
+      6312.88|  29.16094   2.74658    19.81524   1.67401   0.11558   0.96983  327.38138   0.38282   1.43604   5.30183   0.00067   0.01862 
+
+ Prior       |  30.59296   1.60330    21.68995   1.83472   0.14680   0.96082  327.86218   0.30026   1.92206   6.69727   0.00074   0.02523
+      6694.90|  30.55827   1.60611    21.70678   1.90311   0.12505   0.96149  327.85989   0.29810   1.51653   5.40987   0.00061   0.01848 
+
+ Prior       |  30.39512   1.52569    23.59710   1.69528   0.15621   0.99979  328.38916   0.32827   1.98872   6.73524   0.00071   0.02540
+      7090.63|  30.35426   1.54962    23.57838   1.74581   0.14033   0.96411  328.38370   0.31571   1.60662   5.54052   0.00057   0.01835 
+
+ Prior       |  30.94471   2.12814    22.28873   2.82478   0.16617   1.04354  329.06537   0.38723   2.05960   6.77446   0.00063   0.02342
+      7500.58|  30.86261   2.19856    22.17443   2.89059   0.16124   0.98109  329.05179   0.36639   1.72351   5.72702   0.00050   0.01735 
+
+ Prior       |  33.90350   2.08339    22.85010   2.29642   0.17582   1.08160  329.81900   0.44432   2.13077   6.81299   0.00047   0.01834
+      7925.23|  33.77404   2.10984    22.75676   2.40068   0.18577   1.00765  329.79999   0.42997   1.84756   5.93908   0.00038   0.01435 
+
+ Prior       |  34.45794   2.55987    22.56766   3.07052   0.18641   1.11053  330.57806   0.52304   2.18141   6.81986   0.00023   0.01018
+      8365.14|  34.33739   2.63782    22.70103   3.31314   0.20812   1.03743  330.55432   0.50907   1.95174   6.10922   0.00019   0.00843 
+
+ Prior       |  35.97762   2.84102    24.51324   3.02171   0.19723   1.13665  331.44571   0.64882   2.19987   6.78920   0.00002   0.00154
+      8820.84|  35.84771   3.08506    24.60996   3.20804   0.22298   1.07086  331.40399   0.60919   2.00908   6.16677   0.00001   0.00127 
+
+ Prior       |  38.38828   3.61586    21.53777   2.43749   0.20790   1.16260  332.99808   0.85180   2.18855   6.71508   0.00000   0.00007
+      9292.89|  38.15216   3.89567    21.43012   2.56354   0.23367   1.11013  332.92719   0.84356   2.01983   6.12601   0.00000   0.00005 
+
+ Prior       |  46.10312   3.23255    18.22799   2.80308   0.21697   1.18302  335.92474   0.89233   2.15954   6.60494   0.00000   0.00001
+      9781.90|  46.03200   3.21322    18.51586   3.46193   0.23295   1.13687  335.86713   0.96314   2.01478   6.06065   0.00000   0.00001 
+
+ Prior       |  41.37107   3.08173    13.64922   3.02340   0.22370   1.19009  338.70386   0.64808   2.09662   6.44804   0.00000   0.00000
+     10288.46|  41.21564   3.36843    13.69004   3.30722   0.22709   1.12441  338.68201   0.70023   1.96465   5.92125   0.00000   0.00000 
+
+ Prior       |  39.48046   2.35676    12.60333   2.59368   0.23184   1.17602  340.65610   0.51640   1.99094   6.21267   0.00000   0.00000
+     10813.20|  39.46314   2.56065    12.67403   2.71009   0.22972   1.09179  340.66284   0.52877   1.85483   5.67529   0.00000   0.00000 
+
+ Prior       |  39.36935   2.36580    15.03463   4.09497   0.23687   1.15462  342.45734   0.61009   1.83586   5.87726   0.00000   0.00000
+     11356.79|  39.41912   2.43851    14.88488   4.43260   0.23868   1.06853  342.46201   0.62897   1.69000   5.33624   0.00000   0.00000 
+
+ Prior       |  37.30098   3.02882    11.00684   4.74639   0.23826   1.12226  345.60309   0.87687   1.59763   5.37794   0.00000   0.00000
+     11919.88|  37.30593   3.24532    11.12953   5.24280   0.24798   1.04551  345.61530   0.85954   1.45918   4.89402   0.00000   0.00000 
+
+ Prior       |  35.75850   3.92603     7.55239   4.82012   0.23778   1.04618  351.37292   1.27007   1.24245   4.67273   0.00000   0.00000
+     12503.20|  35.70611   4.16874     7.60031   4.85602   0.25285   1.00191  351.39340   1.23051   1.14199   4.31911   0.00000   0.00000 
+
+ Prior       |  32.61180   4.41254     8.74416   3.60649   0.23249   0.95627  355.41678   1.32184   0.83311   3.87383   0.00000   0.00000
+     13100.00|  32.52324   4.48336     8.78621   3.66398   0.25021   0.94970  355.42554   1.30674   0.78334   3.66880   0.00000   0.00000 
+
+ Prior       |  29.65378   4.99217     8.97647   3.87812   0.22455   0.86582  359.11356   1.49051   0.50703   3.09475   0.00000   0.00000
+     13700.00|  29.61015   5.03356     9.07138   4.08240   0.23620   0.87481  359.09564   1.49055   0.49504   3.02131   0.00000   0.00000 
+
+ Prior       |  27.00803   4.37036    14.63100   4.55844   0.21350   0.77961  363.00540   1.85589   0.26732   2.19756   0.00000   0.00000
+     14300.00|  27.00803   4.37036    14.63100   4.55844   0.21350   0.77961  363.00540   1.85589   0.26732   2.19756   0.00000   0.00000 
+
+ Prior       |  27.28016   3.08754    15.55944   3.20772   0.19682   0.70141  371.75723   3.05538   0.09053   1.18187   0.00000   0.00000
+     14900.00|  27.28016   3.08754    15.55944   3.20772   0.19682   0.70141  371.75723   3.05538   0.09053   1.18187   0.00000   0.00000 
+
+ Prior       |  27.17487   3.17768    12.07747   2.75680   0.17783   0.68846  384.04938   3.04517   0.01574   0.46474   0.00000   0.00000
+     15500.00|  27.17487   3.17768    12.07747   2.75680   0.17783   0.68846  384.04938   3.04517   0.01574   0.46474   0.00000   0.00000 
+
+ Prior       |  27.45507   2.48101    13.20259   2.40267   0.15557   0.71090  396.98822   2.68963   0.00020   0.01839   0.00000   0.00000
+     16100.00|  27.45507   2.48101    13.20259   2.40267   0.15557   0.71090  396.98822   2.68963   0.00020   0.01839   0.00000   0.00000 
+
+ Prior       |  27.92621   1.84213    13.36139   1.84986   0.13186   0.68688  409.67529   1.75022   0.00000   0.00000   0.00000   0.00000
+     16700.00|  27.92621   1.84213    13.36139   1.84986   0.13186   0.68688  409.67529   1.75022   0.00000   0.00000   0.00000   0.00000 
+
+ Prior       |  28.18657   1.61621    13.27935   1.56918   0.10723   0.62595  415.38580   2.03956   0.00000   0.00000   0.00000   0.00000
+     17300.00|  28.18657   1.61621    13.27935   1.56918   0.10723   0.62595  415.38580   2.03956   0.00000   0.00000   0.00000   0.00000 
+
+ Prior       |  28.20728   1.47626    13.26911   1.38633   0.08422   0.56559  433.61298   2.04813   0.00000   0.00000   0.00000   0.00000
+     17900.00|  28.20728   1.47626    13.26911   1.38633   0.08422   0.56559  433.61298   2.04813   0.00000   0.00000   0.00000   0.00000 
+
+ Prior       |  28.20403   1.46531    13.23575   1.31270   0.06253   0.48364  445.38965   1.62606   0.00000   0.00000   0.00000   0.00000
+     18500.00|  28.20403   1.46531    13.23575   1.31270   0.06253   0.48364  445.38965   1.62606   0.00000   0.00000   0.00000   0.00000 
+
+ Prior       |  28.22913   1.53176    13.20325   1.34617   0.03847   0.34288  466.17151   1.45517   0.00000   0.00000   0.00000   0.00000
+     19100.00|  28.22913   1.53176    13.20325   1.34617   0.03847   0.34288  466.17151   1.45517   0.00000   0.00000   0.00000   0.00000 
+
+ Prior       |  28.25600   1.65662    13.18591   1.45663   0.01321   0.12430  488.34637   0.58541   0.00000   0.00000   0.00000   0.00000
+     19700.00|  28.25600   1.65662    13.18591   1.45663   0.01321   0.12430  488.34637   0.58541   0.00000   0.00000   0.00000   0.00000 
+
+
+ -->  LETKF:  state data now written back out!
+
+ ==> WRITE_CM1_ENS:  Writing ensemble into time_index 0 at time 2100
+
+ ==> WRITE_CM1_ENS:  CM1 prior files creation completed
+
+ Wallclock time to convert from A to C grid: 0.036  sec
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 170, in <module>
-    os.rename("Prior.nc", newPriorFile)
-FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/Prior_2003-05-08_21:15:00.nc'
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/letkf.py", line 490, in <module>
+    ens.write_CM1_ens(state, writeEns=True, writeAnalMean=writeAnalMean, overwrite=False, HF=options.HF)
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/ens.py", line 2332, in write_CM1_ens
+    f = ncdf.Dataset(file, "r+")
+  File "src/netCDF4/_netCDF4.pyx", line 2470, in netCDF4._netCDF4.Dataset.__init__
+  File "src/netCDF4/_netCDF4.pyx", line 2107, in netCDF4._netCDF4._ensure_nc_success
+OSError: [Errno -101] NetCDF: HDF error: '/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000007.nc'
+
+  ----------------------------------------------------------------------
+
+                 END PROGRAM RUN_FILTER                                 
+
+  ----------------------------------------------------------------------
 
  ==> RUN_FCST: Date&time supplied: 2003 05-08 21:15:00, which corresponds to a local model time of 2100 sec
 
@@ -755,66 +2401,63 @@ FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jes
  Run_Fcst Script: Number ensemble members to run not supplied, defaulting to experiment file:  3
 
  Run_Fcst Script: Integrating 003 ensemble members for 0300 seconds
+
+ Found time 2100 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000007.nc
+7
+
+ Found time 2100 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000007.nc
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member003/cm1.out is the outputfile path
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001 ; ./cm1.exe >> cm1.out 
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+
+Program received signal SIGSEGV: Segmentation fault - invalid memory reference.
+
+Backtrace for this error:
+#0  0x7f3ccf4f966f in ???
+#1  0x7f3ccf0c856a in ???
+#2  0x7f3ccef60325 in ???
+#3  0x7f3ccf0cf620 in ???
+#4  0x7f3ccf0b6be3 in ???
+#5  0x7f3ccf0bf518 in ???
+#6  0x7f3cceed9836 in ???
+#7  0x7f3ccef5e4b0 in ???
+#8  0x7f3cceedb102 in ???
+#9  0x7f3ccee1f60e in ???
+#10  0x7f3ccf4fbd8b in ???
+#11  0x7f3ccf4fbebf in ???
+#12  0x55b9d84866d4 in cm1
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:1762
+#13  0x55b9d8486841 in main
+	at /work/jessica.mcdonald/CM1_LETKF_2025/cm1r18v3/src/cm1.f90:5
+sh: line 1: 3053084 Segmentation fault      (core dumped) ./cm1.exe >> cm1.out
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001 ; ./cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002 ; ./cm1.exe >> cm1.out 
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 160, in <module>
-    print(FindRestartFile(experiment['fcst_members'][0],output_basename,start_time))
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 30, in FindRestartFile
-    f_time = f.variables['time'][0]
-  File "src/netCDF4/_netCDF4.pyx", line 5024, in netCDF4._netCDF4.Variable.__getitem__
-  File "src/netCDF4/_netCDF4.pyx", line 5172, in netCDF4._netCDF4.Variable._toma
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/_core/_methods.py", line 58, in _any
-    def _any(a, axis=None, dtype=None, out=None, keepdims=False, *, where=True):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 204, in <module>
+    pool.join()
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/multiprocessing/pool.py", line 665, in join
+    self._worker_handler.join()
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/threading.py", line 1096, in join
+    self._wait_for_tstate_lock()
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/threading.py", line 1116, in _wait_for_tstate_lock
+    if lock.acquire(block, timeout):
 KeyboardInterrupt
-
- ==> RUN_FCST: Date&time supplied: 2003 05-08 22:00:00, which corresponds to a local model time of 4800 sec
-
- Run_Fcst Script:  1 threads requested....
-
- Run_Fcst Script: Number ensemble members to run not supplied, defaulting to experiment file:  3
-
- Run_Fcst Script: Integrating 003 ensemble members for 1800 seconds
-
-
-ERROR!!!
-
-FindRestartFile: A file with the restart time of 4800 cannot be found, exiting!!!
-
-
-ERROR!!!
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 4, in <module>
-    import numpy as N
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/__init__.py", line 181, in <module>
-    from . import lib
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/lib/__init__.py", line 16, in <module>
-    from . import npyio
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/lib/npyio.py", line 1, in <module>
-    from ._npyio_impl import (
-  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
-  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
-  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
-  File "<frozen importlib._bootstrap_external>", line 879, in exec_module
-  File "<frozen importlib._bootstrap_external>", line 975, in get_code
-  File "<frozen importlib._bootstrap_external>", line 1074, in get_data
-KeyboardInterrupt
-
- ==> RUN_FCST: Date&time supplied: 2003 05-08 21:20:00, which corresponds to a local model time of 2400 sec
-
- Run_Fcst Script:  1 threads requested....
-
- Run_Fcst Script: Number ensemble members to run not supplied, defaulting to experiment file:  3
-
- Run_Fcst Script: Integrating 003 ensemble members for 0300 seconds
-
-
-ERROR!!!
-
-FindRestartFile: A file with the restart time of 2400 cannot be found, exiting!!!
-
-
-ERROR!!!
-Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 13, in <module>
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 13, in <module>
     import netCDF4 as ncdf
   File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/netCDF4/__init__.py", line 3, in <module>
     from ._netCDF4 import *
@@ -843,16 +2486,110 @@ KeyboardInterrupt
   >=======================  Run_Filter:  Now creating Priors =============================<  
 
 
+  -->  Run_Filter calling computeHx for time 2003,05,08,21,20,00  
+
+
+  python computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,20,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
+
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/computeHx.py", line 6, in <module>
+    from netCDF4 import *
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/netCDF4/__init__.py", line 3, in <module>
+    from ._netCDF4 import *
+  File "<frozen importlib._bootstrap>", line 404, in parent
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_filter.py", line 170, in <module>
+    os.rename("Prior.nc", newPriorFile)
+FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:20:00.nc'
+
+ ==> RUN_FCST: Date&time supplied: 2003 05-08 21:20:00, which corresponds to a local model time of 2400 sec
+
+ Run_Fcst Script:  1 threads requested....
+
+ Run_Fcst Script: Number ensemble members to run not supplied, defaulting to experiment file:  3
+
+ Run_Fcst Script: Integrating 003 ensemble members for 0300 seconds
+
+ Found time 2400 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000008.nc
+8
+
+ Found time 2400 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000008.nc
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 180, in <module>
+    namelist.write(os.path.join(experiment['base_path'],"namelist.input"), force=True)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/f90nml/namelist.py", line 587, in write
+    nml_file = nml_path if nml_is_file else open(nml_path, 'w')
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/codecs.py", line 186, in __init__
+    def __init__(self, errors='strict'):
+KeyboardInterrupt
+
+ ==> RUN_FCST: Date&time supplied: 2003 05-08 22:00:00, which corresponds to a local model time of 4800 sec
+
+ Run_Fcst Script:  1 threads requested....
+
+ Run_Fcst Script: Number ensemble members to run not supplied, defaulting to experiment file:  3
+
+ Run_Fcst Script: Integrating 003 ensemble members for 1800 seconds
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 157, in <module>
+    output_basename = namelist['param9']['output_basename']
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/f90nml/namelist.py", line 180, in __getitem__
+    return super(Namelist, self).__getitem__(lkey)
+KeyError: 'param9'
+
+  ----------------------------------------------------------------------
+
+               BEGIN PROGRAM RUN_FILTER                                 
+
+  This script sets the parameters to create Hx's and runs the letkf code
+
+  ----------------------------------------------------------------------
+
+
+ --> Run_Filter:  using the window from the EXPER file:  +/- 150 secs
+
+ --> Run_Filter:  using Synchronous DA with freq from command line:  -300 secs
+
+ --> Run_Filter:  using the observation file from the EXPER file:  Obs/obs_seq_8may03_2km.h5
+
+ --> Run_Filter:  Number of threads requested is from EXPER file:  1
+
+ --> Run_Filter:  using the inflation method from EXPER file:  1
+
+  >=======================  Run_Filter:  Now creating Priors =============================<  
+
+
   -->  Run_Filter calling computeHx for time 2003,05,08,21,25,00  
 
 
-  computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,25,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
+  python computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,25,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
 
-sh: computeHx.py: command not found
+Fatal Python error: init_import_site: Failed to import the site module
+Python runtime state: initialized
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 170, in <module>
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site.py", line 627, in <module>
+    main()
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site.py", line 614, in main
+    known_paths = addsitepackages(known_paths)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site.py", line 397, in addsitepackages
+    addsitedir(sitedir, known_paths)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site.py", line 236, in addsitedir
+    addpackage(sitedir, name, known_paths)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site.py", line 195, in addpackage
+    exec(line)
+  File "<string>", line 1, in <module>
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 879, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 975, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1074, in get_data
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_filter.py", line 170, in <module>
     os.rename("Prior.nc", newPriorFile)
-FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/Prior_2003-05-08_21:25:00.nc'
+FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:25:00.nc'
 
  ==> RUN_FCST: Date&time supplied: 2003 05-08 21:25:00, which corresponds to a local model time of 2700 sec
 
@@ -861,14 +2598,21 @@ FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jes
  Run_Fcst Script: Number ensemble members to run not supplied, defaulting to experiment file:  3
 
  Run_Fcst Script: Integrating 003 ensemble members for 0300 seconds
-
-
-ERROR!!!
-
-FindRestartFile: A file with the restart time of 2700 cannot be found, exiting!!!
-
-
-ERROR!!!
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 157, in <module>
+    output_basename = namelist['param9']['output_basename']
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/f90nml/namelist.py", line 180, in __getitem__
+    return super(Namelist, self).__getitem__(lkey)
+KeyError: 'param9'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 13, in <module>
+    import netCDF4 as ncdf
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/netCDF4/__init__.py", line 3, in <module>
+    from ._netCDF4 import *
+  File "src/netCDF4/_netCDF4.pyx", line 3347, in init netCDF4._netCDF4
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/functools.py", line 479, in lru_cache
+    def lru_cache(maxsize=128, typed=False):
+KeyboardInterrupt
 
   ----------------------------------------------------------------------
 
@@ -895,13 +2639,19 @@ ERROR!!!
   -->  Run_Filter calling computeHx for time 2003,05,08,21,30,00  
 
 
-  computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,30,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
+  python computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,30,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
 
-sh: computeHx.py: command not found
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 170, in <module>
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/computeHx.py", line 6, in <module>
+    from netCDF4 import *
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/netCDF4/__init__.py", line 3, in <module>
+    from ._netCDF4 import *
+  File "<frozen importlib._bootstrap>", line 404, in parent
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_filter.py", line 170, in <module>
     os.rename("Prior.nc", newPriorFile)
-FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/Prior_2003-05-08_21:30:00.nc'
+FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:30:00.nc'
 
  ==> RUN_FCST: Date&time supplied: 2003 05-08 21:30:00, which corresponds to a local model time of 3000 sec
 
@@ -910,65 +2660,26 @@ FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jes
  Run_Fcst Script: Number ensemble members to run not supplied, defaulting to experiment file:  3
 
  Run_Fcst Script: Integrating 003 ensemble members for 0300 seconds
-
-
-ERROR!!!
-
-FindRestartFile: A file with the restart time of 3000 cannot be found, exiting!!!
-
-
-ERROR!!!
 Traceback (most recent call last):
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/_core/__init__.py", line 23, in <module>
-    from . import multiarray
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/_core/multiarray.py", line 10, in <module>
-    from . import overrides
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/_core/overrides.py", line 8, in <module>
-    from numpy._core._multiarray_umath import (
-ImportError: PyCapsule_Import could not import module "datetime"
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 157, in <module>
+    output_basename = namelist['param9']['output_basename']
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/f90nml/namelist.py", line 180, in __getitem__
+    return super(Namelist, self).__getitem__(lkey)
+KeyError: 'param9'
 
-During handling of the above exception, another exception occurred:
+ ==> RUN_FCST: Date&time supplied: 2003 05-08 22:00:00, which corresponds to a local model time of 4800 sec
 
+ Run_Fcst Script:  1 threads requested....
+
+ Run_Fcst Script: Number ensemble members to run not supplied, defaulting to experiment file:  3
+
+ Run_Fcst Script: Integrating 003 ensemble members for 1800 seconds
 Traceback (most recent call last):
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/__init__.py", line 114, in <module>
-    from numpy.__config__ import show as show_config
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/__config__.py", line 4, in <module>
-    from numpy._core._multiarray_umath import (
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/_core/__init__.py", line 49, in <module>
-    raise ImportError(msg)
-ImportError: 
-
-IMPORTANT: PLEASE READ THIS FOR ADVICE ON HOW TO SOLVE THIS ISSUE!
-
-Importing the numpy C-extensions failed. This error can happen for
-many reasons, often due to issues with your setup or how NumPy was
-installed.
-
-We have compiled some common reasons and troubleshooting tips at:
-
-    https://numpy.org/devdocs/user/troubleshooting-importerror.html
-
-Please note and check the following:
-
-  * The Python version is: Python3.10 from "/home/jessica.mcdonald/miniconda3/envs/letkf_env/bin/python"
-  * The NumPy version is: "2.0.0"
-
-and make sure that they are the versions you expect.
-Please carefully study the documentation linked above for further help.
-
-Original error was: PyCapsule_Import could not import module "datetime"
-
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_fcst.py", line 9, in <module>
-    import numpy as N
-  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/__init__.py", line 119, in <module>
-    raise ImportError(msg) from e
-ImportError: Error importing numpy: you should not try to import numpy from
-        its source directory; please exit the numpy source tree, and relaunch
-        your python interpreter from there.
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 157, in <module>
+    output_basename = namelist['param9']['output_basename']
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/f90nml/namelist.py", line 180, in __getitem__
+    return super(Namelist, self).__getitem__(lkey)
+KeyError: 'param9'
 
   ----------------------------------------------------------------------
 
@@ -995,13 +2706,30 @@ ImportError: Error importing numpy: you should not try to import numpy from
   -->  Run_Filter calling computeHx for time 2003,05,08,21,35,00  
 
 
-  computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,35,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
+  python computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,35,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
 
-sh: computeHx.py: command not found
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 170, in <module>
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/computeHx.py", line 7, in <module>
+    import pyDart
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/pyDart.py", line 12, in <module>
+    import pylab as P
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/pylab.py", line 1, in <module>
+    from matplotlib.pylab import *  # noqa: F401, F403
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/matplotlib/__init__.py", line 159, in <module>
+    from . import _api, _version, cbook, _docstring, rcsetup
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/matplotlib/rcsetup.py", line 28, in <module>
+    from matplotlib.colors import Colormap, is_color_like
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/matplotlib/colors.py", line 53, in <module>
+    from PIL.PngImagePlugin import PngInfo
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/PIL/PngImagePlugin.py", line 45, in <module>
+    from . import Image, ImageChops, ImageFile, ImagePalette, ImageSequence
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/PIL/ImageFile.py", line 644, in <module>
+    class PyCodec:
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_filter.py", line 170, in <module>
     os.rename("Prior.nc", newPriorFile)
-FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/Prior_2003-05-08_21:35:00.nc'
+FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:35:00.nc'
 
  ==> RUN_FCST: Date&time supplied: 2003 05-08 21:35:00, which corresponds to a local model time of 3300 sec
 
@@ -1010,30 +2738,26 @@ FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jes
  Run_Fcst Script: Number ensemble members to run not supplied, defaulting to experiment file:  3
 
  Run_Fcst Script: Integrating 003 ensemble members for 0300 seconds
-
-
-ERROR!!!
-
-FindRestartFile: A file with the restart time of 3300 cannot be found, exiting!!!
-
-
-ERROR!!!
-
- ==> RUN_FCST: Date&time supplied: 2003 05-08 22:00:00, which corresponds to a local model time of 4800 sec
-
- Run_Fcst Script:  1 threads requested....
-
- Run_Fcst Script: Number ensemble members to run not supplied, defaulting to experiment file:  3
-
- Run_Fcst Script: Integrating 003 ensemble members for 1800 seconds
-
-
-ERROR!!!
-
-FindRestartFile: A file with the restart time of 4800 cannot be found, exiting!!!
-
-
-ERROR!!!
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 157, in <module>
+    output_basename = namelist['param9']['output_basename']
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/f90nml/namelist.py", line 180, in __getitem__
+    return super(Namelist, self).__getitem__(lkey)
+KeyError: 'param9'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 9, in <module>
+    import numpy as N
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/__init__.py", line 181, in <module>
+    from . import lib
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/lib/__init__.py", line 16, in <module>
+    from . import npyio
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 879, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 975, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1074, in get_data
+KeyboardInterrupt
 
   ----------------------------------------------------------------------
 
@@ -1060,13 +2784,34 @@ ERROR!!!
   -->  Run_Filter calling computeHx for time 2003,05,08,21,40,00  
 
 
-  computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,40,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
+  python computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,40,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
 
-sh: computeHx.py: command not found
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 170, in <module>
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/computeHx.py", line 7, in <module>
+    import pyDart
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/pyDart.py", line 12, in <module>
+    import pylab as P
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/pylab.py", line 1, in <module>
+    from matplotlib.pylab import *  # noqa: F401, F403
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/matplotlib/__init__.py", line 159, in <module>
+    from . import _api, _version, cbook, _docstring, rcsetup
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/matplotlib/rcsetup.py", line 29, in <module>
+    from matplotlib._fontconfig_pattern import parse_fontconfig_pattern
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/matplotlib/_fontconfig_pattern.py", line 15, in <module>
+    from pyparsing import (
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/pyparsing/__init__.py", line 99, in <module>
+    class version_info(NamedTuple):
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/typing.py", line 2279, in __new__
+    nm_tpl = _make_nmtuple(typename, types.items(),
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/typing.py", line 2251, in _make_nmtuple
+    nm_tpl = collections.namedtuple(name, fields,
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/collections/__init__.py", line 402, in namedtuple
+    repr_fmt = '(' + ', '.join(f'{name}=%r' for name in field_names) + ')'
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_filter.py", line 170, in <module>
     os.rename("Prior.nc", newPriorFile)
-FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/Prior_2003-05-08_21:40:00.nc'
+FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:40:00.nc'
 
  ==> RUN_FCST: Date&time supplied: 2003 05-08 21:40:00, which corresponds to a local model time of 3600 sec
 
@@ -1075,30 +2820,38 @@ FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jes
  Run_Fcst Script: Number ensemble members to run not supplied, defaulting to experiment file:  3
 
  Run_Fcst Script: Integrating 003 ensemble members for 0300 seconds
-
-
-ERROR!!!
-
-FindRestartFile: A file with the restart time of 3600 cannot be found, exiting!!!
-
-
-ERROR!!!
-
- ==> RUN_FCST: Date&time supplied: 2003 05-08 22:00:00, which corresponds to a local model time of 4800 sec
-
- Run_Fcst Script:  1 threads requested....
-
- Run_Fcst Script: Number ensemble members to run not supplied, defaulting to experiment file:  3
-
- Run_Fcst Script: Integrating 003 ensemble members for 1800 seconds
-
-
-ERROR!!!
-
-FindRestartFile: A file with the restart time of 4800 cannot be found, exiting!!!
-
-
-ERROR!!!
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 157, in <module>
+    output_basename = namelist['param9']['output_basename']
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/f90nml/namelist.py", line 180, in __getitem__
+    return super(Namelist, self).__getitem__(lkey)
+KeyError: 'param9'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 9, in <module>
+    import numpy as N
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/__init__.py", line 181, in <module>
+    from . import lib
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/lib/__init__.py", line 23, in <module>
+    from . import _index_tricks_impl
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/lib/_index_tricks_impl.py", line 12, in <module>
+    import numpy.matrixlib as matrixlib
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/matrixlib/__init__.py", line 4, in <module>
+    from . import defmatrix
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/matrixlib/defmatrix.py", line 12, in <module>
+    from numpy.linalg import matrix_power
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/linalg/__init__.py", line 88, in <module>
+    from . import _linalg
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/linalg/_linalg.py", line 41, in <module>
+    from numpy._typing import NDArray
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/_typing/__init__.py", line 92, in <module>
+    from ._nested_sequence import (
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 879, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 975, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1074, in get_data
+KeyboardInterrupt
 
   ----------------------------------------------------------------------
 
@@ -1125,13 +2878,19 @@ ERROR!!!
   -->  Run_Filter calling computeHx for time 2003,05,08,21,45,00  
 
 
-  computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,45,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
+  python computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,45,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
 
-sh: computeHx.py: command not found
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 170, in <module>
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/computeHx.py", line 6, in <module>
+    from netCDF4 import *
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/netCDF4/__init__.py", line 3, in <module>
+    from ._netCDF4 import *
+  File "<frozen importlib._bootstrap>", line 404, in parent
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_filter.py", line 170, in <module>
     os.rename("Prior.nc", newPriorFile)
-FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/Prior_2003-05-08_21:45:00.nc'
+FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:45:00.nc'
 
  ==> RUN_FCST: Date&time supplied: 2003 05-08 21:45:00, which corresponds to a local model time of 3900 sec
 
@@ -1140,30 +2899,22 @@ FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jes
  Run_Fcst Script: Number ensemble members to run not supplied, defaulting to experiment file:  3
 
  Run_Fcst Script: Integrating 003 ensemble members for 0300 seconds
-
-
-ERROR!!!
-
-FindRestartFile: A file with the restart time of 3900 cannot be found, exiting!!!
-
-
-ERROR!!!
-
- ==> RUN_FCST: Date&time supplied: 2003 05-08 22:00:00, which corresponds to a local model time of 4800 sec
-
- Run_Fcst Script:  1 threads requested....
-
- Run_Fcst Script: Number ensemble members to run not supplied, defaulting to experiment file:  3
-
- Run_Fcst Script: Integrating 003 ensemble members for 1800 seconds
-
-
-ERROR!!!
-
-FindRestartFile: A file with the restart time of 4800 cannot be found, exiting!!!
-
-
-ERROR!!!
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 157, in <module>
+    output_basename = namelist['param9']['output_basename']
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/f90nml/namelist.py", line 180, in __getitem__
+    return super(Namelist, self).__getitem__(lkey)
+KeyError: 'param9'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 10, in <module>
+    from multiprocessing import Pool
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 879, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 975, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1074, in get_data
+KeyboardInterrupt
 
   ----------------------------------------------------------------------
 
@@ -1190,13 +2941,27 @@ ERROR!!!
   -->  Run_Filter calling computeHx for time 2003,05,08,21,50,00  
 
 
-  computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,50,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
+  python computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,50,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
 
-sh: computeHx.py: command not found
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 170, in <module>
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/computeHx.py", line 4, in <module>
+    import numpy as N
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/__init__.py", line 181, in <module>
+    from . import lib
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/lib/__init__.py", line 35, in <module>
+    from . import _arrayterator_impl
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 879, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 969, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1091, in path_stats
+  File "<frozen importlib._bootstrap_external>", line 147, in _path_stat
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_filter.py", line 170, in <module>
     os.rename("Prior.nc", newPriorFile)
-FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/Prior_2003-05-08_21:50:00.nc'
+FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:50:00.nc'
 
  ==> RUN_FCST: Date&time supplied: 2003 05-08 21:50:00, which corresponds to a local model time of 4200 sec
 
@@ -1205,30 +2970,32 @@ FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jes
  Run_Fcst Script: Number ensemble members to run not supplied, defaulting to experiment file:  3
 
  Run_Fcst Script: Integrating 003 ensemble members for 0300 seconds
-
-
-ERROR!!!
-
-FindRestartFile: A file with the restart time of 4200 cannot be found, exiting!!!
-
-
-ERROR!!!
-
- ==> RUN_FCST: Date&time supplied: 2003 05-08 22:00:00, which corresponds to a local model time of 4800 sec
-
- Run_Fcst Script:  1 threads requested....
-
- Run_Fcst Script: Number ensemble members to run not supplied, defaulting to experiment file:  3
-
- Run_Fcst Script: Integrating 003 ensemble members for 1800 seconds
-
-
-ERROR!!!
-
-FindRestartFile: A file with the restart time of 4800 cannot be found, exiting!!!
-
-
-ERROR!!!
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 157, in <module>
+    output_basename = namelist['param9']['output_basename']
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/f90nml/namelist.py", line 180, in __getitem__
+    return super(Namelist, self).__getitem__(lkey)
+KeyError: 'param9'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 9, in <module>
+    import numpy as N
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/__init__.py", line 181, in <module>
+    from . import lib
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/lib/__init__.py", line 16, in <module>
+    from . import npyio
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/lib/npyio.py", line 1, in <module>
+    from ._npyio_impl import (
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/lib/_npyio_impl.py", line 17, in <module>
+    from . import format
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/lib/format.py", line 170, in <module>
+    from numpy.lib._utils_impl import drop_metadata
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 879, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 975, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1074, in get_data
+KeyboardInterrupt
 
   ----------------------------------------------------------------------
 
@@ -1255,13 +3022,42 @@ ERROR!!!
   -->  Run_Filter calling computeHx for time 2003,05,08,21,55,00  
 
 
-  computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,55,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
+  python computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,21,55,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
 
-sh: computeHx.py: command not found
+
+  ----------------------------------------------------------------------
+
+                BEGIN PROGRAM ComputeHx                                 
+
+    WALLCLOCK START TIME:  2025-02-28 11:47 
+
+
+  ----------------------------------------------------------------------
+
+ --> ComputeHx:  using the obs errors from the EXPER file:  {'11': ['VR', 2.0], '12': ['DBZ', 5.0]}
+
+ --> ComputeHx:  using the window from the command line:  +/- 150 secs
+
+ --> ComputeHx:  using the observation file from the command line:  Obs/obs_seq_8may03_2km.h5
+
+ --> ComputeHx: obs outlier is from EXPER file:  3
+
+ --> ComputeHx:  Reading in model state for HxF at 2003-05-08 21:55:00 
+
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:55:00
+
+
+  ERROR!!!
+
+ ==>!! FindRestartFile: A file with the restart time of 4500 cannot be found, exiting!!!
+
+
+  ERROR!!!
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 170, in <module>
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_filter.py", line 170, in <module>
     os.rename("Prior.nc", newPriorFile)
-FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/Prior_2003-05-08_21:55:00.nc'
+FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_21:55:00.nc'
 
  ==> RUN_FCST: Date&time supplied: 2003 05-08 21:55:00, which corresponds to a local model time of 4500 sec
 
@@ -1270,14 +3066,12 @@ FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jes
  Run_Fcst Script: Number ensemble members to run not supplied, defaulting to experiment file:  3
 
  Run_Fcst Script: Integrating 003 ensemble members for 0300 seconds
-
-
-ERROR!!!
-
-FindRestartFile: A file with the restart time of 4500 cannot be found, exiting!!!
-
-
-ERROR!!!
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 157, in <module>
+    output_basename = namelist['param9']['output_basename']
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/f90nml/namelist.py", line 180, in __getitem__
+    return super(Namelist, self).__getitem__(lkey)
+KeyError: 'param9'
 
  ==> RUN_FCST: Date&time supplied: 2003 05-08 22:00:00, which corresponds to a local model time of 4800 sec
 
@@ -1286,14 +3080,12 @@ ERROR!!!
  Run_Fcst Script: Number ensemble members to run not supplied, defaulting to experiment file:  3
 
  Run_Fcst Script: Integrating 003 ensemble members for 1800 seconds
-
-
-ERROR!!!
-
-FindRestartFile: A file with the restart time of 4800 cannot be found, exiting!!!
-
-
-ERROR!!!
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 157, in <module>
+    output_basename = namelist['param9']['output_basename']
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/f90nml/namelist.py", line 180, in __getitem__
+    return super(Namelist, self).__getitem__(lkey)
+KeyError: 'param9'
 
   ----------------------------------------------------------------------
 
@@ -1320,13 +3112,42 @@ ERROR!!!
   -->  Run_Filter calling computeHx for time 2003,05,08,22,00,00  
 
 
-  computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,22,00,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
+  python computeHx.py --exper RUN_LETKF/RUN_LETKF.exp --time 2003,05,08,22,00,00 -o Obs/obs_seq_8may03_2km.h5 --window 300 --init
 
-sh: computeHx.py: command not found
+
+  ----------------------------------------------------------------------
+
+                BEGIN PROGRAM ComputeHx                                 
+
+    WALLCLOCK START TIME:  2025-02-28 11:47 
+
+
+  ----------------------------------------------------------------------
+
+ --> ComputeHx:  using the obs errors from the EXPER file:  {'11': ['VR', 2.0], '12': ['DBZ', 5.0]}
+
+ --> ComputeHx:  using the window from the command line:  +/- 150 secs
+
+ --> ComputeHx:  using the observation file from the command line:  Obs/obs_seq_8may03_2km.h5
+
+ --> ComputeHx: obs outlier is from EXPER file:  3
+
+ --> ComputeHx:  Reading in model state for HxF at 2003-05-08 22:00:00 
+
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 22:00:00
+
+
+  ERROR!!!
+
+ ==>!! FindRestartFile: A file with the restart time of 4800 cannot be found, exiting!!!
+
+
+  ERROR!!!
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/run_filter.py", line 170, in <module>
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_filter.py", line 170, in <module>
     os.rename("Prior.nc", newPriorFile)
-FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jessica.mcdonald/CM1_LETKF_2020/RUN_LETKF/Prior_2003-05-08_22:00:00.nc'
+FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/Prior_2003-05-08_22:00:00.nc'
 
  ==> RUN_FCST: Date&time supplied: 2003 05-08 22:00:00, which corresponds to a local model time of 4800 sec
 
@@ -1335,98 +3156,472 @@ FileNotFoundError: [Errno 2] No such file or directory: 'Prior.nc' -> '/work/jes
  Run_Fcst Script: Number ensemble members to run not supplied, defaulting to experiment file:  3
 
  Run_Fcst Script: Integrating 003 ensemble members for 1800 seconds
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 157, in <module>
+    output_basename = namelist['param9']['output_basename']
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/f90nml/namelist.py", line 180, in __getitem__
+    return super(Namelist, self).__getitem__(lkey)
+KeyError: 'param9'
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:00:00
+
+ ==> FindRestartFile:  Found time 1200 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000004.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2003-05-08 21:00:00 
 
 
-ERROR!!!
+ Wallclock time for serial read netCDF ensemble files: 0.194  sec
 
-FindRestartFile: A file with the restart time of 4800 cannot be found, exiting!!!
+ Wallclock time to convert from C to A grid: 0.021  sec
+
+ Wallclock time to create ensemble means: 0.067  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 0.321  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+  --> PLOT9 saving to file None_zvdh_W_0.7KM_2100.pdf
+
+ Plotting member 1
+
+ Plotting member 2
+
+ Plotting member 3
+
+ Plotting member 4
+
+ Plotting member 5
+getitem VAR: W --> index (np.int64(4), 4, slice(None, None, None), slice(None, None, None)) not valid  W shape: (4, 51, 75, 75)  
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/ens.py", line 2650, in <module>
+    fig = ens_PLOT_9PANEL(state, klevel=options.klevel, cparams=options.cparams, var = options.var, zoom=options.zoom, savefig=savefile)
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/ens.py", line 965, in ens_PLOT_9PANEL
+    mfld = N.clip(ens[var][mem[n],klevel,:,:],cparams[0],cparams[1])
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/_core/fromnumeric.py", line 2247, in clip
+    return _wrapfunc(a, 'clip', a_min, a_max, out=out, **kwargs)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/_core/fromnumeric.py", line 54, in _wrapfunc
+    return _wrapit(obj, method, *args, **kwds)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/_core/fromnumeric.py", line 46, in _wrapit
+    result = getattr(arr, method)(*args, **kwds)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/_core/_methods.py", line 108, in _clip
+    return um.clip(a, min, max, out=out, **kwargs)
+TypeError: '>=' not supported between instances of 'NoneType' and 'int'
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:00:00
+
+ ==> FindRestartFile:  Found time 1200 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000004.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2003-05-08 21:00:00 
 
 
-ERROR!!!
+ Wallclock time for serial read netCDF ensemble files: 0.19  sec
+
+ Wallclock time to convert from C to A grid: 0.034  sec
+
+ Wallclock time to create ensemble means: 0.082  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 0.362  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+  --> PLOT9 saving to file None_zvdh_WZ_0.7KM_2100.pdf
+
+ Plotting member 1
+
+ Plotting member 2
+
+ Plotting member 3
+
+ Plotting member 4
+
+ Plotting member 5
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 25, in <module>
-    import ctablesf
-ModuleNotFoundError: No module named 'ctablesf'
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/ens.py", line 2650, in <module>
+    fig = ens_PLOT_9PANEL(state, klevel=options.klevel, cparams=options.cparams, var = options.var, zoom=options.zoom, savefig=savefile)
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/ens.py", line 963, in ens_PLOT_9PANEL
+    mfld = 10000.*ComputeWZ(fstate.xc, fstate.yc, fstate.u[mem[n],klevel], fstate.v[mem[n],klevel])
+IndexError: index 4 is out of bounds for axis 0 with size 4
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:00:00
+
+ ==> FindRestartFile:  Found time 1200 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000004.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2003-05-08 21:00:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 0.186  sec
+
+ Wallclock time to convert from C to A grid: 0.02  sec
+
+ Wallclock time to create ensemble means: 0.062  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 0.305  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+  --> PLOT8 saving to file None_zvdh_DBZ_OBS_0.7KM_2100.pdf
+
+ ==> ens_GRID_REFL: Using pyDart to search with begin time of:  2003-05-08 20:57:30
+
+ ==> ens_GRID_REFL: Using pyDart to search with end   time of:  2003-05-08 21:02:30
+  pyDART.search:  no variable supplied....all vars dumped
+  pyDART.search:  Start datetime:  2003-05-08 20:57:30
+  pyDART.search:  End datetime:  2003-05-08 20:57:30
+
+  pyDART file is version:  pyDART_file_version_2.3 
+  \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+
+  PyDART SEARCH START TIME  2003-05-08 20:57:30  /  UTIME_START: 1052427450
+  PyDART SEARCH END   TIME  2003-05-08 21:02:30  /  UTIME_END:   1052427750
+  PyDART converted utimes: 2003-05-08 20:57:30
+
+  PyDART SEARCH CONDITION IS: (1052427450 <= utime) & (utime < 1052427750) & (kind == 12) & (value > 0.) & (z < 10000.)
+
+  ==> ens_GRID_REFL:  Total number of obs found at search time: 4576 
+
+
+  pyDART file is version:  pyDART_file_version_2.3 
+  \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+
+
+ ==> ens_GRID_REFL: Number of points found from initial search:      4576
+ Information about where the obs are relative to the grid...
+X-GRID MIN: -99.0  X-OB MIN:  -111.3  X-OB MAX:  65.0  X-GRID MAX:  49.0
+Y-GRID MIN: -99.0  Y-OB MIN:  -86.6  Y-OB MAX:  65.2  Y-GRID MAX:  49.0
+Z-GRID MIN:  0.5  Z-OB MIN:   0.4  Z-OB MAX:  10.3  Z-GRID MAX:  20.1
+
+ ==> ens_GRID_REFL: 3D gridded DBZ:   Max:  44.7   Min:   0.0
+
+ --> PLOT_9PANEL:  Interpolated reflectivity
+
+ Plotting member 1
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 25, in <module>
-    import ctablesf
-ModuleNotFoundError: No module named 'ctablesf'
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/ens.py", line 2643, in <module>
+    fig = ens_PLOT_9PANEL(state, klevel=options.klevel, obs=True, cparams=options.cparams, var = options.var, zoom=options.zoom, savefig=savefile)
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/ens.py", line 958, in ens_PLOT_9PANEL
+    counties=True, cmap=ctables.REF_default, zoom = zoom)
+NameError: name 'ctables' is not defined
+ FORTRAN OBS_2_GRID3D:  dims            75          75          51        4576
+ FORTRAN OBS_2_GRID3D:  dx, hscale   2000.00000       4000.00000    
+ FORTRAN OBS_2_GRID3D:  dy, hscale   2000.00000       4000.00000    
+ FORTRAN OBS_2_GRID3D:  vscale     2000.00000    
+ FORTRAN OBS_2_GRID3D:    obs    4.97565418E-03   52.5284691    
+ FORTRAN OBS_2_GRID3D:  x-obs   -111333.266       64955.2656    
+ FORTRAN OBS_2_GRID3D:  y-obs   -86621.0391       65164.3086    
+ FORTRAN OBS_2_GRID3D:  z-obs    414.662781       10345.3047    
+ FORTRAN OBS_2_GRID3D:  x-grid  -99000.0000       49000.0000    
+ FORTRAN OBS_2_GRID3D:  y-grid  -99000.0000       49000.0000    
+ FORTRAN OBS_2_GRID3D:  z-grid   450.692535       20073.0000    
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:10:00
+
+ ==> FindRestartFile:  Found time 1800 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000006.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2003-05-08 21:10:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 0.23  sec
+
+ Wallclock time to convert from C to A grid: 0.02  sec
+
+ Wallclock time to create ensemble means: 0.085  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 0.375  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+  --> PLOT9 saving to file None_zvdh_W_0.7KM_2110.pdf
+
+ Plotting member 1
+
+ Plotting member 2
+
+ Plotting member 3
+
+ Plotting member 4
+
+ Plotting member 5
+getitem VAR: W --> index (np.int64(4), 4, slice(None, None, None), slice(None, None, None)) not valid  W shape: (4, 51, 75, 75)  
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 25, in <module>
-    import ctablesf
-ModuleNotFoundError: No module named 'ctablesf'
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/ens.py", line 2650, in <module>
+    fig = ens_PLOT_9PANEL(state, klevel=options.klevel, cparams=options.cparams, var = options.var, zoom=options.zoom, savefig=savefile)
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/ens.py", line 965, in ens_PLOT_9PANEL
+    mfld = N.clip(ens[var][mem[n],klevel,:,:],cparams[0],cparams[1])
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/_core/fromnumeric.py", line 2247, in clip
+    return _wrapfunc(a, 'clip', a_min, a_max, out=out, **kwargs)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/_core/fromnumeric.py", line 54, in _wrapfunc
+    return _wrapit(obj, method, *args, **kwds)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/_core/fromnumeric.py", line 46, in _wrapit
+    result = getattr(arr, method)(*args, **kwds)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/_core/_methods.py", line 108, in _clip
+    return um.clip(a, min, max, out=out, **kwargs)
+TypeError: '>=' not supported between instances of 'NoneType' and 'int'
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:10:00
+
+ ==> FindRestartFile:  Found time 1800 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000006.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2003-05-08 21:10:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 0.203  sec
+
+ Wallclock time to convert from C to A grid: 0.024  sec
+
+ Wallclock time to create ensemble means: 0.062  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 0.328  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+  --> PLOT9 saving to file None_zvdh_WZ_0.7KM_2110.pdf
+
+ Plotting member 1
+
+ Plotting member 2
+
+ Plotting member 3
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 25, in <module>
-    import ctablesf
-ModuleNotFoundError: No module named 'ctablesf'
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/ens.py", line 2650, in <module>
+    fig = ens_PLOT_9PANEL(state, klevel=options.klevel, cparams=options.cparams, var = options.var, zoom=options.zoom, savefig=savefile)
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/ens.py", line 968, in ens_PLOT_9PANEL
+    PLOT_ONE(mfld, x2d, y2d, map, clevels=clevels, height=ens.zc[klevel], label = label, ax = ax, \
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/ens.py", line 851, in PLOT_ONE
+    mymap_draw_details(map, shape_env=None, ax=ax)
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/ens.py", line 400, in mymap_draw_details
+    bmap.drawcounties(ax=ax)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/mpl_toolkits/basemap/__init__.py", line 1984, in drawcounties
+    county_info = self.readshapefile(gis_file,'counties',\
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/mpl_toolkits/basemap/__init__.py", line 2191, in readshapefile
+    x, y = self(lons, lats)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/mpl_toolkits/basemap/__init__.py", line 1145, in __call__
+    def __call__(self,x,y,inverse=False):
+KeyboardInterrupt
+Fatal Python error: init_import_site: Failed to import the site module
+Python runtime state: initialized
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 25, in <module>
-    import ctablesf
-ModuleNotFoundError: No module named 'ctablesf'
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site.py", line 627, in <module>
+    main()
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site.py", line 614, in main
+    known_paths = addsitepackages(known_paths)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site.py", line 397, in addsitepackages
+    addsitedir(sitedir, known_paths)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site.py", line 236, in addsitedir
+    addpackage(sitedir, name, known_paths)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site.py", line 184, in addpackage
+    f = io.TextIOWrapper(io.open_code(fullname), encoding="locale")
+KeyboardInterrupt
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 25, in <module>
-    import ctablesf
-ModuleNotFoundError: No module named 'ctablesf'
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/ens.py", line 14, in <module>
+    import matplotlib.pyplot as P
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/matplotlib/pyplot.py", line 55, in <module>
+    import matplotlib.colorbar
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/matplotlib/colorbar.py", line 19, in <module>
+    from matplotlib import _api, cbook, collections, cm, colors, contour, ticker
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/matplotlib/collections.py", line 20, in <module>
+    from . import (_api, _path, artist, cbook, cm, colors as mcolors, _docstring,
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/matplotlib/lines.py", line 229, in <module>
+    class Line2D(Artist):
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/matplotlib/artist.py", line 150, in __init_subclass__
+    cls._update_set_signature_and_docstring()
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/matplotlib/artist.py", line 178, in _update_set_signature_and_docstring
+    + kwdoc(cls))
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/matplotlib/artist.py", line 1858, in kwdoc
+    'Properties:\n' + '\n'.join(ai.pprint_setters(leadingspace=4)))
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/matplotlib/artist.py", line 1619, in pprint_setters
+    accepts = self.get_valid_values(prop)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/matplotlib/artist.py", line 1486, in get_valid_values
+    docstring = inspect.getdoc(func)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/inspect.py", line 742, in getdoc
+    return cleandoc(doc)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/inspect.py", line 765, in cleandoc
+    for i in range(1, len(lines)): lines[i] = lines[i][margin:]
+KeyboardInterrupt
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 25, in <module>
-    import ctablesf
-ModuleNotFoundError: No module named 'ctablesf'
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/ens.py", line 5, in <module>
+    import netCDF4 as ncdf
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/netCDF4/__init__.py", line 3, in <module>
+    from ._netCDF4 import *
+  File "src/netCDF4/_netCDF4.pyx", line 1, in init netCDF4._netCDF4
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/__init__.py", line 181, in <module>
+    from . import lib
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/lib/__init__.py", line 16, in <module>
+    from . import npyio
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/lib/npyio.py", line 1, in <module>
+    from ._npyio_impl import (
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/lib/_npyio_impl.py", line 17, in <module>
+    from . import format
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/lib/format.py", line 170, in <module>
+    from numpy.lib._utils_impl import drop_metadata
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/lib/_utils_impl.py", line 3, in <module>
+    import textwrap
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 879, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 975, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1074, in get_data
+KeyboardInterrupt
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:20:00
+
+ ==> FindRestartFile:  Found time 2400 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member001/cm1out_rst_000008.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2003-05-08 21:20:00 
+
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 25, in <module>
-    import ctablesf
-ModuleNotFoundError: No module named 'ctablesf'
-Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 25, in <module>
-    import ctablesf
-ModuleNotFoundError: No module named 'ctablesf'
-Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 25, in <module>
-    import ctablesf
-ModuleNotFoundError: No module named 'ctablesf'
-Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 25, in <module>
-    import ctablesf
-ModuleNotFoundError: No module named 'ctablesf'
-Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 25, in <module>
-    import ctablesf
-ModuleNotFoundError: No module named 'ctablesf'
-Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 25, in <module>
-    import ctablesf
-ModuleNotFoundError: No module named 'ctablesf'
-Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 25, in <module>
-    import ctablesf
-ModuleNotFoundError: No module named 'ctablesf'
-Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 25, in <module>
-    import ctablesf
-ModuleNotFoundError: No module named 'ctablesf'
-Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 25, in <module>
-    import ctablesf
-ModuleNotFoundError: No module named 'ctablesf'
-Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 25, in <module>
-    import ctablesf
-ModuleNotFoundError: No module named 'ctablesf'
-Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 25, in <module>
-    import ctablesf
-ModuleNotFoundError: No module named 'ctablesf'
-Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 25, in <module>
-    import ctablesf
-ModuleNotFoundError: No module named 'ctablesf'
-Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 25, in <module>
-    import ctablesf
-ModuleNotFoundError: No module named 'ctablesf'
-Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/ens.py", line 25, in <module>
-    import ctablesf
-ModuleNotFoundError: No module named 'ctablesf'
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/ens.py", line 2607, in <module>
+    state = read_CM1_ens(files, exper, state_vector=None, DateTime=myDT, addmean=1)
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/ens.py", line 2158, in read_CM1_ens
+    f = ncdf.Dataset(fi, "r")
+  File "src/netCDF4/_netCDF4.pyx", line 2470, in netCDF4._netCDF4.Dataset.__init__
+  File "src/netCDF4/_netCDF4.pyx", line 2107, in netCDF4._netCDF4._ensure_nc_success
+FileNotFoundError: [Errno 2] No such file or directory: '/work/jessica.mcdonald/CM1_LETKF_2025/RUN_LETKF/member002/cm1out_rst_000008.nc'
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:30:00
+
+
+  ERROR!!!
+
+ ==>!! FindRestartFile: A file with the restart time of 3000 cannot be found, exiting!!!
+
+
+  ERROR!!!
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:30:00
+
+
+  ERROR!!!
+
+ ==>!! FindRestartFile: A file with the restart time of 3000 cannot be found, exiting!!!
+
+
+  ERROR!!!
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:30:00
+
+
+  ERROR!!!
+
+ ==>!! FindRestartFile: A file with the restart time of 3000 cannot be found, exiting!!!
+
+
+  ERROR!!!
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:40:00
+
+
+  ERROR!!!
+
+ ==>!! FindRestartFile: A file with the restart time of 3600 cannot be found, exiting!!!
+
+
+  ERROR!!!
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:40:00
+
+
+  ERROR!!!
+
+ ==>!! FindRestartFile: A file with the restart time of 3600 cannot be found, exiting!!!
+
+
+  ERROR!!!
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:40:00
+
+
+  ERROR!!!
+
+ ==>!! FindRestartFile: A file with the restart time of 3600 cannot be found, exiting!!!
+
+
+  ERROR!!!
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:50:00
+
+
+  ERROR!!!
+
+ ==>!! FindRestartFile: A file with the restart time of 4200 cannot be found, exiting!!!
+
+
+  ERROR!!!
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:50:00
+
+
+  ERROR!!!
+
+ ==>!! FindRestartFile: A file with the restart time of 4200 cannot be found, exiting!!!
+
+
+  ERROR!!!
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 21:50:00
+
+
+  ERROR!!!
+
+ ==>!! FindRestartFile: A file with the restart time of 4200 cannot be found, exiting!!!
+
+
+  ERROR!!!
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 22:00:00
+
+
+  ERROR!!!
+
+ ==>!! FindRestartFile: A file with the restart time of 4800 cannot be found, exiting!!!
+
+
+  ERROR!!!
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 22:00:00
+
+
+  ERROR!!!
+
+ ==>!! FindRestartFile: A file with the restart time of 4800 cannot be found, exiting!!!
+
+
+  ERROR!!!
+
+ ==> FindRestartFiles: Date and time supplied is 2003_05_08 22:00:00
+
+
+  ERROR!!!
+
+ ==>!! FindRestartFile: A file with the restart time of 4800 cannot be found, exiting!!!
+
+
+  ERROR!!!
 
  
  <<<<<======================================================================>>>>>> 
@@ -1435,11 +3630,20 @@ ModuleNotFoundError: No module named 'ctablesf'
      CONSISTENCY RATIO PLOT       
 
  
-[]
+['RUN_LETKF/Prior_2003-05-08_21:00:00.nc', 'RUN_LETKF/Prior_2003-05-08_21:05:00.nc', 'RUN_LETKF/Prior_2003-05-08_21:10:00.nc', 'RUN_LETKF/Prior_2003-05-08_21:15:00.nc']
+
+First file:  RUN_LETKF/Prior_2003-05-08_21:00:00.nc
+Last file:   RUN_LETKF/Prior_2003-05-08_21:15:00.nc
+
+
+ 2D CONSISTENCY RATIO CALCULATIONS......
+
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/DBZ_CR.py", line 103, in <module>
-    print("\nFirst file:  %s" % file_list[0])
-IndexError: list index out of range
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/DBZ_CR.py", line 153, in <module>
+    datebins.append((ncdf.num2date(secs[1],units=sec_utime)).strftime("%Y%m%d%H%M%S"))
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/ma/core.py", line 3254, in __getitem__
+    dout = self.data[indx]
+IndexError: index 1 is out of bounds for axis 0 with size 0
 
 
 <<<<<===========================================================================================>>>>>>
@@ -1448,11 +3652,20 @@ IndexError: list index out of range
      INNOVATION PLOTS     
 
    
-[]
+['RUN_LETKF/Prior_2003-05-08_21:00:00.nc', 'RUN_LETKF/Prior_2003-05-08_21:05:00.nc', 'RUN_LETKF/Prior_2003-05-08_21:10:00.nc', 'RUN_LETKF/Prior_2003-05-08_21:15:00.nc']
+
+First file:  RUN_LETKF/Prior_2003-05-08_21:00:00.nc
+Last file:   RUN_LETKF/Prior_2003-05-08_21:15:00.nc
+
+
+ 2D INNOVATION CALCULATIONS......
+
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/DBZ_INV.py", line 104, in <module>
-    print("\nFirst file:  %s" % file_list[0])
-IndexError: list index out of range
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/DBZ_INV.py", line 152, in <module>
+    datebins.append((ncdf.num2date(secs[1],units=sec_utime)).strftime("%Y%m%d%H%M%S"))
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/ma/core.py", line 3254, in __getitem__
+    dout = self.data[indx]
+IndexError: index 1 is out of bounds for axis 0 with size 0
 
 <<<<<===========================================================================================>>>>>>
 
@@ -1460,11 +3673,20 @@ IndexError: list index out of range
     CONSISTENCY RATIO PLOT       
 
 
-[]
+['RUN_LETKF/Prior_2003-05-08_21:00:00.nc', 'RUN_LETKF/Prior_2003-05-08_21:05:00.nc', 'RUN_LETKF/Prior_2003-05-08_21:10:00.nc', 'RUN_LETKF/Prior_2003-05-08_21:15:00.nc']
+
+First file:  RUN_LETKF/Prior_2003-05-08_21:00:00.nc
+Last file:   RUN_LETKF/Prior_2003-05-08_21:15:00.nc
+
+
+ 2D CONSISTENCY RATIO CALCULATIONS......
+
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/VR_CR.py", line 106, in <module>
-    print("\nFirst file:  %s" % file_list[0])
-IndexError: list index out of range
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/VR_CR.py", line 154, in <module>
+    datebins.append((ncdf.num2date(secs[1],units=sec_utime)).strftime("%Y%m%d%H%M%S"))
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/ma/core.py", line 3254, in __getitem__
+    dout = self.data[indx]
+IndexError: index 1 is out of bounds for axis 0 with size 0
 
 <<<<<===========================================================================================>>>>>>
 
@@ -1472,10 +3694,19 @@ IndexError: list index out of range
     INNOVATION PLOTS       
 
  
-[]
+['RUN_LETKF/Prior_2003-05-08_21:00:00.nc', 'RUN_LETKF/Prior_2003-05-08_21:05:00.nc', 'RUN_LETKF/Prior_2003-05-08_21:10:00.nc', 'RUN_LETKF/Prior_2003-05-08_21:15:00.nc']
+
+First file:  RUN_LETKF/Prior_2003-05-08_21:00:00.nc
+Last file:   RUN_LETKF/Prior_2003-05-08_21:15:00.nc
+
+
+ 2D INNOVATION CALCULATIONS......
+
 Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2020/VR_INV.py", line 105, in <module>
-    print("\nFirst file:  %s" % file_list[0])
-IndexError: list index out of range
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/VR_INV.py", line 154, in <module>
+    datebins.append((ncdf.num2date(secs[1],units=sec_utime)).strftime("%Y%m%d%H%M%S"))
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/numpy/ma/core.py", line 3254, in __getitem__
+    dout = self.data[indx]
+IndexError: index 1 is out of bounds for axis 0 with size 0
 
 Ended run_simple_exper.py
