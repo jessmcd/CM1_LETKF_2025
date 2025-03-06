@@ -17,15 +17,7 @@
 !-----------------------------------------------------------------------
 !  west boundary condition
 
-      if(wbc.eq.1)then
-!$omp parallel do default(shared)  &
-!$omp private(j)
-        do j=jb,je
-          s(   0,j)=s(ni  ,j)
-          s(  -1,j)=s(ni-1,j)
-          s(  -2,j)=s(ni-2,j)
-        enddo
-      elseif(wbc.eq.2)then
+      if(ibw.eq.1.and.wbc.eq.2)then
 !$omp parallel do default(shared)  &
 !$omp private(j)
         do j=jb,je
@@ -33,7 +25,7 @@
           s(  -1,j)=s( 1,j)
           s(  -2,j)=s( 1,j)
         enddo
-      elseif(wbc.eq.3.or.wbc.eq.4)then
+      elseif(ibw.eq.1.and.(wbc.eq.3.or.wbc.eq.4))then
 !$omp parallel do default(shared)  &
 !$omp private(j)
         do j=jb,je
@@ -46,15 +38,7 @@
 !-----------------------------------------------------------------------
 !  east boundary condition
 
-      if(ebc.eq.1)then
-!$omp parallel do default(shared)  &
-!$omp private(j)
-        do j=jb,je
-          s(ni+1,j)=s(   1,j)
-          s(ni+2,j)=s(   2,j)
-          s(ni+3,j)=s(   3,j)
-        enddo
-      elseif(ebc.eq.2)then
+      if(ibe.eq.1.and.ebc.eq.2)then
 !$omp parallel do default(shared)  &
 !$omp private(j)
         do j=jb,je
@@ -62,7 +46,7 @@
           s(ni+2,j)=s(ni,j)
           s(ni+3,j)=s(ni,j)
         enddo
-      elseif(ebc.eq.3.or.ebc.eq.4)then
+      elseif(ibe.eq.1.and.(ebc.eq.3.or.ebc.eq.4))then
 !$omp parallel do default(shared)  &
 !$omp private(j)
         do j=jb,je
@@ -75,15 +59,7 @@
 !-----------------------------------------------------------------------
 !  south boundary condition
 
-      if(sbc.eq.1)then
-!$omp parallel do default(shared)  &
-!$omp private(i)
-        do i=ib,ie
-          s(i,   0)=s(i,nj  )
-          s(i,  -1)=s(i,nj-1)
-          s(i,  -2)=s(i,nj-2)
-        enddo
-      elseif(sbc.eq.2)then
+      if(ibs.eq.1.and.sbc.eq.2)then
 !$omp parallel do default(shared)  &
 !$omp private(i)
         do i=ib,ie
@@ -91,7 +67,7 @@
           s(i,  -1)=s(i, 1)
           s(i,  -2)=s(i, 1)
         enddo
-      elseif(sbc.eq.3.or.sbc.eq.4)then
+      elseif(ibs.eq.1.and.(sbc.eq.3.or.sbc.eq.4))then
 !$omp parallel do default(shared)  &
 !$omp private(i)
         do i=ib,ie
@@ -104,15 +80,7 @@
 !-----------------------------------------------------------------------
 !  north boundary condition
 
-      if(nbc.eq.1)then
-!$omp parallel do default(shared)  &
-!$omp private(i)
-        do i=ib,ie
-          s(i,nj+1)=s(i,   1)
-          s(i,nj+2)=s(i,   2)
-          s(i,nj+3)=s(i,   3)
-        enddo
-      elseif(nbc.eq.2)then
+      if(ibn.eq.1.and.nbc.eq.2)then
 !$omp parallel do default(shared)  &
 !$omp private(i)
         do i=ib,ie
@@ -120,7 +88,7 @@
           s(i,nj+2)=s(i,nj)
           s(i,nj+3)=s(i,nj)
         enddo
-      elseif(nbc.eq.3.or.nbc.eq.4)then
+      elseif(ibn.eq.1.and.(nbc.eq.3.or.nbc.eq.4))then
 !$omp parallel do default(shared)  &
 !$omp private(i)
         do i=ib,ie
@@ -161,19 +129,13 @@
 !$omp private(i,j,k)
     DO k=1,nk
 
-      if(wbc.eq.1)then
-        do j=jb,je
-          s(   0,j,k)=s(ni  ,j,k)
-          s(  -1,j,k)=s(ni-1,j,k)
-          s(  -2,j,k)=s(ni-2,j,k)
-        enddo
-      elseif(wbc.eq.2)then
+      if(ibw.eq.1.and.wbc.eq.2)then
         do j=0,nj+1
           s(   0,j,k)=s( 1,j,k)
           s(  -1,j,k)=s( 1,j,k)
           s(  -2,j,k)=s( 1,j,k)
         enddo
-      elseif(wbc.eq.3.or.wbc.eq.4)then
+      elseif(ibw.eq.1.and.(wbc.eq.3.or.wbc.eq.4))then
         do j=0,nj+1
           s(   0,j,k)=s(   1,j,k)
           s(  -1,j,k)=s(   2,j,k)
@@ -184,19 +146,13 @@
 !-----------------------------------------------------------------------
 !  east boundary condition
 
-      if(ebc.eq.1)then
-        do j=jb,je
-          s(ni+1,j,k)=s(   1,j,k)
-          s(ni+2,j,k)=s(   2,j,k)
-          s(ni+3,j,k)=s(   3,j,k)
-        enddo
-      elseif(ebc.eq.2)then
+      if(ibe.eq.1.and.ebc.eq.2)then
         do j=0,nj+1
           s(ni+1,j,k)=s(ni,j,k)
           s(ni+2,j,k)=s(ni,j,k)
           s(ni+3,j,k)=s(ni,j,k)
         enddo
-      elseif(ebc.eq.3.or.ebc.eq.4)then
+      elseif(ibe.eq.1.and.(ebc.eq.3.or.ebc.eq.4))then
         do j=0,nj+1
           s(ni+1,j,k)=s(  ni,j,k)
           s(ni+2,j,k)=s(ni-1,j,k)
@@ -207,19 +163,13 @@
 !-----------------------------------------------------------------------
 !  south boundary condition
 
-      if(sbc.eq.1)then
-        do i=ib,ie
-          s(i,   0,k)=s(i,nj  ,k)
-          s(i,  -1,k)=s(i,nj-1,k)
-          s(i,  -2,k)=s(i,nj-2,k)
-        enddo
-      elseif(sbc.eq.2)then
+      if(ibs.eq.1.and.sbc.eq.2)then
         do i=0,ni+1
           s(i,   0,k)=s(i, 1,k)
           s(i,  -1,k)=s(i, 1,k)
           s(i,  -2,k)=s(i, 1,k)
         enddo
-      elseif(sbc.eq.3.or.sbc.eq.4)then
+      elseif(ibs.eq.1.and.(sbc.eq.3.or.sbc.eq.4))then
         do i=0,ni+1
           s(i,   0,k)=s(i, 1,k)
           s(i,  -1,k)=s(i, 2,k)
@@ -230,19 +180,13 @@
 !-----------------------------------------------------------------------
 !  north boundary condition
 
-      if(nbc.eq.1)then
-        do i=ib,ie
-          s(i,nj+1,k)=s(i,   1,k)
-          s(i,nj+2,k)=s(i,   2,k)
-          s(i,nj+3,k)=s(i,   3,k)
-        enddo
-      elseif(nbc.eq.2)then
+      if(ibn.eq.1.and.nbc.eq.2)then
         do i=0,ni+1
           s(i,nj+1,k)=s(i,nj,k)
           s(i,nj+2,k)=s(i,nj,k)
           s(i,nj+3,k)=s(i,nj,k)
         enddo
-      elseif(nbc.eq.3.or.nbc.eq.4)then
+      elseif(ibn.eq.1.and.(nbc.eq.3.or.nbc.eq.4))then
         do i=0,ni+1
           s(i,nj+1,k)=s(i,nj  ,k)
           s(i,nj+2,k)=s(i,nj-1,k)
@@ -443,19 +387,13 @@
 !$omp private(i,j,k)
     DO k=1,nk
 
-      if(wbc.eq.1)then
-        do j=jb,je
-          u(   0,j,k)=u(ni  ,j,k)
-          u(  -1,j,k)=u(ni-1,j,k)
-          u(  -2,j,k)=u(ni-2,j,k)
-        enddo
-      elseif(wbc.eq.2)then
+      if(ibw.eq.1.and.wbc.eq.2)then
         do j=0,nj+1
           u(   0,j,k)=u(1,j,k)
           u(  -1,j,k)=u(1,j,k)
           u(  -2,j,k)=u(1,j,k)
         enddo
-      elseif(wbc.eq.3.or.wbc.eq.4)then
+      elseif(ibw.eq.1.and.(wbc.eq.3.or.wbc.eq.4))then
         do j=0,nj+1
           u(   1,j,k)=0.
           u(   0,j,k)=-u(   2,j,k)
@@ -467,19 +405,13 @@
 !-----------------------------------------------------------------------
 !  east boundary condition
 
-      if(ebc.eq.1)then
-        do j=jb,je
-          u(ni+2,j,k)=u(2,j,k)
-          u(ni+3,j,k)=u(3,j,k)
-          u(ni+4,j,k)=u(4,j,k)
-        enddo
-      elseif(ebc.eq.2)then
+      if(ibe.eq.1.and.ebc.eq.2)then
         do j=0,nj+1
           u(ni+2,j,k)=u(ni+1,j,k)
           u(ni+3,j,k)=u(ni+1,j,k)
           u(ni+4,j,k)=u(ni+1,j,k)
         enddo
-      elseif(ebc.eq.3.or.ebc.eq.4)then
+      elseif(ibe.eq.1.and.(ebc.eq.3.or.ebc.eq.4))then
         do j=0,nj+1
           u(ni+1,j,k)=0.0
           u(ni+2,j,k)=-u(ni  ,j,k)
@@ -491,19 +423,13 @@
 !-----------------------------------------------------------------------
 !  south boundary condition
 
-      if(sbc.eq.1)then
-        do i=ib,ie+1
-          u(i,   0,k)=u(i,nj  ,k)
-          u(i,  -1,k)=u(i,nj-1,k)
-          u(i,  -2,k)=u(i,nj-2,k)
-        enddo
-      elseif(sbc.eq.2)then
+      if(ibs.eq.1.and.sbc.eq.2)then
         do i=0,ni+2
           u(i,   0,k)=u(i, 1,k)
           u(i,  -1,k)=u(i, 1,k)
           u(i,  -2,k)=u(i, 1,k)
         enddo
-      elseif(sbc.eq.3.or.sbc.eq.4)then
+      elseif(ibs.eq.1.and.(sbc.eq.3.or.sbc.eq.4))then
         do i=0,ni+2
           u(i,   0,k)=u(i, 1,k)
           u(i,  -1,k)=u(i, 2,k)
@@ -514,19 +440,13 @@
 !-----------------------------------------------------------------------
 !  north boundary condition
 
-      if(nbc.eq.1)then
-        do i=ib,ie+1
-          u(i,nj+1,k)=u(i,   1,k)
-          u(i,nj+2,k)=u(i,   2,k)
-          u(i,nj+3,k)=u(i,   3,k)
-        enddo
-      elseif(nbc.eq.2)then
+      if(ibn.eq.1.and.nbc.eq.2)then
         do i=0,ni+2
           u(i,nj+1,k)=u(i,nj,k)
           u(i,nj+2,k)=u(i,nj,k)
           u(i,nj+3,k)=u(i,nj,k)
         enddo
-      elseif(nbc.eq.3.or.nbc.eq.4)then
+      elseif(ibn.eq.1.and.(nbc.eq.3.or.nbc.eq.4))then
         do i=0,ni+2
           u(i,nj+1,k)=u(i,nj  ,k)
           u(i,nj+2,k)=u(i,nj-1,k)
@@ -567,19 +487,13 @@
 !$omp private(i,j,k)
     DO k=1,nk
 
-      if(sbc.eq.1)then
-        do i=ib,ie
-          v(i,   0,k)=v(i,nj  ,k)
-          v(i,  -1,k)=v(i,nj-1,k)
-          v(i,  -2,k)=v(i,nj-2,k)
-        enddo
-      elseif(sbc.eq.2)then
+      if(ibs.eq.1.and.sbc.eq.2)then
         do i=0,ni+1
           v(i,   0,k)=v(i,1,k)
           v(i,  -1,k)=v(i,1,k)
           v(i,  -2,k)=v(i,1,k)
         enddo
-      elseif(sbc.eq.3.or.sbc.eq.4)then
+      elseif(ibs.eq.1.and.(sbc.eq.3.or.sbc.eq.4))then
         do i=0,ni+1
           v(i,   1,k)=0.
           v(i,   0,k)=-v(i,2,k)
@@ -597,19 +511,13 @@
         enddo
       ENDIF
 
-      if(nbc.eq.1)then
-        do i=ib,ie
-          v(i,nj+2,k)=v(i,   2,k)
-          v(i,nj+3,k)=v(i,   3,k)
-          v(i,nj+4,k)=v(i,   4,k)
-        enddo
-      elseif(nbc.eq.2)then
+      if(ibn.eq.1.and.nbc.eq.2)then
         do i=0,ni+1
           v(i,nj+2,k)=v(i,nj+1,k)
           v(i,nj+3,k)=v(i,nj+1,k)
           v(i,nj+4,k)=v(i,nj+1,k)
         enddo
-      elseif(nbc.eq.3.or.nbc.eq.4)then
+      elseif(ibn.eq.1.and.(nbc.eq.3.or.nbc.eq.4))then
         do i=0,ni+1
           v(i,nj+1,k)=0.
           v(i,nj+2,k)=-v(i,nj  ,k)
@@ -621,19 +529,13 @@
 !-----------------------------------------------------------------------
 !  west boundary condition
 
-      if(wbc.eq.1)then
-        do j=jb,je+1
-          v(   0,j,k)=v(ni  ,j,k)
-          v(  -1,j,k)=v(ni-1,j,k)
-          v(  -2,j,k)=v(ni-2,j,k)
-        enddo
-      elseif(wbc.eq.2)then
+      if(ibw.eq.1.and.wbc.eq.2)then
         do j=0,nj+2
           v(   0,j,k)=v( 1,j,k)
           v(  -1,j,k)=v( 1,j,k)
           v(  -2,j,k)=v( 1,j,k)
         enddo
-      elseif(wbc.eq.3.or.wbc.eq.4)then
+      elseif(ibw.eq.1.and.(wbc.eq.3.or.wbc.eq.4))then
         do j=0,nj+2
           v(   0,j,k)=v( 1,j,k)
           v(  -1,j,k)=v( 2,j,k)
@@ -652,19 +554,13 @@
 !-----------------------------------------------------------------------
 !  east boundary condition
 
-      if(ebc.eq.1)then
-        do j=jb,je+1
-          v(ni+1,j,k)=v(   1,j,k)
-          v(ni+2,j,k)=v(   2,j,k)
-          v(ni+3,j,k)=v(   3,j,k)
-        enddo
-      elseif(ebc.eq.2)then
+      if(ibe.eq.1.and.ebc.eq.2)then
         do j=0,nj+2
           v(ni+1,j,k)=v(ni,j,k)
           v(ni+2,j,k)=v(ni,j,k)
           v(ni+3,j,k)=v(ni,j,k)
         enddo
-      elseif(ebc.eq.3.or.ebc.eq.4)then
+      elseif(ibe.eq.1.and.(ebc.eq.3.or.ebc.eq.4))then
         do j=0,nj+2
           v(ni+1,j,k)=v(ni  ,j,k)
           v(ni+2,j,k)=v(ni-1,j,k)
@@ -706,19 +602,13 @@
 !$omp private(i,j,k)
     DO k=2,nk
  
-      if(wbc.eq.1)then
-        do j=jb,je
-          w(   0,j,k)=w(ni  ,j,k)
-          w(  -1,j,k)=w(ni-1,j,k)
-          w(  -2,j,k)=w(ni-2,j,k)
-        enddo
-      elseif(wbc.eq.2)then
+      if(ibw.eq.1.and.wbc.eq.2)then
         do j=0,nj+1
           w(   0,j,k)=w( 1,j,k)
           w(  -1,j,k)=w( 1,j,k)
           w(  -2,j,k)=w( 1,j,k)
         enddo
-      elseif(wbc.eq.3.or.wbc.eq.4)then
+      elseif(ibw.eq.1.and.(wbc.eq.3.or.wbc.eq.4))then
         do j=0,nj+1
           w(   0,j,k)=w( 1,j,k)
           w(  -1,j,k)=w( 2,j,k)
@@ -729,19 +619,13 @@
 !-----------------------------------------------------------------------
 !  east boundary condition
 
-      if(ebc.eq.1)then
-        do j=jb,je
-          w(ni+1,j,k)=w(   1,j,k)
-          w(ni+2,j,k)=w(   2,j,k)
-          w(ni+3,j,k)=w(   3,j,k)
-        enddo
-      elseif(ebc.eq.2)then
+      if(ibe.eq.1.and.ebc.eq.2)then
         do j=0,nj+1
           w(ni+1,j,k)=w(ni,j,k)
           w(ni+2,j,k)=w(ni,j,k)
           w(ni+3,j,k)=w(ni,j,k)
         enddo
-      elseif(ebc.eq.3.or.ebc.eq.4)then
+      elseif(ibe.eq.1.and.(ebc.eq.3.or.ebc.eq.4))then
         do j=0,nj+1
           w(ni+1,j,k)=w(ni  ,j,k)
           w(ni+2,j,k)=w(ni-1,j,k)
@@ -752,19 +636,13 @@
 !-----------------------------------------------------------------------
 !  south boundary condition
 
-      if(sbc.eq.1)then
-        do i=ib,ie
-          w(i,   0,k)=w(i,nj  ,k)
-          w(i,  -1,k)=w(i,nj-1,k)
-          w(i,  -2,k)=w(i,nj-2,k)
-        enddo
-      elseif(sbc.eq.2)then
+      if(ibs.eq.1.and.sbc.eq.2)then
         do i=0,ni+1
           w(i,   0,k)=w(i, 1,k)
           w(i,  -1,k)=w(i, 1,k)
           w(i,  -2,k)=w(i, 1,k)
         enddo
-      elseif(sbc.eq.3.or.sbc.eq.4)then
+      elseif(ibs.eq.1.and.(sbc.eq.3.or.sbc.eq.4))then
         do i=0,ni+1
           w(i,   0,k)=w(i, 1,k)
           w(i,  -1,k)=w(i, 2,k)
@@ -775,19 +653,13 @@
 !-----------------------------------------------------------------------
 !  north boundary condition
 
-      if(nbc.eq.1)then
-        do i=ib,ie
-          w(i,nj+1,k)=w(i,   1,k)
-          w(i,nj+2,k)=w(i,   2,k)
-          w(i,nj+3,k)=w(i,   3,k)
-        enddo
-      elseif(nbc.eq.2)then
+      if(ibn.eq.1.and.nbc.eq.2)then
         do i=0,ni+1
           w(i,nj+1,k)=w(i,nj,k)
           w(i,nj+2,k)=w(i,nj,k)
           w(i,nj+3,k)=w(i,nj,k)
         enddo
-      elseif(nbc.eq.3.or.nbc.eq.4)then
+      elseif(ibn.eq.1.and.(nbc.eq.3.or.nbc.eq.4))then
         do i=0,ni+1
           w(i,nj+1,k)=w(i,nj  ,k)
           w(i,nj+2,k)=w(i,nj-1,k)
@@ -887,6 +759,762 @@
       enddo
 
       end subroutine extrapbcs
+
+
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+
+
+      subroutine bcs2(s)
+      implicit none
+
+      include 'input.incl'
+      include 'constants.incl'
+      include 'timestat.incl'
+
+      real s(ib:ie,jb:je,kb:ke)
+
+      integer i,j,k
+
+!---------------------------------------------------------
+!  This subroutine sets the corner points
+!---------------------------------------------------------
+
+      if(ibw.eq.1)then
+
+        if(patchsww)then
+          j=0
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            s(  -2,j,k)=s( 1,j,k)
+            s(  -1,j,k)=s( 1,j,k)
+            s(   0,j,k)=s( 1,j,k)
+          enddo
+        endif
+
+        if(patchnww)then
+          j=nj+1
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            s(  -2,j,k)=s( 1,j,k)
+            s(  -1,j,k)=s( 1,j,k)
+            s(   0,j,k)=s( 1,j,k)
+          enddo
+        endif
+
+      endif
+
+      if(ibe.eq.1)then
+
+        if(patchsee)then
+          j=0
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            s(ni+1,j,k)=s(ni,j,k)
+            s(ni+2,j,k)=s(ni,j,k)
+            s(ni+3,j,k)=s(ni,j,k)
+          enddo
+        endif
+
+        if(patchnee)then
+          j=nj+1
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            s(ni+1,j,k)=s(ni,j,k)
+            s(ni+2,j,k)=s(ni,j,k)
+            s(ni+3,j,k)=s(ni,j,k)
+          enddo
+        endif
+
+      endif
+
+      if(ibs.eq.1)then
+
+        if(patchsws)then
+          i=0
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            s(i,  -2,k)=s(i, 1,k)
+            s(i,  -1,k)=s(i, 1,k)
+            s(i,   0,k)=s(i, 1,k)
+          enddo
+        endif
+
+        if(patchses)then
+          i=ni+1
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            s(i,  -2,k)=s(i, 1,k)
+            s(i,  -1,k)=s(i, 1,k)
+            s(i,   0,k)=s(i, 1,k)
+          enddo
+        endif
+
+      endif
+
+      if(ibn.eq.1)then
+
+        if(patchnwn)then
+          i=0
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            s(i,nj+1,k)=s(i,nj,k)
+            s(i,nj+2,k)=s(i,nj,k)
+            s(i,nj+3,k)=s(i,nj,k)
+          enddo
+        endif
+
+        if(patchnen)then
+          i=ni+1
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            s(i,nj+1,k)=s(i,nj,k)
+            s(i,nj+2,k)=s(i,nj,k)
+            s(i,nj+3,k)=s(i,nj,k)
+          enddo
+        endif
+
+      endif
+
+      if(timestats.ge.1) time_bc=time_bc+mytime()
+
+      return
+      end
+
+
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+
+
+      subroutine bct2(t)
+      implicit none
+
+      include 'input.incl'
+      include 'constants.incl'
+      include 'timestat.incl'
+
+      real t(ib:ie,jb:je,kb:ke+1)
+
+      integer i,j,k
+
+!---------------------------------------------------------
+!  This subroutine sets the corner points
+!---------------------------------------------------------
+
+      if(ibw.eq.1)then
+
+        if(patchsww)then
+          j=0
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk+1
+            t(  -2,j,k)=t( 1,j,k)
+            t(  -1,j,k)=t( 1,j,k)
+            t(   0,j,k)=t( 1,j,k)
+          enddo
+        endif
+
+        if(patchnww)then
+          j=nj+1
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk+1
+            t(  -2,j,k)=t( 1,j,k)
+            t(  -1,j,k)=t( 1,j,k)
+            t(   0,j,k)=t( 1,j,k)
+          enddo
+        endif
+
+      endif
+
+      if(ibe.eq.1)then
+
+        if(patchsee)then
+          j=0
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk+1
+            t(ni+1,j,k)=t(ni,j,k)
+            t(ni+2,j,k)=t(ni,j,k)
+            t(ni+3,j,k)=t(ni,j,k)
+          enddo
+        endif
+
+        if(patchnee)then
+          j=nj+1
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk+1
+            t(ni+1,j,k)=t(ni,j,k)
+            t(ni+2,j,k)=t(ni,j,k)
+            t(ni+3,j,k)=t(ni,j,k)
+          enddo
+        endif
+
+      endif
+
+      if(ibs.eq.1)then
+
+        if(patchsws)then
+          i=0
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk+1
+            t(i,  -2,k)=t(i, 1,k)
+            t(i,  -1,k)=t(i, 1,k)
+            t(i,   0,k)=t(i, 1,k)
+          enddo
+        endif
+
+        if(patchses)then
+          i=ni+1
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk+1
+            t(i,  -2,k)=t(i, 1,k)
+            t(i,  -1,k)=t(i, 1,k)
+            t(i,   0,k)=t(i, 1,k)
+          enddo
+        endif
+
+      endif
+
+      if(ibn.eq.1)then
+
+        if(patchnwn)then
+          i=0
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk+1
+            t(i,nj+1,k)=t(i,nj,k)
+            t(i,nj+2,k)=t(i,nj,k)
+            t(i,nj+3,k)=t(i,nj,k)
+          enddo
+        endif
+
+        if(patchnen)then
+          i=ni+1
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk+1
+            t(i,nj+1,k)=t(i,nj,k)
+            t(i,nj+2,k)=t(i,nj,k)
+            t(i,nj+3,k)=t(i,nj,k)
+          enddo
+        endif
+
+      endif
+
+      if(timestats.ge.1) time_bc=time_bc+mytime()
+
+      return
+      end
+
+
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+
+
+      subroutine bcu2(u)
+      implicit none
+
+      include 'input.incl'
+      include 'constants.incl'
+      include 'timestat.incl'
+
+      real u(ib:ie+1,jb:je,kb:ke)
+
+      integer i,j,k
+
+!---------------------------------------------------------
+!  This subroutine sets the corner points
+!---------------------------------------------------------
+
+      if(ibw.eq.1)then
+
+        if(patchsww)then
+          j=0
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            u(  -2,j,k)=u( 1,j,k)
+            u(  -1,j,k)=u( 1,j,k)
+            u(   0,j,k)=u( 1,j,k)
+          enddo
+        endif
+
+        if(patchnww)then
+          j=nj+1
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            u(  -2,j,k)=u( 1,j,k)
+            u(  -1,j,k)=u( 1,j,k)
+            u(   0,j,k)=u( 1,j,k)
+          enddo
+        endif
+
+      endif
+
+      if(ibe.eq.1)then
+
+        if(patchsee)then
+          j=0
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            u(ni+2,j,k)=u(ni+1,j,k)
+            u(ni+3,j,k)=u(ni+1,j,k)
+            u(ni+4,j,k)=u(ni+1,j,k)
+          enddo
+        endif
+
+        if(patchnee)then
+          j=nj+1
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            u(ni+2,j,k)=u(ni+1,j,k)
+            u(ni+3,j,k)=u(ni+1,j,k)
+            u(ni+4,j,k)=u(ni+1,j,k)
+          enddo
+        endif
+
+      endif
+
+      if(ibs.eq.1)then
+
+        if(patchsws)then
+          i=0
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            u(i,  -2,k)=u(i, 1,k)
+            u(i,  -1,k)=u(i, 1,k)
+            u(i,   0,k)=u(i, 1,k)
+          enddo
+        endif
+
+        if(patchses)then
+          i=ni+2
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            u(i,  -2,k)=u(i, 1,k)
+            u(i,  -1,k)=u(i, 1,k)
+            u(i,   0,k)=u(i, 1,k)
+          enddo
+        endif
+
+      endif
+
+      if(ibn.eq.1)then
+
+        if(patchnwn)then
+          i=0
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            u(i,nj+1,k)=u(i,nj,k)
+            u(i,nj+2,k)=u(i,nj,k)
+            u(i,nj+3,k)=u(i,nj,k)
+          enddo
+        endif
+
+        if(patchnen)then
+          i=ni+2
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            u(i,nj+1,k)=u(i,nj,k)
+            u(i,nj+2,k)=u(i,nj,k)
+            u(i,nj+3,k)=u(i,nj,k)
+          enddo
+        endif
+
+      endif
+
+      if(timestats.ge.1) time_bc=time_bc+mytime()
+
+      return
+      end
+
+
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+
+
+      subroutine bcv2(v)
+      implicit none
+
+      include 'input.incl'
+      include 'constants.incl'
+      include 'timestat.incl'
+
+      real v(ib:ie,jb:je+1,kb:ke)
+
+      integer i,j,k
+
+!---------------------------------------------------------
+!  This subroutine sets the corner points
+!---------------------------------------------------------
+
+      if(ibw.eq.1)then
+
+        if(patchsww)then
+          j=0
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            v(  -2,j,k)=v( 1,j,k)
+            v(  -1,j,k)=v( 1,j,k)
+            v(   0,j,k)=v( 1,j,k)
+          enddo
+        endif
+
+        if(patchnww)then
+          j=nj+2
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            v(  -2,j,k)=v( 1,j,k)
+            v(  -1,j,k)=v( 1,j,k)
+            v(   0,j,k)=v( 1,j,k)
+          enddo
+        endif
+
+      endif
+
+      if(ibe.eq.1)then
+
+        if(patchsee)then
+          j=0
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            v(ni+1,j,k)=v(ni,j,k)
+            v(ni+2,j,k)=v(ni,j,k)
+            v(ni+3,j,k)=v(ni,j,k)
+          enddo
+        endif
+
+        if(patchnee)then
+          j=nj+2
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            v(ni+1,j,k)=v(ni,j,k)
+            v(ni+2,j,k)=v(ni,j,k)
+            v(ni+3,j,k)=v(ni,j,k)
+          enddo
+        endif
+
+      endif
+
+      if(ibs.eq.1)then
+
+        if(patchsws)then
+          i=0
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            v(i,  -2,k)=v(i, 1,k)
+            v(i,  -1,k)=v(i, 1,k)
+            v(i,   0,k)=v(i, 1,k)
+          enddo
+        endif
+
+        if(patchses)then
+          i=ni+1
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            v(i,  -2,k)=v(i, 1,k)
+            v(i,  -1,k)=v(i, 1,k)
+            v(i,   0,k)=v(i, 1,k)
+          enddo
+        endif
+
+      endif
+
+      if(ibn.eq.1)then
+
+        if(patchnwn)then
+          i=0
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            v(i,nj+2,k)=v(i,nj+1,k)
+            v(i,nj+3,k)=v(i,nj+1,k)
+            v(i,nj+4,k)=v(i,nj+1,k)
+          enddo
+        endif
+
+        if(patchnen)then
+          i=ni+1
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk
+            v(i,nj+2,k)=v(i,nj+1,k)
+            v(i,nj+3,k)=v(i,nj+1,k)
+            v(i,nj+4,k)=v(i,nj+1,k)
+          enddo
+        endif
+
+      endif
+
+      if(timestats.ge.1) time_bc=time_bc+mytime()
+
+      return
+      end
+
+
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+
+
+      subroutine bcw2(w)
+      implicit none
+
+      include 'input.incl'
+      include 'constants.incl'
+      include 'timestat.incl'
+
+      real w(ib:ie,jb:je,kb:ke+1)
+
+      integer i,j,k
+
+!---------------------------------------------------------
+!  This subroutine sets the corner points
+!---------------------------------------------------------
+
+      if(ibw.eq.1)then
+
+        if(patchsww)then
+          j=0
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk+1
+            w(  -2,j,k)=w( 1,j,k)
+            w(  -1,j,k)=w( 1,j,k)
+            w(   0,j,k)=w( 1,j,k)
+          enddo
+        endif
+
+        if(patchnww)then
+          j=nj+1
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk+1
+            w(  -2,j,k)=w( 1,j,k)
+            w(  -1,j,k)=w( 1,j,k)
+            w(   0,j,k)=w( 1,j,k)
+          enddo
+        endif
+
+      endif
+
+      if(ibe.eq.1)then
+
+        if(patchsee)then
+          j=0
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk+1
+            w(ni+1,j,k)=w(ni,j,k)
+            w(ni+2,j,k)=w(ni,j,k)
+            w(ni+3,j,k)=w(ni,j,k)
+          enddo
+        endif
+
+        if(patchnee)then
+          j=nj+1
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk+1
+            w(ni+1,j,k)=w(ni,j,k)
+            w(ni+2,j,k)=w(ni,j,k)
+            w(ni+3,j,k)=w(ni,j,k)
+          enddo
+        endif
+
+      endif
+
+      if(ibs.eq.1)then
+
+        if(patchsws)then
+          i=0
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk+1
+            w(i,  -2,k)=w(i, 1,k)
+            w(i,  -1,k)=w(i, 1,k)
+            w(i,   0,k)=w(i, 1,k)
+          enddo
+        endif
+
+        if(patchses)then
+          i=ni+1
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk+1
+            w(i,  -2,k)=w(i, 1,k)
+            w(i,  -1,k)=w(i, 1,k)
+            w(i,   0,k)=w(i, 1,k)
+          enddo
+        endif
+
+      endif
+
+      if(ibn.eq.1)then
+
+        if(patchnwn)then
+          i=0
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk+1
+            w(i,nj+1,k)=w(i,nj,k)
+            w(i,nj+2,k)=w(i,nj,k)
+            w(i,nj+3,k)=w(i,nj,k)
+          enddo
+        endif
+
+        if(patchnen)then
+          i=ni+1
+!$omp parallel do default(shared)   &
+!$omp private(k)
+          do k=1,nk+1
+            w(i,nj+1,k)=w(i,nj,k)
+            w(i,nj+2,k)=w(i,nj,k)
+            w(i,nj+3,k)=w(i,nj,k)
+          enddo
+        endif
+
+      endif
+
+      if(timestats.ge.1) time_bc=time_bc+mytime()
+
+      return
+      end
+
+
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+
+
+      subroutine bcs2_2d(s)
+      implicit none
+
+      include 'input.incl'
+      include 'constants.incl'
+      include 'timestat.incl'
+
+      real s(ib:ie,jb:je)
+
+      integer i,j
+
+!---------------------------------------------------------
+!  This subroutine sets the corner points
+!---------------------------------------------------------
+
+      if(ibw.eq.1)then
+
+        if(patchsww)then
+          do j=-2,0
+          s(  -2,j)=s( 1,j)
+          s(  -1,j)=s( 1,j)
+          s(   0,j)=s( 1,j)
+          enddo
+        endif
+
+        if(patchnww)then
+          do j=nj+1,nj+3
+          s(  -2,j)=s( 1,j)
+          s(  -1,j)=s( 1,j)
+          s(   0,j)=s( 1,j)
+          enddo
+        endif
+
+      endif
+
+      if(ibe.eq.1)then
+
+        if(patchsee)then
+          do j=-2,0
+          s(ni+1,j)=s(ni,j)
+          s(ni+2,j)=s(ni,j)
+          s(ni+3,j)=s(ni,j)
+          enddo
+        endif
+
+        if(patchnee)then
+          do j=nj+1,nj+3
+          s(ni+1,j)=s(ni,j)
+          s(ni+2,j)=s(ni,j)
+          s(ni+3,j)=s(ni,j)
+          enddo
+        endif
+
+      endif
+
+      if(ibs.eq.1)then
+
+        if(patchsws)then
+          do i=-2,0
+          s(i,  -2)=s(i, 1)
+          s(i,  -1)=s(i, 1)
+          s(i,   0)=s(i, 1)
+          enddo
+        endif
+
+        if(patchses)then
+          do i=ni+1,ni+3
+          s(i,  -2)=s(i, 1)
+          s(i,  -1)=s(i, 1)
+          s(i,   0)=s(i, 1)
+          enddo
+        endif
+
+      endif
+
+      if(ibn.eq.1)then
+
+        if(patchnwn)then
+          do i=-2,0
+          s(i,nj+1)=s(i,nj)
+          s(i,nj+2)=s(i,nj)
+          s(i,nj+3)=s(i,nj)
+          enddo
+        endif
+
+        if(patchnen)then
+          do i=ni+1,ni+3
+          s(i,nj+1)=s(i,nj)
+          s(i,nj+2)=s(i,nj)
+          s(i,nj+3)=s(i,nj)
+          enddo
+        endif
+
+      endif
+
+      if(timestats.ge.1) time_bc=time_bc+mytime()
+
+      return
+      end
 
 
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
@@ -1139,6 +1767,7 @@
 
 
       subroutine restrict_openbc_we(rvh,rmh,rho0,u3d)
+      use mpi
       implicit none
 
       include 'input.incl'
@@ -1193,6 +1822,14 @@
         fluxin  = fluxin  + temin(k)
       enddo
 
+      tem=0.0d0
+      call MPI_ALLREDUCE(fluxout,tem,1,MPI_DOUBLE_PRECISION,MPI_SUM,   &
+                         MPI_COMM_WORLD,ierr)
+      fluxout=tem
+      tem=0.0d0
+      call MPI_ALLREDUCE(fluxin,tem,1,MPI_DOUBLE_PRECISION,MPI_SUM,   &
+                         MPI_COMM_WORLD,ierr)
+      fluxin=tem
 
       t3=(fluxin+1.0d-20)/(fluxout+1.0d-20)
 
@@ -1236,6 +1873,7 @@
 
 
       subroutine restrict_openbc_sn(ruh,rmh,rho0,v3d)
+      use mpi
       implicit none
 
       include 'input.incl'
@@ -1290,6 +1928,14 @@
         fluxin  = fluxin  + temin(k)
       enddo
 
+      tem=0.0d0
+      call MPI_ALLREDUCE(fluxout,tem,1,MPI_DOUBLE_PRECISION,MPI_SUM,   &
+                         MPI_COMM_WORLD,ierr)
+      fluxout=tem
+      tem=0.0d0
+      call MPI_ALLREDUCE(fluxin,tem,1,MPI_DOUBLE_PRECISION,MPI_SUM,   &
+                         MPI_COMM_WORLD,ierr)
+      fluxin=tem
 
       t3=(fluxin+1.0d-20)/(fluxout+1.0d-20)
 
@@ -1690,42 +2336,9 @@
 !-------------------------
 !  set boundary conditions
 
-      if(wbc.eq.1)then
-!$omp parallel do default(shared)  &
-!$omp private(j)
-        do j=1,nj
-          s( 0,j)=s(ni  ,j)
-          s(-1,j)=s(ni-1,j)
-          s(-2,j)=s(ni-2,j)
-        enddo
-      endif
-      if(ebc.eq.1)then
-!$omp parallel do default(shared)  &
-!$omp private(j)
-        do j=1,nj
-          s(ni+1,j)=s(1,j)
-          s(ni+2,j)=s(2,j)
-          s(ni+3,j)=s(3,j)
-        enddo
-      endif
-      if(sbc.eq.1)then
-!$omp parallel do default(shared)  &
-!$omp private(i)
-        do i=1,ni
-          s(i, 0)=s(i,nj  )
-          s(i,-1)=s(i,nj-1)
-          s(i,-2)=s(i,nj-2)
-        enddo
-      endif
-      if(nbc.eq.1)then
-!$omp parallel do default(shared)  &
-!$omp private(i)
-        do i=1,ni
-          s(i,nj+1)=s(i,1)
-          s(i,nj+2)=s(i,2)
-          s(i,nj+3)=s(i,3)
-        enddo
-      endif
+      if(timestats.ge.1) time_swath=time_swath+mytime()
+      call comm_2d_start(s,west,newwest,east,neweast,   &
+                           south,newsouth,north,newnorth,reqs)
 
       if(ibw.eq.1)then
 !$omp parallel do default(shared)  &
@@ -1769,6 +2382,8 @@
 
 !-------------------------
 
+      if(timestats.ge.1) time_swath=time_swath+mytime()
+      call comm_2dew_end(s,west,newwest,east,neweast,reqs)
 
 !-------------------------
 
@@ -1818,6 +2433,8 @@
 
 !-------------------------
 
+      if(timestats.ge.1) time_swath=time_swath+mytime()
+      call comm_2dns_end(s,south,newsouth,north,newnorth,reqs)
 
 !-------------------------
 

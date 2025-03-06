@@ -7,6 +7,7 @@
                             rho,rr,pp3d,prs,th3d,                  &
                             qv3d,qc3d,qr3d,                        &
                             qi3d,qs3d,qg3d)
+      use mpi
       implicit none
 
       include 'input.incl'
@@ -253,7 +254,7 @@
       enddo
     ENDIF
 
-!!!#ifdef MPI
+!!!#ifdef 1
 !!!      omax=0
 !!!      call MPI_REDUCE(nmax,omax,1,MPI_INTEGER,MPI_MAX,0,MPI_COMM_WORLD,ierr)
 !!!      nmax=omax

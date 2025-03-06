@@ -1,5 +1,9 @@
  Inside PARAM
 
+   Everything is cool!
+   ni,nj=          15          15
+
+
  dx        =   2000.00000    
  dy        =   2000.00000    
  dz        =   392.156860    
@@ -281,31 +285,31 @@
 
 
    myid,mynode             =            0           0
-   nodemaster,nodes,ppnode =            0           1           1
-   nodex,nodey             =            1           1
+   nodemaster,nodes,ppnode =            0           1          25
+   nodex,nodey             =            5           5
 
-   d2i   =           76
+   d2i   =           80
    d2is  =           75
    d2iu  =           76
    d2iv  =           75
 
-   d2j   =           76
+   d2j   =           80
    d2js  =           75
    d2ju  =           75
    d2jv  =           76
 
-   d3i   =           76
-   d3is  =           75
-   d3iu  =           76
-   d3iv  =           75
+   d3i   =           16
+   d3is  =           15
+   d3iu  =           16
+   d3iv  =           15
 
-   d3j   =           76
-   d3js  =           75
-   d3ju  =           75
-   d3jv  =           76
+   d3j   =           16
+   d3js  =           15
+   d3ju  =           15
+   d3jv  =           16
 
-   d3n   =            1
-   d3t   =            1
+   d3n   =           25
+   d3t   =           24
 
 
  stat_w       =            1
@@ -393,6 +397,85 @@
      prznt    =            0
      prust    =            0
 
+   myi,myj=           1           1
+
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
+   mywest  =           4
+   myeast  =           1
+   mysouth =          20
+   mynorth =           5
+
+   mysw    =          24
+   mynw    =           9
+   myne    =           6
+   myse    =          21
+
+   cs1we   =         765
+   cs1sn   =         765
+   ct1we   =         780
+   ct1sn   =         780
+   cv1we   =         816
+   cu1sn   =         816
+   cw1we   =         750
+   cw1sn   =         750
+   cs2we   =        1530
+   cs2sn   =        1530
+   cs3we   =        2295
+   cs3sn   =        2295
+   ct3we   =        2340
+   ct3sn   =        2340
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
+   cv3we   =        2448
+   cu3sn   =        2448
+   cw3we   =        2250
+   cw3sn   =        2250
+
 
  g     =   9.81000042    
  to    =   273.149994    
@@ -440,15 +523,44 @@
  ny    =          75
  nz    =          51
 
- ni    =          75
- nj    =          75
+ nodex    =           5
+ nodey    =           5
+ numprocs =          25
+ ppnode   =          25
+
+ ni    =          15
+ nj    =          15
  nk    =          51
  nkp1  =          52
 
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
+
+ ZGRID:  STRETCH FAC  =    1.0359004512429237     
+ ZGRID:  DOMAIN  HGT  =    20000.0000    
  ib,ibm,ibi,ibc,ibt=       -2       -2       -2       -2       -2
- ie,iem,iei,iec,iet=       78       78       78       78       78
+ ie,iem,iei,iec,iet=       18       18       18       18       18
  jb,jbm,jbi,jbc,jbt=       -2       -2       -2       -2       -2
- je,jem,jei,jec,jet=       78       78       78       78       78
+ je,jem,jei,jec,jet=       18       18       18       18       18
  kb,kbm,kbi,kbc,kbt=        0        0        0        0        0
  ke,kem,kei,kec,ket=       52       52       52       53       53
 
@@ -473,7 +585,7 @@
  jbl               =        1
  jel               =        1
 
- imp,jmp,kmp,kmt,rmp,cmp =      1      1      2      2      1      1
+ imp,jmp,kmp,kmt,rmp,cmp =     15     15     51     52      8      3
 
  rdx    =   5.00000024E-04
  rdy    =   5.00000024E-04
@@ -779,6 +891,24 @@
      51   19400.00   19700.00     600.00     0.6536     0.6536
      52   20000.00                           0.6536
 
+   patchsww = F
+   patchnww = T
+   patchsee = F
+   patchnee = F
+   patchsws = F
+   patchses = T
+   patchnwn = F
+   patchnen = F
+
+   p2tchsww = T
+   p2tchnww = F
+   p2tchsee = F
+   p2tchnee = F
+   p2tchsws = T
+   p2tchses = F
+   p2tchnwn = F
+   p2tchnen = F
+
    minx =    0.00000000    
    maxx =    150000.000    
    miny =    0.00000000    
@@ -786,9 +916,9 @@
    maxz =    20000.0000    
 
    ibw =           1
-   ibe =           1
+   ibe =           0
    ibs =           1
-   ibn =           1
+   ibn =           0
 
    min_dx =    2000.00000    
    max_dx =    2000.00000    

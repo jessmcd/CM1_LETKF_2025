@@ -23,11 +23,11 @@
 ! chosen work fine for me, but you may wish to tweak them. See hdf5
 ! docs.
 !
-! I have written this code to work with MPI only. If you wish to run
+! I have written this code to work with 1 only. If you wish to run
 ! with hdf5 output on a single core, you still need to compile with
-! MPI and run with 1 MPI process.
+! 1 and run with 1 1 process.
 !
-! Each MPI rank is matched to one hdf5 file for history data. A
+! Each 1 rank is matched to one hdf5 file for history data. A
 ! directory is created which houses all of the hdf5 files at a given
 ! model dump time. Software has been developed to simplify dealing with
 ! this format where model domain is split amongst many files. Conversion
@@ -55,6 +55,7 @@ subroutine writeout_mult_hdf5(model_time,qname,rds,sigma,rdsf,sigmaf,xh,xf,uf,yh
                 lu_index,xland,mavail,tsk,tmn,tml,hml,huml,hvml,hfx,qfx,gsw,glw,tslb,   &
                 radsw,rnflx,radswnet,radlwin,u10,v10,t2,q2,znt,ust,hpbl,zol,mol,br,  &
                 dissten,thpten,qvpten,qcpten,qipten,upten,vpten,swten,lwten)
+      use mpi
       implicit none
 
       include 'input.incl'

@@ -1,5 +1,6 @@
 
       subroutine setup_output(tdef,qname,budname,xh,xf,yh,yf,xfref,yfref,sigma,sigmaf,zh,zf)
+      use mpi
       implicit none
 
       include 'input.incl'
@@ -74,6 +75,7 @@
       print *,'  stopping cm1 .... '
       print *
       ENDIF
+      call MPI_BARRIER (MPI_COMM_WORLD,ierr)
       call stopcm1
     ENDIF
 
@@ -1225,6 +1227,13 @@
 
       ENDIF     ! endif for myid=0
 
+      call MPI_BCAST(sout2d,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(sout3d,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(s_out ,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(u_out ,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(v_out ,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(w_out ,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(z_out ,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
 
       if(dowr) write(outfile,*)
       if(dowr) write(outfile,*) '  sout2d = ',sout2d
@@ -1486,6 +1495,7 @@
                         hpbl,zol,mol,br,psim,psih,qsfc,                                        &
                         dat1,dat2,dat3,reqt,ntdiag,nqdiag,tdiag,qdiag,                         &
                         nw1,nw2,ne1,ne2,sw1,sw2,se1,se2)
+      use mpi
       use netcdf
       implicit none
 
@@ -1572,6 +1582,11 @@
       character*8 :: chid
       logical :: opens,openu,openv,openw
       logical, parameter :: dosfcflx = .true.
+      character*80 sname,uname,vname,wname
+      integer, dimension(MPI_STATUS_SIZE) :: status
+      logical :: doit
+      integer, parameter :: nlim = 1000
+      integer :: reqs
 
 !--------------------------------------------------------------
 !  writeout data on scalar-points
@@ -1667,17 +1682,161 @@
     endif
   ELSEIF(output_filetype.eq.3)THEN
     ! one output file per output time AND one output file per processor:
-    ! (MPI only)
-    print *,'  output_filetype = ',output_filetype
-    print *,'  This option is only available for MPI runs '
-    print *,'  Stopping cm1 .... '
-    call stopcm1
+    ! (1 only)
+      irec=1
+
+      sname = '                                                                                '
+      uname = '                                                                                '
+      vname = '                                                                                '
+      wname = '                                                                                '
+
+    if(strlen.gt.0)then
+      sname(1:strlen) = output_path(1:strlen)
+      uname(1:strlen) = output_path(1:strlen)
+      vname(1:strlen) = output_path(1:strlen)
+      wname(1:strlen) = output_path(1:strlen)
+    endif
+
+      sname(strlen+1:strlen+baselen) = output_basename(1:baselen)
+      uname(strlen+1:strlen+baselen) = output_basename(1:baselen)
+      vname(strlen+1:strlen+baselen) = output_basename(1:baselen)
+      wname(strlen+1:strlen+baselen) = output_basename(1:baselen)
+
+      if(fnum.eq.51)then
+        sname(totlen+1:totlen+22) = '_XXXXXX_YYYYYY_s.dat  '
+      elseif(fnum.eq.71)then
+        sname(totlen+1:totlen+22) = '_XXXXXX_YYYYYY_i.dat  '
+      endif
+      uname(totlen+1:totlen+22) = '_XXXXXX_YYYYYY_u.dat  '
+      vname(totlen+1:totlen+22) = '_XXXXXX_YYYYYY_v.dat  '
+      wname(totlen+1:totlen+22) = '_XXXXXX_YYYYYY_w.dat  '
+
+      write(sname(totlen+2:totlen+ 7),100) myid
+      write(sname(totlen+9:totlen+14),100) nwrite
+
+      write(uname(totlen+2:totlen+ 7),100) myid
+      write(uname(totlen+9:totlen+14),100) nwrite
+
+      write(vname(totlen+2:totlen+ 7),100) myid
+      write(vname(totlen+9:totlen+14),100) nwrite
+
+      write(wname(totlen+2:totlen+ 7),100) myid
+      write(wname(totlen+9:totlen+14),100) nwrite
+
+100   format(i6.6)
+
+      if(dowr) write(outfile,*)
+      if(dowr) write(outfile,*) '  myid,sname=',myid,'   ',sname
+      open(unit=fnum,file=sname,                   &
+           form='unformatted',access='direct',   &
+           recl=(ni*nj*4),status='unknown')
+      opens = .true.
+
+      if(u_out.ge.1.and.fnum.ne.71)then
+        if(dowr) write(outfile,*) '  myid,uname=',myid,'   ',uname
+        open(unit=52,file=uname,                   &
+             form='unformatted',access='direct',   &
+             recl=((ni+1)*nj*4),status='unknown')
+        openu = .true.
+      endif
+
+      if(v_out.ge.1.and.fnum.ne.71)then
+        if(dowr) write(outfile,*) '  myid,vname=',myid,'   ',vname
+        open(unit=53,file=vname,                   &
+             form='unformatted',access='direct',   &
+             recl=(ni*(nj+1)*4),status='unknown')
+        openv = .true.
+      endif
+
+      if(w_out.ge.1.and.fnum.ne.71)then
+        if(dowr) write(outfile,*) '  myid,wname=',myid,'   ',wname
+        open(unit=54,file=wname,                   &
+             form='unformatted',access='direct',   &
+             recl=(ni*nj*4),status='unknown')
+        openw = .true.
+      endif
+      !  limit to "nlim" writes at a time:
+      IF( numprocs.gt.nlim )THEN
+        doit = .false.
+        IF( myid.ge.nlim )THEN
+          call MPI_IRECV(doit,1,mpi_logical,myid-nlim,999999,MPI_COMM_WORLD,reqs,ierr)
+          call MPI_WAIT(reqs,status,ierr)
+        ENDIF
+      ENDIF
   ELSEIF(output_filetype.eq.4)THEN
-    ! (MPI only)
-    print *,'  output_filetype = ',output_filetype
-    print *,'  This option is only available for MPI runs '
-    print *,'  Stopping cm1 .... '
-    call stopcm1
+    ! (1 only)
+    IF( myid.eq.0 )THEN
+      irec=1
+
+      sname = '                                                                                '
+      uname = '                                                                                '
+      vname = '                                                                                '
+      wname = '                                                                                '
+
+    if(strlen.gt.0)then
+      sname(1:strlen) = output_path(1:strlen)
+      uname(1:strlen) = output_path(1:strlen)
+      vname(1:strlen) = output_path(1:strlen)
+      wname(1:strlen) = output_path(1:strlen)
+    endif
+
+      sname(strlen+1:strlen+baselen) = output_basename(1:baselen)
+      uname(strlen+1:strlen+baselen) = output_basename(1:baselen)
+      vname(strlen+1:strlen+baselen) = output_basename(1:baselen)
+      wname(strlen+1:strlen+baselen) = output_basename(1:baselen)
+
+      if(fnum.eq.51)then
+        sname(totlen+1:totlen+22) = '_XXXXXX_s.dat  '
+      elseif(fnum.eq.71)then
+        sname(totlen+1:totlen+22) = '_XXXXXX_i.dat  '
+      endif
+      uname(totlen+1:totlen+22) = '_XXXXXX_u.dat  '
+      vname(totlen+1:totlen+22) = '_XXXXXX_v.dat  '
+      wname(totlen+1:totlen+22) = '_XXXXXX_w.dat  '
+
+!!!      write(sname(totlen+2:totlen+ 7),100) mynode
+      write(sname(totlen+2:totlen+7),100) nwrite
+
+!!!      write(uname(totlen+2:totlen+ 7),100) mynode
+      write(uname(totlen+2:totlen+7),100) nwrite
+
+!!!      write(vname(totlen+2:totlen+ 7),100) mynode
+      write(vname(totlen+2:totlen+7),100) nwrite
+
+!!!      write(wname(totlen+2:totlen+ 7),100) mynode
+      write(wname(totlen+2:totlen+7),100) nwrite
+
+      if(dowr) write(outfile,*)
+      if(dowr) write(outfile,*) '  myid,sname=',myid,'   ',sname
+      open(unit=fnum,file=sname,                   &
+           form='unformatted',access='direct',   &
+           recl=(nx*nj*4),status='unknown')
+      opens = .true.
+
+      if(u_out.ge.1.and.fnum.ne.71)then
+        if(dowr) write(outfile,*) '  myid,uname=',myid,'   ',uname
+        open(unit=52,file=uname,                   &
+             form='unformatted',access='direct',   &
+             recl=((nx+1)*nj*4),status='unknown')
+        openu = .true.
+      endif
+
+      if(v_out.ge.1.and.fnum.ne.71)then
+        if(dowr) write(outfile,*) '  myid,vname=',myid,'   ',vname
+        open(unit=53,file=vname,                   &
+             form='unformatted',access='direct',   &
+             recl=(nx*nj*4),status='unknown')
+        openv = .true.
+      endif
+
+      if(w_out.ge.1.and.fnum.ne.71)then
+        if(dowr) write(outfile,*) '  myid,wname=',myid,'   ',wname
+        open(unit=54,file=wname,                   &
+             form='unformatted',access='direct',   &
+             recl=(nx*nj*4),status='unknown')
+        openw = .true.
+      endif
+    ENDIF ! endif for myid.eq.nodemaster
   ENDIF ! endif for outout_filetype
   ENDIF ! endif for output_format=1
   IF(output_format.eq.2)THEN
@@ -2807,6 +2966,13 @@
       enddo
       enddo
 
+      if(timestats.ge.1) time_write=time_write+mytime()
+      call getcorneru(u3d,nw1(1),nw2(1),ne1(1),ne2(1),sw1(1),sw2(1),se1(1),se2(1))
+      call bcu2(u3d)
+      call getcornerv(v3d,nw1(1),nw2(1),ne1(1),ne2(1),sw1(1),sw2(1),se1(1),se2(1))
+      call bcv2(v3d)
+      call getcornerw(w3d,nw1(1),nw2(1),ne1(1),ne2(1),sw1(1),sw2(1),se1(1),se2(1))
+      call bcw2(w3d)
 
     ENDIF    ! endif for output_impdiften=1
 
@@ -3021,6 +3187,16 @@
     ENDIF
 
 !---------------------------------------------------------------
+    IF( output_filetype.eq.3 )THEN
+      !  limit to "nlim" writes at a time:
+      IF( numprocs.gt.nlim )THEN
+        doit = .true.
+        IF( myid+nlim .le. (numprocs-1) )THEN
+          call MPI_ISEND(doit,1,mpi_logical,myid+nlim,999999,MPI_COMM_WORLD,reqs,ierr)
+          call MPI_WAIT(reqs,status,ierr)
+        ENDIF
+      ENDIF
+    ENDIF
 !--------------------------------------------------------------
 
       if(dowr) write(outfile,*)
@@ -3036,6 +3212,10 @@
       if( opens ) call disp_err( nf90_close(ncid) , .true. )
     ENDIF
 
+      if(timestats.ge.1)then
+        ! this is needed for proper accounting of timing:
+        call MPI_BARRIER (MPI_COMM_WORLD,ierr)
+      endif
 
       end subroutine writeout
 
@@ -3050,12 +3230,13 @@
                       ni,nj,ngxy,myid,numprocs,nodex,nodey,irec,fileunit,  &
                       ncid,time_index,output_format,output_filetype,       &
                       dat1,dat2,dat3,reqt,ppnode,d3n,d3t,mynode,nodemaster,nodes,d2i,d2j,d3i,d3j)
+    use mpi
     use netcdf
     implicit none
 
     !-------------------------------------------------------------------
     ! This subroutine collects data (from other processors if this is a
-    ! MPI run) and does the actual writing to disk.
+    ! 1 run) and does the actual writing to disk.
     !-------------------------------------------------------------------
 
     integer, intent(in) :: numi,numj,numk1,numk2,nxr,nyr
@@ -3072,6 +3253,9 @@
     integer, intent(in) :: mynode,nodemaster,nodes
 
     integer :: i,j,k,msk
+    integer :: index2,fooi,fooj,proc,nn,nnn,ntot,n1,n2
+    integer :: reqs,index,ierr,tag
+    logical :: recv1,recv2
     integer :: varid,status
 
   !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
@@ -3083,27 +3267,158 @@
     ! (Note:  this is the only option for single-processor runs)
 
     msk = 0
+    recv1 = .true.
+    recv2 = .true.
+    tag = 1
 
     kloop:  DO k=numk1,numk2
 
-      !-------------------- non-MPI section --------------------!
+      !-------------------- 1 section --------------------!
+      IF(myid.ne.nodemaster)THEN
+        ! ordinary processor ... send data to nodemaster:
 !$omp parallel do default(shared)   &
 !$omp private(i,j)
-      do j=1,numj
-      do i=1,numi
-        dat2(i,j)=var(i,j,k)
-      enddo
-      enddo
-      if( output_format.eq.2 )then
-      if( k.eq.numk1 )then
-        status = nf90_inq_varid(ncid,aname,varid)
-        if(status.ne.nf90_noerr)then
-          print *,'  Error1a in writeo, aname = ',aname
-          print *,nf90_strerror(status)
-          call stopcm1
+        do j=1,numj
+        do i=1,numi
+          dat1(i,j)=var(i,j,k)
+        enddo
+        enddo
+        call MPI_ISEND(dat1(1,1),numi*numj,MPI_REAL,nodemaster,tag,MPI_COMM_WORLD,reqs,ierr)
+        call MPI_WAIT(reqs,MPI_STATUS_IGNORE,ierr)
+        ! DONE, ordinary processors
+      ELSE
+        ! begin nodemaster section:
+        if( recv1 )then
+          ! start receives from all other processors on a node:
+          do proc=myid+1,myid+(ppnode-1)
+            call MPI_IRECV(dat3(1,1,proc),numi*numj,MPI_REAL,proc,tag,MPI_COMM_WORLD,reqt(proc-myid),ierr)
+          enddo
         endif
-      endif
-      endif
+        IF(myid.ne.msk)THEN
+          ! nodemaster, not proc msk:
+!$omp parallel do default(shared)  &
+!$omp private(i,j)
+          do j=1,numj
+          do i=1,numi
+            dat3(i,j,myid)=var(i,j,k)
+          enddo
+          enddo
+          ! wait for receives to finish:
+          call mpi_waitall(ppnode-1,reqt(1:ppnode-1),MPI_STATUSES_IGNORE,ierr)
+          ! send data to processor msk:
+          call MPI_ISEND(dat3(1,1,myid),numi*numj*ppnode,MPI_REAL,msk,tag+1,MPI_COMM_WORLD,reqs,ierr)
+          ! wait for send to finish:
+          call MPI_WAIT(reqs,MPI_STATUS_IGNORE,ierr)
+          recv1 = .true.
+          ! DONE, nodemaster (not proc msk)
+        ELSE
+          ! proc msk:
+          if( recv2 )then
+            ! start receives from other nodemasters:
+            do nn = 1,(nodes-1)
+              if( nn.le.mynode )then
+                proc = (nn-1)*ppnode
+              else
+                proc = nn*ppnode
+              endif
+              call MPI_IRECV(dat3(1,1,proc),numi*numj*ppnode,MPI_REAL,proc,tag+1,MPI_COMM_WORLD,reqt(ppnode-1+nn),ierr)
+            enddo
+          endif
+          if( output_format.eq.2 )then
+          if( k.eq.numk1 )then
+            status = nf90_inq_varid(ncid,aname,varid)
+            if(status.ne.nf90_noerr)then
+              print *,'  Error1b in writeo, aname = ',aname
+              print *,nf90_strerror(status)
+              call stopcm1
+            endif
+          endif
+          endif
+          ! my data:
+          if( myid.eq.0 )then
+!$omp parallel do default(shared)  &
+!$omp private(i,j)
+            do j=1,numj
+            do i=1,numi
+              dat2(i,j)=var(i,j,k)
+            enddo
+            enddo
+          else
+            fooj = myid / nodex + 1
+            fooi = myid - (fooj-1)*nodex  + 1
+            fooi = (fooi-1)*ni
+            fooj = (fooj-1)*nj
+!$omp parallel do default(shared)  &
+!$omp private(i,j)
+            do j=1,numj
+            do i=1,numi
+              dat2(fooi+i,fooj+j)=var(i,j,k)
+            enddo
+            enddo
+          endif
+          ! wait for data to arrive:
+          ntot = ppnode-1 + nodes-1 
+          do nn=1,ntot
+            call mpi_waitany(ntot,reqt(1:ntot),index,MPI_STATUS_IGNORE,ierr)
+            if( index.le.(ppnode-1) )then
+              ! data from ordinary procs on node:
+              proc = myid+index
+              fooj = proc / nodex + 1
+              fooi = proc - (fooj-1)*nodex  + 1
+              fooi = (fooi-1)*ni
+              fooj = (fooj-1)*nj
+!$omp parallel do default(shared)  &
+!$omp private(i,j)
+              do j=1,numj
+              do i=1,numi
+                dat2(fooi+i,fooj+j) = dat3(i,j,proc)
+              enddo
+              enddo
+            else
+              ! data from other nodemasters:
+              index2 = index-(ppnode-1)
+              if( index2.le.mynode )then
+                index2 = index2-1
+              endif
+              n1 = index2*ppnode
+              n2 = (index2+1)*ppnode-1
+              do nnn = n1,n2
+                proc = nnn
+                fooj = proc / nodex + 1
+                fooi = proc - (fooj-1)*nodex  + 1
+                fooi = (fooi-1)*ni
+                fooj = (fooj-1)*nj
+!$omp parallel do default(shared)  &
+!$omp private(i,j)
+                do j=1,numj
+                do i=1,numi
+                  dat2(fooi+i,fooj+j) = dat3(i,j,proc)
+                enddo
+                enddo
+              enddo
+            endif
+          enddo
+          ! processor msk is ready to write.
+          IF( k.lt.numk2 )THEN
+            ! start receives for next level:
+            do proc=myid+1,myid+(ppnode-1)
+              call MPI_IRECV(dat3(1,1,proc),numi*numj,MPI_REAL,proc,tag+2,MPI_COMM_WORLD,reqt(proc-myid),ierr)
+            enddo
+            recv1 = .false.
+!!!#ifdef 1
+!!!            IF( output_format.eq.2 )THEN
+              do nn = 1,(nodes-1)
+                proc = nn*ppnode
+                call MPI_IRECV(dat3(1,1,proc),numi*numj*ppnode,MPI_REAL,proc,tag+3,MPI_COMM_WORLD,reqt(ppnode-1+nn),ierr)
+              enddo
+              recv2 = .false.
+!!!            ENDIF
+!!!#endif
+          ENDIF
+          ! DONE, proc 0
+        ENDIF
+        !-------------------- end 1 section --------------------!
+      ENDIF
 
       !-------------------- write data --------------------!
       IF(myid.eq.msk)THEN
@@ -3131,14 +3446,17 @@
 
       IF( output_format.eq.1 )THEN
         irec=irec+1
-!!!#ifdef MPI
+!!!#ifdef 1
 !!!        msk = msk+ppnode
 !!!        if( msk.ge.numprocs ) msk = msk-numprocs
 !!!#endif
       ENDIF
+      tag = tag+2
 
     ENDDO  kloop
 
+    ! helps with memory:
+    call MPI_BARRIER (MPI_COMM_WORLD,ierr)
 
   ENDIF  ! endif for output_filetype=1,2
 
@@ -3146,8 +3464,8 @@
   !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
   !-----   output_filetype = 3   ----------------------------------------------!
   !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-  !  this section wites one output file per MPI process:
-  !  (for MPI runs only)
+  !  this section wites one output file per 1 process:
+  !  (for 1 runs only)
 
   IF(output_filetype.eq.3)THEN
     IF( output_format.eq.1 )THEN

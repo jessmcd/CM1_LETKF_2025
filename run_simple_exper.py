@@ -7,9 +7,9 @@ print("\nStarting run_simple_exper.py")
 #--------------------------------------------------------------------------
 # Initialize the run, and add perturbations to the backround and 3D fields
 
-ensN=3
+ensN=10
 
-os.system(f"python create_run_letkf.py -n {ensN} ") #only have there be 20 members
+os.system(f"python create_run_letkf.py -n {ensN} ") 
 os.system("python run_fcst.py -e RUN_LETKF/RUN_LETKF.exp -i --nthreads 1")
 os.system("python ens.py -e RUN_LETKF/RUN_LETKF.exp --init0 -t 2003,5,8,20,40,0 --write ")
 
@@ -21,10 +21,11 @@ os.system("python /work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py -e RUN_LETKF
 #--------------------------------------------------------------------------
 # Now loop through the cycling at 5 min intervals
 
-times = ['2003,05,08,21,00,00', '2003,05,08,21,05,00', '2003,05,08,21,10,00', '2003,05,08,21,15,00', \
-         '2003,05,08,21,20,00', '2003,05,08,21,25,00', '2003,05,08,21,30,00', '2003,05,08,21,35,00', \
-         '2003,05,08,21,40,00', '2003,05,08,21,45,00', '2003,05,08,21,50,00', '2003,05,08,21,55,00', '2003,05,08,22,00,00']
+# times = ['2003,05,08,21,00,00', '2003,05,08,21,05,00', '2003,05,08,21,10,00', '2003,05,08,21,15,00', \
+#          '2003,05,08,21,20,00', '2003,05,08,21,25,00', '2003,05,08,21,30,00', '2003,05,08,21,35,00', \
+#          '2003,05,08,21,40,00', '2003,05,08,21,45,00', '2003,05,08,21,50,00', '2003,05,08,21,55,00', '2003,05,08,22,00,00']
 
+times = ['2003,05,08,21,00,00', '2003,05,08,21,05,00']
 for time in times:
 
     os.system("python /work/jessica.mcdonald/CM1_LETKF_2025/run_filter.py --exper RUN_LETKF/RUN_LETKF.exp -t %s --freq -300" % (time))
@@ -59,5 +60,5 @@ os.system("python DBZ_INV.py -d RUN_LETKF -t DBZ_INV --noshow")
 os.system("python VR_CR.py -d RUN_LETKF -t VR_CR --noshow")
 os.system("python VR_INV.py -d RUN_LETKF -t VR_INV --noshow")
 
-print("\nEnded run_simple_exper.py")
+# print("\nEnded run_simple_exper.py")
 

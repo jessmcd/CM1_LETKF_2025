@@ -9,6 +9,7 @@
                               vw31,vw32,ve31,ve32,vs31,vs32,vn31,vn32,   &
                               west,newwest,east,neweast,                 &
                               south,newsouth,north,newnorth)
+      use mpi
       implicit none
 
       include 'input.incl'
@@ -40,6 +41,8 @@
       real :: hh,aa,xval,xc,yc
       real :: tem1,tem2,rr,angle
 
+      character*50 fname
+      integer nabor
 
 !-----------------------------------------------------------------------
 !     SPECIFY TERRAIN HERE
@@ -120,6 +123,17 @@
 !--------------------------------------------------------------
 
         call bc2d(zs)
+        nf=0
+        nu=0
+        nv=0
+        nw=0
+        call comm_2d_start(zs,west,newwest,east,neweast,   &
+                              south,newsouth,north,newnorth,reqs_p)
+        call comm_2dew_end(zs,west,newwest,east,neweast,reqs_p)
+        call comm_2dns_end(zs,south,newsouth,north,newnorth,reqs_p)
+        call bcs2_2d(zs)
+        call bc2d(zs)
+        call getcorner3_2d(zs)
 
         zt = maxz
         rzt = 1.0/maxz
@@ -163,6 +177,21 @@
         call bc2d(dzdx)
         call bc2d(dzdy)
 
+        call comm_2d_start(dzdx,west,newwest,east,neweast,   &
+                                south,newsouth,north,newnorth,reqs_p)
+        call comm_2dew_end(dzdx,west,newwest,east,neweast,reqs_p)
+        call comm_2dns_end(dzdx,south,newsouth,north,newnorth,reqs_p)
+        call bcs2_2d(dzdx)
+        call bc2d(dzdx)
+        call getcorner3_2d(dzdx)
+
+        call comm_2d_start(dzdy,west,newwest,east,neweast,   &
+                                south,newsouth,north,newnorth,reqs_p)
+        call comm_2dew_end(dzdy,west,newwest,east,neweast,reqs_p)
+        call comm_2dns_end(dzdy,south,newsouth,north,newnorth,reqs_p)
+        call bcs2_2d(dzdy)
+        call bc2d(dzdy)
+        call getcorner3_2d(dzdy)
 
 !--------------------------------
 !  the metric terms:
@@ -175,6 +204,13 @@
         enddo
 
         call bc2d(rgz)
+        call comm_2d_start(rgz,west,newwest,east,neweast,   &
+                               south,newsouth,north,newnorth,reqs_p)
+        call comm_2dew_end(rgz,west,newwest,east,neweast,reqs_p)
+        call comm_2dns_end(rgz,south,newsouth,north,newnorth,reqs_p)
+        call bcs2_2d(rgz)
+        call bc2d(rgz)
+        call getcorner3_2d(rgz)
 
         do j=jb+1,je
         do i=ib+1,ie

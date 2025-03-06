@@ -3,6 +3,7 @@ MODULE maxminmod
 CONTAINS
 
       subroutine maxmin(izz,jzz,kzz,f,nstat,rstat,amax,amin)
+      use mpi
       implicit none
 
       include 'input.incl'
@@ -72,6 +73,32 @@ CONTAINS
         endif 
       enddo
 
+      mmax(1)=fmax
+      mmax(2)=myid
+      call MPI_ALLREDUCE(mmax,nmax,1,MPI_2REAL,MPI_MAXLOC,   &
+                         MPI_COMM_WORLD,ierr)
+      loc=nint(nmax(2))
+      imax=imax+(myi-1)*ni
+      jmax=jmax+(myj-1)*nj
+      call MPI_BCAST(imax,1,MPI_INTEGER,loc,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(jmax,1,MPI_INTEGER,loc,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(kmax,1,MPI_INTEGER,loc,MPI_COMM_WORLD,ierr)
+
+      mmin(1)=fmin
+      mmin(2)=myid
+      call MPI_ALLREDUCE(mmin,nmin,1,MPI_2REAL,MPI_MINLOC,   &
+                         MPI_COMM_WORLD,ierr)
+      loc=nint(nmin(2))
+      imin=imin+(myi-1)*ni
+      jmin=jmin+(myj-1)*nj
+      call MPI_BCAST(imin,1,MPI_INTEGER,loc,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(jmin,1,MPI_INTEGER,loc,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(kmin,1,MPI_INTEGER,loc,MPI_COMM_WORLD,ierr)
+
+      fmax=nmax(1)
+      fmin=nmin(1)
+
+    if(myid.eq.0)then
       write(6,100) amax,fmax,imax,jmax,kmax,    &
                    amin,fmin,imin,jmin,kmin
 100   format(2x,a6,':',1x,g13.6,i5,i5,i5,    &
@@ -81,6 +108,7 @@ CONTAINS
       rstat(nstat) = fmax
       nstat = nstat + 1
       rstat(nstat) = fmin
+    endif
 
       if(timestats.ge.1) time_stat=time_stat+mytime()
  
@@ -93,6 +121,7 @@ CONTAINS
 
 
       subroutine maxmin2d(izz,jzz,f,nstat,rstat,amax,amin)
+      use mpi
       implicit none
         
       include 'input.incl'
@@ -149,6 +178,30 @@ CONTAINS
         endif
       enddo
 
+      mmax(1)=fmax
+      mmax(2)=myid
+      call MPI_ALLREDUCE(mmax,nmax,1,MPI_2REAL,MPI_MAXLOC,   &
+                         MPI_COMM_WORLD,ierr)
+      loc=nint(nmax(2))
+      imax=imax+(myi-1)*ni
+      jmax=jmax+(myj-1)*nj
+      call MPI_BCAST(imax,1,MPI_INTEGER,loc,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(jmax,1,MPI_INTEGER,loc,MPI_COMM_WORLD,ierr)
+
+      mmin(1)=fmin
+      mmin(2)=myid
+      call MPI_ALLREDUCE(mmin,nmin,1,MPI_2REAL,MPI_MINLOC,   &
+                         MPI_COMM_WORLD,ierr)
+      loc=nint(nmin(2))
+      imin=imin+(myi-1)*ni
+      jmin=jmin+(myj-1)*nj
+      call MPI_BCAST(imin,1,MPI_INTEGER,loc,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(jmin,1,MPI_INTEGER,loc,MPI_COMM_WORLD,ierr)
+
+      fmax=nmax(1)
+      fmin=nmin(1)
+
+    if(myid.eq.0)then
       write(6,100) amax,fmax,imax,jmax,1,    &
                    amin,fmin,imin,jmin,1
 100   format(2x,a6,':',1x,g13.6,i5,i5,i5,    &
@@ -158,6 +211,7 @@ CONTAINS
       rstat(nstat) = fmax
       nstat = nstat + 1
       rstat(nstat) = fmin
+    endif
 
       if(timestats.ge.1) time_stat=time_stat+mytime()
 

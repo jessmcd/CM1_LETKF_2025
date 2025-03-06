@@ -119,6 +119,8 @@
       if(timestats.ge.1) time_sound=time_sound+mytime()
 
       call bcs(ppd)
+      call comm_1s_start(ppd,pw1,pw2,pe1,pe2,   &
+                             ps1,ps2,pn1,pn2,reqs_p)
 
 !---------------------------------------------------------------------
 !  Arrays for vertically implicit solver
@@ -438,6 +440,8 @@
 !-----------------------------------------------------------------------
 !  integrate u,v forward in time:
 
+          call comm_1s_end(ppd,pw1,pw2,pe1,pe2,   &
+                               ps1,ps2,pn1,pn2,reqs_p)
 
 !-----
 
@@ -933,6 +937,8 @@
 
         IF( n.lt.nloop )THEN
           call bcs(ppd)
+          call comm_1s_start(ppd,pw1,pw2,pe1,pe2,   &
+                                 ps1,ps2,pn1,pn2,reqs_p)
         ENDIF
 
 !--------------------------------------------------------------------

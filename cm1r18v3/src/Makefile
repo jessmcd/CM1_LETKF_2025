@@ -113,16 +113,16 @@ LINKOPTS  = -L/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib -Wl,-rpath -W
 #CPP  = cpp -C -P -traditional
 #DM   = -DMPI
 #-----------------------------------------------------------------------------
-#  single processor, gnu compiler
-FC   = gfortran
-OPTS = -ffree-form -ffree-line-length-none -I../include -O2 -O0 -g
-CPP  = cpp -C -P -traditional -Wno-invalid-pp-token
+#  single processor, gnu compiler 
+#FC   = gfortran
+#OPTS = -ffree-form -ffree-line-length-none -I../include -O2 -O0 -g
+#CPP  = cpp -C -P -traditional -Wno-invalid-pp-token
 #-----------------------------------------------------------------------------
 #  multiple processors, distributed memory (MPI), gnu compiler
-#FC = mpif90
-#OPTS = -ffree-form -ffree-line-length-none -I../include -O2
-#CPP  = cpp -C -P -traditional -Wno-invalid-pp-token
-#DM = -DMPI
+FC = mpif90
+OPTS = -ffree-form -ffree-line-length-none -I../include -O2
+CPP  = cpp -C -P -traditional -Wno-invalid-pp-token
+DM = -DMPI
 #-----------------------------------------------------------------------------
 #  single processor, g95 compiler
 #FC   = g95

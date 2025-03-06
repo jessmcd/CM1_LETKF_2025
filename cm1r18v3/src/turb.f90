@@ -436,12 +436,51 @@
   IF( bbc.eq.3 )THEN
     !-------------!
     call bc2d(ust)
+    call comm_1s2d_start(ust,uw31(1,1,1),uw32(1,1,1),ue31(1,1,1),ue32(1,1,1),  &
+                             us31(1,1,1),us32(1,1,1),un31(1,1,1),un32(1,1,1),reqs_s)
     call bc2d(u1)
+    call comm_1s2d_start(u1 ,uw31(1,1,2),uw32(1,1,2),ue31(1,1,2),ue32(1,1,2),  &
+                             us31(1,1,2),us32(1,1,2),un31(1,1,2),un32(1,1,2),reqs_u)
     call bc2d(v1)
+    call comm_1s2d_start(v1 ,uw31(1,1,3),uw32(1,1,3),ue31(1,1,3),ue32(1,1,3),  &
+                             us31(1,1,3),us32(1,1,3),un31(1,1,3),un32(1,1,3),reqs_v)
     call bc2d(s1)
+    call comm_1s2d_start(s1 ,uw31(1,1,4),uw32(1,1,4),ue31(1,1,4),ue32(1,1,4),  &
+                             us31(1,1,4),us32(1,1,4),un31(1,1,4),un32(1,1,4),reqs_w)
     call bc2d(znt)
+    call comm_1s2d_start(znt,uw31(1,1,5),uw32(1,1,5),ue31(1,1,5),ue32(1,1,5),  &
+                             us31(1,1,5),us32(1,1,5),un31(1,1,5),un32(1,1,5),reqs_p)
     !-------------!
 
+    !-------------!
+    call comm_1s2d_end(ust,uw31(1,1,1),uw32(1,1,1),ue31(1,1,1),ue32(1,1,1),  &
+                           us31(1,1,1),us32(1,1,1),un31(1,1,1),un32(1,1,1),reqs_s)
+    call bcs2_2d(ust)
+
+    call comm_1s2d_end(u1 ,uw31(1,1,2),uw32(1,1,2),ue31(1,1,2),ue32(1,1,2),  &
+                           us31(1,1,2),us32(1,1,2),un31(1,1,2),un32(1,1,2),reqs_u)
+    call bcs2_2d(u1 )
+
+    call comm_1s2d_end(v1 ,uw31(1,1,3),uw32(1,1,3),ue31(1,1,3),ue32(1,1,3),  &
+                           us31(1,1,3),us32(1,1,3),un31(1,1,3),un32(1,1,3),reqs_v)
+    call bcs2_2d(v1 )
+
+    call comm_1s2d_end(s1 ,uw31(1,1,4),uw32(1,1,4),ue31(1,1,4),ue32(1,1,4),  &
+                           us31(1,1,4),us32(1,1,4),un31(1,1,4),un32(1,1,4),reqs_w)
+    call bcs2_2d(s1 )
+
+    call comm_1s2d_end(znt,uw31(1,1,5),uw32(1,1,5),ue31(1,1,5),ue32(1,1,5),  &
+                           us31(1,1,5),us32(1,1,5),un31(1,1,5),un32(1,1,5),reqs_p)
+    call bcs2_2d(znt)
+    !-------------!
+
+    !-------------!
+    call comm_2d_corner(ust)
+    call comm_2d_corner(u1)
+    call comm_2d_corner(v1)
+    call comm_2d_corner(s1)
+    call comm_2d_corner(znt)
+    !-------------!
   ENDIF
 
 !-------------------------------------------------------------------
@@ -539,7 +578,9 @@
         if(timestats.ge.1) time_pbl=time_pbl+mytime()
 
         call bcs(upten)
+        call comm_1s_start(upten,pw1,pw2,pe1,pe2,ps1,ps2,pn1,pn2,reqs_s)
         call bcs(vpten)
+        call comm_1s_start(vpten,vw1,vw2,ve1,ve2,vs1,vs2,vn1,vn2,reqs_p)
         ! Dissipative heating from ysu scheme:
         IF( idiss.eq.1 .or. output_dissten.eq.1 )THEN
 !$omp parallel do default(shared)  &
@@ -570,6 +611,8 @@
           enddo
         ENDIF
         if(timestats.ge.1) time_pbl=time_pbl+mytime()
+        call comm_1s_end(upten,pw1,pw2,pe1,pe2,ps1,ps2,pn1,pn2,reqs_s)
+        call comm_1s_end(vpten,vw1,vw2,ve1,ve2,vs1,vs2,vn1,vn2,reqs_p)
 
       ENDIF
 
@@ -720,6 +763,10 @@
       integer :: i,j,k
       real :: prinv,tem1,tem2
 
+      integer reqs_khc(8)
+      integer reqs_kvc(8)
+      integer reqs_khd(8)
+      integer reqs_kvd(8)
 
 !------------------------------------------------------------------
 !  Get length scales:
@@ -843,12 +890,20 @@
 ! Set values at boundaries, start comms:
 
       call bcw(kmh,1)
+      call comm_1t_start(kmh,khcw1,khcw2,khce1,khce2,   &
+                             khcs1,khcs2,khcn1,khcn2,reqs_khc)
 
       call bcw(kmv,1)
+      call comm_1t_start(kmv,kvcw1,kvcw2,kvce1,kvce2,   &
+                             kvcs1,kvcs2,kvcn1,kvcn2,reqs_kvc)
 
       call bcw(khh,1)
+      call comm_1t_start(khh,khdw1,khdw2,khde1,khde2,   &
+                             khds1,khds2,khdn1,khdn2,reqs_khd)
 
       call bcw(khv,1)
+      call comm_1t_start(khv,kvdw1,kvdw2,kvde1,kvde2,   &
+                             kvds1,kvds2,kvdn1,kvdn2,reqs_kvd)
 
 !--------------------------------------------------------------
 !  Dissipation:
@@ -868,6 +923,18 @@
 
 !--------------------------------------------------------------
 !  Finish comms:
+      call comm_1t_end(kmh,khcw1,khcw2,khce1,khce2,   &
+                           khcs1,khcs2,khcn1,khcn2,reqs_khc)
+      call bct2(kmh)
+      call comm_1t_end(kmv,kvcw1,kvcw2,kvce1,kvce2,   &
+                           kvcs1,kvcs2,kvcn1,kvcn2,reqs_kvc)
+      call bct2(kmv)
+      call comm_1t_end(khh,khdw1,khdw2,khde1,khde2,   &
+                           khds1,khds2,khdn1,khdn2,reqs_khd)
+      call comm_1t_end(khv,kvdw1,kvdw2,kvde1,kvde2,   &
+                           kvds1,kvds2,kvdn1,kvdn2,reqs_kvd)
+      call getcornert(kmh,nw1,nw2,ne1,ne2,sw1,sw2,se1,se2)
+      call getcornert(kmv,nw1,nw2,ne1,ne2,sw1,sw2,se1,se2)
 
 !--------------------------------------------------------------
 !  cm1r18: surface
@@ -887,7 +954,22 @@
 
         !-----
         call bc2d(tkea(ibt,jbt,1))
+        call comm_1s2d_start(tkea(ibt,jbt,1),kvcw1(1,1),kvcw2(1,1),kvce1(1,1),kvce2(1,1),   &
+                                             kvcs1(1,1),kvcs2(1,1),kvcn1(1,1),kvcn2(1,1),reqs_kvc)
         call bc2d(kmh(ibc,jbc,1))
+        call comm_1s2d_start(kmh(ibc,jbc,1),khcw1(1,1),khcw2(1,1),khce1(1,1),khce2(1,1),   &
+                                            khcs1(1,1),khcs2(1,1),khcn1(1,1),khcn2(1,1),reqs_khc)
+        !-----
+        call comm_1s2d_end(tkea(ibt,jbt,1),kvcw1(1,1),kvcw2(1,1),kvce1(1,1),kvce2(1,1),   &
+                                           kvcs1(1,1),kvcs2(1,1),kvcn1(1,1),kvcn2(1,1),reqs_kvc)
+        call bcs2_2d(tkea(ibt,jbt,1))
+        call comm_1s2d_end(kmh(ibc,jbc,1),khcw1(1,1),khcw2(1,1),khce1(1,1),khce2(1,1),   &
+                                          khcs1(1,1),khcs2(1,1),khcn1(1,1),khcn2(1,1),reqs_khc)
+        call bcs2_2d(kmh(ibc,jbc,1))
+        !-----
+        call comm_2d_corner(tkea(ibt,jbt,1))
+        call comm_2d_corner(kmh(ibc,jbc,1))
+        !-----
 
 !$omp parallel do default(shared)   &
 !$omp private(i,j)
@@ -952,6 +1034,8 @@
       integer i,j,k
       real :: tem,temx,temy
 
+      integer reqs_khc(8)
+      integer reqs_kvc(8)
 
       real, parameter :: cs      = 0.18
       real, parameter :: csinv   = 1.0/cs
@@ -1048,6 +1132,18 @@
       if(timestats.ge.1) time_turb=time_turb+mytime()
       call bcw(kmh,1)
       call bcw(kmv,1)
+      call comm_1t_start(kmh,khcw1,khcw2,khce1,khce2,   &
+                             khcs1,khcs2,khcn1,khcn2,reqs_khc)
+      call comm_1t_start(kmv,kvcw1,kvcw2,kvce1,kvce2,   &
+                             kvcs1,kvcs2,kvcn1,kvcn2,reqs_kvc)
+      call comm_1t_end(kmh,khcw1,khcw2,khce1,khce2,   &
+                           khcs1,khcs2,khcn1,khcn2,reqs_khc)
+      call comm_1t_end(kmv,kvcw1,kvcw2,kvce1,kvce2,   &
+                           kvcs1,kvcs2,kvcn1,kvcn2,reqs_kvc)
+      call getcornert(kmh,nw1,nw2,ne1,ne2,sw1,sw2,se1,se2)
+      call getcornert(kmv,nw1,nw2,ne1,ne2,sw1,sw2,se1,se2)
+      call bct2(kmh)
+      call bct2(kmv)
 
 !--------------------------------------------------------------
 
@@ -1100,6 +1196,12 @@
         enddo
 
         call bc2d(kmv(ibc,jbc,1))
+        call comm_1s2d_start(kmv(ibc,jbc,1),khcw1(1,1),khcw2(1,1),khce1(1,1),khce2(1,1),   &
+                                            khcs1(1,1),khcs2(1,1),khcn1(1,1),khcn2(1,1),reqs_khc)
+        call comm_1s2d_end(kmv(ibc,jbc,1),khcw1(1,1),khcw2(1,1),khce1(1,1),khce2(1,1),   &
+                                          khcs1(1,1),khcs2(1,1),khcn1(1,1),khcn2(1,1),reqs_khc)
+        call comm_2d_corner(kmv(ibc,jbc,1))
+        call bcs2_2d(kmv(ibc,jbc,1))
 
       IF( tconfig.eq.1 )THEN
 !$omp parallel do default(shared)   &
@@ -1175,6 +1277,8 @@
       integer i,j,k
       real :: rlinf,tem,tem1,temx,temy
 
+      integer reqs_khc(8)
+      integer reqs_kvc(8)
 
       real, parameter :: prandtl = 1.0
       real, parameter :: prinv   = 1.0/prandtl
@@ -1249,9 +1353,21 @@
 
     IF( l_h.gt.1.0e-12 .or. lhref1.gt.1.0e-12 .or. lhref2.gt.1.0e-12 )THEN
       call bcw(kmh,1)
+      call comm_1t_start(kmh,khcw1,khcw2,khce1,khce2,   &
+                             khcs1,khcs2,khcn1,khcn2,reqs_khc)
+      call comm_1t_end(kmh,khcw1,khcw2,khce1,khce2,   &
+                           khcs1,khcs2,khcn1,khcn2,reqs_khc)
+      call getcornert(kmh,nw1,nw2,ne1,ne2,sw1,sw2,se1,se2)
+      call bct2(kmh)
     ENDIF
     IF( l_inf.gt.1.0e-12 )THEN
       call bcw(kmv,1)
+      call comm_1t_start(kmv,kvcw1,kvcw2,kvce1,kvce2,   &
+                             kvcs1,kvcs2,kvcn1,kvcn2,reqs_kvc)
+      call comm_1t_end(kmv,kvcw1,kvcw2,kvce1,kvce2,   &
+                           kvcs1,kvcs2,kvcn1,kvcn2,reqs_kvc)
+      call getcornert(kmv,nw1,nw2,ne1,ne2,sw1,sw2,se1,se2)
+      call bct2(kmv)
     ENDIF
 
         do j=0,nj+1
@@ -1317,6 +1433,12 @@
         enddo
 
         call bc2d(kmv(ibc,jbc,1))
+        call comm_1s2d_start(kmv(ibc,jbc,1),khcw1(1,1),khcw2(1,1),khce1(1,1),khce2(1,1),   &
+                                            khcs1(1,1),khcs2(1,1),khcn1(1,1),khcn2(1,1),reqs_khc)
+        call comm_1s2d_end(kmv(ibc,jbc,1),khcw1(1,1),khcw2(1,1),khce1(1,1),khce2(1,1),   &
+                                          khcs1(1,1),khcs2(1,1),khcn1(1,1),khcn2(1,1),reqs_khc)
+        call comm_2d_corner(kmv(ibc,jbc,1))
+        call bcs2_2d(kmv(ibc,jbc,1))
 
         do j=0,nj+1
         do i=0,ni+1

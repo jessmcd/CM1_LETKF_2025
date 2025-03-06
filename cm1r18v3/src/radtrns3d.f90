@@ -1053,7 +1053,7 @@ SUBROUTINE radtrns(nx,ny,nz,rbufsz,tipa,myid,dx,dy,                     &
 !
 !--------------------------------------------------------------------
 
-!  MPI stuff?  Commented out, for now:  GHB, 100720
+!  1 stuff?  Commented out, for now:  GHB, 100720
 !  IF (mp_opt > 0) THEN
 !    CALL acct_interrupt(mp_acct)
 !    CALL mpsendrecv2dew(radfrc, nx, ny, nz, ebc, wbc, 0, tem1)
@@ -2052,7 +2052,7 @@ SUBROUTINE zenangl(nx,ny,      hterain, cosz, cosss, a2dr2,             &
 !
 !    nxmid = CEILING( 0.5*((nx-3)*nproc_x + 3) )   ! Middle point index at
 !    nymid = CEILING( 0.5*((ny-3)*nproc_y + 3) )   ! global domain
-!!!! Not using arps MPI code:  GHB, 100720
+!!!! Not using arps 1 code:  GHB, 100720
 !    source = 0
 !!!!    source = proc( (nxmid-2)/(nx-3)+1 + ( (nymid-2)/(ny-3) )*nproc_x )
 !!!!                                ! source processor contain the middle point.

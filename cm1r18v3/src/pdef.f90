@@ -78,6 +78,7 @@
         if(timestats.ge.1) time_pdef=time_pdef+mytime()
 
         call bcs(dum)
+        call comm_2we_start(dum,west(1,1,1),newwest(1,1,1),east(1,1,1),neweast(1,1,1),reqs_s)
 
 !----------------------------------------------------------------
 
@@ -113,6 +114,7 @@
 !----------------------------------------------------------------
 ! cm1r17:  include divx component
 
+        call comm_2we_end(dum,west(1,1,1),newwest(1,1,1),east(1,1,1),neweast(1,1,1),reqs_s)
 
         rdt=1.0/dt
 
@@ -280,6 +282,7 @@
         if(timestats.ge.1) time_pdef=time_pdef+mytime()
 
         call bcs(dum)
+        call comm_2sn_start(dum,south(1,1,1),newsouth(1,1,1),north(1,1,1),newnorth(1,1,1),reqs_s)
 
 !----------------------------------------------------------------
 
@@ -315,6 +318,7 @@
 !----------------------------------------------------------------
 ! cm1r17:  include divx component
 
+        call comm_2sn_end(dum,south(1,1,1),newsouth(1,1,1),north(1,1,1),newnorth(1,1,1),reqs_s)
 
         rdt=1.0/dt
 

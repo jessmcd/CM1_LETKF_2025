@@ -2,9 +2,9 @@
     nx = 75
     ny = 75
     nz = 51
-    nodex = 1
-    nodey = 1
-    ppnode = 16
+    nodex = 5
+    nodey = 5
+    ppnode = 25
     timeformat = 2
     timestats = 1
     terrain_flag = .false.
@@ -91,8 +91,8 @@
     rdalpha = 0.0033333333333
     zd = 15000.0
     xhd = 100000.0
-    umove = 12.5
-    vmove = 3.0
+    umove = 18.0
+    vmove = 8.0
     v_t = 7.0
     l_h = 100.0
     lhref1 = 100.0

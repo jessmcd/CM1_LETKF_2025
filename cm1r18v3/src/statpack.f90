@@ -6,6 +6,7 @@
                           dum1,dum2,dum3,dum4,dum5,rho  ,prs,               &
                           ua,va,wa,ppi,tha,qa,vq  ,kmh,kmv,khh,khv,tkea,pta,u10,v10,reset)
       use maxminmod
+      use mpi
       implicit none
 
       include 'input.incl'
@@ -50,8 +51,42 @@
       character*6 :: text1,text2
       real qvs
       real rslf,rsif
+      double precision, dimension(nbudget) :: cfoo
+      double precision, dimension(numq) :: afoo,bfoo
 
 !-----------------------------------------------------------------------
+      cfoo = 0.0
+      call MPI_REDUCE(qbudget(1),cfoo(1),nbudget,MPI_DOUBLE_PRECISION,MPI_SUM,0,  &
+                      MPI_COMM_WORLD,ierr)
+      if( myid.eq.0 )then
+        do n=1,nbudget
+          qbudget(n)=cfoo(n)
+        enddo
+      else
+        qbudget = 0.0
+      endif
+      if( imoist.eq.1 )then
+        afoo = 0.0
+        call MPI_REDUCE(asq(1),afoo(1),numq,MPI_DOUBLE_PRECISION,MPI_SUM,0,  &
+                        MPI_COMM_WORLD,ierr)
+        if( myid.eq.0 )then
+          do n=1,numq
+            asq(n)=afoo(n)
+          enddo
+        else
+          asq = 0.0
+        endif
+        bfoo = 0.0
+        call MPI_REDUCE(bsq(1),bfoo(1),numq,MPI_DOUBLE_PRECISION,MPI_SUM,0,  &
+                        MPI_COMM_WORLD,ierr)
+        if( myid.eq.0 )then
+          do n=1,numq
+            bsq(n)=bfoo(n)
+          enddo
+        else
+          bsq = 0.0
+        endif
+      endif
 !-----------------------------------------------------------------------
 
   IF( stat_out.gt.0 )THEN

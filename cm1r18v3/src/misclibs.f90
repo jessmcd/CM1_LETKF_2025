@@ -2097,6 +2097,7 @@
 
 
       subroutine cloud(nstat,rstat,zh,qci)
+      use mpi
       implicit none
  
       include 'input.incl'
@@ -2141,6 +2142,11 @@
         bot=min(bot,qcbot(k))
       enddo
 
+      call MPI_REDUCE(bot,var,1,MPI_REAL,MPI_MIN,0,MPI_COMM_WORLD,ierr)
+      bot=var
+      call MPI_REDUCE(top,var,1,MPI_REAL,MPI_MAX,0,MPI_COMM_WORLD,ierr)
+      top=var
+      if(myid.eq.0)then
 
       if(bot.eq.maxz) bot=0.0
 
@@ -2154,6 +2160,7 @@
       nstat = nstat + 1
       rstat(nstat) = bot
 
+      endif
 
       if(timestats.ge.1) time_stat=time_stat+mytime()
  
@@ -2167,6 +2174,7 @@
  
  
       subroutine vertvort(nstat,rstat,xh,xf,uf,vf,zh,zs,rgzu,rgzv,rds,sigma,rdsf,sigmaf,dum1,dum2,ua,va)
+      use mpi
       implicit none
  
       include 'input.incl'
@@ -2299,9 +2307,14 @@
         enddo
     ENDIF
     ENDIF  kcheck
+        call MPI_REDUCE(vmax,var,1,MPI_REAL,MPI_MAX,0,   &
+                        MPI_COMM_WORLD,ierr)
+        vmax=var
+        if(myid.eq.0)then
         write(6,100) text,vmax
         nstat = nstat + 1
         rstat(nstat) = vmax
+        endif
       ENDDO
 
 100   format(2x,a6,':',1x,e13.6)
@@ -2318,6 +2331,7 @@
 
  
       subroutine calccfl(nstat,rstat,dt,acfl,uh,vh,mh,ua,va,wa,writeit)
+      use mpi
       implicit none
 
       include 'input.incl'
@@ -2412,6 +2426,19 @@
         endif
       enddo
 
+      mmax(1)=fmax
+      mmax(2)=myid
+      call MPI_ALLREDUCE(mmax,nmax,1,MPI_2REAL,MPI_MAXLOC,   &
+                         MPI_COMM_WORLD,ierr)
+      loc=nint(nmax(2))
+      imax=imax+(myi-1)*ni
+      jmax=jmax+(myj-1)*nj
+      call MPI_BCAST(imax,1,MPI_INTEGER,loc,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(jmax,1,MPI_INTEGER,loc,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(kmax,1,MPI_INTEGER,loc,MPI_COMM_WORLD,ierr)
+      fmax=nmax(1)
+
+      if(myid.eq.0)then
 
     IF(writeit.eq.1)THEN
       nstat = nstat + 1
@@ -2425,6 +2452,7 @@
 100   format(2x,a6,':',1x,f13.6,i5,i5,i5)
     ENDIF
 
+      endif
 
 !!!      cflmax = fmax
 
@@ -2442,6 +2470,7 @@
 
 
       subroutine calccflquick(dt,uh,vh,mh,ua,va,wa)
+      use mpi
       implicit none
 
       include 'input.incl'
@@ -2505,6 +2534,9 @@
         fmax = max( fmax , cfl(k) )
       enddo
 
+      gmax = 0.0
+      call MPI_ALLREDUCE(fmax,gmax,1,MPI_REAL,MPI_MAX,MPI_COMM_WORLD,ierr)
+      fmax = gmax
 
       if(fmax.ge.1.50) stopit=.true.
 
@@ -2521,6 +2553,7 @@
 
 
       subroutine calcksmax(nstat,rstat,dt,uh,vh,mf,kmh,kmv,khh,khv)
+      use mpi
       implicit none
 
       include 'input.incl'
@@ -2624,6 +2657,31 @@
 
     ENDIF
 
+      mmax(1)=fhmax
+      mmax(2)=myid
+      call MPI_ALLREDUCE(mmax,nmax,1,MPI_2REAL,MPI_MAXLOC,   &
+                         MPI_COMM_WORLD,ierr)
+      loc=nint(nmax(2))
+      imaxh=imaxh+(myi-1)*ni
+      jmaxh=jmaxh+(myj-1)*nj
+      call MPI_BCAST(imaxh,1,MPI_INTEGER,loc,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(jmaxh,1,MPI_INTEGER,loc,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(kmaxh,1,MPI_INTEGER,loc,MPI_COMM_WORLD,ierr)
+      fhmax=nmax(1)
+
+      mmax(1)=fvmax
+      mmax(2)=myid
+      call MPI_ALLREDUCE(mmax,nmax,1,MPI_2REAL,MPI_MAXLOC,   &
+                         MPI_COMM_WORLD,ierr)
+      loc=nint(nmax(2))
+      imaxv=imaxv+(myi-1)*ni
+      jmaxv=jmaxv+(myj-1)*nj
+      call MPI_BCAST(imaxv,1,MPI_INTEGER,loc,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(jmaxv,1,MPI_INTEGER,loc,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(kmaxv,1,MPI_INTEGER,loc,MPI_COMM_WORLD,ierr)
+      fvmax=nmax(1)
+
+      if(myid.eq.0)then
 
       write(6,100) 'KSHMAX',fhmax,imaxh,jmaxh,kmaxh
 
@@ -2637,6 +2695,7 @@
 
 100   format(2x,a6,':',1x,g13.6,i5,i5,i5)
 
+      endif
 
       if(timestats.ge.1) time_stat=time_stat+mytime()
 
@@ -2721,6 +2780,7 @@
 
 
       subroutine calcmass(nstat,rstat,ruh,rvh,rmh,rho)
+      use mpi
       implicit none
 
       include 'input.incl'
@@ -2754,6 +2814,11 @@
         tmass=tmass+foo(k)
       enddo
 
+      var=0.0d0
+      call MPI_REDUCE(tmass,var,1,MPI_DOUBLE_PRECISION,MPI_SUM,0,   &
+                      MPI_COMM_WORLD,ierr)
+      tmass=var
+      if(myid.eq.0)then
 
       tmass=tmass*(dx*dy*dz)
  
@@ -2763,6 +2828,7 @@
       nstat = nstat + 1
       rstat(nstat) = tmass
 
+      endif
  
       if(timestats.ge.1) time_stat=time_stat+mytime()
  
@@ -2776,6 +2842,7 @@
  
  
       subroutine totmois(nstat,rstat,train,ruh,rvh,rmh,qv,ql,qi,rho)
+      use mpi
       implicit none
 
       include 'input.incl'
@@ -2815,6 +2882,11 @@
         tmass=tmass+foo(k)
       enddo
 
+      var=0.0d0
+      call MPI_REDUCE(tmass,var,1,MPI_DOUBLE_PRECISION,MPI_SUM,0,   &
+                      MPI_COMM_WORLD,ierr)
+      tmass=var
+      if(myid.eq.0)then
 
 !!!      tmass=tmass*(dx*dy*dz)+train
       ! cm1r18:  do not include rain:
@@ -2826,6 +2898,7 @@
       nstat = nstat + 1
       rstat(nstat) = tmass
 
+      endif
  
       if(timestats.ge.1) time_stat=time_stat+mytime()
  
@@ -2839,6 +2912,7 @@
 
 
       subroutine totq(nstat,rstat,ruh,rvh,rmh,q,rho,aname)
+      use mpi
       implicit none
 
       include 'input.incl'
@@ -2878,6 +2952,11 @@
         tmass=tmass+foo(k)
       enddo
 
+      var=0.0d0
+      call MPI_REDUCE(tmass,var,1,MPI_DOUBLE_PRECISION,MPI_SUM,0,   &
+                      MPI_COMM_WORLD,ierr)
+      tmass=var
+      if(myid.eq.0)then
 
       tmass=tmass*(dx*dy*dz)
 
@@ -2887,6 +2966,7 @@
       nstat = nstat + 1
       rstat(nstat) = tmass
 
+      endif
 
       if(timestats.ge.1) time_stat=time_stat+mytime()
 
@@ -2901,6 +2981,7 @@
  
       subroutine calcener(nstat,rstat,ruh,rvh,zh,rmh,pi0,th0,rho,ua,va,wa,ppi,tha,   &
                           qv,ql,qi,vr)
+      use mpi
       implicit none
 
       include 'input.incl'
@@ -2967,6 +3048,23 @@
       ep=ep*(dx*dy*dz)
       le=le*(dx*dy*dz)
 
+      var=0.0d0
+      call MPI_REDUCE(ek,var,1,MPI_DOUBLE_PRECISION,MPI_SUM,0,   &
+                      MPI_COMM_WORLD,ierr)
+      ek=var
+      var=0.0d0
+      call MPI_REDUCE(ei,var,1,MPI_DOUBLE_PRECISION,MPI_SUM,0,   &
+                      MPI_COMM_WORLD,ierr)
+      ei=var
+      var=0.0d0
+      call MPI_REDUCE(ep,var,1,MPI_DOUBLE_PRECISION,MPI_SUM,0,   &
+                      MPI_COMM_WORLD,ierr)
+      ep=var
+      var=0.0d0
+      call MPI_REDUCE(le,var,1,MPI_DOUBLE_PRECISION,MPI_SUM,0,   &
+                      MPI_COMM_WORLD,ierr)
+      le=var
+      if(myid.eq.0)then
 
       et=ek+ei+ep+le
  
@@ -2984,6 +3082,7 @@
       nstat = nstat + 1
       rstat(nstat) = et
 
+      endif
  
       if(timestats.ge.1) time_stat=time_stat+mytime()
  
@@ -2997,6 +3096,7 @@
  
  
       subroutine calcmoe(nstat,rstat,ruh,rvh,rmh,rho,ua,va,wa,qv,ql,qi,vr)
+      use mpi
       implicit none
  
       include 'input.incl'
@@ -3057,6 +3157,19 @@
       tmv=tmv*(dx*dy*dz)
       tmw=tmw*(dx*dy*dz)
 
+      var=0.0d0
+      call MPI_REDUCE(tmu,var,1,MPI_DOUBLE_PRECISION,MPI_SUM,0,  &
+                      MPI_COMM_WORLD,ierr)
+      tmu=var
+      var=0.0d0
+      call MPI_REDUCE(tmv,var,1,MPI_DOUBLE_PRECISION,MPI_SUM,0,  &
+                      MPI_COMM_WORLD,ierr)
+      tmv=var
+      var=0.0d0
+      call MPI_REDUCE(tmw,var,1,MPI_DOUBLE_PRECISION,MPI_SUM,0,  &
+                      MPI_COMM_WORLD,ierr)
+      tmw=var
+      if(myid.eq.0)then
  
       write(6,100) 'TMU   ',tmu
       write(6,100) 'TMV   ',tmv
@@ -3070,6 +3183,7 @@
       nstat = nstat + 1
       rstat(nstat) = tmw
 
+      endif
  
       if(timestats.ge.1) time_stat=time_stat+mytime()
  
@@ -3083,6 +3197,7 @@
 
 
       subroutine tmf(nstat,rstat,ruh,rvh,rho,wa)
+      use mpi
       implicit none
 
       include 'input.incl'
@@ -3121,6 +3236,15 @@
         tmfd=tmfd+foo2(k)
       enddo
 
+      var=0.0d0
+      call MPI_REDUCE(tmfu,var,1,MPI_DOUBLE_PRECISION,MPI_SUM,0,  &
+                      MPI_COMM_WORLD,ierr)
+      tmfu=var
+      var=0.0d0
+      call MPI_REDUCE(tmfd,var,1,MPI_DOUBLE_PRECISION,MPI_SUM,0,  &
+                      MPI_COMM_WORLD,ierr)
+      tmfd=var
+      if(myid.eq.0)then
 
       tmfu=tmfu*dx*dy
       tmfd=tmfd*dx*dy
@@ -3134,6 +3258,7 @@
       nstat = nstat + 1
       rstat(nstat) = tmfd
 
+      endif
 
       if(timestats.ge.1) time_stat=time_stat+mytime()
 
@@ -3625,8 +3750,12 @@
 
 
       subroutine stopcm1()
+      use mpi
       implicit none
 
+      integer :: errcode,ierr
+
+      call mpi_abort( mpi_comm_world, errcode , ierr )
 
       stop
 

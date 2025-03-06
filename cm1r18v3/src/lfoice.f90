@@ -1771,6 +1771,7 @@
       real, intent(in) :: dtp
 
       outfile=6
+      outfile=10
 
 !
 !  constants

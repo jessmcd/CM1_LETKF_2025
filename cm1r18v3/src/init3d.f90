@@ -1143,6 +1143,10 @@
           call stopcm1
         endif
 
+        print *,'  This option is not (yet) supported in MPI mode'
+        print *,'  (sorry)'
+        print *
+        call stopcm1
 
         ! buoyancy pressure
 
@@ -1285,6 +1289,7 @@
                         ww31,ww32,we31,we32,ws31,ws32,wn31,wn32,           &
                         sw31,sw32,se31,se32,ss31,ss32,sn31,sn32,           &
                         tkw1,tkw2,tke1,tke2,tks1,tks2,tkn1,tkn2)
+      use mpi
       implicit none
  
       include 'input.incl'
@@ -1360,6 +1365,65 @@
         enddo
       endif
 
+!------------------------------------------------------------------
+
+      nf=0
+      nu=0
+      nv=0
+      nw=0
+
+      call comm_3u_start(ua,uw31,uw32,ue31,ue32,   &
+                            us31,us32,un31,un32,reqs_u)
+      call comm_3u_end(ua,uw31,uw32,ue31,ue32,   &
+                          us31,us32,un31,un32,reqs_u)
+
+      call comm_3v_start(va,vw31,vw32,ve31,ve32,   &
+                            vs31,vs32,vn31,vn32,reqs_v)
+      call comm_3v_end(va,vw31,vw32,ve31,ve32,   &
+                          vs31,vs32,vn31,vn32,reqs_v)
+
+      call comm_3w_start(wa,ww31,ww32,we31,we32,   &
+                            ws31,ws32,wn31,wn32,reqs_w)
+      call comm_3w_end(wa,ww31,ww32,we31,we32,   &
+                          ws31,ws32,wn31,wn32,reqs_w)
+
+      call comm_3s_start(ppi,sw31,sw32,se31,se32,   &
+                             ss31,ss32,sn31,sn32,reqs_s)
+      call comm_3s_end(ppi,sw31,sw32,se31,se32,   &
+                           ss31,ss32,sn31,sn32,reqs_s)
+
+      call comm_3s_start(tha,sw31,sw32,se31,se32,   &
+                             ss31,ss32,sn31,sn32,reqs_s)
+      call comm_3s_end(tha,sw31,sw32,se31,se32,   &
+                           ss31,ss32,sn31,sn32,reqs_s)
+
+      IF(imoist.eq.1)THEN
+        do n=1,numq
+          call comm_3s_start(qa(ibm,jbm,kbm,n),sw31,sw32,se31,se32,   &
+                                               ss31,ss32,sn31,sn32,reqs_s)
+          call comm_3s_end(qa(ibm,jbm,kbm,n),sw31,sw32,se31,se32,   &
+                                             ss31,ss32,sn31,sn32,reqs_s)
+        enddo
+      ENDIF
+
+      IF(iturb.eq.1)THEN
+        call comm_3t_start(tkea,tkw1,tkw2,tke1,tke2,   &
+                                tks1,tks2,tkn1,tkn2,reqs_tk)
+        call comm_3t_end(tkea,tkw1,tkw2,tke1,tke2,   &
+                              tks1,tks2,tkn1,tkn2,reqs_tk)
+      ENDIF
+
+      IF(iptra.eq.1)THEN
+        do n=1,npt
+          call comm_3s_start(pta(ib,jb,kb,n),sw31,sw32,se31,se32,   &
+                                             ss31,ss32,sn31,sn32,reqs_s)
+          call comm_3s_end(pta(ib,jb,kb,n),sw31,sw32,se31,se32,   &
+                                           ss31,ss32,sn31,sn32,reqs_s)
+        enddo
+      ENDIF
+
+      call MPI_BARRIER (MPI_COMM_WORLD,ierr)
+
       if(terrain_flag)then
         call bcwsfc(gz,dzdx,dzdy,ua,va,wa)
         call bc2d(wa(ib,jb,1))
@@ -1394,6 +1458,12 @@
 
 
         call bcs(rho)
+        call comm_1s_start(rho,pw1,pw2,pe1,pe2,   &
+                               ps1,ps2,pn1,pn2,reqs_p)
+        call comm_1s_end(rho,pw1,pw2,pe1,pe2,   &
+                             ps1,ps2,pn1,pn2,reqs_p)
+        call bcs2(rho)
+        call getcorner(rho,nw1(1),nw2(1),ne1(1),ne2(1),sw1(1),sw2(1),se1(1),se2(1))
 !$omp parallel do default(shared)  &
 !$omp private(i,j,k)
         do j=0,nj+1
@@ -1442,7 +1512,9 @@
           stop 2223
         ENDIF
 
-        mass1 = mass1*(dx*dy*dz)
+        p0=0.0d0
+        call MPI_ALLREDUCE(mass1,p0,1,MPI_DOUBLE_PRECISION,MPI_SUM,MPI_COMM_WORLD,ierr)
+        mass1 = p0*(dx*dy*dz)
 
         if( myid.eq.0 ) print *,'  mass1 = ',mass1
 

@@ -7,6 +7,7 @@
                       uw31,uw32,ue31,ue32,us31,us32,un31,un32,              &
                       vw31,vw32,ve31,ve32,vs31,vs32,vn31,vn32,              &
                       sw31,sw32,se31,se32,ss31,ss32,sn31,sn32)
+      use mpi
       implicit none
 
       include 'input.incl'
@@ -1335,6 +1336,24 @@
       call bcs(qi0)
       call bcs(rh0)
 
+      nf=0
+      nu=0
+      nv=0
+      nw=0
+      call comm_all_s( pi0,sw31,sw32,se31,se32,ss31,ss32,sn31,sn32,  &
+                           n3w1,n3w2,n3e1,n3e2,s3w1,s3w2,s3e1,s3e2,reqs_s)
+      call comm_all_s(prs0,sw31,sw32,se31,se32,ss31,ss32,sn31,sn32,  &
+                           n3w1,n3w2,n3e1,n3e2,s3w1,s3w2,s3e1,s3e2,reqs_s)
+      call comm_all_s( th0,sw31,sw32,se31,se32,ss31,ss32,sn31,sn32,  &
+                           n3w1,n3w2,n3e1,n3e2,s3w1,s3w2,s3e1,s3e2,reqs_s)
+      call comm_all_s( qv0,sw31,sw32,se31,se32,ss31,ss32,sn31,sn32,  &
+                           n3w1,n3w2,n3e1,n3e2,s3w1,s3w2,s3e1,s3e2,reqs_s)
+      call comm_all_s( qc0,sw31,sw32,se31,se32,ss31,ss32,sn31,sn32,  &
+                           n3w1,n3w2,n3e1,n3e2,s3w1,s3w2,s3e1,s3e2,reqs_s)
+      call comm_all_s( qi0,sw31,sw32,se31,se32,ss31,ss32,sn31,sn32,  &
+                           n3w1,n3w2,n3e1,n3e2,s3w1,s3w2,s3e1,s3e2,reqs_s)
+      call comm_all_s( rh0,sw31,sw32,se31,se32,ss31,ss32,sn31,sn32,  &
+                           n3w1,n3w2,n3e1,n3e2,s3w1,s3w2,s3e1,s3e2,reqs_s)
 
       call extrapbcs(pi0)
       call extrapbcs(prs0)
@@ -1404,6 +1423,8 @@
     enddo
 
       call bcs(rho0)
+      call comm_all_s(rho0,sw31,sw32,se31,se32,ss31,ss32,sn31,sn32,  &
+                           n3w1,n3w2,n3e1,n3e2,s3w1,s3w2,s3e1,s3e2,reqs_s)
       call extrapbcs(rho0)
 
       IF( psolver.eq.5 .or. psolver.eq.6 )THEN   
@@ -1473,6 +1494,9 @@
 
       IF( psurf.ge.tsmall .and. tsurf.ge.tsmall .and. (.not.terrain_flag) )THEN
         ! this section of code only if no terrain
+        call MPI_BCAST(psurf,1,MPI_REAL,0,MPI_COMM_WORLD,ierr)
+        call MPI_BCAST(tsurf,1,MPI_REAL,0,MPI_COMM_WORLD,ierr)
+        call MPI_BCAST(qsurf,1,MPI_REAL,0,MPI_COMM_WORLD,ierr)
         thsurf = tsurf/( (psurf*rp00)**rovcp )
         do j=jb,je
         do i=ib,ie
@@ -1775,6 +1799,13 @@
       call bcv(v0)
 
       !--------
+      call comm_3u_start(u0,uw31,uw32,ue31,ue32,   &
+                            us31,us32,un31,un32,reqs_u)
+      call comm_3u_end(u0,uw31,uw32,ue31,ue32,   &
+                          us31,us32,un31,un32,reqs_u)
+      call getcorneru3(u0,n3w1(1,1,1),n3w2(1,1,1),n3e1(1,1,1),n3e2(1,1,1),  &
+                          s3w1(1,1,1),s3w2(1,1,1),s3e1(1,1,1),s3e2(1,1,1))
+      call bcu2(u0)
 !$omp parallel do default(shared)   &
 !$omp private(i,j)
       do j=jb,je
@@ -1784,6 +1815,13 @@
       enddo
       enddo
       !--------
+      call comm_3v_start(v0,vw31,vw32,ve31,ve32,   &
+                            vs31,vs32,vn31,vn32,reqs_v)
+      call comm_3v_end(v0,vw31,vw32,ve31,ve32,   &
+                          vs31,vs32,vn31,vn32,reqs_v)
+      call getcornerv3(v0,n3w1(1,1,1),n3w2(1,1,1),n3e1(1,1,1),n3e2(1,1,1),  &
+                          s3w1(1,1,1),s3w2(1,1,1),s3e1(1,1,1),s3e2(1,1,1))
+      call bcv2(v0)
 !$omp parallel do default(shared)   &
 !$omp private(i,j)
       do j=jb,je+1

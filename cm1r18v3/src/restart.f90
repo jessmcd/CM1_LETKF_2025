@@ -25,6 +25,7 @@ CONTAINS
                                qpten,qtten,qvten,qcten,pta,pdata,ploc,ppx,dbz ,     &
                                ntdiag,nqdiag,tdiag,qdiag,                           &
                                dum1,dat1,dat2,dat3,reqt)
+      use mpi
       use netcdf
       implicit none
 
@@ -99,6 +100,9 @@ CONTAINS
       integer :: i,j,k,n,np,nvar,reqs,orecs,orecu,orecv,orecw,ndum
       integer :: ncid,time_index
       real, dimension(:), allocatable :: dumx,dumy
+      integer :: proc,index,count,req1,req2,req3,reqp
+      double precision, dimension(nbudget) :: cfoo
+      double precision, dimension(numq) :: afoo,bfoo
       integer :: varid,ncstatus
 
 !-----------------------------------------------------------------------
@@ -242,6 +246,7 @@ CONTAINS
       print *,'      restart_format = ',restart_format
       print *
     endif
+    call MPI_BARRIER (MPI_COMM_WORLD,ierr)
     call stopcm1
 
   ENDIF
@@ -340,6 +345,38 @@ CONTAINS
   ENDIF
 
 !-----------------------------------------------------------------------
+      cfoo = 0.0
+      call MPI_REDUCE(qbudget(1),cfoo(1),nbudget,MPI_DOUBLE_PRECISION,MPI_SUM,0,  &
+                      MPI_COMM_WORLD,ierr)
+      if( myid.eq.0 )then
+        do n=1,nbudget
+          qbudget(n)=cfoo(n)
+        enddo
+      else
+        qbudget = 0.0
+      endif
+      if( imoist.eq.1 )then
+        afoo = 0.0
+        call MPI_REDUCE(asq(1),afoo(1),numq,MPI_DOUBLE_PRECISION,MPI_SUM,0,  &
+                        MPI_COMM_WORLD,ierr)
+        if( myid.eq.0 )then
+          do n=1,numq
+            asq(n)=afoo(n)
+          enddo
+        else
+          asq = 0.0
+        endif
+        bfoo = 0.0
+        call MPI_REDUCE(bsq(1),bfoo(1),numq,MPI_DOUBLE_PRECISION,MPI_SUM,0,  &
+                        MPI_COMM_WORLD,ierr)
+        if( myid.eq.0 )then
+          do n=1,numq
+            bsq(n)=bfoo(n)
+          enddo
+        else
+          bsq = 0.0
+        endif
+      endif
 !-----------------------------------------------------------------------
 ! budget variables:
 
@@ -1298,6 +1335,10 @@ CONTAINS
       endif
     ENDIF
 
+      if(timestats.ge.1)then
+        ! this is needed for proper accounting of timing:
+        call MPI_BARRIER (MPI_COMM_WORLD,ierr)
+      endif
 
       return
       end subroutine write_restart
@@ -1330,6 +1371,7 @@ CONTAINS
                               qpten,qtten,qvten,qcten,pta,pdata,ploc,ppx,dbz ,     &
                               ntdiag,nqdiag,tdiag,qdiag,                           &
                               dum1,dat1,dat2,dat3,reqt,restart_prcl)
+      use mpi
       use netcdf
       implicit none
 
@@ -1408,6 +1450,7 @@ CONTAINS
       double precision, dimension(numq,0:numprocs-1) :: csq,dsq
       real, dimension(:,:), allocatable :: pfoo
       real, dimension(:), allocatable :: dumx,dumy
+      integer :: proc,index,count,req1,req2,req3,reqp
       integer :: varid,ncstatus
 
 !-----------------------------------------------------------------------
@@ -1565,6 +1608,7 @@ CONTAINS
       print *,'      restart_format = ',restart_format
       print *
     endif
+    call MPI_BARRIER (MPI_COMM_WORLD,ierr)
     call stopcm1
 
   ENDIF
@@ -1662,6 +1706,27 @@ CONTAINS
     ENDIF
   ENDIF
 
+      ! communicate to all other processors:
+      call MPI_BCAST(nstep  ,1,MPI_INTEGER         ,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(nrec   ,1,MPI_INTEGER         ,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(prec   ,1,MPI_INTEGER         ,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(nwrite ,1,MPI_INTEGER         ,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(nrst   ,1,MPI_INTEGER         ,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(ndt    ,1,MPI_INTEGER         ,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(old_format,1,MPI_INTEGER         ,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(dt     ,1,MPI_REAL            ,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(dtlast ,1,MPI_REAL            ,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(cflmax ,1,MPI_REAL            ,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(mtime  ,1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(stattim,1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(taptim ,1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(rsttim ,1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(radtim ,1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(prcltim,1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(adt    ,1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(acfl   ,1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(dbldt  ,1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(mass1  ,1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
 
 !---------------------------------------------------------------
 ! budget variables:
@@ -2266,6 +2331,7 @@ CONTAINS
         print *,'  nvar_npt = ',nvar
       endif
 
+      call MPI_BCAST(nvar,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
 
       if( iptra.eq.1 .or. nvar.gt.0 )then
         if( nvar.gt.0 )then
@@ -2329,6 +2395,7 @@ CONTAINS
         print *,'  nvar_parcels = ',nvar
       endif
 
+      call MPI_BCAST(nvar,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
 
       if( iprcl.eq.1 .or. nvar.gt.0 )then
         if( nvar.gt.0 )then
@@ -2373,6 +2440,7 @@ CONTAINS
             ENDIF
           endif
           IF( iprcl.eq.1 )THEN
+            call MPI_BCAST(ploc,3*nparcels,MPI_REAL,0,MPI_COMM_WORLD,ierr)
             DO np=1,nparcels
             DO n=1,3
               pdata(n,np)=ploc(n,np)
@@ -2606,6 +2674,10 @@ CONTAINS
 
 !---------
 
+      if(timestats.ge.1)then
+        ! this is needed for proper accounting of timing:
+        call MPI_BARRIER (MPI_COMM_WORLD,ierr)
+      endif
 
       return
 
@@ -2622,6 +2694,7 @@ CONTAINS
 
 
       subroutine writerbcwe(radbc,aname,ndum,dumy,ibndy,jb,je,kb,ke,ny,ni,nj,nk,nodex,nodey,restart_format,myid,k)
+      use mpi
       implicit none
 
       integer, intent(in) :: ndum,ibndy,jb,je,kb,ke,ny,ni,nj,nk,nodex,nodey,k
@@ -2631,10 +2704,36 @@ CONTAINS
       integer, intent(in) :: restart_format,myid
 
       integer :: j,j1,j2
+      integer :: fooi,fooj,proc,reqs,ierr
 
-      do j=1,ny
-        dumy(j) = radbc(j,k)
-      enddo
+      IF(myid.ne.0)THEN
+        if( ibndy.eq.1 )then
+          call MPI_ISEND(radbc(1,k),nj,MPI_REAL,0,31,MPI_COMM_WORLD,reqs,ierr)
+          call MPI_WAIT(reqs,mpi_status_ignore,ierr)
+        endif
+      ELSE
+        if( (aname.eq.'radbcw') .or. (aname.eq.'radbce' .and. nodex.eq.1) )then
+          do j=1,nj
+            dumy(j) = radbc(j,k)
+          enddo
+          j1 = 2
+          j2 = nodey
+        else
+          j1 = 1
+          j2 = nodey
+        endif
+        do j=j1,j2
+          if( aname.eq.'radbcw' )then
+            proc = (j-1)*nodex
+          else
+            proc = (j-1)*nodex + (nodex-1)
+          endif
+          fooj = proc / nodex + 1
+          fooi = proc - (fooj-1)*nodex  + 1
+          call MPI_IRECV(dumy((fooj-1)*nj+1),nj,MPI_REAL,proc,31,MPI_COMM_WORLD,reqs,ierr)
+          call MPI_WAIT(reqs,mpi_status_ignore,ierr)
+        enddo
+      ENDIF
 
       end subroutine writerbcwe
 
@@ -2645,6 +2744,7 @@ CONTAINS
 
 
       subroutine writerbcsn(radbc,aname,ndum,dumx,ibndy,ib,ie,kb,ke,nx,ni,nj,nk,nodex,nodey,restart_format,myid,k)
+      use mpi
       implicit none
 
       integer, intent(in) :: ndum,ibndy,ib,ie,kb,ke,nx,ni,nj,nk,nodex,nodey,k
@@ -2654,10 +2754,36 @@ CONTAINS
       integer, intent(in) :: restart_format,myid
 
       integer :: i,i1,i2
+      integer :: fooi,fooj,proc,reqs,ierr
 
-      do i=1,nx
-        dumx(i) = radbc(i,k)
-      enddo
+      IF(myid.ne.0)THEN
+        if( ibndy.eq.1 )then
+          call MPI_ISEND(radbc(1,k),ni,MPI_REAL,0,32,MPI_COMM_WORLD,reqs,ierr)
+          call MPI_WAIT(reqs,mpi_status_ignore,ierr)
+        endif
+      ELSE
+        if( (aname.eq.'radbcs') .or. (aname.eq.'radbcn' .and. nodey.eq.1) )then
+          do i=1,ni
+            dumx(i) = radbc(i,k)
+          enddo
+          i1 = 2
+          i2 = nodex
+        else
+          i1 = 1
+          i2 = nodex
+        endif
+        do i=i1,i2
+          if( aname.eq.'radbcs' )then
+            proc = (i-1)
+          else
+            proc = (i-1) + nodex*(nodey-1)
+          endif
+          fooj = proc / nodex + 1
+          fooi = proc - (fooj-1)*nodex  + 1
+          call MPI_IRECV(dumx((fooi-1)*ni+1),ni,MPI_REAL,proc,32,MPI_COMM_WORLD,reqs,ierr)
+          call MPI_WAIT(reqs,mpi_status_ignore,ierr)
+        enddo
+      ENDIF
 
       end subroutine writerbcsn
 
@@ -2668,6 +2794,7 @@ CONTAINS
 
 
       subroutine  readrbcwe(radbc,aname,ndum,dumy,ibndy,jb,je,kb,ke,ny,ni,nj,nk,nodex,nodey,restart_format,myid,k)
+      use mpi
       implicit none
 
       integer, intent(in) :: ndum,ibndy,jb,je,kb,ke,ny,ni,nj,nk,nodex,nodey,k
@@ -2677,10 +2804,36 @@ CONTAINS
       integer, intent(in) :: restart_format,myid
 
       integer :: j,j1,j2
+      integer :: fooi,fooj,proc,reqs,ierr
 
-      do j=1,ny
-        radbc(j,k) = dumy(j)
-      enddo
+      IF(myid.ne.0)THEN
+        if( ibndy.eq.1 )then
+          call MPI_IRECV(radbc(1,k),nj,MPI_REAL,0,33,MPI_COMM_WORLD,reqs,ierr)
+          call MPI_WAIT(reqs,mpi_status_ignore,ierr)
+        endif
+      ELSE
+        if( (aname.eq.'radbcw') .or. (aname.eq.'radbce' .and. nodex.eq.1) )then
+          do j=1,nj
+            radbc(j,k) = dumy(j)
+          enddo
+          j1 = 2
+          j2 = nodey
+        else
+          j1 = 1
+          j2 = nodey
+        endif
+        do j=j1,j2
+          if( aname.eq.'radbcw' )then
+            proc = (j-1)*nodex
+          else
+            proc = (j-1)*nodex + (nodex-1)
+          endif
+          fooj = proc / nodex + 1
+          fooi = proc - (fooj-1)*nodex  + 1
+          call MPI_ISEND(dumy((fooj-1)*nj+1),nj,MPI_REAL,proc,33,MPI_COMM_WORLD,reqs,ierr)
+          call MPI_WAIT(reqs,mpi_status_ignore,ierr)
+        enddo
+      ENDIF
 
       end subroutine  readrbcwe
 
@@ -2691,6 +2844,7 @@ CONTAINS
 
 
       subroutine  readrbcsn(radbc,aname,ndum,dumx,ibndy,ib,ie,kb,ke,nx,ni,nj,nk,nodex,nodey,restart_format,myid,k)
+      use mpi
       implicit none
 
       integer, intent(in) :: ndum,ibndy,ib,ie,kb,ke,nx,ni,nj,nk,nodex,nodey,k
@@ -2700,10 +2854,36 @@ CONTAINS
       integer, intent(in) :: restart_format,myid
 
       integer :: i,i1,i2
+      integer :: fooi,fooj,proc,reqs,ierr
 
-      do i=1,nx
-        radbc(i,k) = dumx(i)
-      enddo
+      IF(myid.ne.0)THEN
+        if( ibndy.eq.1 )then
+          call MPI_IRECV(radbc(1,k),ni,MPI_REAL,0,34,MPI_COMM_WORLD,reqs,ierr)
+          call MPI_WAIT(reqs,mpi_status_ignore,ierr)
+        endif
+      ELSE
+        if( (aname.eq.'radbcs') .or. (aname.eq.'radbcn' .and. nodey.eq.1) )then
+          do i=1,ni
+            radbc(i,k) = dumx(i)
+          enddo
+          i1 = 2
+          i2 = nodex
+        else
+          i1 = 1
+          i2 = nodex
+        endif
+        do i=i1,i2
+          if( aname.eq.'radbcs' )then
+            proc = (i-1)
+          else
+            proc = (i-1) + nodex*(nodey-1)
+          endif
+          fooj = proc / nodex + 1
+          fooi = proc - (fooj-1)*nodex  + 1
+          call MPI_ISEND(dumx((fooi-1)*ni+1),ni,MPI_REAL,proc,34,MPI_COMM_WORLD,reqs,ierr)
+          call MPI_WAIT(reqs,mpi_status_ignore,ierr)
+        enddo
+      ENDIF
 
       end subroutine  readrbcsn
 
@@ -2717,12 +2897,13 @@ CONTAINS
                       ni,nj,ngxy,myid,numprocs,nodex,nodey,orec,nfile,   &
                       ncid,time_index,restart_format,restart_filetype,   &
                       dat1,dat2,dat3,reqt,ppnode,d3n,d3t,mynode,nodemaster,nodes,d2i,d2j,d3i,d3j)
+    use mpi
     use netcdf
     implicit none
 
     !-------------------------------------------------------------------
     ! This subroutine collects data (from other processors if this is a
-    ! MPI run) and does the actual writing of restart files.
+    ! 1 run) and does the actual writing of restart files.
     !-------------------------------------------------------------------
 
     integer, intent(in) :: numi,numj,numk1,numk2,nxr,nyr
@@ -2739,6 +2920,8 @@ CONTAINS
     integer, intent(in) :: mynode,nodemaster,nodes,nfile
 
     integer :: i,j,k,msk
+    integer :: reqs,index,index2,n,nn,nnn,fooi,fooj,proc,ierr,ntot,n1,n2,tag
+    logical :: recv1,recv2
     integer :: varid,status
 
 !-------------------------------------------------------------------------------
@@ -2747,25 +2930,155 @@ CONTAINS
 
     msk = 0
 
+    !----------------- 1 section -----------------!
+    recv1 = .true.
+    recv2 = .true.
+    tag = 1
 
     kloop:  DO k=numk1,numk2
 
-      !-------------------- non-MPI section --------------------!
+      iamnodemaster:  IF(myid.ne.nodemaster)THEN
+        ! ordinary processor ... send data to nodemaster:
 !$omp parallel do default(shared)   &
 !$omp private(i,j)
-      do j=1,numj
-      do i=1,numi
-        dat2(i,j)=var(i,j,k)
-      enddo
-      enddo
-      if( restart_format.eq.2 )then
-        status = nf90_inq_varid(ncid,aname,varid)
-        if(status.ne.nf90_noerr)then
-          print *,'  Error1 in writer, aname = ',aname
-          print *,nf90_strerror(status)
-          call stopcm1
+        do j=1,numj
+        do i=1,numi
+          dat1(i,j)=var(i,j,k)
+        enddo
+        enddo
+        call MPI_ISEND(dat1(1,1),numi*numj,MPI_REAL,nodemaster,tag,MPI_COMM_WORLD,reqs,ierr)
+        call MPI_WAIT(reqs,MPI_STATUS_IGNORE,ierr)
+        ! DONE, ordinary processors
+      ELSE
+        ! begin nodemaster section:
+        if( recv1 )then
+          ! start receives from all other processors on a node:
+          do proc=myid+1,myid+(ppnode-1)
+            call MPI_IRECV(dat3(1,1,proc),numi*numj,MPI_REAL,proc,tag,MPI_COMM_WORLD,reqt(proc-myid),ierr)
+          enddo
         endif
-      endif
+        iammsk:  IF(myid.ne.msk)THEN
+          ! nodemaster, not proc msk:
+!$omp parallel do default(shared)  &
+!$omp private(i,j)
+          do j=1,numj
+          do i=1,numi
+            dat3(i,j,myid)=var(i,j,k)
+          enddo
+          enddo
+          ! wait for receives to finish:
+          call mpi_waitall(ppnode-1,reqt(1:ppnode-1),MPI_STATUSES_IGNORE,ierr)
+          ! send data to processor msk:
+          call MPI_ISEND(dat3(1,1,myid),numi*numj*ppnode,MPI_REAL,msk,tag+1,MPI_COMM_WORLD,reqs,ierr)
+          ! wait for send to finish:
+          call MPI_WAIT(reqs,MPI_STATUS_IGNORE,ierr)
+          recv1 = .true.
+          ! DONE, nodemaster (not proc msk)
+        ELSE
+          ! proc msk:
+          if( recv2 )then
+            ! start receives from other nodemasters:
+            do n = 1,(nodes-1)
+              if( n.le.mynode )then
+                proc = (n-1)*ppnode
+              else
+                proc = n*ppnode
+              endif
+              call MPI_IRECV(dat3(1,1,proc),numi*numj*ppnode,MPI_REAL,proc,tag+1,MPI_COMM_WORLD,reqt(ppnode-1+n),ierr)
+            enddo
+          endif
+          if( restart_format.eq.2 .and. k.eq.numk1 )then
+            status = nf90_inq_varid(ncid,aname,varid)
+            if(status.ne.nf90_noerr)then
+              print *,'  Error1 in writer, aname = ',aname
+              print *,nf90_strerror(status)
+              call stopcm1
+            endif
+          endif
+          ! my data:
+          if( myid.eq.0 )then
+!$omp parallel do default(shared)  &
+!$omp private(i,j)
+            do j=1,numj
+            do i=1,numi
+              dat2(i,j)=var(i,j,k)
+            enddo
+            enddo
+          else
+            fooj = myid / nodex + 1
+            fooi = myid - (fooj-1)*nodex  + 1
+            fooi = (fooi-1)*ni
+            fooj = (fooj-1)*nj
+!$omp parallel do default(shared)  &
+!$omp private(i,j)
+            do j=1,numj
+            do i=1,numi
+              dat2(fooi+i,fooj+j)=var(i,j,k)
+            enddo
+            enddo
+          endif
+          ! wait for data to arrive:
+          ntot = ppnode-1 + nodes-1
+          do nn=1,ntot
+            call mpi_waitany(ntot,reqt(1:ntot),index,MPI_STATUS_IGNORE,ierr)
+            if( index.le.(ppnode-1) )then
+              ! data from ordinary procs on node:
+              proc = myid+index
+              fooj = proc / nodex + 1
+              fooi = proc - (fooj-1)*nodex  + 1
+              fooi = (fooi-1)*ni
+              fooj = (fooj-1)*nj
+!$omp parallel do default(shared)  &
+!$omp private(i,j)
+              do j=1,numj
+              do i=1,numi
+                dat2(fooi+i,fooj+j) = dat3(i,j,proc)
+              enddo
+              enddo
+            else
+              ! data from other nodemasters:
+              index2 = index-(ppnode-1)
+              if( index2.le.mynode )then
+                index2 = index2-1
+              endif
+              n1 = index2*ppnode
+              n2 = (index2+1)*ppnode-1
+              do nnn = n1,n2
+                proc = nnn
+                fooj = proc / nodex + 1
+                fooi = proc - (fooj-1)*nodex  + 1
+                fooi = (fooi-1)*ni
+                fooj = (fooj-1)*nj
+!$omp parallel do default(shared)  &
+!$omp private(i,j)
+                do j=1,numj
+                do i=1,numi
+                  dat2(fooi+i,fooj+j) = dat3(i,j,proc)
+                enddo
+                enddo
+              enddo
+            endif
+          enddo
+          ! DONE, proc msk
+          ! processor is ready to write.
+          IF( k.lt.numk2 )THEN
+            ! start receives for next level:
+            do proc=myid+1,myid+(ppnode-1)
+              call MPI_IRECV(dat3(1,1,proc),numi*numj,MPI_REAL,proc,tag+2,MPI_COMM_WORLD,reqt(proc-myid),ierr)
+            enddo
+            recv1 = .false.
+!!!#ifdef 1
+!!!            IF( restart_format.eq.2 )THEN
+              do n = 1,(nodes-1)
+                proc = n*ppnode
+                call MPI_IRECV(dat3(1,1,proc),numi*numj*ppnode,MPI_REAL,proc,tag+3,MPI_COMM_WORLD,reqt(ppnode-1+n),ierr)
+              enddo
+              recv2 = .false.
+!!!            ENDIF
+!!!#endif
+          ENDIF
+        ENDIF  iammsk
+      ENDIF  iamnodemaster
 
         ! WRITE DATA:
         IF( myid.eq.msk )THEN
@@ -2790,11 +3103,12 @@ CONTAINS
       !---  prepare for next level   -------!
       IF( restart_format.eq.1 )THEN
         orec = orec+1
-!!!#ifdef MPI
+!!!#ifdef 1
 !!!        msk = msk+ppnode
 !!!        if( msk.ge.numprocs ) msk = msk-numprocs
 !!!#endif
       ENDIF
+      tag = tag+2
       !---  done with this level   ---------!
     ENDDO  kloop
 
@@ -2802,11 +3116,22 @@ CONTAINS
 
 !-------------------------------------------------------------------------------
 
+    rf2:  IF( restart_filetype.eq.3 )THEN
+
+      call    writer2(numi,numj,numk1,numk2,nxr,nyr,var,aname,           &
+                      ni,nj,ngxy,myid,numprocs,nodex,nodey,orec,nfile,   &
+                      ncid,time_index,restart_format,restart_filetype,   &
+                      dat1(1,1),dat2(1,1),dat3(1,1,0),reqt,ppnode,d3n,d3t,mynode,nodemaster,nodes,d2i,d2j,d3i,d3j)
+
+    ENDIF  rf2
 
 !-------------------------------------------------------------------------------
 !ccccc  done  cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 !-------------------------------------------------------------------------------
 
+    ! helps with memory:
+    call MPI_BARRIER (MPI_COMM_WORLD,ierr)
+    !----------------- end 1 section -----------------!
 
     return
     end subroutine writer
@@ -2821,12 +3146,13 @@ CONTAINS
                       ni,nj,ngxy,myid,numprocs,nodex,nodey,orec,nfile,   &
                       ncid,time_index,restart_format,restart_filetype,   &
                       dat1,dat2,dat3,reqt,ppnode,d3n,d3t,mynode,nodemaster,nodes,d2i,d2j,d3i,d3j)
+    use mpi
     use netcdf
     implicit none
 
     !-------------------------------------------------------------------
     ! This subroutine reads restart files and then passes data 
-    ! to other processors if this is a MPI run. 
+    ! to other processors if this is a 1 run. 
     !-------------------------------------------------------------------
 
     integer, intent(in) :: numi,numj,numk1,numk2,nxr,nyr
@@ -2843,6 +3169,8 @@ CONTAINS
     integer, intent(in) :: mynode,nodemaster,nodes,nfile
 
     integer :: i,j,k,msk
+    integer :: reqs,index,index2,n,nn,nnn,fooi,fooj,proc,ierr,ntot,n1,n2
+    integer :: tag
     integer :: varid,status
 
 !-------------------------------------------------------------------------------
@@ -2851,6 +3179,8 @@ CONTAINS
 
     msk = 0
 
+    !----------------- 1 section -----------------!
+    tag = 1
     if( myid.eq.0 )then
       if( restart_format.eq.2 )then
         status = nf90_inq_varid(ncid,aname,varid)
@@ -2864,6 +3194,44 @@ CONTAINS
 
     kloop:  DO k=numk1,numk2
 
+      IF(myid.ne.nodemaster)THEN
+        ! ordinary processor ... recv data from nodemaster:
+        call MPI_IRECV(dat1(1,1),numi*numj,MPI_REAL,nodemaster,tag,MPI_COMM_WORLD,reqs,ierr)
+        call MPI_WAIT(reqs,MPI_STATUS_IGNORE,ierr)
+!$omp parallel do default(shared)   &
+!$omp private(i,j)
+        do j=1,numj
+        do i=1,numi
+          var(i,j,k)=dat1(i,j)
+        enddo
+        enddo
+        ! DONE, ordinary processors
+      ELSE
+        ! begin nodemaster section:
+        IF(myid.ne.msk)THEN
+          ! nodemaster, not proc msk:
+          ! get data from msk:
+          call MPI_IRECV(dat3(1,1,myid),numi*numj*ppnode,MPI_REAL,msk,tag+1,MPI_COMM_WORLD,reqs,ierr)
+          ! wait for data to arrive:
+          call MPI_WAIT(reqs,MPI_STATUS_IGNORE,ierr)
+          ! start sends to other processors on a node:
+          do proc=myid+1,myid+(ppnode-1)
+            call MPI_ISEND(dat3(1,1,proc),numi*numj,MPI_REAL,proc,tag,MPI_COMM_WORLD,reqt(proc-myid),ierr)
+          enddo
+          ! my data:
+!$omp parallel do default(shared)  &
+!$omp private(i,j)
+          do j=1,numj
+          do i=1,numi
+            var(i,j,k)=dat3(i,j,myid)
+          enddo
+          enddo
+          ! wait for sends to finish:
+          call mpi_waitall(ppnode-1,reqt(1:ppnode-1),MPI_STATUSES_IGNORE,ierr)
+          ! DONE, nodemaster (not proc msk)
+        ELSE
+          ! proc msk:
+          ! read data:
 
           IF( restart_format.eq.1 )THEN
             read(nfile,rec=orec) ((dat2(i,j),i=1,nxr),j=1,nyr)
@@ -2881,21 +3249,83 @@ CONTAINS
             endif
           ENDIF
 
-!$omp parallel do default(shared)   &
+          ! send data:
+          do nn=1,( nodes-1 )
+              ! send data to other nodemasters:
+              index2 = nn
+              if( index2.le.mynode )then
+                index2 = index2-1
+              endif
+              n1 = index2*ppnode
+              n2 = (index2+1)*ppnode-1
+              do nnn=n1,n2
+                proc = nnn
+                fooj = proc / nodex + 1
+                fooi = proc - (fooj-1)*nodex  + 1
+                fooi = (fooi-1)*ni
+                fooj = (fooj-1)*nj
+!$omp parallel do default(shared)  &
 !$omp private(i,j)
-          do j=1,numj
-          do i=1,numi
-            var(i,j,k)=dat2(i,j)
+                do j=1,numj
+                do i=1,numi
+                  dat3(i,j,proc) = dat2(fooi+i,fooj+j)
+                enddo
+                enddo
+              enddo
+              proc = index2*ppnode
+              call MPI_ISEND(dat3(1,1,proc),numi*numj*ppnode,MPI_REAL,proc,tag+1,MPI_COMM_WORLD,reqt(ppnode-1+nn),ierr)
           enddo
+          do nn=1,( ppnode-1 )
+              ! send data to ordinary procs on this node:
+              proc = myid+nn
+              fooj = proc / nodex + 1
+              fooi = proc - (fooj-1)*nodex  + 1
+              fooi = (fooi-1)*ni
+              fooj = (fooj-1)*nj
+!$omp parallel do default(shared)  &
+!$omp private(i,j)
+              do j=1,numj
+              do i=1,numi
+                dat3(i,j,proc) = dat2(fooi+i,fooj+j)
+              enddo
+              enddo
+              call MPI_ISEND(dat3(1,1,proc),numi*numj,MPI_REAL,proc,tag,MPI_COMM_WORLD,reqt(nn),ierr)
           enddo
+          ! my data:
+          if( myid.eq.0 )then
+!$omp parallel do default(shared)  &
+!$omp private(i,j)
+            do j=1,numj
+            do i=1,numi
+              var(i,j,k) = dat2(i,j)
+            enddo
+            enddo
+          else
+            fooj = myid / nodex + 1
+            fooi = myid - (fooj-1)*nodex  + 1
+            fooi = (fooi-1)*ni
+            fooj = (fooj-1)*nj
+!$omp parallel do default(shared)  &
+!$omp private(i,j)
+            do j=1,numj
+            do i=1,numi
+              var(i,j,k) = dat2(fooi+i,fooj+j)
+            enddo
+            enddo
+          endif
+          ntot = ppnode-1 + nodes-1
+          call mpi_waitall(ntot,reqt(1:ntot),MPI_STATUSES_IGNORE,ierr)
+        ENDIF
+      ENDIF
       !---  prepare for next level   -------!
       IF( restart_format.eq.1 )THEN
         orec = orec+1
-!!!#ifdef MPI
+!!!#ifdef 1
 !!!        msk = msk+ppnode
 !!!        if( msk.ge.numprocs ) msk = msk-numprocs
 !!!#endif
       ENDIF
+      tag = tag+2
       !---  done with this level   ---------!
     ENDDO  kloop
 
@@ -2903,15 +3333,176 @@ CONTAINS
 
 !-------------------------------------------------------------------------------
 
+    rf2:  IF( restart_filetype.eq.3 )THEN
+
+      call     readr2(numi,numj,numk1,numk2,nxr,nyr,var,aname,           &
+                      ni,nj,ngxy,myid,numprocs,nodex,nodey,orec,nfile,   &
+                      ncid,time_index,restart_format,restart_filetype,   &
+                      dat1(1,1),dat2(1,1),dat3(1,1,0),reqt,ppnode,d3n,d3t,mynode,nodemaster,nodes,d2i,d2j,d3i,d3j)
+
+    ENDIF  rf2
 
 !-------------------------------------------------------------------------------
 !ccccc  done  cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 !-------------------------------------------------------------------------------
 
+    ! helps with memory:
+    call MPI_BARRIER (MPI_COMM_WORLD,ierr)
+    !----------------- end 1 section -----------------!
 
     return
     end subroutine  readr
 
 
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+
+
+    ! cm1r17-format restart files !
+    subroutine writer2(numi,numj,numk1,numk2,nxr,nyr,var,aname,          &
+                      ni,nj,ngxy,myid,numprocs,nodex,nodey,orec,nfile,   &
+                      ncid,time_index,restart_format,restart_filetype,   &
+                      dat1,dat2,dat3,reqt,ppnode,d3n,d3t,mynode,nodemaster,nodes,d2i,d2j,d3i,d3j)
+    use mpi
+    implicit none
+
+    !-------------------------------------------------------------------
+    ! This subroutine collects data (from other processors if this is a
+    ! 1 run) and does the actual writing of restart files.
+    !-------------------------------------------------------------------
+
+    integer, intent(in) :: numi,numj,numk1,numk2,nxr,nyr
+    integer, intent(in) :: ppnode,d3n,d3t,d2i,d2j,d3i,d3j
+    real, intent(in   ), dimension(1-ngxy:numi+ngxy,1-ngxy:numj+ngxy,numk1:numk2) :: var
+    character*8, intent(in) :: aname
+    integer, intent(in) :: ni,nj,ngxy,myid,numprocs,nodex,nodey
+    integer, intent(inout) :: orec,ncid
+    integer, intent(in) :: time_index,restart_format,restart_filetype
+    real, intent(inout), dimension(numi,numj) :: dat1
+    real, intent(inout), dimension(d3i*ppnode,d3j) :: dat2
+    real, intent(inout), dimension(d3i,d3j,0:d3n-1) :: dat3
+    integer, intent(inout), dimension(d3t) :: reqt
+    integer, intent(in) :: mynode,nodemaster,nodes,nfile
+
+    integer :: i,j,k,msk
+    integer :: reqs,index,index2,n,nn,nnn,fooi,fooj,proc,ierr,ntot,n1,n2,tag
+    logical :: recv1,recv2
+
+    DO k=numk1,numk2
+      IF(myid.ne.nodemaster)THEN
+!$omp parallel do default(shared)   &
+!$omp private(i,j)
+        do j=1,numj
+        do i=1,numi
+          dat1(i,j) = var(i,j,k)
+        enddo
+        enddo
+        call MPI_ISEND(dat1,numi*numj,MPI_REAL,nodemaster,k,MPI_COMM_WORLD,reqs,ierr)
+        call MPI_WAIT(reqs,mpi_status_ignore,ierr)
+      ELSE
+        do proc=myid+1,myid+(ppnode-1)
+          call MPI_IRECV(dat3(1,1,proc),numi*numj,MPI_REAL,proc,k,MPI_COMM_WORLD,reqt(proc-myid),ierr)
+        enddo
+!$omp parallel do default(shared)   &
+!$omp private(i,j)
+        do j=1,numj
+        do i=1,numi
+          dat2(i,j)=var(i,j,k)
+        enddo
+        enddo
+        nn = 1
+        do while( nn.le.(ppnode-1) )
+          nn = nn + 1
+          call mpi_waitany(ppnode-1,reqt(1:ppnode-1),index,MPI_STATUS_IGNORE,ierr)
+          fooi = numi*index
+!$omp parallel do default(shared)   &
+!$omp private(i,j)
+          do j=1,numj
+          do i=1,numi
+            dat2(fooi+i,j)=dat3(i,j,nodemaster+index)
+          enddo
+          enddo
+        enddo
+        write(50) dat2
+      ENDIF
+    ENDDO
+
+    return
+    end subroutine writer2
+
+
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+
+
+    ! cm1r17-format restart files !
+    subroutine  readr2(numi,numj,numk1,numk2,nxr,nyr,var,aname,          &
+                      ni,nj,ngxy,myid,numprocs,nodex,nodey,orec,nfile,   &
+                      ncid,time_index,restart_format,restart_filetype,   &
+                      dat1,dat2,dat3,reqt,ppnode,d3n,d3t,mynode,nodemaster,nodes,d2i,d2j,d3i,d3j)
+    use mpi
+    implicit none
+
+    !-------------------------------------------------------------------
+    ! This subroutine reads restart files and then passes data 
+    ! to other processors if this is a 1 run. 
+    !-------------------------------------------------------------------
+
+    integer, intent(in) :: numi,numj,numk1,numk2,nxr,nyr
+    integer, intent(in) :: ppnode,d3n,d3t,d2i,d2j,d3i,d3j
+    real, intent(inout), dimension(1-ngxy:numi+ngxy,1-ngxy:numj+ngxy,numk1:numk2) :: var
+    character*8, intent(in) :: aname
+    integer, intent(in) :: ni,nj,ngxy,myid,numprocs,nodex,nodey
+    integer, intent(inout) :: orec,ncid
+    integer, intent(in) :: time_index,restart_format,restart_filetype
+    real, intent(inout), dimension(numi,numj) :: dat1
+    real, intent(inout), dimension(d3i*ppnode,d3j) :: dat2
+    real, intent(inout), dimension(d3i,d3j,0:d3n-1) :: dat3
+    integer, intent(inout), dimension(d3t) :: reqt
+    integer, intent(in) :: mynode,nodemaster,nodes,nfile
+
+    integer :: i,j,k,msk
+    integer :: reqs,index,index2,n,nn,nnn,fooi,fooj,proc,ierr,ntot,n1,n2
+    integer :: tag
+
+    DO k=numk1,numk2
+      IF(myid.ne.nodemaster)THEN
+        call MPI_IRECV(dat1,numi*numj,MPI_REAL,nodemaster,k,MPI_COMM_WORLD,reqs,ierr)
+        call MPI_WAIT(reqs,mpi_status_ignore,ierr)
+!$omp parallel do default(shared)   &
+!$omp private(i,j)
+        do j=1,numj
+        do i=1,numi
+          var(i,j,k) = dat1(i,j)
+        enddo
+        enddo
+      ELSE
+        read(50) dat2
+        do proc=myid+1,myid+(ppnode-1)
+          fooi = numi*(proc-myid)
+!$omp parallel do default(shared)   &
+!$omp private(i,j)
+          do j=1,numj
+          do i=1,numi
+            dat3(i,j,proc)=dat2(fooi+i,j)
+          enddo
+          enddo
+          call MPI_ISEND(dat3(1,1,proc),numi*numj,MPI_REAL,proc,k,MPI_COMM_WORLD,reqt(proc-myid),ierr)
+        enddo
+!$omp parallel do default(shared)   &
+!$omp private(i,j)
+        do j=1,numj
+        do i=1,numi
+          var(i,j,k)=dat2(i,j)
+        enddo
+        enddo
+        call mpi_waitall(ppnode-1,reqt(1:ppnode-1),MPI_STATUSES_IGNORE,ierr)
+      ENDIF
+    ENDDO
+
+    return
+    end subroutine  readr2
 
 END MODULE module_restart

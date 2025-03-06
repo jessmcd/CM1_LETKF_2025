@@ -141,6 +141,7 @@
 
       subroutine satadj(nrk,dt,tcond,tevac,ruh,rvh,rmh,pi0,th0,   &
                         rho,rr,pp3d,prs,th3d,q3d)
+      use mpi
       implicit none
 
       include 'input.incl'
@@ -322,7 +323,7 @@
       enddo
     ENDIF
 
-!!!#ifdef MPI
+!!!#ifdef 1
 !!!      omax=0
 !!!      call MPI_REDUCE(nmax,omax,1,MPI_INTEGER,MPI_MAX,0,MPI_COMM_WORLD,ierr)
 !!!      nmax=omax

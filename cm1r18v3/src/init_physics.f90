@@ -141,7 +141,7 @@
       yrday = 365.
     END IF
 
-!!! not using arps MPI code:  GHB, 100720
+!!! not using arps 1 code:  GHB, 100720
 !!! hard-wire these in, just in case:
     nxmid = 1
     nymid = 1
@@ -224,6 +224,7 @@
 
       subroutine getlanduse(season,myid,ib,ie,jb,je,ibl,iel,jbl,jel,   &
                             lu_index,xland,emiss,thc,albedo,znt,mavail)
+      use mpi
       implicit none
 
       integer, intent(in) :: season,myid,ib,ie,jb,je,ibl,iel,jbl,jel
@@ -282,6 +283,13 @@
 !        print *,'  sfhc = ',sfhc(:,2)
       ENDIF
 
+      call MPI_BCAST(albd  ,max_cats*max_seas,MPI_REAL,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(slmo  ,max_cats*max_seas,MPI_REAL,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(sfem  ,max_cats*max_seas,MPI_REAL,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(sfz0  ,max_cats*max_seas,MPI_REAL,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(therin,max_cats*max_seas,MPI_REAL,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(scfx  ,max_cats*max_seas,MPI_REAL,0,MPI_COMM_WORLD,ierr)
+      call MPI_BCAST(sfhc  ,max_cats*max_seas,MPI_REAL,0,MPI_COMM_WORLD,ierr)
 
 !-----------------------------------------------------------------------
 

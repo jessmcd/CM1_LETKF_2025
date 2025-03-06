@@ -9,6 +9,7 @@
                                uw31,uw32,ue31,ue32,us31,us32,un31,un32,         &
                                vw31,vw32,ve31,ve32,vs31,vs32,vn31,vn32,         &
                                ww31,ww32,we31,we32,ws31,ws32,wn31,wn32)
+      use mpi
       implicit none
 
 !-----------------------------------------------------------------------
@@ -59,8 +60,22 @@
 !  (may not parallelize correctly if this is not done)
 
       call bcu(ua)
+      call comm_3u_start(ua,uw31,uw32,ue31,ue32,us31,us32,un31,un32,reqs_u)
       call bcv(va)
+      call comm_3v_start(va,vw31,vw32,ve31,ve32,vs31,vs32,vn31,vn32,reqs_v)
       call bcw(wa,1)
+      call comm_3w_start(wa,ww31,ww32,we31,we32,ws31,ws32,wn31,wn32,reqs_w)
+      call comm_3u_end(  ua,uw31,uw32,ue31,ue32,us31,us32,un31,un32,reqs_u)
+      call comm_3v_end(  va,vw31,vw32,ve31,ve32,vs31,vs32,vn31,vn32,reqs_v)
+      call comm_3w_end(  wa,ww31,ww32,we31,we32,ws31,ws32,wn31,wn32,reqs_w)
+      call getcorneru3(ua,n3w1(1,1,1),n3w2(1,1,1),n3e1(1,1,1),n3e2(1,1,1),  &
+                          s3w1(1,1,1),s3w2(1,1,1),s3e1(1,1,1),s3e2(1,1,1))
+      call getcornerv3(va,n3w1(1,1,1),n3w2(1,1,1),n3e1(1,1,1),n3e2(1,1,1),  &
+                          s3w1(1,1,1),s3w2(1,1,1),s3e1(1,1,1),s3e2(1,1,1))
+      call getcornerw3(wa,n3w1,n3w2,n3e1,n3e2,s3w1,s3w2,s3e1,s3e2)
+      call bcu2(ua)
+      call bcv2(va)
+      call bcw2(wa)
 
 !----------------------------------------------------------------------
 !  apply bottom/top boundary conditions:
@@ -162,6 +177,12 @@
       enddo
     ENDIF
 
+      ! check for conflict:
+    IF( (iflag.ge.1.and.iflag.le.ni) .and.   &
+        (jflag.ge.1.and.jflag.le.nj) )THEN
+      IF( iflag.eq.ni .and. pdata(prx,np).eq.xf(iflag+1) .and. nodex.gt.1 .and.  myi.ne.nodex ) iflag = -1
+      IF( jflag.eq.nj .and. pdata(pry,np).eq.yf(jflag+1) .and. nodey.gt.1 .and.  myj.ne.nodey ) jflag = -1
+    ENDIF
 
       myparcel:  IF( (iflag.ge.1.and.iflag.le.ni) .and.   &
                      (jflag.ge.1.and.jflag.le.nj) )THEN
@@ -496,13 +517,32 @@
         pdata(pry,np)=y3d
         pdata(prz,np)=z3d
 
+        do n=1,3
+          ploc(n,np) = pdata(n,np)
+        enddo
+
+      ELSE
+
+        ! set to really small number (so we can use the allreduce command below)
+        do n=1,3
+          ploc(n,np) = -1.0e30
+        enddo
 
       ENDIF  myparcel
 
     ENDDO  nploop
 
 !----------------------------------------------------------------------
-!  communicate data  (for MPI runs)
+!  communicate data  (for 1 runs)
+
+
+        call MPI_ALLREDUCE(ploc(1,1),packet(1,1),3*nparcels,MPI_REAL,MPI_MAX,MPI_COMM_WORLD,ierr)
+
+        DO np=1,nparcels
+        DO n=1,3
+          pdata(n,np) = packet(n,np)
+        ENDDO
+        ENDDO
 
 
 !----------------------------------------------------------------------
@@ -526,6 +566,7 @@
                                packet,reqs_p,                          &
                                pw1,pw2,pe1,pe2,ps1,ps2,pn1,pn2,        &
                                nw1,nw2,ne1,ne2,sw1,sw2,se1,se2)
+      use mpi
       implicit none
 
 !-----------------------------------------------------------------------
@@ -714,9 +755,15 @@
     if(timestats.ge.1) time_parcels=time_parcels+mytime()
 
 !----------------------------------------------------------------------
-!  get corner info for MPI runs
+!  get corner info for 1 runs
 !  (may not parallelize correctly if this is not done)
 
+      call getcorneru(u3d,nw1(1),nw2(1),ne1(1),ne2(1),sw1(1),sw2(1),se1(1),se2(1))
+      call bcu2(u3d)
+      call getcornerv(v3d,nw1(1),nw2(1),ne1(1),ne2(1),sw1(1),sw2(1),se1(1),se2(1))
+      call bcv2(v3d)
+      call getcornerw(w3d,nw1(1),nw2(1),ne1(1),ne2(1),sw1(1),sw2(1),se1(1),se2(1))
+      call bcw2(w3d)
 
 !----------------------------------------------------------------------
 !  apply bottom/top boundary conditions:
@@ -915,6 +962,12 @@
       enddo
     ENDIF
 
+      ! check for conflict:
+    IF( (iflag.ge.1.and.iflag.le.ni) .and.   &
+        (jflag.ge.1.and.jflag.le.nj) )THEN
+      IF( iflag.eq.ni .and. pdata(prx,np).eq.xf(iflag+1) .and. nodex.gt.1 .and.  myi.ne.nodex ) iflag = -1
+      IF( jflag.eq.nj .and. pdata(pry,np).eq.yf(jflag+1) .and. nodey.gt.1 .and.  myj.ne.nodey ) jflag = -1
+    ENDIF
 
       myprcl:  IF( (iflag.ge.1.and.iflag.le.ni) .and.   &
                    (jflag.ge.1.and.jflag.le.nj) )THEN
@@ -1326,6 +1379,12 @@
         pdata(prv,np)=vval
         pdata(prw,np)=wval
 
+      ELSE
+
+        ! set to really small number (so we can use the allreduce command below)
+        do n=1,npvals
+          pdata(n,np) = -1.0e30
+        enddo
 
       ENDIF  myprcl
 
@@ -1333,6 +1392,17 @@
 
 !----------------------------------------------------------------------
 !  communicate data
+
+
+      call MPI_REDUCE(pdata(1,1),packet(1,1),npvals*nparcels,MPI_REAL,MPI_MAX,0,MPI_COMM_WORLD,ierr)
+
+      if( myid.eq.0 )then
+        do np=1,nparcels
+        do n=1,npvals
+          pdata(n,np) = packet(n,np)
+        enddo
+        enddo
+      endif
 
 
 !----------------------------------------------------------------------

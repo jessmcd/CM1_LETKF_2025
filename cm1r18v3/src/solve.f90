@@ -117,6 +117,7 @@
       use module_mp_thompson
       use module_mp_graupel
       use module_mp_nssl_2mom, only : zscale, nssl_2mom_driver
+      use mpi
       use module_restart
       implicit none
 
@@ -288,6 +289,10 @@
 
       if( adapt_dt.eq.1 .and. myid.eq.0 ) print *,'cflmax,dt,nsound:',cflmax,dt,nsound
 
+      nf=0
+      nu=0
+      nv=0
+      nw=0
 
       afoo=0.0d0
       bfoo=0.0d0
@@ -1270,6 +1275,12 @@
 
 !--------------------------------------------------------------------
         IF(nrk.ge.2)THEN
+          call comm_3u_end(u3d,uw31,uw32,ue31,ue32,   &
+                               us31,us32,un31,un32,reqs_u)
+          call comm_3v_end(v3d,vw31,vw32,ve31,ve32,   &
+                               vs31,vs32,vn31,vn32,reqs_v)
+          call comm_3w_end(w3d,ww31,ww32,we31,we32,   &
+                               ws31,ws32,wn31,wn32,reqs_w)
           if(terrain_flag)then
             call bcwsfc(gz,dzdx,dzdy,u3d,v3d,w3d)
             call bc2d(w3d(ib,jb,1))
@@ -1360,6 +1371,10 @@
 
         IF(terrain_flag)THEN
           call bcw(rrw,0)
+          call comm_1w_start(rrw,ww1,ww2,we1,we2,   &
+                                 ws1,ws2,wn1,wn2,reqs_w)
+          call comm_1w_end(rrw,ww1,ww2,we1,we2,   &
+                               ws1,ws2,wn1,wn2,reqs_w)
         ENDIF
 
       IF(.not.terrain_flag)THEN
@@ -1409,6 +1424,11 @@
       if(timestats.ge.1) time_divx=time_divx+mytime()
 
 !--------------------------------------------------------------------
+        IF(nrk.ge.2)THEN
+          call comm_1s_end(rho,pw1,pw2,pe1,pe2,ps1,ps2,pn1,pn2,reqs_s)
+          call getcorner(rho,nw1(1),nw2(1),ne1(1),ne2(1),sw1(1),sw2(1),se1(1),se2(1))
+          call bcs2(rho)
+        ENDIF
 !--------------------------------------------------------------------
 !  U-equation
 
@@ -1557,6 +1577,14 @@
 
 !--------------------------------------------------------------------
 !  finish comms for q/theta:
+        IF(nrk.ge.2)THEN
+          call comm_3r_end(th3d,pp3d,rw31,rw32,re31,re32,   &
+                                     rs31,rs32,rn31,rn32,reqs_p)
+          if(imoist.eq.1)then
+            call comm_3q_end(q3d,qw31,qw32,qe31,qe32,   &
+                                 qs31,qs32,qn31,qn32,reqs_q(1,1))
+          endif
+        ENDIF
 !--------------------------------------------------------------------
 !  Calculate misc. variables
 !
@@ -1657,6 +1685,7 @@
 
 !--------------------------------------------------------------------
         call bcs(t11)
+        call comm_1s_start(t11,pw1,pw2,pe1,pe2,ps1,ps2,pn1,pn2,reqs_s)
 !--------------------------------------------------------------------
 !  W-equation
 
@@ -1791,6 +1820,7 @@
       ENDIF
 
 !--------------------------------------------------------------------
+        call comm_1s_end(  t11,pw1,pw2,pe1,pe2,ps1,ps2,pn1,pn2,reqs_s)
 !--------------------------------------------------------------------
 !  call sound
 
@@ -2159,8 +2189,13 @@
           p2 = p2 + dumk2(k) 
         enddo
 
-        mass2 = mass2*(dx*dy*dz)
-        p2 = p2/dble(nx*ny*nz)
+        p0=0.0d0
+        call MPI_ALLREDUCE(mass2,p0,1,MPI_DOUBLE_PRECISION,MPI_SUM,MPI_COMM_WORLD,ierr)
+        mass2 = p0*(dx*dy*dz)
+        !---
+        p0=0.0d0
+        call MPI_ALLREDUCE(p2,p0,1,MPI_DOUBLE_PRECISION,MPI_SUM,MPI_COMM_WORLD,ierr)
+        p2 = p0/dble(nx*ny*nz)
 
         tem = ( (mass1/mass2)**(dble(rd)/dble(cv)) - 1.0d0 )*p2
 
@@ -2205,6 +2240,25 @@
       call bcs(rho)
 
 !--------------------------------------------------------------------
+      call comm_3u_start(u3d,uw31,uw32,ue31,ue32,   &
+                             us31,us32,un31,un32,reqs_u)
+      call comm_3v_start(v3d,vw31,vw32,ve31,ve32,   &
+                             vs31,vs32,vn31,vn32,reqs_v)
+      call comm_3w_start(w3d,ww31,ww32,we31,we32,   &
+                             ws31,ws32,wn31,wn32,reqs_w)
+      call comm_1s_start(rho,pw1,pw2,pe1,pe2,ps1,ps2,pn1,pn2,reqs_s)
+      if(nrk.lt.3)then
+        call comm_3r_start(th3d,pp3d,rw31,rw32,re31,re32,   &
+                                     rs31,rs32,rn31,rn32,reqs_p)
+      endif
+      IF(imoist.eq.1)THEN
+        !  start comms for q:
+        ! dont communicate on last rk step
+        if(nrk.lt.3)then
+          call comm_3q_start(q3d,qw31,qw32,qe31,qe32,   &
+                                 qs31,qs32,qn31,qn32,reqs_q(1,1))
+        endif
+      ENDIF
 !--------------------------------------------------------------------
 !  TKE advection
  
@@ -2223,6 +2277,10 @@
           enddo
           if(timestats.ge.1) time_misc=time_misc+mytime()
 
+        IF(nrk.ge.2)THEN
+          call comm_3t_end(tke3d,tkw1,tkw2,tke1,tke2,   &
+                                 tks1,tks2,tkn1,tkn2,reqs_tk)
+        ENDIF
 
             call advw(nrk,xh,rxh,arh1,arh2,uh,xf,vh,gz,rgz,mf,rho0,rr0,rf0,rrf0,dum1,dum2,dum3,dum4,divx,  &
                        rru,rrv,rrw,tke3d,wten,rds,c1,c2,rho,dttmp)
@@ -2241,6 +2299,8 @@
 
 
           call bcw(tke3d,1)
+          call comm_3t_start(tke3d,tkw1,tkw2,tke1,tke2,   &
+                                   tks1,tks2,tkn1,tkn2,reqs_tk)
 
         ENDIF
 
@@ -2274,6 +2334,12 @@
       if(timestats.ge.1) time_misc=time_misc+mytime()
 
 
+          IF(nrk.ge.2)THEN
+            call comm_3s_end(pt3d(ib,jb,kb,n),                           &
+                  tw1(1,1,1,n),tw2(1,1,1,n),te1(1,1,1,n),te2(1,1,1,n),   &
+                  ts1(1,1,1,n),ts2(1,1,1,n),tn1(1,1,1,n),tn2(1,1,1,n),   &
+                  reqs_t(1,n))
+          ENDIF
 
       weps = 1.0*epsilon
       diffit = 0
@@ -2296,6 +2362,10 @@
 
       IF(nrk.le.2)THEN
         call bcs(pt3d(ib,jb,kb,n))
+        call comm_3s_start(pt3d(ib,jb,kb,n)   &
+                     ,tw1(1,1,1,n),tw2(1,1,1,n),te1(1,1,1,n),te2(1,1,1,n)     &
+                     ,ts1(1,1,1,n),ts2(1,1,1,n),tn1(1,1,1,n),tn2(1,1,1,n)     &
+                     ,reqs_t(1,n) )
       ENDIF
 
     ENDDO
@@ -2320,6 +2390,10 @@
       DO n=1,npt
         if( pdtra.eq.1 ) call pdefq(0.0,afoo,ruh,rvh,rmh,rho,pt3d(ib,jb,kb,n))
         call bcs(pt3d(ib,jb,kb,n))
+        call comm_3s_start(pt3d(ib,jb,kb,n)   &
+                     ,tw1(1,1,1,n),tw2(1,1,1,n),te1(1,1,1,n),te2(1,1,1,n)     &
+                     ,ts1(1,1,1,n),ts2(1,1,1,n),tn1(1,1,1,n),tn2(1,1,1,n)     &
+                     ,reqs_t(1,n) )
       ENDDO
     endif
 
@@ -3011,11 +3085,15 @@
 
           call bcs(th3d)
           call bcs(pp3d)
+          call comm_3r_start(th3d,pp3d,rw31,rw32,re31,re32,   &
+                                       rs31,rs32,rn31,rn32,reqs_p)
 
       IF( imoist.eq.1 )THEN
           DO n=1,numq
             call bcs(q3d(ib,jb,kb,n))
           ENDDO
+          call comm_3q_start(q3d,qw31,qw32,qe31,qe32,   &
+                                 qs31,qs32,qn31,qn32,reqs_q(1,1))
       ENDIF
 
 !Done:  message passing
@@ -3043,6 +3121,12 @@
 !-----------------------------------------------------------------
 !  Equate the two arrays
 
+      call comm_3u_end(u3d,uw31,uw32,ue31,ue32,   &
+                           us31,us32,un31,un32,reqs_u)
+      call comm_3v_end(v3d,vw31,vw32,ve31,ve32,   &
+                           vs31,vs32,vn31,vn32,reqs_v)
+      call comm_3w_end(w3d,ww31,ww32,we31,we32,   &
+                           ws31,ws32,wn31,wn32,reqs_w)
 
       if(terrain_flag)then
         call bcwsfc(gz,dzdx,dzdy,u3d,v3d,w3d)
@@ -3073,6 +3157,8 @@
 !----------
 
       if(iturb.eq.1)then
+        call comm_3t_end(tke3d,tkw1,tkw2,tke1,tke2,   &
+                               tks1,tks2,tkn1,tkn2,reqs_tk)
 !$omp parallel do default(shared)  &
 !$omp private(i,j,k)
         do k=1,nk+1
@@ -3089,6 +3175,10 @@
 
       if(iptra.eq.1)then
         do n=1,npt
+          call comm_3s_end(pt3d(ib,jb,kb,n),                           &
+                tw1(1,1,1,n),tw2(1,1,1,n),te1(1,1,1,n),te2(1,1,1,n),   &
+                ts1(1,1,1,n),ts2(1,1,1,n),tn1(1,1,1,n),tn2(1,1,1,n),   &
+                reqs_t(1,n))
 !$omp parallel do default(shared)  &
 !$omp private(i,j,k)
           do k=1,nk
@@ -3104,6 +3194,8 @@
 
 !----------
 
+      call comm_3r_end(th3d,pp3d,rw31,rw32,re31,re32,   &
+                                 rs31,rs32,rn31,rn32,reqs_p)
 !$omp parallel do default(shared)  &
 !$omp private(i,j,k)
       do k=1,nk
@@ -3123,6 +3215,8 @@
 !----------
 
       if(imoist.eq.1)then
+        call comm_3q_end(q3d,qw31,qw32,qe31,qe32,   &
+                             qs31,qs32,qn31,qn32,reqs_q(1,1))
 !$omp parallel do default(shared)  &
 !$omp private(i,j,k,n)
         do k=1,nk
@@ -3139,6 +3233,9 @@
 
 !----------
 
+        call comm_1s_end(rho,pw1,pw2,pe1,pe2,ps1,ps2,pn1,pn2,reqs_s)
+        call getcorner(rho,nw1(1),nw2(1),ne1(1),ne2(1),sw1(1),sw2(1),se1(1),se2(1))
+        call bcs2(rho)
 !$omp parallel do default(shared)  &
 !$omp private(i,j,k)
         do j=0,nj+1
@@ -3239,7 +3336,7 @@
 !cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 
 
-!!!#ifdef MPI
+!!!#ifdef 1
 !!!      call MPI_BARRIER (MPI_COMM_WORLD,ierr)
 !!!      if(timestats.ge.1) time_mpb=time_mpb+mytime()
 !!!#endif
@@ -3644,6 +3741,9 @@
       ENDIF
 
         ! all processors:
+        call MPI_BCAST(dbldt ,1,MPI_DOUBLE_PRECISION,0,MPI_COMM_WORLD,ierr)
+!!!        call MPI_BCAST(dt    ,1,MPI_REAL   ,0,MPI_COMM_WORLD,ierr)
+!!!        call MPI_BCAST(nsound,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
         dt = dbldt
         call dtsmall(dt)
         ndt = ndt + 1
@@ -3880,6 +3980,7 @@
           print *,' Stopping model .... '
           print *
         endif
+        call MPI_BARRIER (MPI_COMM_WORLD,ierr)
         call stopcm1
       endif
 

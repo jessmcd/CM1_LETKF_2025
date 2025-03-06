@@ -182,7 +182,7 @@ if __name__ == '__main__':
 	#-----------------------------------------------------------------------------------------------------
 	#
 	# Now actually run the forecasts
-	#
+	##cmd = "cd %s ; %s >> %s" % (fcst_member, "./cm1.exe", "cm1.out")
 
 	pool = Pool(processes=nthreads)              # set up a queue to run
 
@@ -197,7 +197,7 @@ if __name__ == '__main__':
 			print(("%s is the model path" % model))
 			print(("%s is the outputfile path" % outputfile))
 
-		cmd = "cd %s ; %s >> %s" % (fcst_member, "./cm1.exe", "cm1.out")
+		cmd = "cd %s ; %s >> %s" % (fcst_member, "mpirun -n 25 cm1.exe", "cm1.out")
 		pool.apply_async(RunMember, (cmd,))
 
 	pool.close()

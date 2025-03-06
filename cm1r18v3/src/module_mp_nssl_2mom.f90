@@ -1360,7 +1360,7 @@ SUBROUTINE nssl_2mom_driver(qv, qc, qr, qi, qs, qh, qhl, ccw, crw, cci, csw, chw
 
       implicit none
 
-      integer :: mytask = 0
+      INCLUDE 'mpif.h'
 
  !Subroutine arguments:
       integer, intent(in), optional ::                                                   &
@@ -1469,6 +1469,10 @@ SUBROUTINE nssl_2mom_driver(qv, qc, qr, qi, qs, qh, qhl, ccw, crw, cci, csw, chw
       double precision :: timesed,timesed1,timesed2,timesed3, timegs, timenucond, timedbz,zmaxsed
       double precision :: timevtcalc,timesetvt
       
+
+      integer, parameter :: ntot = 50
+      double precision  mpitotindp(ntot), mpitotoutdp(ntot)
+      INTEGER :: mpi_error_code = 1
 
 
 ! -------------------------------------------------------------------
@@ -5293,7 +5297,7 @@ END SUBROUTINE nssl_2mom_driver
 
 
 !-----------------------------------------------------------------------------
-! MPI LOCAL VARIABLES 
+! 1 LOCAL VARIABLES 
 
       integer :: ixb, jyb, kzb
       integer :: ixe, jye, kze
@@ -5387,7 +5391,7 @@ END SUBROUTINE nssl_2mom_driver
         kgs(ngscnt) = kz
         if ( ngscnt .eq. ngs ) goto 1100
         end if
-!#ifndef MPI
+!#ifndef 1
         end do !!ix
 !#endif
         nxmpb = 1
