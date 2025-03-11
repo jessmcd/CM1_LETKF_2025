@@ -16,7 +16,11 @@ date
 
 setenv PYTHONUNBUFFERED TRUE
 
+echo "test run"
+
 python run_simple_exper.py >& $dir.out
+
+echo "um"
 
 cp -R RUN_LETKF $dir
 

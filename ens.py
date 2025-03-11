@@ -953,13 +953,13 @@ def ens_PLOT_9PANEL(ens, klevel = 6, obs=False, savefig=None, cparams = None, va
     else:
       print("\n Plotting member %d" % (mem[n]+1))
       if var == "DBZ":
-          mfld = N.ma.masked_less_equal(ens['DBZ'][mem[n],klevel,:,:], 10.)
+          mfld = N.ma.masked_less_equal(ens['DBZ'][:][mem[n],klevel,:,:], 10.)
           label = "DBZ Mem: %2.2d" % (mem[n]+1)
           PLOT_ONE(mfld, x2d, y2d, map, clevels=clevels, height=ens.zc[klevel], label = label, ax = ax, \
                counties=True, cmap=ctables.REF_default, zoom = zoom)
       else:
           if var == "THP":
-              mfld = N.clip(ens['TH'][mem[n],klevel,:,:] - ens['TH'][mem[n],klevel,-1,1], cparams[0],cparams[1])
+              mfld = N.clip(ens['TH'][:][mem[n],klevel,:,:] - ens['TH'][:][mem[n],klevel,-1,1], cparams[0],cparams[1])
           elif var == "WZ":
               mfld = 10000.*ComputeWZ(fstate.xc, fstate.yc, fstate.u[mem[n],klevel], fstate.v[mem[n],klevel])
           else:

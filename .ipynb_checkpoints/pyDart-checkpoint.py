@@ -15,7 +15,7 @@ import time
 import netCDF4 as ncdf
 from pyproj import Proj
 from optparse import OptionParser
-#from tables import *
+from tables import *
 #from netcdftime import utime
 import cftime #JEDIT - utime no longer exists
 from datetime import datetime as py_datetime
