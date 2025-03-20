@@ -278,23 +278,23 @@
  /
 
  &param16
- restart_format   = 1,
- restart_filetype = 2,
- restart_reset_frqtim  =  .true.,
- restart_file_theta    =  .false.,
- restart_file_dbz      =  .false.,
- restart_file_th0      =  .false.,
- restart_file_prs0     =  .false.,
- restart_file_pi0      =  .false.,
- restart_file_rho0     =  .false.,
- restart_file_qv0      =  .false.,
- restart_file_u0       =  .false.,
- restart_file_v0       =  .false.,
- restart_file_zs       =  .false.,
- restart_file_zh       =  .false.,
- restart_file_zf       =  .false.,
- restart_file_diags    =  .false.,
- restart_use_theta     =  .false.,
+restart_format = 2
+restart_filetype = 2
+restart_reset_frqtim = .true.
+restart_file_theta = .true.
+restart_file_dbz = .true.
+restart_file_th0 = .false.
+restart_file_prs0 = .false.
+restart_file_pi0 = .true.
+restart_file_rho0 = .false.
+restart_file_qv0 = .false.
+restart_file_u0 = .false.
+restart_file_v0 = .false.
+restart_file_zs = .false.
+restart_file_zh = .false.
+restart_file_zf = .false.
+restart_file_diags = .false.
+restart_use_theta = .true.
  /
 
  &param10

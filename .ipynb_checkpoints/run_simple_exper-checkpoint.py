@@ -7,7 +7,7 @@ print("\nStarting run_simple_exper.py")
 #--------------------------------------------------------------------------
 # Initialize the run, and add perturbations to the backround and 3D fields
 
-ensN=10
+ensN=20
 
 os.system(f"python create_run_letkf.py -n {ensN} ") 
 os.system("python run_fcst.py -e RUN_LETKF/RUN_LETKF.exp -i --nthreads 1")
@@ -21,12 +21,11 @@ os.system("python /work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py -e RUN_LETKF
 #--------------------------------------------------------------------------
 # Now loop through the cycling at 5 min intervals
 
-# times = ['2003,05,08,21,00,00', '2003,05,08,21,05,00', '2003,05,08,21,10,00', '2003,05,08,21,15,00', \
-#          '2003,05,08,21,20,00', '2003,05,08,21,25,00', '2003,05,08,21,30,00', '2003,05,08,21,35,00', \
-#          '2003,05,08,21,40,00', '2003,05,08,21,45,00', '2003,05,08,21,50,00', '2003,05,08,21,55,00', '2003,05,08,22,00,00']
-
 times = ['2003,05,08,21,00,00', '2003,05,08,21,05,00', '2003,05,08,21,10,00', '2003,05,08,21,15,00', \
-          '2003,05,08,21,20,00', '2003,05,08,21,25,00', '2003,05,08,21,30,00', '2003,05,08,21,35,00'] 
+         '2003,05,08,21,20,00', '2003,05,08,21,25,00', '2003,05,08,21,30,00', '2003,05,08,21,35,00', \
+         '2003,05,08,21,40,00', '2003,05,08,21,45,00', '2003,05,08,21,50,00', '2003,05,08,21,55,00', '2003,05,08,22,00,00']
+
+#times = ['2003,05,08,21,00,00', '2003,05,08,21,05,00',] 
 
 
 for time in times:
@@ -42,7 +41,8 @@ for time in times:
 #--------------------------------------------------------------------------
 # Make a 30 minute forecast
 
-    os.system("python /work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py -e RUN_LETKF/RUN_LETKF.exp --run_time 1800 -t 2003,5,8,22,00,00 --nthreads 1")
+os.system("python /work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py -e RUN_LETKF/RUN_LETKF.exp --run_time 1800 -t 2003,5,8,22,00,00 --nthreads 1")
+    # os.system("python /work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py -e RUN_LETKF/RUN_LETKF.exp --run_time 1800 -t 2003,5,8,21,10,00 --nthreads 1")
 
 #--------------------------------------------------------------------------
 # Completed (hopefully) simple synchronous experiment
@@ -63,5 +63,5 @@ os.system("python DBZ_INV.py -d RUN_LETKF -t DBZ_INV --noshow")
 os.system("python VR_CR.py -d RUN_LETKF -t VR_CR --noshow")
 os.system("python VR_INV.py -d RUN_LETKF -t VR_INV --noshow")
 
-# print("\nEnded run_simple_exper.py")
+print("\nEnded run_simple_exper.py")
 

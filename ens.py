@@ -10,6 +10,9 @@ import sys
 import os
 import re
 
+
+import xarray as xr # this isn't used, it just provides a workaround to a netcdf4 bug
+
 import matplotlib
 import matplotlib.pyplot as P
 from matplotlib import ticker
@@ -33,7 +36,6 @@ from mpl_toolkits.basemap import Basemap
 
 from fsrc.fpython2 import fstate, addbubbles_box, obs_2_grid3d
 from fsrc.fpython2 import add_smooth_perts
-#import fsrc.recursive2d as recursive2d
 
 import state_vector as state
 
@@ -131,7 +133,7 @@ def FindRestartFiles(exper_filename, myDT, ret_exp=True, ret_DT=True):
         exper['fcst_members'].append(fcst_member)
 
     fileheader = os.path.join(exper['fcst_members'][0],fprefix)
-    files = glob.glob(fileheader+"_rst_0*.nc")
+    files = glob.glob(fileheader+"rst_0*.nc")
 
 # Quick snippet of code to sort based on file index
     def getint(name):
@@ -144,12 +146,15 @@ def FindRestartFiles(exper_filename, myDT, ret_exp=True, ret_DT=True):
 
         for n, file in enumerate(files):
             f = ncdf.Dataset(file, "r")
+            #print(f.variables)
             f_time = f.variables['time'][0]
+            f.close()
+            del f
         
             if( N.abs(f_time - time) < 1.0 ):
                 print("\n ==> FindRestartFile:  Found time %d in file:  %s" % (f_time, file))
                 for g in exper['fcst_members']:
-                    rfiles.append(os.path.join(g, ("%s_rst_%6.6d.nc" % (fprefix,n))))
+                    rfiles.append(os.path.join(g, ("%srst_%6.6d.nc" % (fprefix,n))))
            
 # Deal with the return cases
          
@@ -2306,7 +2311,8 @@ def write_CM1_ens(ens, writeEns=False, overwrite=False, writeFcstMean=False, wri
 
 # Here we take the current forecast file and copy it to a new netCDF file with a slightly different name
 
-        cmd = "cp %s %s" % (file, file.replace("_rst_", "_prior_"))
+        #cmd = "cp %s %s" % (file, file.replace("_rst_", "_prior_"))
+        cmd = "cp %s %s" % (file, file.replace("rst_", "_prior_")) #new version
         os.system(cmd)
 
       print("\n ==> WRITE_CM1_ENS:  CM1 prior files creation completed")
@@ -2330,23 +2336,37 @@ def write_CM1_ens(ens, writeEns=False, overwrite=False, writeFcstMean=False, wri
 
     for n, file in enumerate(files):
 
+      # this is really really dumb, but its the only way to stop a hdf error bug with ncdf
+      test = xr.open_dataset(file, decode_timedelta=True)
+      test.close() 
       f = ncdf.Dataset(file, "r+")
+      # my_count=5
+      # while my_count < 10:
+      #   try:
+      #     test = xr.open_dataset(file, decode_timedelta=True, engine='scipy')
+      #     test.close() 
+      #     f = ncdf.Dataset(file, "r+")
+      #     my_count=11
+      #   except:
+      #       my_count+=1
 
+      # print(f)      
+   
       for key in ens.state_vector['xyz3d']:
       
         if ens.state_vector[key]['writeback']:
       
           if key == "U":        
-            f[ens.state_vector[key]['name']][:,:,:] = fstate.u[n,:,:,:]
+            f[ens.state_vector[key]['name']][0,:,:,:] = fstate.u[n,:,:,:]
       
           elif key == "V":  
-            f[ens.state_vector[key]['name']][:,:,:] = fstate.v[n,:,:,:]
+            f[ens.state_vector[key]['name']][0,:,:,:] = fstate.v[n,:,:,:]
 
           elif key == "W":  
-            f[ens.state_vector[key]['name']][:,:,:] = fstate.w[n,:,:,:]
+            f[ens.state_vector[key]['name']][0,:,:,:] = fstate.w[n,:,:,:]
 
           else:          
-            f[ens.state_vector[key]['name']][:,:,:] = ens.__dict__[key][n,:,:,:]
+            f[ens.state_vector[key]['name']][0,:,:,:] = ens.__dict__[key][n,:,:,:]
    
         else:
           if debug_io:
@@ -2379,10 +2399,12 @@ def write_CM1_ens(ens, writeEns=False, overwrite=False, writeFcstMean=False, wri
       os.mkdir(member000_dir)
 
     if writeAnalMean == True:
-      meanfile = os.path.join(member000_dir, os.path.basename(ens.files[0]).replace("_rst_", "_post_"))
+      #meanfile = os.path.join(member000_dir, os.path.basename(ens.files[0]).replace("_rst_", "_post_"))
+      meanfile = os.path.join(member000_dir, os.path.basename(ens.files[0]).replace("rst_", "_post_"))
       print("\n ==> WRITE_CM1_ENS:  Now writing out posterior ensemble mean into %s" % (meanfile))
     else:
-      meanfile = os.path.join(member000_dir, os.path.basename(ens.files[0]).replace("_rst_", "_prior_"))
+      #meanfile = os.path.join(member000_dir, os.path.basename(ens.files[0]).replace("_rst_", "_prior_"))
+      meanfile = os.path.join(member000_dir, os.path.basename(ens.files[0]).replace("rst_", "_prior_"))
       print("\n ==> WRITE_CM1_ENS:  Now writing out prior ensemble mean into %s" % (meanfile))
     
     cmd = "cp -f %s %s" % (ens.files[0], meanfile)

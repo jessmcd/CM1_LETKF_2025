@@ -18,7 +18,9 @@ _microphysics_options = {"morrison": 5, "zvdLFO":  28, "thompson": 3, "zvd": 26,
 
 defaults = {
             "base_dir":  "RUN_LETKF",
-            "fprefix":   "cm1out",
+            #"fprefix":   "cm1out",
+            "fprefix":   "cm1",
+    
             "ne":         20,
             "model":     "cm1r21v1/run/cm1.exe",
             "src":       "cm1r21v1/run/onefile.F",
@@ -142,6 +144,49 @@ defaults = {
 # I created a second dictionary to be able to use the defaults information where needed -
 #   then I join them together into 1 dictionary that is stored for the run
 
+# cm1_nml = {"cm1namelist": [
+#                            ('param0',  'nx', 75),
+#                            ('param0',  'ny', 75),
+#                            ('param0',  'nz', 51),
+#                            ('param1',  'dx', 2000.),
+#                            ('param1',  'dy', 2000.),
+#                            ('param1',  'dz', 400.),
+#                            ('param1',  'dtl', 7.5),
+#                            ('param1',  'run_time', 0),
+#                            ('param1',  'rstfrq', 0.0),
+#                            ('param2',  'ptype', _microphysics_options[defaults['microphysics']]),
+#                            ('param2',  'rstnum', 0),
+#                            ('param2',  'irst', 0),
+#                            ('param2',  'iorigin', 1),
+#                            ('param2',  'isnd', 7),
+#                            ('param2',  'imove', 0),
+#                            ('param2',  'iinit', 0),
+#                            ('param2',  'ihail', 1),
+#                            ('param6',  'stretch_z', 2),
+#                            ('param6',  'ztop', 20000.),
+#                            ('param6',  'str_bot', 0.0),
+#                            ('param6',  'str_top', 8625.),
+#                            ('param6',  'dz_bot', 150.),
+#                            ('param6',  'dz_top', 600.),
+#                            ('param9',  'restart_format', 2),
+#                            ('param9',  'restart_filetype', 1),
+#                            ('param9',  'restart_filetype', 1),
+#                            ('param9',  'restart_file_theta', True),
+#                            ('param9',  'restart_file_dbz', True),
+#                            ('param9',  'restart_use_theta', True),
+#                            ('param9',  'output_format', 2),
+#                            ('param11', 'radopt', 0),
+#                            ('param11', 'ctrlat', defaults['lat0']),
+#                            ('param11', 'ctrlon', defaults['lon0']),
+#                            ('param11', 'year',   defaults['YEAR']),
+#                            ('param11', 'month',  defaults['MONTH']),
+#                            ('param11', 'day',    defaults['DAY']),
+#                            ('param11', 'hour',   defaults['HOUR']),
+#                            ('param11', 'minute', defaults['MINUTE']),
+#                            ('param11', 'second', defaults['SECOND'])
+#                           ]}
+
+# for CM1 version 21
 cm1_nml = {"cm1namelist": [
                            ('param0',  'nx', 75),
                            ('param0',  'ny', 75),
@@ -166,13 +211,10 @@ cm1_nml = {"cm1namelist": [
                            ('param6',  'str_top', 8625.),
                            ('param6',  'dz_bot', 150.),
                            ('param6',  'dz_top', 600.),
-                           ('param9',  'restart_format', 2),
-                           ('param9',  'restart_filetype', 1),
-                           ('param9',  'restart_filetype', 1),
-                           ('param9',  'restart_file_theta', True),
-                           ('param9',  'restart_file_dbz', True),
-                           ('param9',  'restart_use_theta', True),
+    
                            ('param9',  'output_format', 2),
+                           ('param9',  'output_filetype', 2),
+    
                            ('param11', 'radopt', 0),
                            ('param11', 'ctrlat', defaults['lat0']),
                            ('param11', 'ctrlon', defaults['lon0']),
@@ -181,9 +223,18 @@ cm1_nml = {"cm1namelist": [
                            ('param11', 'day',    defaults['DAY']),
                            ('param11', 'hour',   defaults['HOUR']),
                            ('param11', 'minute', defaults['MINUTE']),
-                           ('param11', 'second', defaults['SECOND'])
-                          ]}
+                           ('param11', 'second', defaults['SECOND']),
+    
+                           ('param16',  'restart_format', 2),
+                           ('param16',  'restart_filetype', 2),
+                           ('param16',  'restart_file_theta', True),
+                           ('param16',  'restart_file_dbz', True),
+                           ('param16',  'restart_file_pi0', True),
+                           ('param16',  'restart_file_rho0', True),
+                           ('param16',  'restart_use_theta', True),
+                           
 
+                          ]}
 # Now JOIN the cm1_nm1 data into defaults...
 
 defaults.update(cm1_nml)
@@ -404,6 +455,7 @@ for n in N.arange(1,defaults['ne']+1):
                 from_target = os.path.join(defaults['base_path'],os.path.basename(defaults[item[0]]))
                 to_target   = os.path.join(fcst_member,os.path.basename(defaults[item[0]]))
                 ret         = linkit(from_target, to_target, item[1])
+
 
 #with open("%s/%s.exp" % (defaults['base_path'],defaults['base_dir']), 'wb') as handle:
 # pickle.dump(defaults, handle, protocol=0)

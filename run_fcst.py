@@ -20,8 +20,11 @@ debug = True
 
 def FindRestartFile(fcst_path,run_name,time):
 
+    # fileheader = os.path.join(fcst_path,run_name)
+    # files = glob.glob(fileheader+"_rst_0*.nc")
+
     fileheader = os.path.join(fcst_path,run_name)
-    files = glob.glob(fileheader+"_rst_0*.nc")
+    files = glob.glob(fileheader+"rst_0*.nc")
 
     if len(files) > 0:
 
@@ -143,25 +146,29 @@ if __name__ == '__main__':
 	# cd ..
 	# HANDY Python module:  f90nml  -->  this is why python is great, someone already did this!!!!!!
 
-	namelist = f90nml.read(os.path.join(experiment['base_path'],"namelist.input"))
 
+    # namelist['param9']['restart_format']   = 2
+    # namelist['param9']['restart_filetype'] = 1
+
+	namelist = f90nml.read(os.path.join(experiment['base_path'],"namelist.input"))
+  
 	if init:
-		namelist['param1']['run_time']         = 0
+		namelist['param1']['run_time']= 0
 		namelist['param2']['irst']             = 0
 		namelist['param1']['rstfrq']           = 0.0
-		namelist['param9']['restart_format']   = 2
-		namelist['param9']['restart_filetype'] = 1
+		namelist['param16']['restart_format'] = 2
+		namelist['param16']['restart_filetype'] = 2 #changed from 1
 		namelist['param2']['rstnum']           = 0
 
 	else:
-		output_basename = namelist['param9']['output_basename']
-
+		output_basename = 'cm1' #cm1out #namelist['param9']['output_basename']
 		namelist['param2']['irst']             = 1
 		print(FindRestartFile(experiment['fcst_members'][0],output_basename,start_time))
 		namelist['param2']['rstnum']           = FindRestartFile(experiment['fcst_members'][0],output_basename,start_time)
 		namelist['param1']['run_time']         = run_time
-		namelist['param9']['restart_format']   = 2
-		namelist['param9']['restart_filetype'] = 1
+		namelist['param16']['restart_format']   = 2
+		namelist['param16']['restart_filetype'] = 2 #changed from 1 
+
 
 	# async_freq > 0 tells you that you need model restart files dumped every freq secs so that you   
 	# can compute the priors closer to the observations for 4D LETKF - e.g.. enables asynchronous DA
