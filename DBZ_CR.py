@@ -41,6 +41,18 @@ kernel = N.array([[1,2,1],
                   [-2,0,-2],
                   [1,-2,1]])
 
+
+## settings for plots - makes them look nicer
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+plt.rc('xtick', labelsize=14) 
+plt.rc('ytick', labelsize=14) 
+plt.rc('axes', labelsize=14, titlesize=18) 
+mpl.rcParams.update({"axes.grid" : False, "grid.color": "0.6",  'grid.linestyle':':',
+                    'grid.linewidth':1, 'axes.labelweight':'bold', 'legend.framealpha':1.0})
+
+
+
 def smfnc(x):
     return ndimage.gaussian_filter(x, sigma=0.75)
     
@@ -112,7 +124,7 @@ if __name__ == "__main__":
     m = -1
     
     fig = P.figure(figsize=(12,12))
-    fig.text(0.72, 0.72, "\n\nConsistency\n\nRatio", size=20, va="baseline", ha="center", multialignment="center")
+    fig.text(0.72, 0.72, "\n\nConsistency\nRatio", size=20, va="baseline", ha="center", multialignment="center", weight='bold')
     fig.text(0.72, 0.65, plotfilename, size=16, va="baseline", ha="center", multialignment="center")
 
     print("\n 2D CONSISTENCY RATIO CALCULATIONS......\n")
@@ -150,7 +162,8 @@ if __name__ == "__main__":
             secs  = N.concatenate(secsL, axis=0)
             error = N.concatenate(errorL, axis=0)
             kind  = N.concatenate(kindL, axis=0)
-            datebins.append((ncdf.num2date(secs[1],units=sec_utime)).strftime("%Y%m%d%H%M%S"))
+            #datebins.append((ncdf.num2date(secs[1],units=sec_utime)).strftime("%Y%m%d%H%M%S"))
+            datebins.append(DT.datetime.utcfromtimestamp(secs.mean()))
 
             m = m + 1
 
@@ -194,31 +207,30 @@ if __name__ == "__main__":
     else:
         clevels = N.arange(spread_limits[0], spread_limits[1], spread_limits[2])
 
-    cs1=axC.contourf(datebins, zbins/1000., CR_TZ, clevels, cmap=cm.get_cmap('YlOrRd'))
-    cs2=axC.contour(datebins,  zbins/1000., CR_TZ, cs1.levels, colors='k')
+    cs1=axC.contourf(datebins, zbins/1000., CR_TZ, clevels, cmap='YlOrRd')
+    #axC.contour(datebins,  zbins/1000., CR_TZ, clevels, colors='k', linewidths=0.5, alpha=0.5)
+    cs2=axC.contour(datebins,  zbins/1000., CR_TZ, clevels, colors='k')
 
     start = datebins[0]
     end   = datebins[-1]
-    s     = datetime.strptime(start, "%Y%m%d%H%M%S")
-    e     = datetime.strptime(end, "%Y%m%d%H%M%S")
-
+    
+    nticks_approx = 8
+    minute_interval = 5*round((end-start).seconds/(nticks_approx*60*5)) #find the best interval divisble by 5 based on nticks
+    
     axC.set_xlim(start, end)
     axC.set_ylim(zmin,zmax)
-
-    maj_loc = mdates.MinuteLocator(interval=2)
+    
+    maj_loc = mdates.MinuteLocator(interval=minute_interval)
     axC.xaxis.set_major_locator(maj_loc)
     dateFmt = mdates.DateFormatter('%H:%M')
     axC.xaxis.set_major_formatter(dateFmt)
-
-    min_loc   = mdates.MinuteLocator(interval=2)
-    axC.xaxis.set_minor_locator(min_loc)
-
+    
     labels = axC.get_xticklabels()
-    P.setp(labels, rotation=40, fontsize=10)
-
+    P.setp(labels, rotation=40, fontsize=12)
+    
     axC.clabel(cs2, inline=1, fontsize=10, fmt="%1.1f")
-    axC.set_ylabel("Height (km)")
-    axC.set_xlabel("Time")
+    axC.set_ylabel("Height (km)", weight='bold')
+    axC.set_xlabel("Time (UTC)",weight='bold')
 
 #===================================================================================================
 # time series Consistency Ratio
@@ -259,7 +271,8 @@ if __name__ == "__main__":
             secs  = N.concatenate(secsL, axis=0)
             error = N.concatenate(errorL, axis=0)
             kind  = N.concatenate(kindL, axis=0)
-            datebins.append((ncdf.num2date(secs[1],units=sec_utime)).strftime("%Y%m%d%H%M%S"))
+            #datebins.append((ncdf.num2date(secs[1],units=sec_utime)).strftime("%Y%m%d%H%M%S"))
+            datebins.append(DT.datetime.utcfromtimestamp(secs.mean()))
 
             m = m + 1
 

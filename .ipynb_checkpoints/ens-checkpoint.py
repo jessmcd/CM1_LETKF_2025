@@ -34,6 +34,8 @@ import scipy.spatial
 
 from mpl_toolkits.basemap import Basemap
 
+from Plotting.cbook2 import nice_mxmnintvl, nice_clevels
+
 from fsrc.fpython2 import fstate, addbubbles_box, obs_2_grid3d
 from fsrc.fpython2 import add_smooth_perts
 
@@ -862,7 +864,7 @@ def PLOT_ONE(mfld, x2d, y2d, map, cint=None, height=0., label = None, ax=None, c
 
 #===============================================================================
 #
-def ens_PLOT_MEAN_STDDEV(ens, klevel = 4, savefig=None):
+def ens_PLOT_MEAN_STDDEV(ens, klevel = 4, savefig=None, zoom=None):
 #
 #===============================================================================
 
