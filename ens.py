@@ -32,7 +32,12 @@ import scipy.interpolate
 import scipy.ndimage as ndimage
 import scipy.spatial
 
+import pandas as pd # for new data format
+import cftime
+
 from mpl_toolkits.basemap import Basemap
+
+from Plotting.cbook2 import nice_mxmnintvl, nice_clevels
 
 from fsrc.fpython2 import fstate, addbubbles_box, obs_2_grid3d
 from fsrc.fpython2 import add_smooth_perts
@@ -600,7 +605,7 @@ def plotskewts(ens):
   Czero = 273.16
 
   try:
-    import skewt
+    #import skewt
     from matplotlib.ticker import ScalarFormatter, MultipleLocator
     from matplotlib.collections import LineCollection
   except:
@@ -610,7 +615,7 @@ def plotskewts(ens):
 # Create a new figure. The dimensions here give a good aspect ratio
 
   fig = P.figure(figsize=(6.5875, 6.2125))
-  ax = fig.add_subplot(111, projection='skewx')
+  ax = fig.add_subplot(111)#, projection='skewx')
 
   P.grid(True)
 
@@ -621,7 +626,7 @@ def plotskewts(ens):
   for n in N.arange(ens.ne):
 
     thinit = N.mean(N.mean(ens['TH'][n], axis=2), axis=1)
-    piinit = N.mean(N.mean(ens['PI'][n], axis=2), axis=1)
+    piinit = N.mean(N.mean(ens['PI0'][n], axis=2), axis=1)
     qvinit = N.mean(N.mean(ens['QV'][n], axis=2), axis=1)
 
     T = (thinit * piinit) - Czero
@@ -652,7 +657,8 @@ def plotskewts(ens):
   ax.xaxis.set_major_locator(MultipleLocator(10))
   ax.set_xlim(-50,50)
 
-  P.show()
+  #P.show()
+  P.savefig("SKEWTs.pdf",dpi=300)  
 
 #===============================================================================
 def plothodos(ens):
@@ -695,7 +701,8 @@ def plothodos(ens):
   ax.set_ylim(-20,40)
   ax.set_xlim(-20,40)
 
-  P.show()
+  #P.show()
+  P.savefig("HODOS.pdf",dpi=300)  
 
 #===============================================================================
 def calcHx(ens, kind, lat, lon, height, elev, azimuth, missing=None):
@@ -754,6 +761,9 @@ def calcHx(ens, kind, lat, lon, height, elev, azimuth, missing=None):
     b[:,:] = missing
   
     if kind[n] == 11:  # VR!
+
+        # this is doing a lot of fancy stuff that i will IGNORE for now
+        # but DO NOT forget to turn this back on when doing better experiments later!
   
       for m, key in enumerate( ["UA", "VA", "WA", "DBZ", "DEN"]):
         q1     = dx1*ens[key].data[:ens.ne,k1,j1,i1] + dx2*ens[key].data[:ens.ne,k1,j1,i2]
@@ -862,7 +872,7 @@ def PLOT_ONE(mfld, x2d, y2d, map, cint=None, height=0., label = None, ax=None, c
 
 #===============================================================================
 #
-def ens_PLOT_MEAN_STDDEV(ens, klevel = 4, savefig=None):
+def ens_PLOT_MEAN_STDDEV(ens, klevel = 4, savefig=None, zoom=None):
 #
 #===============================================================================
 
@@ -1166,13 +1176,15 @@ def ens_IC_ZeroUV(ens, restore=False):
         
         write_CM1_ens(state, writeEns=True, overwrite=True) 
             
-    if time_all:  print("\n Wallclock time to run ens_IC_INIT0", round(timer() - t0, 3), " sec")    
-           
-#===============================================================================
-#
-def ens_GRID_RELECTIVITY(ens, ob_file=None, plot=False, cref=True):
+    if time_all:  print("\n Wallclock time to run ens_IC_INIT0", round(timer() - t0, 3), " sec")   
+
+
 #
 #===============================================================================
+def ens_GRID_RELECTIVITY(ens, ob_file=None, plot=False, cref=True, verbose=False):
+#
+#===============================================================================
+  ''' new version '''
 
   t0 = timer()
 
@@ -1190,39 +1202,28 @@ def ens_GRID_RELECTIVITY(ens, ob_file=None, plot=False, cref=True):
   if ob_file == None:
     ob_file = ens.experiment['radar_obs']
 
-  ob_f = pyDart.pyDART()
-  ob_f.file(ob_file)
+  # ob_f = pyDart.pyDART()
+  # ob_f.file(ob_file)
+
+  ob_f = pd.read_csv(ob_file)
 
 # look for reflectivity +/- 2.5 min 
 
   analysis_time = ens.datetime[0]
-  dt            = datetime.timedelta(0,300)
-  begin         = analysis_time - dt/2
-  ending        = analysis_time + dt/2
+  dt            = datetime.timedelta(0,30)
+  begin  = cftime.date2num(analysis_time - dt, "seconds since 1970-01-01 00:00:00")
+  ending = cftime.date2num(analysis_time + dt, "seconds since 1970-01-01 00:00:00")
 
-  print("\n ==> ens_GRID_REFL: Using pyDart to search with begin time of: ", begin.strftime("%Y-%m-%d %H:%M:%S"))
-  print("\n ==> ens_GRID_REFL: Using pyDart to search with end   time of: ", ending.strftime("%Y-%m-%d %H:%M:%S"))
- 
-  ob_f.search(start=begin.timetuple()[:6], end=ending.timetuple()[:6], condition = '(kind == 12) & (value > 0.) & (z < 10000.)')
-
-# number of observations, if there are none, stop program, something is wrong
-
-  if len(ob_f.index) >= 50:
-    print("\n  ==> ens_GRID_REFL:  Total number of obs found at search time: %s \n" % len(ob_f.index))
-  else:
-    print("\n  ==> ens_GRID_REFL:  Insufficient number of obs (<=50) found at search time:  %d obs \n" % (len(ob_f.index)))
-    return 'None'
-
-# using the search index generated from above, obtain the location, data, and type
-
-  odata = ob_f.get_data()
+  data_mask = (ob_f.utime >= begin) & (ob_f.utime <= ending) &(ob_f.kind==12) # only dbz
+  
+  odata = ob_f[data_mask]
   
   data    = odata['value'][:]
   lats    = odata['lat'][:]
   lons    = odata['lon'][:]
   hgts    = odata['height'][:]
 
-  print("\n ==> ens_GRID_REFL: Number of points found from initial search:      %d" % (data.size))
+  if verbose: print("\n ==> ens_GRID_REFL: Number of points found from initial search:      %d" % (data.size))
 
 # The coordinate system here is based on the grid lat0/lon0/hgt0, and the offset grid stored in fstate
 #     ens stores the x/y grid in grid-internal coordinates
@@ -1242,14 +1243,14 @@ def ens_GRID_RELECTIVITY(ens, ob_file=None, plot=False, cref=True):
                          
 # xob, yob = p1(lons, lats, errchk = True)
 # xob, yob = xob+xoffset, yob+yoffset
-
-  print(" Information about where the obs are relative to the grid...")
-  print("X-GRID MIN: %4.1f  X-OB MIN:  %4.1f  X-OB MAX:  %4.1f  X-GRID MAX:  %4.1f" % \
-          (0.001*fstate.xc.min(), 0.001*xob.min(),  0.001*xob.max(), 0.001*fstate.xc.max()))
-  print("Y-GRID MIN: %4.1f  Y-OB MIN:  %4.1f  Y-OB MAX:  %4.1f  Y-GRID MAX:  %4.1f" % \
-          (0.001*fstate.yc.min(), 0.001*yob.min(),  0.001*yob.max(), 0.001*fstate.yc.max()))
-  print("Z-GRID MIN: %4.1f  Z-OB MIN:  %4.1f  Z-OB MAX:  %4.1f  Z-GRID MAX:  %4.1f" % \
-          (0.001*fstate.zc.min(), 0.001*hgts.min(),  0.001*hgts.max(), 0.001*fstate.zc.max()))
+  if verbose:
+    print(" Information about where the obs are relative to the grid...")
+    print("X-GRID MIN: %4.1f  X-OB MIN:  %4.1f  X-OB MAX:  %4.1f  X-GRID MAX:  %4.1f" % \
+            (0.001*fstate.xc.min(), 0.001*xob.min(),  0.001*xob.max(), 0.001*fstate.xc.max()))
+    print("Y-GRID MIN: %4.1f  Y-OB MIN:  %4.1f  Y-OB MAX:  %4.1f  Y-GRID MAX:  %4.1f" % \
+            (0.001*fstate.yc.min(), 0.001*yob.min(),  0.001*yob.max(), 0.001*fstate.yc.max()))
+    print("Z-GRID MIN: %4.1f  Z-OB MIN:  %4.1f  Z-OB MAX:  %4.1f  Z-GRID MAX:  %4.1f" % \
+            (0.001*fstate.zc.min(), 0.001*hgts.min(),  0.001*hgts.max(), 0.001*fstate.zc.max()))
 
 # Create obs list for KDTree query...
 
@@ -1288,7 +1289,7 @@ def ens_GRID_RELECTIVITY(ens, ob_file=None, plot=False, cref=True):
 
   dbz3d = obs_2_grid3d(data, xob, yob, hgts, x_array, y_array, z_array, ii, jj, kk, 4000., 2000., 0.0)
 
-  print("\n ==> ens_GRID_REFL: 3D gridded DBZ:   Max:  %4.1f   Min:  %4.1f" % (dbz3d.max(), dbz3d.min()))
+  if verbose: print("\n ==> ens_GRID_REFL: 3D gridded DBZ:   Max:  %4.1f   Min:  %4.1f" % (dbz3d.max(), dbz3d.min()))
 
 # Create composite reflectivity, and then replicate it into a 3D array
   
@@ -1301,11 +1302,150 @@ def ens_GRID_RELECTIVITY(ens, ob_file=None, plot=False, cref=True):
     for k in N.arange(ens.nz):
       dbz3d[k] = dbz2d
       
-    print("\n ==> ens_GRID_REFL: 2D composite DBZ requested   Max:  %4.1f   Min:  %4.1f" % (dbz2d.max(), dbz2d.min()))
+    if verbose: print("\n ==> ens_GRID_REFL: 2D composite DBZ requested   Max:  %4.1f   Min:  %4.1f" % (dbz2d.max(), dbz2d.min()))
    
   del xyz_obs, x_array, y_array, z_array, xyz_grid, mytree
              
   return dbz3d
+           
+# #===============================================================================
+# #
+# def ens_GRID_RELECTIVITY(ens, ob_file=None, plot=False, cref=True):
+# #
+# #===============================================================================
+
+#   t0 = timer()
+
+# # These values are set in the experiment dictionary created at the begining of the run
+
+#   hradius = ens.experiment['ADD_NOISE']['hradius']
+#   vradius = ens.experiment['ADD_NOISE']['vradius']
+#   xoffset = ens.experiment['xoffset']
+#   yoffset = ens.experiment['yoffset']
+#   glat    = ens.experiment['lat0']
+#   glon    = ens.experiment['lon0']
+  
+# # if ob_file == None, use experiment radar file
+
+#   if ob_file == None:
+#     ob_file = ens.experiment['radar_obs']
+
+#   ob_f = pyDart.pyDART()
+#   ob_f.file(ob_file)
+
+# # look for reflectivity +/- 2.5 min 
+
+#   analysis_time = ens.datetime[0]
+#   dt            = datetime.timedelta(0,300)
+#   begin         = analysis_time - dt/2
+#   ending        = analysis_time + dt/2
+
+#   print("\n ==> ens_GRID_REFL: Using pyDart to search with begin time of: ", begin.strftime("%Y-%m-%d %H:%M:%S"))
+#   print("\n ==> ens_GRID_REFL: Using pyDart to search with end   time of: ", ending.strftime("%Y-%m-%d %H:%M:%S"))
+ 
+#   ob_f.search(start=begin.timetuple()[:6], end=ending.timetuple()[:6], condition = '(kind == 12) & (value > 0.) & (z < 10000.)')
+
+# # number of observations, if there are none, stop program, something is wrong
+
+#   if len(ob_f.index) >= 50:
+#     print("\n  ==> ens_GRID_REFL:  Total number of obs found at search time: %s \n" % len(ob_f.index))
+#   else:
+#     print("\n  ==> ens_GRID_REFL:  Insufficient number of obs (<=50) found at search time:  %d obs \n" % (len(ob_f.index)))
+#     return 'None'
+
+# # using the search index generated from above, obtain the location, data, and type
+
+#   odata = ob_f.get_data()
+  
+#   data    = odata['value'][:]
+#   lats    = odata['lat'][:]
+#   lons    = odata['lon'][:]
+#   hgts    = odata['height'][:]
+
+#   print("\n ==> ens_GRID_REFL: Number of points found from initial search:      %d" % (data.size))
+
+# # The coordinate system here is based on the grid lat0/lon0/hgt0, and the offset grid stored in fstate
+# #     ens stores the x/y grid in grid-internal coordinates
+
+#   map      = mymap(fstate.xc, fstate.yc, glat, glon)
+#   xob, yob = map(lons, lats)
+#   xob, yob = xob+xoffset, yob+yoffset
+
+# # The coordinate system here is based on the grid lat0/lon0/hgt0, and the offset grid stored in fstate
+# #     ens stores the x/y grid in grid-internal coordinates
+
+# # sw_lat, sw_lon = dxy_2_dll(fstate.xc.min(), fstate.yc.min(), glat, glon, degrees=True)
+# # ne_lat, ne_lon = dxy_2_dll(fstate.xc.max(), fstate.yc.max(), glat, glon, degrees=True)
+    
+# # p1 = Proj(proj='lcc', ellps='WGS84', datum='WGS84', lat_1=_truelat1, lat_2=_truelat2, \
+# #                        lat_0=0.5*(ne_lat+sw_lat), lon_0=0.5*(ne_lon+sw_lon))
+                         
+# # xob, yob = p1(lons, lats, errchk = True)
+# # xob, yob = xob+xoffset, yob+yoffset
+
+#   print(" Information about where the obs are relative to the grid...")
+#   print("X-GRID MIN: %4.1f  X-OB MIN:  %4.1f  X-OB MAX:  %4.1f  X-GRID MAX:  %4.1f" % \
+#           (0.001*fstate.xc.min(), 0.001*xob.min(),  0.001*xob.max(), 0.001*fstate.xc.max()))
+#   print("Y-GRID MIN: %4.1f  Y-OB MIN:  %4.1f  Y-OB MAX:  %4.1f  Y-GRID MAX:  %4.1f" % \
+#           (0.001*fstate.yc.min(), 0.001*yob.min(),  0.001*yob.max(), 0.001*fstate.yc.max()))
+#   print("Z-GRID MIN: %4.1f  Z-OB MIN:  %4.1f  Z-OB MAX:  %4.1f  Z-GRID MAX:  %4.1f" % \
+#           (0.001*fstate.zc.min(), 0.001*hgts.min(),  0.001*hgts.max(), 0.001*fstate.zc.max()))
+
+# # Create obs list for KDTree query...
+
+#   xyz_obs  = N.vstack((hgts,yob,xob))
+#   obs_list = list(xyz_obs.transpose())
+
+# # If needed, here is some fake data for testing code
+
+# # xob, yob, hgts = [xoffset+0.5*(fstate.xc.max()-fstate.xc.min())], [yoffset+0.5*(fstate.yc.max()-fstate.yc.min())], [2000.]
+# # xyz_obs  = N.vstack((hgts,yob,xob))
+# # obs_list = list(xyz_obs.transpose())
+# # data = 50.*N.ones((1,))   # single point of 50 dbz
+# # print(data, obs_list)
+
+# # Create 3D grid arrays for KDTree
+  
+#   y_array, z_array, x_array = N.meshgrid(fstate.yc, fstate.zc, fstate.xc)
+#   xyz_grid = N.dstack([z_array.ravel(),y_array.ravel(),x_array.ravel()])[0]
+  
+# # Use cKDTree to create fast indexing for 3D grid....
+
+#   mytree = scipy.spatial.cKDTree(xyz_grid)
+#   distance, indices1D = mytree.query(obs_list)
+
+# # these are the integer indices that you now pass into the fortran routine. They
+# # are the un-raveled 3D index locations nearest the observation point in the 3D array
+
+#   kk,jj,ii = N.unravel_index(indices1D, (len(fstate.zc), len(fstate.yc), len(fstate.xc)))
+
+# # for n in N.arange(data.size):
+# #     print("obs#: %d  Zobs:  %8.1f  Zarray:  %8.1f" % (n, xyz_obs[0,n], z_array[kk[n],jj[n],ii[n]]))
+# #     print("obs#: %d  Yobs:  %8.1f  Yarray:  %8.1f" % (n, xyz_obs[1,n], y_array[kk[n],jj[n],ii[n]]))
+# #     print("obs#: %d  Xobs:  %8.1f  Xarray:  %8.1f\n" % (n, xyz_obs[2,n], x_array[kk[n],jj[n],ii[n]]))
+    
+# # Call the fortran routine that grids the dbz data
+
+#   dbz3d = obs_2_grid3d(data, xob, yob, hgts, x_array, y_array, z_array, ii, jj, kk, 4000., 2000., 0.0)
+
+#   print("\n ==> ens_GRID_REFL: 3D gridded DBZ:   Max:  %4.1f   Min:  %4.1f" % (dbz3d.max(), dbz3d.min()))
+
+# # Create composite reflectivity, and then replicate it into a 3D array
+  
+#   dbz2d = N.zeros((1,))
+
+#   if cref:
+
+#     dbz2d = dbz3d.max(axis=0)
+  
+#     for k in N.arange(ens.nz):
+#       dbz3d[k] = dbz2d
+      
+#     print("\n ==> ens_GRID_REFL: 2D composite DBZ requested   Max:  %4.1f   Min:  %4.1f" % (dbz2d.max(), dbz2d.min()))
+   
+#   del xyz_obs, x_array, y_array, z_array, xyz_grid, mytree
+             
+#   return dbz3d
 
 #===============================================================================
 #
@@ -2640,10 +2780,10 @@ if __name__ == "__main__":
 
 #-------------------------------------------------------------------------------
 #
-#  You now have a data structure that if fully populated with information
+#  You now have a data structure that is fully populated with information
 
     if options.init0:
-        ens_IC_pertUV(state, writeout=False)
+        #ens_IC_pertUV(state, writeout=False) # using soundings that are already fully perturbed
         ens_IC_pert_from_box(state, plot=options.plot, writeout=False)
         
     if options.init1 > 0:

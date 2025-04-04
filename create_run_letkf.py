@@ -17,7 +17,7 @@ _microphysics_options = {"morrison": 5, "zvdLFO":  28, "thompson": 3, "zvd": 26,
 # DEFAULTS: blank key variables are set by program:  do not set directly!
 
 defaults = {
-            "base_dir":  "RUN_LETKF",
+            "base_dir":  "DBZ_VR",
             #"fprefix":   "cm1out",
             "fprefix":   "cm1",
     
@@ -26,26 +26,26 @@ defaults = {
             "src":       "cm1r21v1/run/onefile.F",
             "namelist":  "cm1r21v1/run/namelist.input",
             "landsfc":   "cm1r21v1/run/LANDUSE.TBL",
-            "sounding":  "Obs/input_sounding",
-            "radar_obs": "Obs/obs_seq_8may03_2km.h5",
+            "sounding":  "run_soundings",             ### old version: Obs//input_sounding
+            "radar_obs": 'Obs/8may24_cm1_obs.csv',#"Obs/fake_real_radar_obs.csv",#"Obs/8may24_cm1_radar_obs.csv", #"Obs/obs_seq_8may03_2km.h5"
 
 # Starting YYYY-MM-DD-HH-MM-SS for model run
 
-            "YEAR":      2003,
+            "YEAR":      2024,
             "MONTH":        5,
             "DAY":          8,
-            "HOUR":        20,
-            "MINUTE":      40,
+            "HOUR":        19,
+            "MINUTE":      15,
             "SECOND":       0,
 
 # Grid location:  lat0/lon0 is a refernce point (often radar loc)
 # Grid location:  xoffset/yoffset/hgt are physical lengths in meters offset from (lon0,lat0,0)
 
-            "lat0":          35.23583,
+            "lat0":          35.23583, 
             "lon0":         -97.46194,
-            "hgt":           373.,
-            "xoffset":      -100000.,
-            "yoffset":      -100000.,
+            "hgt":           0.,
+            "xoffset":      -180000.,
+            "yoffset":      -180000.,
 
 # Microphysics
 
@@ -69,16 +69,16 @@ defaults = {
                        'upert':        0.0,
                        'vpert':        0.0,
                        'qvpert':       5.0,
-                       'xbmin':    15000.0,
-                       'xbmax':    35000.0,
-                       'ybmin':    15000.0,
-                       'ybmax':    55000.0,
+                       'xbmin':      90000,#15000.0,
+                       'xbmax':     110000, #35000.0,
+                       'ybmin':      90000,#15000.0,
+                       'ybmax':     110000, #55000.0,
                        'zbmin':        0.0,
                        'zbmax':     1500.0,
                        'rbubh':    10000.0,
                        'rbubv':     2000.0,
                     'bbletype':          1,
-                          'r_seed': 2147483562,
+                      'r_seed': 2147483562,
                        },
 
 # Parameters for the additive noise
@@ -102,24 +102,24 @@ defaults = {
                         
            "DA_PARAMS" : {
                            "obs_errors":     {           # the errors that are used for observations
-                                              11:  ["VR", 2.0],
-                                              12:  ["DBZ",5.0],
+                                              11:  ["VR", 3.0],
+                                              12:  ["DBZ",7.0],
                                              },
                            "aInflate":             1,       # type(int): 0 => no adapt inflat / 1 => LETKF AI / 2 => WH2010 RTPS / 3 => RTPP
                            "outlier":              3,       # type(int): Outlier threshold:  None means dont threshold, else set to sigma (e.g., 3, 5, 7 etc.)
                            "nthreads":            1,       # type(int):  number of threads used to run the ensemble members and enkf (if parallel)
-                           "assim_window":       300,       # type(int):  window for assimilation
+                           "assim_window":       30,        # edited for synthetic data, original was 300,       # type(int):  window for assimilation
                                                             #             (note that the assim window will be +/- (assim_window/2) )
                            "assim_freq":         300,       # type(int):  used to set asynchronous DA assimilation
                            "async_freq":         300,
-                           "cook":              1200,       # type(int): time to pre-cook initial perturbations
+                           "cook":              2700,       # type(int): time to pre-cook initial perturbations
                            "additive_noise":    [False,1],   # type(list): whether to add noise based on 1=cref, 2 = adaptive-inflation field
                            "mpass":             False,
                            "writeFcstMean":     True,
                            "writeAnalMean":     True,
                            "saveWeights":       False,
                            "readWeights":       False,
-                           "rhoriz":            9000.,
+                           "rhoriz":            18000.,
                            "rvert":             4500.,
                            "rtime":             -600.,
                            "cutoff":            2,
@@ -144,57 +144,15 @@ defaults = {
 # I created a second dictionary to be able to use the defaults information where needed -
 #   then I join them together into 1 dictionary that is stored for the run
 
-# cm1_nml = {"cm1namelist": [
-#                            ('param0',  'nx', 75),
-#                            ('param0',  'ny', 75),
-#                            ('param0',  'nz', 51),
-#                            ('param1',  'dx', 2000.),
-#                            ('param1',  'dy', 2000.),
-#                            ('param1',  'dz', 400.),
-#                            ('param1',  'dtl', 7.5),
-#                            ('param1',  'run_time', 0),
-#                            ('param1',  'rstfrq', 0.0),
-#                            ('param2',  'ptype', _microphysics_options[defaults['microphysics']]),
-#                            ('param2',  'rstnum', 0),
-#                            ('param2',  'irst', 0),
-#                            ('param2',  'iorigin', 1),
-#                            ('param2',  'isnd', 7),
-#                            ('param2',  'imove', 0),
-#                            ('param2',  'iinit', 0),
-#                            ('param2',  'ihail', 1),
-#                            ('param6',  'stretch_z', 2),
-#                            ('param6',  'ztop', 20000.),
-#                            ('param6',  'str_bot', 0.0),
-#                            ('param6',  'str_top', 8625.),
-#                            ('param6',  'dz_bot', 150.),
-#                            ('param6',  'dz_top', 600.),
-#                            ('param9',  'restart_format', 2),
-#                            ('param9',  'restart_filetype', 1),
-#                            ('param9',  'restart_filetype', 1),
-#                            ('param9',  'restart_file_theta', True),
-#                            ('param9',  'restart_file_dbz', True),
-#                            ('param9',  'restart_use_theta', True),
-#                            ('param9',  'output_format', 2),
-#                            ('param11', 'radopt', 0),
-#                            ('param11', 'ctrlat', defaults['lat0']),
-#                            ('param11', 'ctrlon', defaults['lon0']),
-#                            ('param11', 'year',   defaults['YEAR']),
-#                            ('param11', 'month',  defaults['MONTH']),
-#                            ('param11', 'day',    defaults['DAY']),
-#                            ('param11', 'hour',   defaults['HOUR']),
-#                            ('param11', 'minute', defaults['MINUTE']),
-#                            ('param11', 'second', defaults['SECOND'])
-#                           ]}
-
-# for CM1 version 21
 cm1_nml = {"cm1namelist": [
-                           ('param0',  'nx', 75),
-                           ('param0',  'ny', 75),
+                           ('param0',  'nx', 128),
+                           ('param0',  'ny', 128),
                            ('param0',  'nz', 51),
-                           ('param1',  'dx', 2000.),
-                           ('param1',  'dy', 2000.),
+                           ('param0',  'ppnode', 32),
+                           ('param1',  'dx', 3000.),
+                           ('param1',  'dy', 3000.),
                            ('param1',  'dz', 400.),
-                           ('param1',  'dtl', 7.5),
+                           ('param1',  'dtl', 5.0), # NOTE: this number MUST be a factor of 300!
                            ('param1',  'run_time', 0),
                            ('param1',  'rstfrq', 0.0),
                            ('param2',  'ptype', _microphysics_options[defaults['microphysics']]),
@@ -274,7 +232,7 @@ myhelp = """
 #                                                                               (1=link, 2=cp)
 #-----------------------------------------------------------------------------------------------------------------------
 DIR_DICT= {
-            'top':     [['model', 2], ['src', 2], ['namelist', 2], ['landsfc', 2], ['sounding', 2]],
+            'top':     [['model', 2], ['src', 2], ['namelist', 2], ['landsfc', 2], ['sounding', 3]], #J modified sounding, it was 2 before
 
             'fcst':    [['model', 2], ['src', 1], ['namelist', 1], ['landsfc', 1], ['sounding', 2]],
            }
@@ -285,6 +243,7 @@ DIR_DICT= {
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 def linkit(dir_from_target,dir_to_target,link_option):
+    '''JMCDONALD added option 3'''
 
     if debug: print(("LINKIT:  ARG[0]: %s  ARG[1]:  %s" % (dir_from_target,dir_to_target)))
 
@@ -312,6 +271,34 @@ def linkit(dir_from_target,dir_to_target,link_option):
     if link_option == 2:
 
         CP_CMD = "cp  %s %s" % (from_path, to_path)
+
+        if os.system(CP_CMD) != 0:
+
+            print("\nERROR!!! ") 
+
+            print(("ERROR!!!  Failed to EXECUTE: " + CP_CMD))
+
+            if not os.path.exists(dir_from_target):
+
+                print(("\nCOMMAND FAILED because %s does not exist\n " % dir_from_target))
+
+            elif not os.path.join(dir_to_target):
+
+                print(("\nCOMMAND FAILED because %s does not exist\n " % dir_to_target))
+
+            else:
+
+                print("\nBOTH FILE AND DIRECTORY EXISTS....something else f__ked up here....\n")
+
+            print("ERROR!!!\n") 
+
+            sys.exit(1)
+
+        print(("Copied " + dir_from_target + " to directory  " + dir_to_target))
+
+    if link_option == 3:
+
+        CP_CMD = "cp -r %s %s" % (from_path, to_path)
 
         if os.system(CP_CMD) != 0:
 
@@ -452,14 +439,16 @@ for n in N.arange(1,defaults['ne']+1):
         
         if (key == 'fcst'):
             for item in DIR_DICT[key]:
-                from_target = os.path.join(defaults['base_path'],os.path.basename(defaults[item[0]]))
-                to_target   = os.path.join(fcst_member,os.path.basename(defaults[item[0]]))
-                ret         = linkit(from_target, to_target, item[1])
 
-
-#with open("%s/%s.exp" % (defaults['base_path'],defaults['base_dir']), 'wb') as handle:
-# pickle.dump(defaults, handle, protocol=0)
-#pickle.write("%s/%s.exp" % (defaults['base_path'],defaults['base_dir']), 'w')
+                if item[0] == 'sounding':
+                    from_target = os.path.join(defaults['base_path'],os.path.basename(defaults[item[0]]), f'Run{(n-1):02d}Sounding.txt')
+                    to_target   = os.path.join(fcst_member,"input_sounding")
+                    ret         = linkit(from_target, to_target, item[1])
+       
+                else:
+                    from_target = os.path.join(defaults['base_path'],os.path.basename(defaults[item[0]]))
+                    to_target   = os.path.join(fcst_member,os.path.basename(defaults[item[0]]))
+                    ret         = linkit(from_target, to_target, item[1])
 
 def myconverter(o):
     if isinstance(o, datetime.datetime):

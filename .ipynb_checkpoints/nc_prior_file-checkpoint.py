@@ -157,9 +157,10 @@ def write_prior(ne, kind, value, dates, error, x, y, z, Hxf, Hxfbar, lat, lon, e
 
   str_dates = []
   for n, itemb in enumerate(dates):
-    item = itemb.decode("utf-8")
-    rootgroup.variables['dates'][oo+n,:] = ncdf.stringtoarr(item, datelen)
-    str_dates.append(str(item))
+    # item = itemb.decode("utf-8")
+    # rootgroup.variables['dates'][oo+n,:] = ncdf.stringtoarr(item, datelen)
+    # str_dates.append(str(item))
+    item = itemb
     try:
       dt = DT.datetime.strptime(str(item), "%Y-%m-%d_%H:%M:%S")
     except:

@@ -1,3 +1,12 @@
+
+# Very quick JMM edit:
+Use the run_OSSE_experiment.py script to run a simple experiment. 
+Update create_run_letkf to match your specs. Right now, each run get its own sounding copied in from the run_soundings directory, so the UV perturbation addition has been turned off (in ens.py)
+
+
+
+
+
 #
 # How to run the CM1_LETKF system
 #

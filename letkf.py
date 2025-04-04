@@ -166,7 +166,7 @@ if __name__ == "__main__":
   if aInflate == 0:
     inflate_file_exists = False
   else:
-    inflation_deltaT = exper['DA_PARAMS']['assim_window']
+    inflation_deltaT = exper['DA_PARAMS']['assim_freq'] # JESSMCDO EDIT: i changes this from "assim_window" to "assim_freq" because that seemed more appropriate, also I changed assim_window and so the two are no longer equal
     dt = DT.timedelta(0,inflation_deltaT)
     in_time = DT.datetime(int(time[0]),int(time[1]),int(time[2]),int(time[3]),int(time[4]),int(time[5])) - dt
     inflate_file = os.path.join(path, "Inflation_%s.nc" % in_time.strftime("%Y-%m-%d_%H:%M:%S"))

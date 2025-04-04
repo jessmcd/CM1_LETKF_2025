@@ -175,17 +175,17 @@ if __name__ == "__main__":
 # Run LETKF 
 #
 
-  print(("\n  >================ Run_Filter:  Running LETKF at time: %s ===================<  \n" % file_DT.strftime("%Y-%m-%d_%H:%M:%S")))
+  # print(("\n  >================ Run_Filter:  Running LETKF at time: %s ===================<  \n" % file_DT.strftime("%Y-%m-%d_%H:%M:%S")))
 
-  cmd = "python letkf.py --exper %s --time %s --nthreads %d " % (options.exper, options.time, nthreads)
+  # cmd = "python letkf.py --exper %s --time %s --nthreads %d " % (options.exper, options.time, nthreads)
   
-  if aInflate:   cmd = "%s --aInflate %d" % (cmd, aInflate)
-  if options.HF != None: cmd = "%s --HF %d" % (cmd, options.HF)
+  # if aInflate:   cmd = "%s --aInflate %d" % (cmd, aInflate)
+  # if options.HF != None: cmd = "%s --HF %d" % (cmd, options.HF)
   
-  print("\n  "+cmd+"\n")
-  os.system(cmd)
-  #print(run_unix_cmd(cmd))
+  # print("\n  "+cmd+"\n")
+  # os.system(cmd)
+  # #print(run_unix_cmd(cmd))
 
-  print("\n  ----------------------------------------------------------------------")
-  print("\n                 END PROGRAM RUN_FILTER                                 ")
-  print("\n  ----------------------------------------------------------------------")
+  # print("\n  ----------------------------------------------------------------------")
+  # print("\n                 END PROGRAM RUN_FILTER                                 ")
+  # print("\n  ----------------------------------------------------------------------")

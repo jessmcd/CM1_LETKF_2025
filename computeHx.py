@@ -15,6 +15,13 @@ from assim_util import *
 import state_vector as state
 import json
 
+##### pandas update for obs file
+import pandas as pd
+import cftime
+day_utime   = "days since 1601-01-01 00:00:00"
+sec_utime   = "seconds since 1970-01-01 00:00:00"
+#######
+
 missing = -999.
 diag = True
 
@@ -150,8 +157,10 @@ if __name__ == "__main__":
 
   timeHxF.start()
   
-  ob_f = pyDart.pyDART()
-  ob_f.file(obs_file)   
+  # ob_f = pyDart.pyDART()
+  # ob_f.file(obs_file) 
+
+  ob_f = pd.read_csv(obs_file)
   
 # Initialize a bunch of containers, they get converted to numpy arrays below
 
@@ -184,52 +193,98 @@ if __name__ == "__main__":
     
   Hxfm = N.empty((0,state.ne))  # need to init this here cause need size of ensemble
     
+#   g_lat_max = state.late[:].max()
+#   g_lat_min = state.late[:].min()
+#   g_lon_max = state.lone[:].max()
+#   g_lon_min = state.lone[:].min()
+#   g_alt_max = max(state.zc.data[:]) + state.hgt
+#   g_alt_min = min(state.zc.data[:]) + state.hgt
+    
+#   calt = " & ( " + str(g_alt_min) + " < height < " + str(g_alt_max) + " ) "
+#   clat = "( " + str(g_lat_min) + " < lat < " + str(g_lat_max) + " ) "
+#   condition = clat + " & ( " + str(g_lon_min) + " < lon < " + str(g_lon_max) + " ) "
+
+#   dt     = DT.timedelta(0,int(window/2))
+#   begin  = analysis_time - dt
+#   ending = analysis_time + dt
+    
+#   print("\n --> ComputeHx:  Using pyDart to search with condition: " + condition  )
+#   print("\n --> ComputeHx:  Using pyDart to search with begin time of: ", begin.timetuple()[:6])
+#   print("\n --> ComputeHx:  Using pyDart to search with end   time of: ", ending.timetuple()[:6])
+    
+# # I used to try and limit lat/lon of search, but gave up 
+
+# # ob_f.search(start=begin.timetuple()[:6], end=ending.timetuple()[:6], condition=condition)
+
+#   ob_f.search(start=begin.timetuple()[:6], end=ending.timetuple()[:6])
+
+# # number of observations, if there are none, kick out of the loop...
+  
+#   if len(ob_f.index) > 0:
+#     print("\n --> ComputeHx:  Total number of obs found at search time: %s \n" % len(ob_f.index))
+#   else:
+#     print("\n --> ComputeHx:  No obs found at search time:  %s exiting......\n" % (analysis_time))
+#     sys.exit(0)
+  
+# # using the search index generated from above, obtain the location, data, and type
+
+#   subdata = ob_f.get_data()
+
+# # Compute Hxfs from 
+
+#   idx, Hxf, kind, lat, lon, height, elev, azimuth = ens.calcHx(state, 
+#                                                                subdata['kind'], 
+#                                                                subdata['lat'],                                         
+#                                                                subdata['lon'],
+#                                                                subdata['height'],
+#                                                                subdata['elevation'], subdata['azimuth'])
+
+#set spatial and temporal conditions to index the observation data 
   g_lat_max = state.late[:].max()
   g_lat_min = state.late[:].min()
   g_lon_max = state.lone[:].max()
   g_lon_min = state.lone[:].min()
   g_alt_max = max(state.zc.data[:]) + state.hgt
   g_alt_min = min(state.zc.data[:]) + state.hgt
-    
-  calt = " & ( " + str(g_alt_min) + " < height < " + str(g_alt_max) + " ) "
-  clat = "( " + str(g_lat_min) + " < lat < " + str(g_lat_max) + " ) "
-  condition = clat + " & ( " + str(g_lon_min) + " < lon < " + str(g_lon_max) + " ) "
-
-  dt     = DT.timedelta(0,int(window/2))
-  begin  = analysis_time - dt
-  ending = analysis_time + dt
-    
-  print("\n --> ComputeHx:  Using pyDart to search with condition: " + condition  )
-  print("\n --> ComputeHx:  Using pyDart to search with begin time of: ", begin.timetuple()[:6])
-  print("\n --> ComputeHx:  Using pyDart to search with end   time of: ", ending.timetuple()[:6])
-    
-# I used to try and limit lat/lon of search, but gave up 
-
-# ob_f.search(start=begin.timetuple()[:6], end=ending.timetuple()[:6], condition=condition)
-
-  ob_f.search(start=begin.timetuple()[:6], end=ending.timetuple()[:6])
-
-# number of observations, if there are none, kick out of the loop...
   
-  if len(ob_f.index) > 0:
-    print("\n --> ComputeHx:  Total number of obs found at search time: %s \n" % len(ob_f.index))
+  dt     = DT.timedelta(0,int(window/2))
+  begin  = cftime.date2num(analysis_time - dt, sec_utime)
+  ending = cftime.date2num(analysis_time + dt, sec_utime)
+  
+  data_mask = (ob_f.utime >= begin) & (ob_f.utime <= ending) & \
+              (ob_f.lat <= g_lat_max) & (ob_f.lat >= g_lat_min) & \
+              (ob_f.lon <= g_lon_max) & (ob_f.lon >= g_lon_min)
+  
+  subdata = ob_f[data_mask]
+
+  #subdata = subdata[subdata.kind == 12] # 
+    
+
+  if len(subdata.index) > 0:
+    print("\n --> ComputeHx:  Total number of obs found at search time: %s \n" % len(subdata.index))
   else:
     print("\n --> ComputeHx:  No obs found at search time:  %s exiting......\n" % (analysis_time))
     sys.exit(0)
-  
-# using the search index generated from above, obtain the location, data, and type
-
-  subdata = ob_f.get_data()
 
 # Compute Hxfs from 
 
+   #### IF DOING ONE OB TEST, USE THIS 
+  # idx, Hxf, kind, lat, lon, height, elev, azimuth = ens.calcHx(state, 
+  #                                                              N.array([subdata['kind']]), 
+  #                                                              N.array([subdata['lat']]),                                         
+  #                                                              N.array([subdata['lon']]),
+  #                                                              N.array([subdata['height']]),
+  #                                                              N.array([subdata['elevation']]), 
+  #                                                              N.array([subdata['azimuth']]))
+
+    #### IF DOING NORMAL EXPERIMENT, USE THIS
   idx, Hxf, kind, lat, lon, height, elev, azimuth = ens.calcHx(state, 
-                                                               subdata['kind'], 
-                                                               subdata['lat'],                                         
-                                                               subdata['lon'],
-                                                               subdata['height'],
-                                                               subdata['elevation'], subdata['azimuth'])
-   
+                                                               subdata['kind'].values, 
+                                                               subdata['lat'].values,                                         
+                                                               subdata['lon'].values,
+                                                               subdata['height'].values,
+                                                               subdata['elevation'].values,
+                                                               subdata['azimuth'].values)
 # At this point we have created all the Hxfs and so we can make sure we have enough obs to run
 
   if idx != None:
@@ -240,9 +295,19 @@ if __name__ == "__main__":
 
 # retrieve these from pyTable
 
-    err_var = N.append(err_var, subdata['error_var'][idx])   
-    value   = N.append(value,   subdata['value'][idx])
-    dates   = N.append(dates,   subdata['date'][idx])
+    # err_var = N.append(err_var, subdata['error_var'][idx])   
+    # value   = N.append(value,   subdata['value'][idx])
+    # dates   = N.append(dates,   subdata['date'][idx])
+
+      #### IF DOING NORMAL EXPERIMENT, USE THIS
+    err_var = N.append(err_var, subdata['error_var'].values[idx])   
+    value   = N.append(value,   subdata['value'].values[idx])
+    dates   = N.append(dates,   subdata['date'].values[idx])
+
+    #### IF DOING ONE OB TEST, USE THIS 
+    # err_var = N.append(err_var, subdata['error_var'])   
+    # value   = N.append(value,   subdata['value'])
+    # dates   = N.append(dates,   subdata['date'])
   
   else:
     print("\n  >======================================================================<\n")   
