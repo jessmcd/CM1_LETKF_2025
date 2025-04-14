@@ -456,7 +456,7 @@ if __name__ == "__main__":
     print(("\n -->  LETKF:  Adaptive Inflation stats:  Max AI:  %3.1f  Min AI %3.1f  Mean AI: %3.1f  StdDev:  %4.3f\n" % \
         (inflateN.max(), inflateN.min(), inflateN.mean(), inflateN.std())))
 
-  InflationFile = write_inflation_file(inflateN,fstate.xc,fstate.yc,fstate.zc,analysis_time)
+  InflationFile = write_inflation_file(inflateN,fstate.xc,fstate.yc,fstate.zc,analysis_time, path=path)
   newInflationFile = os.path.join(path, InflationFile)
   os.rename(InflationFile, newInflationFile)
   print(("\n -->  LETKF:  Moved %s file to directory %s" %(InflationFile, path)))

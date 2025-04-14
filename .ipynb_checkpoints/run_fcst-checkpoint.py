@@ -13,8 +13,10 @@ import pickle
 import netCDF4 as ncdf
 import datetime as DT
 import json
+
 _nthreads = 1
 _restart_frequency = 300.
+_ncores = 1
 
 debug = True
 
@@ -70,7 +72,8 @@ if __name__ == '__main__':
 	parser.add_option("-t", "--time",     dest="datetime", default=None, type = "string", help = "Usage:  --time 2003,5,8,21,0,0")   
 
 	parser.add_option(      "--run_time", dest="run_time", type="int",    help = "Run time of model forecast in seconds")
-	parser.add_option(      "--nthreads", dest="nthreads", type="int",    help = "Number of threads to run model")
+	parser.add_option(      "--nthreads", dest="nthreads", type="int",    help = "Number of threads to run model (if serial)")
+	parser.add_option(      "--ncores",   dest="ncores",   default=1,     type="int",    help = "Number of cores to run model (if parallel)")
 	parser.add_option("-i", "--init",     dest="init",     default=False, action="store_true", help = "Create initial condition file")
 	parser.add_option(      "--range",    dest="range",    type ="int",   default=None, nargs=2, help = "The range of ensemble members to run forecasts \
 																					 for. The default is all members. Usage:  --range 1 36")
@@ -114,6 +117,13 @@ if __name__ == '__main__':
 	else:
 		nthreads = _nthreads
 		print(("\n Run_Fcst Script:  defaulting to %d threads" % nthreads))
+
+	if options.ncores != None:
+		ncores = options.ncores
+		print(("\n Run_Fcst Script:  %d cores requested...." % nthreads))
+	else:
+		ncores = _ncores
+		print(("\n Run_Fcst Script:  defaulting to %d cores" % nthreads))
 	
 	if options.range == None:
 		ne = experiment['ne']
@@ -204,7 +214,8 @@ if __name__ == '__main__':
 			print(("%s is the model path" % model))
 			print(("%s is the outputfile path" % outputfile))
 
-		cmd = "cd %s ; %s >> %s" % (fcst_member, "mpirun -n 32 cm1.exe", "cm1.out")
+		#cmd = "cd %s ; %s >> %s" % (fcst_member, "mpirun -n 64 cm1.exe", "cm1.out")
+		cmd = f'cd {fcst_member} ; mpirun -n {ncores} cm1.exe >> cm1.out'
 		pool.apply_async(RunMember, (cmd,))
 
 	pool.close()

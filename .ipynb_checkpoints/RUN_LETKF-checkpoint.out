@@ -1,0 +1,143 @@
+nohup: ignoring input
+
+Starting CM1 OSSE experiment
+ **************** 
+ **************** 
+ now starting time = 2024,05,08,20,30,00!!!!
+
+  ----------------------------------------------------------------------
+
+               BEGIN PROGRAM RUN_FILTER                                 
+
+  This script sets the parameters to create Hx's and runs the letkf code
+
+  ----------------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_filter.py", line 58, in <module>
+    with open(options.exper, 'rb') as p:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 85, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+ **************** 
+ **************** 
+ now starting time = 2024,05,08,20,35,00!!!!
+
+  ----------------------------------------------------------------------
+
+               BEGIN PROGRAM RUN_FILTER                                 
+
+  This script sets the parameters to create Hx's and runs the letkf code
+
+  ----------------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_filter.py", line 58, in <module>
+    with open(options.exper, 'rb') as p:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 85, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+ **************** 
+ **************** 
+ now starting time = 2024,05,08,20,40,00!!!!
+
+  ----------------------------------------------------------------------
+
+               BEGIN PROGRAM RUN_FILTER                                 
+
+  This script sets the parameters to create Hx's and runs the letkf code
+
+  ----------------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_filter.py", line 58, in <module>
+    with open(options.exper, 'rb') as p:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 85, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+ **************** 
+ **************** 
+ now starting time = 2024,05,08,20,45,00!!!!
+
+  ----------------------------------------------------------------------
+
+               BEGIN PROGRAM RUN_FILTER                                 
+
+  This script sets the parameters to create Hx's and runs the letkf code
+
+  ----------------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_filter.py", line 58, in <module>
+    with open(options.exper, 'rb') as p:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 85, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+ **************** 
+ **************** 
+ now starting time = 2024,05,08,20,50,00!!!!
+
+  ----------------------------------------------------------------------
+
+               BEGIN PROGRAM RUN_FILTER                                 
+
+  This script sets the parameters to create Hx's and runs the letkf code
+
+  ----------------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_filter.py", line 58, in <module>
+    with open(options.exper, 'rb') as p:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 85, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+ **************** 
+ **************** 
+ now starting time = 2024,05,08,20,55,00!!!!
+
+  ----------------------------------------------------------------------
+
+               BEGIN PROGRAM RUN_FILTER                                 
+
+  This script sets the parameters to create Hx's and runs the letkf code
+
+  ----------------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_filter.py", line 58, in <module>
+    with open(options.exper, 'rb') as p:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 85, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+ **************** 
+ **************** 
+ now starting time = 2024,05,08,21,00,00!!!!
+
+  ----------------------------------------------------------------------
+
+               BEGIN PROGRAM RUN_FILTER                                 
+
+  This script sets the parameters to create Hx's and runs the letkf code
+
+  ----------------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_filter.py", line 58, in <module>
+    with open(options.exper, 'rb') as p:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/CM1_LETKF_2025/run_fcst.py", line 85, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'RUN_LETKF/RUN_LETKF.exp'

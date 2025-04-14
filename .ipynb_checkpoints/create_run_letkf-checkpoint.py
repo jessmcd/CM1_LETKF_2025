@@ -17,17 +17,16 @@ _microphysics_options = {"morrison": 5, "zvdLFO":  28, "thompson": 3, "zvd": 26,
 # DEFAULTS: blank key variables are set by program:  do not set directly!
 
 defaults = {
-            "base_dir":  "DBZ_VR",
-            #"fprefix":   "cm1out",
+            "base_dir":  "RUN_LETKF",                    # this is set in experiment_driver.py
             "fprefix":   "cm1",
     
-            "ne":         20,
+            "ne":         20,                            # this is set in experiment_driver.py
             "model":     "cm1r21v1/run/cm1.exe",
             "src":       "cm1r21v1/run/onefile.F",
             "namelist":  "cm1r21v1/run/namelist.input",
             "landsfc":   "cm1r21v1/run/LANDUSE.TBL",
-            "sounding":  "run_soundings",             ### old version: Obs//input_sounding
-            "radar_obs": 'Obs/8may24_cm1_obs.csv',#"Obs/fake_real_radar_obs.csv",#"Obs/8may24_cm1_radar_obs.csv", #"Obs/obs_seq_8may03_2km.h5"
+            "sounding":  "soundings",                     # this is set in experiment_driver.py
+            "radar_obs": 'Obs/8may24_cm1_obs.csv',        # this is set in experiment_driver.py
 
 # Starting YYYY-MM-DD-HH-MM-SS for model run
 
@@ -38,8 +37,9 @@ defaults = {
             "MINUTE":      15,
             "SECOND":       0,
 
-# Grid location:  lat0/lon0 is a refernce point (often radar loc)
+# Grid location:  lat0/lon0 is a reference point (often radar loc)
 # Grid location:  xoffset/yoffset/hgt are physical lengths in meters offset from (lon0,lat0,0)
+# example: if the radar is at x = 180km and y = 140 km, then xoffset would be -180000 and yoffset would be -140000
 
             "lat0":          35.23583, 
             "lon0":         -97.46194,
@@ -61,26 +61,47 @@ defaults = {
 # Coordinates are relative to the SW corner of the box which is (0,0) meters.
 # Box is not specified using any offsets or lat lons.
 
-            "IC_BOX": {
-                       'nb':             3,
-                       'tpert':        2.0,
-                       'wpert':        1.0,
-                       'tdpert':       0.0,
-                       'upert':        0.0,
-                       'vpert':        0.0,
-                       'qvpert':       5.0,
-                       'xbmin':      90000,#15000.0,
-                       'xbmax':     110000, #35000.0,
-                       'ybmin':      90000,#15000.0,
-                       'ybmax':     110000, #55000.0,
-                       'zbmin':        0.0,
-                       'zbmax':     1500.0,
-                       'rbubh':    10000.0,
-                       'rbubv':     2000.0,
-                    'bbletype':          1,
-                      'r_seed': 2147483562,
-                       },
+            # "IC_BOX": {
+            #            'nb':             3,
+            #            'tpert':        2.0,
+            #            'wpert':        1.0,
+            #            'tdpert':       0.0,
+            #            'upert':        0.0,
+            #            'vpert':        0.0,
+            #            'qvpert':       5.0,
+            #            'xbmin':      90000,#15000.0,
+            #            'xbmax':     110000, #35000.0,
+            #            'ybmin':      90000,#15000.0,
+            #            'ybmax':     110000, #55000.0,
+            #            'zbmin':        0.0,
+            #            'zbmax':     1500.0,
+            #            'rbubh':    10000.0,
+            #            'rbubv':     2000.0,
+            #         'bbletype':          1,
+            #           'r_seed': 2147483562,
+            #            },
 
+    
+            "INIT": {
+                       'nb':                 3, # number of warm bubbles
+                       'tpert':            2.0, # 
+                       'wpert':            1.0,
+                       'tdpert':           0.0,
+                       'qvpert':           5.0,
+                       'upert':            0.0,
+                       'vpert':            0.0,
+                       
+                       'centerx':       100000, #meters, approx location of warm bubbles
+                       'centery':       100000, #meters, approx location of warm bubbles
+                       'max_x_offset':    8000, # max random displacment from centerx for a warm bubble
+                       'max_y_offset':    8000, # max random displacment from centery for a warm bubble
+                       'zbmin':            0.0,
+                       'zbmax':         1500.0,
+                       'rbubh':        10000.0,
+                       'rbubv':         2000.0, 
+                      'r_seed':     2147483562, # leave this alone
+                       },
+    
 # Parameters for the additive noise
 
             "ADD_NOISE": {
@@ -245,6 +266,7 @@ DIR_DICT= {
 def linkit(dir_from_target,dir_to_target,link_option):
     '''JMCDONALD added option 3'''
 
+
     if debug: print(("LINKIT:  ARG[0]: %s  ARG[1]:  %s" % (dir_from_target,dir_to_target)))
 
     if link_option == 0:  return
@@ -347,6 +369,11 @@ parser.add_option("-n", "--ne",  dest="ne",                 type="int", help="Nu
 parser.add_option("-m", "--cm1", dest="model",     default = None, type="string", help="FULL PATH to cm1 model executable, \
                            the default is to use the cm1r18/run/cm1.exe from same directory as run script")
 
+parser.add_option("-s","--model_start"    , dest="model_start",  default=None,  type="string", help="time in YYYY,mm,dd,HH,MM,SS format, sets the start time in the CM1 files")
+parser.add_option("-i", "--init_sounding" , dest="sounding_loc", default=None,  type="string", help="local path to the directory containing sounding files. \
+                                                                                            Sounding name format should be RunXXXSounding.txt, with XXX = 0-padded member number") 
+parser.add_option("-o",  "--obs_loc",       dest="obs_loc",  default=None,  type="string", help="path to radar obs file")
+
 (options, args) = parser.parse_args()
 
 # Figure out what information user has provided and then fill in the option data structure
@@ -357,20 +384,42 @@ if options.base_dir:
 if options.model:
     defaults['model'] = options.model
 
+if options.sounding_loc:
+    defaults['sounding'] = options.sounding_loc 
+    
+if options.obs_loc:
+    defaults['radar_obs'] = options.obs_loc 
+
 if not options.ne:
     options.ne = defaults['ne']
 else:
     defaults['ne'] = options.ne
 
+if options.model_start:
+    year, month, day, hour, minute, second = options.model_start.split(',')
+    defaults["YEAR"]   = int(year)  
+    defaults["MONTH"]  = int(month)  
+    defaults["DAY"]    = int(day)  
+    defaults["HOUR"]   = int(hour)  
+    defaults["MINUTE"] = int(minute)  
+    defaults["SECOND"] = int(second)  
+ 
+
 #///////////////////////////////////////////////////////////////////////////////////////////////////////
 # Section finishing create data structure and create directories for run
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-cwd = os.getcwd()
+# cwd = os.getcwd()
 
-defaults['base_path']  = os.path.join(cwd, defaults['base_dir'])
-defaults['plots_path'] = os.path.join(cwd, defaults['base_dir'], "Plots")
-defaults['fcst_path']  = os.path.join(cwd, defaults['base_dir'])
+# defaults['base_path']  = os.path.join(cwd, defaults['base_dir'])
+# defaults['plots_path'] = os.path.join(cwd, defaults['base_dir'], "Plots")
+# defaults['fcst_path']  = os.path.join(cwd, defaults['base_dir'])
+
+print(defaults['base_dir'])
+defaults['base_path']  = defaults['base_dir']
+defaults['plots_path'] = os.path.join(defaults['base_dir'], "Plots")#os.path.join(cwd, defaults['base_dir'], "Plots")
+defaults['fcst_path']  = defaults['base_dir']
+
 
 defaults['date_time']  = datetime.datetime(defaults['YEAR'],   \
                                            defaults['MONTH'],  \
@@ -413,17 +462,23 @@ for item in DIR_DICT['top']:
 # HANDY Python module:  f90nml  -->  this is why python is great, someone already did this!!!!!!
 
 namelist = f90nml.read(os.path.join(defaults['base_path'],"namelist.input"))
-print(namelist)
+
 
 # This uses the information at the top defaults level to alter the values of the default namelist.
 
 for tup in defaults['cm1namelist']:
     namelist[tup[0]][tup[1]] = tup[2]
-
+    
+print(namelist)
 namelist.write(os.path.join(defaults['base_path'],"namelist.input"), force=True)
 
 #-----------------------------------------------------------------------------------------------------
 # Now create member directories and namelists
+
+## note: you now need to update the namelist location to be your base path, not the original location 
+## I'm not sure if before updating the current directory namelist updated the cm1 namelist? 
+# or if I changed something? but you need to copy the modified namelist that was just saved above
+defaults['namelist'] = os.path.join(defaults['base_path'],"namelist.input")
 
 for n in N.arange(1,defaults['ne']+1):
 
@@ -439,19 +494,25 @@ for n in N.arange(1,defaults['ne']+1):
         
         if (key == 'fcst'):
             for item in DIR_DICT[key]:
+                print(item[0])
 
                 if item[0] == 'sounding':
-                    from_target = os.path.join(defaults['base_path'],os.path.basename(defaults[item[0]]), f'Run{(n-1):02d}Sounding.txt')
+                    #from_target = os.path.join(defaults['base_path'],os.path.basename(defaults[item[0]]), f'Run{(n-1):02d}Sounding.txt')
+                    from_target = os.path.join(defaults[item[0]], f'Run{(n-1):02d}Sounding.txt')
                     to_target   = os.path.join(fcst_member,"input_sounding")
                     ret         = linkit(from_target, to_target, item[1])
        
                 else:
-                    from_target = os.path.join(defaults['base_path'],os.path.basename(defaults[item[0]]))
+                    from_target = os.path.join(os.getcwd(),defaults[item[0]])
                     to_target   = os.path.join(fcst_member,os.path.basename(defaults[item[0]]))
                     ret         = linkit(from_target, to_target, item[1])
 
 def myconverter(o):
     if isinstance(o, datetime.datetime):
         return o.__str__()
-with open("%s/%s.exp" % (defaults['base_path'],defaults['base_dir']), 'w') as handle:
+        
+# with open("%s/%s.exp" % (defaults['base_path'],defaults['base_dir']), 'w') as handle:
+#     json.dump(defaults, handle, default = myconverter)
+
+with open("%s/%s.exp" % (defaults['base_path'],defaults['base_dir'].split('/')[-1]), 'w') as handle:
     json.dump(defaults, handle, default = myconverter)

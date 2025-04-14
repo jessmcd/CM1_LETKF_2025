@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/newCM1_LETKF/src/create_run_letkf.py", line 304, in <module>
+    print(cm1namelist)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/f90nml/namelist.py", line 254, in __str__
+    self._writestream(output)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/f90nml/namelist.py", line 693, in _writestream
+    self._write_nmlgrp(grp_name, grp_vars, nml_file, sort)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/f90nml/namelist.py", line 713, in _write_nmlgrp
+    for v_str in self._var_strings(v_name, v_val, v_start=v_start):
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/f90nml/namelist.py", line 846, in _var_strings
+    v_str = self._f90repr(v_val)
+  File "/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib/python3.10/site-packages/f90nml/namelist.py", line 980, in _f90repr
+    raise ValueError('Type {0} of {1} cannot be converted to a Fortran'
+ValueError: Type <class 'tuple'> of (-97.46194,) cannot be converted to a Fortran type.
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/newCM1_LETKF/src/run_fcst.py", line 88, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/work/jessica.mcdonald/newCM1_LETKF/test/test.exp'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/newCM1_LETKF/src/ens.py", line 24, in <module>
+    from pyDart import dll_2_dxy, dxy_2_dll
+  File "/work/jessica.mcdonald/newCM1_LETKF/src/pyDart.py", line 24, in <module>
+    import ctables
+ModuleNotFoundError: No module named 'ctables'
+Traceback (most recent call last):
+  File "/work/jessica.mcdonald/newCM1_LETKF/src/run_fcst.py", line 88, in <module>
+    with open(options.exp, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/work/jessica.mcdonald/newCM1_LETKF/test/test.exp'

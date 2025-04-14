@@ -3,7 +3,8 @@
 # Version 3 of ENS - CM1 version
 #
 import netCDF4 as ncdf
-import numpy as N
+#import numpy as N
+import numpy as np 
 import math as M
 import glob
 import sys
@@ -85,8 +86,8 @@ def run_unix_cmd(cmd):
 
 #-----------------------------------------------------------------------------------------------------------------------------
 def meshgrid_general(*args):
-   args = map(N.asarray,args)
-   return N.broadcast_arrays(*[x[(slice(None),)+(None,)*i] for i, x in enumerate(args)])
+   args = map(np.asarray,args)
+   return np.broadcast_arrays(*[x[(slice(None),)+(None,)*i] for i, x in enumerate(args)])
 
 #=======================================================================================================================
 # Find the CM1 file for time requested
@@ -133,7 +134,7 @@ def FindRestartFiles(exper_filename, myDT, ret_exp=True, ret_DT=True):
     exper['fcst_path'] = os.path.join(cwd, exper['base_dir'])
     exper['fcst_members'] = []
 
-    for n in N.arange(1,exper['ne']+1):
+    for n in np.arange(1,exper['ne']+1):
         fcst_member = "%s/member%3.3i" % (exper['fcst_path'], n)
         exper['fcst_members'].append(fcst_member)
 
@@ -156,7 +157,7 @@ def FindRestartFiles(exper_filename, myDT, ret_exp=True, ret_DT=True):
             f.close()
             del f
         
-            if( N.abs(f_time - time) < 1.0 ):
+            if( np.abs(f_time - time) < 1.0 ):
                 print("\n ==> FindRestartFile:  Found time %d in file:  %s" % (f_time, file))
                 for g in exper['fcst_members']:
                     rfiles.append(os.path.join(g, ("%srst_%6.6d.nc" % (fprefix,n))))
@@ -195,20 +196,20 @@ def ComputeWZ(x, y, u, v):
     ny   = y.shape[0]
 
     if len(u.shape) == 3:  # 3D volume of vorticity
-        wz = N.zeros((u.shape[0],nx+1,ny+1))
+        wz = np.zeros((u.shape[0],nx+1,ny+1))
         wz[:,1:nx,1:ny] = (v[:,1:nx,1:ny+1] - v[:,0:nx-1,1:ny+1]) / dx \
                         - (u[:,1:nx,1:ny]   - u[:,1:nx,0:ny-1])   / dy
         return 0.25*(wz[:,0:nx,0:ny] + wz[:,1:nx+1,0:ny] + wz[:,0:nx,1:ny+1] + wz[:,1:nx+1,1:ny+1])
 
     else:
-        wz = N.zeros((nx+1,ny+1))
+        wz = np.zeros((nx+1,ny+1))
         wz[1:nx,1:ny] = (v[1:nx,1:ny+1] - v[0:nx-1,1:ny+1]) / dx \
                       - (u[1:nx,1:ny]   - u[1:nx,  0:ny-1]) / dy
         return 0.25*(wz[0:nx,0:ny] + wz[1:nx+1,0:ny] + wz[0:nx,1:ny+1] + wz[1:nx+1,1:ny+1])
 
 
 # if we get this far, its an Error...
-    return N.nan
+    return np.nan
     
 #-----------------------------------------------------------------------------------------------------------------------------
 #
@@ -233,7 +234,7 @@ class variable(object):
     if data.any() != None:      
       self.data = data    
     else:     
-      self.data = N.empty(0)
+      self.data = np.empty(0)
     
     if kwargs != None:
       for key in kwargs:  setattr(self, key, kwargs[key])
@@ -324,9 +325,9 @@ def get_loc(x0, xc, radius):
   """
       Finds the array index of locations around a center point
   """
-  indices = N.where(x-radius <= xc <= x+radius)
+  indices = np.where(x-radius <= xc <= x+radius)
   
-  if N.size(indices[0]) == 0:
+  if np.size(indices[0]) == 0:
     return -1, 0
   else:
     i0 = indices[0][0]
@@ -346,13 +347,13 @@ def interp_wghts(x, xc, extrapolate=False):
      OUTPUTS:  i0, i1, dx0, dx1 locations and weights for the interpolation
   """
   
-  indices = N.where(xc <= x)
+  indices = np.where(xc <= x)
   
-  if N.size(indices[0]) == 0:
+  if np.size(indices[0]) == 0:
     return -1, -1, None, None, None
   else:
     i0 = indices[0][-1]
-    if i0 == N.size(xc)-1:  
+    if i0 == np.size(xc)-1:  
       return -1, -1, None, None, None
     else:
       i1  = i0 + 1
@@ -448,8 +449,8 @@ def ens_quick4panel(ens, height = None, show=False, sfc=False, zoom=None, member
 
   # Other plotting stuff....
     _ref_ctable = ctables.REF_default
-    _wz_clevels = N.arange(-150.,175.,25.)
-    _w_clevels  = N.arange(-15.,16.,1.)
+    _wz_clevels = np.arange(-150.,175.,25.)
+    _w_clevels  = np.arange(-15.,16.,1.)
 
 # z-level for plotting
 
@@ -497,9 +498,9 @@ def ens_quick4panel(ens, height = None, show=False, sfc=False, zoom=None, member
 
     bmap.plot(ens.lon0, ens.lat0, 'o', latlon=True, ax=ax1)
     
-    clevels = N.arange(0.,75.,5.)
+    clevels = np.arange(0.,75.,5.)
     
-    plot    = bmap.contourf(xx, yy, N.ma.masked_less_equal(dplot,_min_dbz), clevels, cmap=_ref_ctable, ax=ax1)
+    plot    = bmap.contourf(xx, yy, np.ma.masked_less_equal(dplot,_min_dbz), clevels, cmap=_ref_ctable, ax=ax1)
     cbar    = bmap.colorbar(plot,location='right',pad="5%", ax=ax1)
     cbar.set_label("dBZ")
     plot    = bmap.contour(xx, yy,  dplot, clevels[::2], colors='k', linewidths=0.5, ax=ax1)
@@ -520,8 +521,8 @@ def ens_quick4panel(ens, height = None, show=False, sfc=False, zoom=None, member
     bmap.plot(ens.lon0, ens.lat0, 'o', latlon=True, ax=ax2)
 
     scale_w_clevels = min(max(int(height/1000.), 1.0), 7.0)
-    clevels = scale_w_clevels*N.arange(-15.,16.,1.)
-    wmask   = N.ma.masked_array(wplot, mask = [N.abs(wplot) <= scale_w_clevels*_min_w])
+    clevels = scale_w_clevels*np.arange(-15.,16.,1.)
+    wmask   = np.ma.masked_array(wplot, mask = [np.abs(wplot) <= scale_w_clevels*_min_w])
     plot    = bmap.contourf(xx, yy, wmask, clevels, cmap=ens_default_cmap, ax=ax2)
     cbar    = bmap.colorbar(plot,location='right',pad="5%", ax=ax2)
     plot    = bmap.contour(xx, yy, wmask, clevels[::2], colors='k', linewidths=0.5, ax=ax2)
@@ -540,7 +541,7 @@ def ens_quick4panel(ens, height = None, show=False, sfc=False, zoom=None, member
 
     bmap = mymap(xc, yc, ens.lat0, ens.lon0, ax = ax3, counties=True)
 
-    clevels = N.arange(-10.,11.,1.)
+    clevels = np.arange(-10.,11.,1.)
     plot    = bmap.contourf(xx, yy, tplot, clevels, cmap=ens_default_cmap, ax=ax3)
     cbar    = bmap.colorbar(plot,location='right',pad="5%", ax=ax3)
     plot    = bmap.contour(xx, yy, tplot, clevels[::2], colors='k', linewidths=0.5, ax=ax3)
@@ -623,17 +624,17 @@ def plotskewts(ens):
 # Plot the data using normal plotting functions, in this case using
 # log scaling in Y, as dicatated by the typical meteorological plot
 
-  for n in N.arange(ens.ne):
+  for n in np.arange(ens.ne):
 
-    thinit = N.mean(N.mean(ens['TH'][n], axis=2), axis=1)
-    piinit = N.mean(N.mean(ens['PI0'][n], axis=2), axis=1)
-    qvinit = N.mean(N.mean(ens['QV'][n], axis=2), axis=1)
+    thinit = np.mean(np.mean(ens['TH'][n], axis=2), axis=1)
+    piinit = np.mean(np.mean(ens['PI0'][n], axis=2), axis=1)
+    qvinit = np.mean(np.mean(ens['QV'][n], axis=2), axis=1)
 
     T = (thinit * piinit) - Czero
     p = 1000. * piinit**3.509
 
-    e  = N.clip( qvinit*p/(0.622+qvinit), 1.0e-5, 1000.)
-    e  = N.log(e/6.112)
+    e  = np.clip( qvinit*p/(0.622+qvinit), 1.0e-5, 1000.)
+    e  = np.log(e/6.112)
     Td = 243.5 / ( 17.67/e - 1.0 )
 
     ax.semilogy(T,  p, color = 'r', alpha=0.2)
@@ -651,7 +652,7 @@ def plotskewts(ens):
 # Disables the log-formatting that comes with semilogy
 
   ax.yaxis.set_major_formatter(ScalarFormatter())
-  ax.set_yticks(N.linspace(100,1000,10))
+  ax.set_yticks(np.linspace(100,1000,10))
   ax.set_ylim(1050,100)
 
   ax.xaxis.set_major_locator(MultipleLocator(10))
@@ -673,12 +674,12 @@ def plothodos(ens):
   print("\nEnsemble field mean and standard deviations for soundings")
   print("------------------------------------------------------------------------------")
   
-  for n in N.arange(ens.nz):
+  for n in np.arange(ens.nz):
       if ens.zc[n] < 8000.:
-          umean = N.mean(ens['U'][:,n,:,:])
-          vmean = N.mean(ens['V'][:,n,:,:])
-          ustd  = N.std(ens['U'][:,n,:,:])
-          vstd  = N.std(ens['V'][:,n,:,:])
+          umean = np.mean(ens['U'][:,n,:,:])
+          vmean = np.mean(ens['V'][:,n,:,:])
+          ustd  = np.std(ens['U'][:,n,:,:])
+          vstd  = np.std(ens['V'][:,n,:,:])
           print("Height:  %6.1f  U_mean: %4.1f  U_stddev:  %4.2f  Vmean:  %4.1f  V_stddev:  %4.2f" % (ens.zc[n], umean, ustd, vmean,vstd))
 
 # Create a new figure. The dimensions here give a good aspect ratio
@@ -688,7 +689,7 @@ def plothodos(ens):
 
   P.grid(True)
 
-  for n in N.arange(ens.ne):
+  for n in np.arange(ens.ne):
 
     u = (ens['U'][n,:m].mean(axis=2)).mean(axis=1)
     v = (ens['V'][n,:m].mean(axis=2)).mean(axis=1)
@@ -707,12 +708,12 @@ def plothodos(ens):
 #===============================================================================
 def calcHx(ens, kind, lat, lon, height, elev, azimuth, missing=None):
 
-  nobs = N.size(kind)
+  nobs = np.size(kind)
   
   if missing == None:
     missing = _missing
     
-  Hx = missing * N.ones([nobs,ens.ne])
+  Hx = missing * np.ones([nobs,ens.ne])
   
   ilon = 0.0
   ilat = 0.0
@@ -729,9 +730,9 @@ def calcHx(ens, kind, lat, lon, height, elev, azimuth, missing=None):
   print(' calcHx:  OBS   HGT MIN/MAX:  ', height.min(), height.max())
   print(' calcHx:  MODEL HGT MIN/MAX:  ', ens.hgt+ens.zc.data.min(), ens.hgt+ens.zc.data.max())
 
-  b = N.zeros([5,ens.ne])
+  b = np.zeros([5,ens.ne])
 
-  for n in N.arange(nobs):
+  for n in np.arange(nobs):
   
   # need to acess lat lon alt info of ob loc from table and pass it to tlint
   # check to see if ob position is the same then less work
@@ -750,17 +751,20 @@ def calcHx(ens, kind, lat, lon, height, elev, azimuth, missing=None):
   
     if i1 < 0 or j1 < 0 or k1 < 0:  continue
   
-    el = N.deg2rad(elev[n])
+    el = np.deg2rad(elev[n])
   
   # The azimuth (in my PAR file) have north as 0 degreees, but I think this is what is needed
     
-    az = N.deg2rad(azimuth[n])
+    az = np.deg2rad(azimuth[n])
     
   # have to avoid using last member since it the mean
   
     b[:,:] = missing
   
     if kind[n] == 11:  # VR!
+
+        # this is doing a lot of fancy stuff that i will IGNORE for now
+        # but DO NOT forget to turn this back on when doing better experiments later!
   
       for m, key in enumerate( ["UA", "VA", "WA", "DBZ", "DEN"]):
         q1     = dx1*ens[key].data[:ens.ne,k1,j1,i1] + dx2*ens[key].data[:ens.ne,k1,j1,i2]
@@ -773,7 +777,7 @@ def calcHx(ens, kind, lat, lon, height, elev, azimuth, missing=None):
  
     # In CM1, dont have fall speed from microphysics, so use typical DBZ power law here
 
-      refl   = 10.0**(0.1*N.clip(b[3,:],_dbz_min,_dbz_max))
+      refl   = 10.0**(0.1*np.clip(b[3,:],_dbz_min,_dbz_max))
       vfall  =  2.6 * refl**0.107 * (1.2/b[4,:])**0.4  
 
     # model's VR
@@ -793,15 +797,15 @@ def calcHx(ens, kind, lat, lon, height, elev, azimuth, missing=None):
     
     # model's DBZ
     
-      Hx[n,:] = N.clip(b[0,:],_dbz_min,_dbz_max)
+      Hx[n,:] = np.clip(b[0,:],_dbz_min,_dbz_max)
 
 # END OBS_OP
 
 # Remove missing Hx's and strip the input data of those points as well...
 
-  idx = N.where(Hx[:,0] != missing)
-  nobs= N.size(idx)
-  Hxf = N.zeros([nobs,ens.ne])  
+  idx = np.where(Hx[:,0] != missing)
+  nobs= np.size(idx)
+  Hxf = np.zeros([nobs,ens.ne])  
   Hxf[:,:]= Hx[idx,:]
 
   if nobs > 0:
@@ -812,10 +816,10 @@ def calcHx(ens, kind, lat, lon, height, elev, azimuth, missing=None):
 #===============================================================================
 # Robert Kern's way of getting random perturbations
 
-def fnormal(prng=N.random, scale=1.0, size=(1,)):
+def fnormal(prng=np.random, scale=1.0, size=(1,)):
   return prng.normal(scale=scale, size=size)
 
-def funiform(prng=N.random, scale=1.0, size=(1,)):
+def funiform(prng=np.random, scale=1.0, size=(1,)):
     return scale*(0.5 - prng.uniform(size=size))
 
 #
@@ -940,42 +944,42 @@ def ens_PLOT_9PANEL(ens, klevel = 6, obs=False, savefig=None, cparams = None, va
   lon2d, lat2d, x2d, y2d = map.makegrid(fstate.xc.size, fstate.yc.size, returnxy=True)
 
   if ens.ne <= 20:
-     mem = N.arange(0,20,1)
+     mem = np.arange(0,20,1)
   elif ens.ne <= 30:
-     mem = N.arange(0,30,3)
+     mem = np.arange(0,30,3)
   elif ens.ne <= 40:
-     mem = N.arange(0,36,4)
+     mem = np.arange(0,36,4)
   elif ens.ne <= 50:
-     mem = N.arange(0,45,5)
+     mem = np.arange(0,45,5)
   else:
-     mem = N.arange(0,54,6)
+     mem = np.arange(0,54,6)
      
   if cparams == None:
       cparams = _clevels[var]
 
-  clevels = N.arange(cparams[0], cparams[1], cparams[2])
+  clevels = np.arange(cparams[0], cparams[1], cparams[2])
 
   for n, ax in enumerate(ax_grid.ravel()):
     
     if n == 4 and obs:
-      mfld = N.ma.masked_less_equal(f3d[5,:,:], 0.0)
+      mfld = np.ma.masked_less_equal(f3d[5,:,:], 0.0)
       label = "OBSERVED DBZ"
       PLOT_ONE(mfld, x2d, y2d, map, clevels=clevels, height=ens.zc[5], label = label, ax = ax, \
                counties=True, cmap=ctables.REF_default, zoom = zoom, **kwargs)
     else:
       print("\n Plotting member %d" % (mem[n]+1))
       if var == "DBZ":
-          mfld = N.ma.masked_less_equal(ens['DBZ'][:][mem[n],klevel,:,:], 10.)
+          mfld = np.ma.masked_less_equal(ens['DBZ'][:][mem[n],klevel,:,:], 10.)
           label = "DBZ Mem: %2.2d" % (mem[n]+1)
           PLOT_ONE(mfld, x2d, y2d, map, clevels=clevels, height=ens.zc[klevel], label = label, ax = ax, \
                counties=True, cmap=ctables.REF_default, zoom = zoom)
       else:
           if var == "THP":
-              mfld = N.clip(ens['TH'][:][mem[n],klevel,:,:] - ens['TH'][:][mem[n],klevel,-1,1], cparams[0],cparams[1])
+              mfld = np.clip(ens['TH'][:][mem[n],klevel,:,:] - ens['TH'][:][mem[n],klevel,-1,1], cparams[0],cparams[1])
           elif var == "WZ":
               mfld = 10000.*ComputeWZ(fstate.xc, fstate.yc, fstate.u[mem[n],klevel], fstate.v[mem[n],klevel])
           else:
-              mfld = N.clip(ens[var][mem[n],klevel,:,:],cparams[0],cparams[1])
+              mfld = np.clip(ens[var][mem[n],klevel,:,:],cparams[0],cparams[1])
 
           label = "%s Mem: %2.2d" % (var,mem[n]+1)
           PLOT_ONE(mfld, x2d, y2d, map, clevels=clevels, height=ens.zc[klevel], label = label, ax = ax, \
@@ -1039,14 +1043,14 @@ def ens_IC_pertUV(ens, writeout=False):
 # Create 2D perturbations - use Robert Kern's generation method with RandomState object
 # Use RampS to increase with height.
 
-  ramp   = 1.0 + rampS * (1.0 - N.clip((rampZ - ens.zc.data[:]),0.0, rampZ) / rampZ)
+  ramp   = 1.0 + rampS * (1.0 - np.clip((rampZ - ens.zc.data[:]),0.0, rampZ) / rampZ)
 
-  upert = funiform(N.random.RandomState([123321]), scale=pscale, size=(ens.ne,ens.nz))
-  vpert = funiform(N.random.RandomState([788324]), scale=pscale, size=(ens.ne,ens.nz))
-  upert = N.clip(upert, -2.0*pscale, 2.0*pscale)
-  vpert = N.clip(vpert, -2.0*pscale, 2.0*pscale)
+  upert = funiform(np.random.RandomState([123321]), scale=pscale, size=(ens.ne,ens.nz))
+  vpert = funiform(np.random.RandomState([788324]), scale=pscale, size=(ens.ne,ens.nz))
+  upert = np.clip(upert, -2.0*pscale, 2.0*pscale)
+  vpert = np.clip(vpert, -2.0*pscale, 2.0*pscale)
 
-  for k in N.arange(ens.nz):
+  for k in np.arange(ens.nz):
     upert[:,k] = upert[:,k] * ramp[k]
     vpert[:,k] = vpert[:,k] * ramp[k]
 
@@ -1057,8 +1061,8 @@ def ens_IC_pertUV(ens, writeout=False):
 
 # Loop over the ensemble members to re-initialize the files
 
-  for n in N.arange(ens.ne):
-    for k in N.arange(ens.nz):
+  for n in np.arange(ens.ne):
+    for k in np.arange(ens.nz):
       fstate.u[n,k,:,:] = fstate.u[n,k,:,:] + upert[n,k]
       fstate.v[n,k,:,:] = fstate.v[n,k,:,:] + vpert[n,k]
       ens['U'][n,k,:,:] = ens['U'][n,k,:,:] + upert[n,k]
@@ -1075,11 +1079,11 @@ def ens_IC_pertUV(ens, writeout=False):
 # I dont write the base states now back out via the ens_object,
 # I need to write them directly to be consistent.
 
-    for n in N.arange(ens.ne):
+    for n in np.arange(ens.ne):
 
       f = ncdf.Dataset(ens.files[n], "r+")
 
-      for k in N.arange(ens.nz):
+      for k in np.arange(ens.nz):
         f.variables['u0'][k,:,:] = f.variables['u0'][k,:,:] + upert[n,k]
         f.variables['v0'][k,:,:] = f.variables['v0'][k,:,:] + vpert[n,k]
 
@@ -1114,10 +1118,10 @@ def ens_IC_ZeroUV(ens, restore=False):
     osnd.read()
     osnd.regrid(znew = ens.zc[:])
     osnd.info()
-    uBa = N.repeat(osnd.u[:], ens.nx*ens.ny).reshape(ens.nz,ens.ny,ens.nx)
-    vBa = N.repeat(osnd.v[:], ens.nx*ens.ny).reshape(ens.nz,ens.ny,ens.nx)
-    uBs = N.repeat(osnd.u[:], (ens.nx+1)*ens.ny).reshape(ens.nz,ens.ny,(ens.nx+1))
-    vBs = N.repeat(osnd.v[:], ens.nx*(ens.ny+1)).reshape(ens.nz,(ens.ny+1),ens.nx)
+    uBa = np.repeat(osnd.u[:], ens.nx*ens.ny).reshape(ens.nz,ens.ny,ens.nx)
+    vBa = np.repeat(osnd.v[:], ens.nx*ens.ny).reshape(ens.nz,ens.ny,ens.nx)
+    uBs = np.repeat(osnd.u[:], (ens.nx+1)*ens.ny).reshape(ens.nz,ens.ny,(ens.nx+1))
+    vBs = np.repeat(osnd.v[:], ens.nx*(ens.ny+1)).reshape(ens.nz,(ens.ny+1),ens.nx)
     
     if restore == False:
     
@@ -1251,21 +1255,21 @@ def ens_GRID_RELECTIVITY(ens, ob_file=None, plot=False, cref=True, verbose=False
 
 # Create obs list for KDTree query...
 
-  xyz_obs  = N.vstack((hgts,yob,xob))
+  xyz_obs  = np.vstack((hgts,yob,xob))
   obs_list = list(xyz_obs.transpose())
 
 # If needed, here is some fake data for testing code
 
 # xob, yob, hgts = [xoffset+0.5*(fstate.xc.max()-fstate.xc.min())], [yoffset+0.5*(fstate.yc.max()-fstate.yc.min())], [2000.]
-# xyz_obs  = N.vstack((hgts,yob,xob))
+# xyz_obs  = np.vstack((hgts,yob,xob))
 # obs_list = list(xyz_obs.transpose())
-# data = 50.*N.ones((1,))   # single point of 50 dbz
+# data = 50.*np.ones((1,))   # single point of 50 dbz
 # print(data, obs_list)
 
 # Create 3D grid arrays for KDTree
   
-  y_array, z_array, x_array = N.meshgrid(fstate.yc, fstate.zc, fstate.xc)
-  xyz_grid = N.dstack([z_array.ravel(),y_array.ravel(),x_array.ravel()])[0]
+  y_array, z_array, x_array = np.meshgrid(fstate.yc, fstate.zc, fstate.xc)
+  xyz_grid = np.dstack([z_array.ravel(),y_array.ravel(),x_array.ravel()])[0]
   
 # Use cKDTree to create fast indexing for 3D grid....
 
@@ -1275,9 +1279,9 @@ def ens_GRID_RELECTIVITY(ens, ob_file=None, plot=False, cref=True, verbose=False
 # these are the integer indices that you now pass into the fortran routine. They
 # are the un-raveled 3D index locations nearest the observation point in the 3D array
 
-  kk,jj,ii = N.unravel_index(indices1D, (len(fstate.zc), len(fstate.yc), len(fstate.xc)))
+  kk,jj,ii = np.unravel_index(indices1D, (len(fstate.zc), len(fstate.yc), len(fstate.xc)))
 
-# for n in N.arange(data.size):
+# for n in np.arange(data.size):
 #     print("obs#: %d  Zobs:  %8.1f  Zarray:  %8.1f" % (n, xyz_obs[0,n], z_array[kk[n],jj[n],ii[n]]))
 #     print("obs#: %d  Yobs:  %8.1f  Yarray:  %8.1f" % (n, xyz_obs[1,n], y_array[kk[n],jj[n],ii[n]]))
 #     print("obs#: %d  Xobs:  %8.1f  Xarray:  %8.1f\n" % (n, xyz_obs[2,n], x_array[kk[n],jj[n],ii[n]]))
@@ -1290,13 +1294,13 @@ def ens_GRID_RELECTIVITY(ens, ob_file=None, plot=False, cref=True, verbose=False
 
 # Create composite reflectivity, and then replicate it into a 3D array
   
-  dbz2d = N.zeros((1,))
+  dbz2d = np.zeros((1,))
 
   if cref:
 
     dbz2d = dbz3d.max(axis=0)
   
-    for k in N.arange(ens.nz):
+    for k in np.arange(ens.nz):
       dbz3d[k] = dbz2d
       
     if verbose: print("\n ==> ens_GRID_REFL: 2D composite DBZ requested   Max:  %4.1f   Min:  %4.1f" % (dbz2d.max(), dbz2d.min()))
@@ -1390,21 +1394,21 @@ def ens_GRID_RELECTIVITY(ens, ob_file=None, plot=False, cref=True, verbose=False
 
 # # Create obs list for KDTree query...
 
-#   xyz_obs  = N.vstack((hgts,yob,xob))
+#   xyz_obs  = np.vstack((hgts,yob,xob))
 #   obs_list = list(xyz_obs.transpose())
 
 # # If needed, here is some fake data for testing code
 
 # # xob, yob, hgts = [xoffset+0.5*(fstate.xc.max()-fstate.xc.min())], [yoffset+0.5*(fstate.yc.max()-fstate.yc.min())], [2000.]
-# # xyz_obs  = N.vstack((hgts,yob,xob))
+# # xyz_obs  = np.vstack((hgts,yob,xob))
 # # obs_list = list(xyz_obs.transpose())
-# # data = 50.*N.ones((1,))   # single point of 50 dbz
+# # data = 50.*np.ones((1,))   # single point of 50 dbz
 # # print(data, obs_list)
 
 # # Create 3D grid arrays for KDTree
   
-#   y_array, z_array, x_array = N.meshgrid(fstate.yc, fstate.zc, fstate.xc)
-#   xyz_grid = N.dstack([z_array.ravel(),y_array.ravel(),x_array.ravel()])[0]
+#   y_array, z_array, x_array = np.meshgrid(fstate.yc, fstate.zc, fstate.xc)
+#   xyz_grid = np.dstack([z_array.ravel(),y_array.ravel(),x_array.ravel()])[0]
   
 # # Use cKDTree to create fast indexing for 3D grid....
 
@@ -1414,9 +1418,9 @@ def ens_GRID_RELECTIVITY(ens, ob_file=None, plot=False, cref=True, verbose=False
 # # these are the integer indices that you now pass into the fortran routine. They
 # # are the un-raveled 3D index locations nearest the observation point in the 3D array
 
-#   kk,jj,ii = N.unravel_index(indices1D, (len(fstate.zc), len(fstate.yc), len(fstate.xc)))
+#   kk,jj,ii = np.unravel_index(indices1D, (len(fstate.zc), len(fstate.yc), len(fstate.xc)))
 
-# # for n in N.arange(data.size):
+# # for n in np.arange(data.size):
 # #     print("obs#: %d  Zobs:  %8.1f  Zarray:  %8.1f" % (n, xyz_obs[0,n], z_array[kk[n],jj[n],ii[n]]))
 # #     print("obs#: %d  Yobs:  %8.1f  Yarray:  %8.1f" % (n, xyz_obs[1,n], y_array[kk[n],jj[n],ii[n]]))
 # #     print("obs#: %d  Xobs:  %8.1f  Xarray:  %8.1f\n" % (n, xyz_obs[2,n], x_array[kk[n],jj[n],ii[n]]))
@@ -1429,13 +1433,13 @@ def ens_GRID_RELECTIVITY(ens, ob_file=None, plot=False, cref=True, verbose=False
 
 # # Create composite reflectivity, and then replicate it into a 3D array
   
-#   dbz2d = N.zeros((1,))
+#   dbz2d = np.zeros((1,))
 
 #   if cref:
 
 #     dbz2d = dbz3d.max(axis=0)
   
-#     for k in N.arange(ens.nz):
+#     for k in np.arange(ens.nz):
 #       dbz3d[k] = dbz2d
       
 #     print("\n ==> ens_GRID_REFL: 2D composite DBZ requested   Max:  %4.1f   Min:  %4.1f" % (dbz2d.max(), dbz2d.min()))
@@ -1505,11 +1509,11 @@ def ens_ADDITIVE_NOISE(ens, ob_file=None, plot=False, cref=True):
     
     print("\n ==> ens_ADDITIVE_NOISE: Inflation file read in:  Max:  %4.2f  Min:  %4.2f" % (f3d.max(), f3d.min()))
 
-  for n in N.arange(ens.ne):
+  for n in np.arange(ens.ne):
   
     if upert > 0:
-      raw_pert = fnormal(N.random.RandomState([1+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
-      pert     = N.where(f3d > f3d_min, raw_pert, 0.0)
+      raw_pert = fnormal(np.random.RandomState([1+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
+      pert     = np.where(f3d > f3d_min, raw_pert, 0.0)
       p        = add_smooth_perts(pert, hradius, vradius, fstate.xc, fstate.yc, fstate.zc)
 #      p        = ndimage.gaussian_filter(pert, sigma=[gaussV,gaussH,gaussH], order=0)
       p        = 1.0 - 2.0*(p - p.min()) / (p.max()-p.min())
@@ -1517,8 +1521,8 @@ def ens_ADDITIVE_NOISE(ens, ob_file=None, plot=False, cref=True):
       if debugAN:  print("\n ==> ens_ADD_NOISE: VAR:  %s  NE:  %d  Pert_Min:  %f  Pert_Max:  %f" % ("U", n, p.min(), p.max()))
 
     if vpert > 0:
-      raw_pert = fnormal(N.random.RandomState([2+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
-      pert     = N.where(f3d > f3d_min, raw_pert, 0.0)
+      raw_pert = fnormal(np.random.RandomState([2+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
+      pert     = np.where(f3d > f3d_min, raw_pert, 0.0)
       p        = add_smooth_perts(pert, hradius, vradius, fstate.xc, fstate.yc, fstate.zc)
 #     p        = ndimage.gaussian_filter(pert, sigma=[gaussV,gaussH,gaussH], order=0)
       p        = 1.0 - 2.0*(p - p.min()) / (p.max()-p.min())
@@ -1526,8 +1530,8 @@ def ens_ADDITIVE_NOISE(ens, ob_file=None, plot=False, cref=True):
       if debugAN:  print("\n ==> ens_ADD_NOISE: VAR:  %s  NE:  %d  Pert_Min:  %f  Pert_Max:  %f" % ("V", n, p.min(), p.max()))
 
     if wpert > 0:
-      raw_pert = fnormal(N.random.RandomState([3+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
-      pert     = N.where(f3d > f3d_min, raw_pert, 0.0)
+      raw_pert = fnormal(np.random.RandomState([3+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
+      pert     = np.where(f3d > f3d_min, raw_pert, 0.0)
       p        = add_smooth_perts(pert, hradius, vradius, fstate.xc, fstate.yc, fstate.zc)
 #      p        = ndimage.gaussian_filter(pert, sigma=[gaussV,gaussH,gaussH], order=0)
       p        = 1.0 - 2.0*(p - p.min()) / (p.max()-p.min())
@@ -1535,8 +1539,8 @@ def ens_ADDITIVE_NOISE(ens, ob_file=None, plot=False, cref=True):
       if debugAN:  print("\n ==> ens_ADD_NOISE: VAR:  %s  NE:  %d  Pert_Min:  %f  Pert_Max:  %f" % ("W", n, p.min(), p.max()))
 
     if tpert > 0:
-      raw_pert = fnormal(N.random.RandomState([4+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
-      pert     = N.where(f3d > f3d_min, raw_pert, 0.0)
+      raw_pert = fnormal(np.random.RandomState([4+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
+      pert     = np.where(f3d > f3d_min, raw_pert, 0.0)
       p        = add_smooth_perts(pert, hradius, vradius, fstate.xc, fstate.yc, fstate.zc)
 #      p        = ndimage.gaussian_filter(pert, sigma=[gaussV,gaussH,gaussH], order=0)
       p        = 1.0 - 2.0*(p - p.min()) / (p.max()-p.min())
@@ -1546,22 +1550,22 @@ def ens_ADDITIVE_NOISE(ens, ob_file=None, plot=False, cref=True):
 # If Tdpert > 0, add dewpoint perturbations to QV - do it in Td space
 
     if tdpert > 0.0 and qvpert < 0.01:                                  # Dont do both, prefer saturations...
-      raw_pert = fnormal(N.random.RandomState([5+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
-      pert     = N.where(f3d > f3d_min, raw_pert, 0.0)
+      raw_pert = fnormal(np.random.RandomState([5+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
+      pert     = np.where(f3d > f3d_min, raw_pert, 0.0)
       p        = add_smooth_perts(pert, hradius, vradius, fstate.xc, fstate.yc, fstate.zc)
 #      p        = ndimage.gaussian_filter(pert, sigma=[gaussV,gaussH,gaussH], order=0)
       p        = 1.0 - 2.0*(p - p.min()) / (p.max()-p.min())
 
       p0 = 1000.*(ens['PI0'][n])**3.508
       e  = ens['QV'][n]*p0/(0.622+ens['QV'][n])                       # vapor pressure
-      e  = N.clip(e, 0.001, 100.)                                     # avoid problems near zero
-      td = 273.16 + ( 243.5 / ( 17.67/N.log(e/6.112) - 1.0 ) )        # Bolton's approximation
-      td = N.clip(td + tdpert*p, 200.0, (p0*ens['TH'][n])-0.1)        # make sure Td is < T
+      e  = np.clip(e, 0.001, 100.)                                     # avoid problems near zero
+      td = 273.16 + ( 243.5 / ( 17.67/np.log(e/6.112) - 1.0 ) )        # Bolton's approximation
+      td = np.clip(td + tdpert*p, 200.0, (p0*ens['TH'][n])-0.1)        # make sure Td is < T
     
     # Transform back to QV
 
       tdc = td - 273.16
-      e   = 6.112 * N.exp(17.67*tdc / (tdc+243.5) )                   # Bolton's approximation
+      e   = 6.112 * np.exp(17.67*tdc / (tdc+243.5) )                   # Bolton's approximation
       ens['QV'][n] = 0.622*e / (p0-e)
 
       if debugAN:  print("\n ==> ens_ADD_NOISE: VAR:  %s  NE:  %d  Pert_Min:  %f  Pert_Max:  %f" % ("Td/QV", n, ens['QV'][n] .min(), ens['QV'][n] .max()))
@@ -1569,18 +1573,18 @@ def ens_ADDITIVE_NOISE(ens, ob_file=None, plot=False, cref=True):
 # If qvpert > 0, add noise to Qv, restricting the RH <= 99%.
 
     if qvpert > 0.0:
-      raw_pert = fnormal(N.random.RandomState([5+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
-      pert     = N.where(f3d > f3d_min, raw_pert, 0.0)
+      raw_pert = fnormal(np.random.RandomState([5+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
+      pert     = np.where(f3d > f3d_min, raw_pert, 0.0)
       p        = add_smooth_perts(pert, hradius, vradius, fstate.xc, fstate.yc, fstate.zc)
 #      p        = ndimage.gaussian_filter(pert, sigma=[gaussV,gaussH,gaussH], order=0)
       p        = 1.0 - 2.0*(p - p.min()) / (p.max()-p.min())
 
       tc = (ens['PI0'][n]*ens['TH'][n]) - 273.16
       p0 = 1000.*(ens['PI0'][n])**3.508
-      e  = 6.112 * N.exp(17.67*tc / (tc+243.5) )  
+      e  = 6.112 * np.exp(17.67*tc / (tc+243.5) )  
       qvs = (0.622*e)/ (p0-e)
       ens['QV'][n] = ens['QV'][n] + p*qvpert/100.      
-      ens['QV'][n] = N.where(ens['QV'][n] >= qvs/100., 0.99*qvs/100., ens['QV'][n])     
+      ens['QV'][n] = np.where(ens['QV'][n] >= qvs/100., 0.99*qvs/100., ens['QV'][n])     
         
       if debugAN:  print("\n ==> ens_ADD_NOISE: VAR:  %s  NE:  %d  Pert_Min:  %f  Pert_Max:  %f" % ("QV", n, p.min(), p.max()))
   
@@ -1623,23 +1627,23 @@ def ens_IC_pert_from_box(ens, plot=False, writeout=False):
   klevel      = 4   # level to plot perturbations
   me          = int(ens.ne/2)  # which member to plot
 
-  xbox = N.array((xbmin, xbmin, xbmax, xbmax, xbmin)) - ens.experiment['xoffset']
-  ybox = N.array((ybmin, ybmax, ybmax, ybmin, ybmin)) - ens.experiment['yoffset']
+  xbox = np.array((xbmin, xbmin, xbmax, xbmax, xbmin)) - ens.experiment['xoffset']
+  ybox = np.array((ybmin, ybmax, ybmax, ybmin, ybmin)) - ens.experiment['yoffset']
 
 # Use fortran routine to create 3D perturbations, use python to create locations..
 
 # Find coordinates of box, then for each ensemble member, find offset for each bubble,
 #    and then add in a standard bubble based on r^2 of location
 
-  xypert = fnormal(N.random.RandomState([r_seed]), scale=xypertscale, size=(nb,2,ens.ne))
+  xypert = fnormal(np.random.RandomState([r_seed]), scale=xypertscale, size=(nb,2,ens.ne))
 
-  for n in N.arange(ens.ne):
-    for m in N.arange(nb):
+  for n in np.arange(ens.ne):
+    for m in np.arange(nb):
       xb = 0.5*(xbmin+xbmax) + xypert[:,0,n]*(xbmax-xbmin)
       yb = 0.5*(ybmin+ybmax) + xypert[:,1,n]*(ybmax-ybmin)
-      zb = zbmax*N.ones(xb.shape) + ens.hgt
+      zb = zbmax*np.ones(xb.shape) + ens.hgt
 
-    pert    = N.ascontiguousarray(addbubbles_box(rbubh, rbubz, xb, yb, zb, \
+    pert    = np.ascontiguousarray(addbubbles_box(rbubh, rbubz, xb, yb, zb, \
                                   fstate.xc, fstate.yc, fstate.zc, xbmin, xbmax, ybmin, ybmax, bbleT))
 
     pospert = (pert - pert.min()) / (pert.max()-pert.min())
@@ -1662,14 +1666,14 @@ def ens_IC_pert_from_box(ens, plot=False, writeout=False):
     if tdpert > 0.0 and qvpert < 0.01:                                  # Dont do both, prefer saturations...
         p0 = 1000.*(ens['PI0'][n])**3.508
         e  = ens['QV'][n]*p0/(0.622+ens['QV'][n])                       # vapor pressure
-        e  = N.clip(e, 0.001, 100.)                                     # avoid problems near zero
-        td = 273.16 + ( 243.5 / ( 17.67/N.log(e/6.112) - 1.0 ) )        # Bolton's approximation
-        td = N.clip(td + tdpert*pospert, 200.0, (p0*ens['TH'][n])-0.1)  # make sure Td is < T
+        e  = np.clip(e, 0.001, 100.)                                     # avoid problems near zero
+        td = 273.16 + ( 243.5 / ( 17.67/np.log(e/6.112) - 1.0 ) )        # Bolton's approximation
+        td = np.clip(td + tdpert*pospert, 200.0, (p0*ens['TH'][n])-0.1)  # make sure Td is < T
     
     # Transform back
 
         tdc = td - 273.16
-        e   = 6.112 * N.exp(17.67*tdc / (tdc+243.5) )                   # Bolton's approximation
+        e   = 6.112 * np.exp(17.67*tdc / (tdc+243.5) )                   # Bolton's approximation
         ens['QV'][n] = 0.622*e / (p0-e)
 
 # If qvpert > 0, essentially saturate the regions where the warm bubbles are.
@@ -1677,9 +1681,9 @@ def ens_IC_pert_from_box(ens, plot=False, writeout=False):
     if qvpert > 0.0:
         tc = (ens['PI0'][n]*ens['TH'][n]) - 273.16
         p0 = 1000.*(ens['PI0'][n])**3.508
-        e  = 6.112 * N.exp(17.67*tc / (tc+243.5) )  
+        e  = 6.112 * np.exp(17.67*tc / (tc+243.5) )  
         qvs = (0.622*e)/ (p0-e)      
-        ens['QV'][n] = N.where(pospert > 0.0, (100.-qvpert)*qvs/100., ens['QV'][n])
+        ens['QV'][n] = np.where(pospert > 0.0, (100.-qvpert)*qvs/100., ens['QV'][n])
        
   if plot:
 
@@ -1689,7 +1693,7 @@ def ens_IC_pert_from_box(ens, plot=False, writeout=False):
     lon2d, lat2d, x2d, y2d = map.makegrid(fstate.xc.size, fstate.yc.size, returnxy=True)
 
     if tpert > 0:
-        plot = map.contourf(x2d, y2d, ens['TH'][me,klevel,:,:] - ens['TH'][me,klevel,-1,-1], N.linspace(0.0, tpert, num=10), \
+        plot = map.contourf(x2d, y2d, ens['TH'][me,klevel,:,:] - ens['TH'][me,klevel,-1,-1], np.linspace(0.0, tpert, num=10), \
                             ax = ax1)
         cbar = map.colorbar(plot, ax=ax1)
         map.plot(xbox, ybox, color='k', ax=ax1)
@@ -1699,14 +1703,14 @@ def ens_IC_pert_from_box(ens, plot=False, writeout=False):
         # plot std-dev
 
         tstd = ens['TH'][:,klevel,:,:].std(axis=0)
-        plot = map.contourf(x2d, y2d, tstd, N.linspace(0.0,tpert,num=10), cmap=ctables.Not_PosDef_Default, ax=ax6)
+        plot = map.contourf(x2d, y2d, tstd, np.linspace(0.0,tpert,num=10), cmap=ctables.Not_PosDef_Default, ax=ax6)
         cbar = map.colorbar(plot, ax=ax6)
         map.plot(xbox, ybox, color='k', ax=ax6) 
         cbar.set_label('Theta-Perts Stdev')
         ax6.set_title('Theta-Perts Stdev', fontsize=20)
 
     if qvpert > 0:
-        plot = map.contourf(x2d, y2d, 1000.*(ens['QV'][me,klevel,:,:]-ens['QV'][me,klevel,-1,-1]), N.linspace(0.0, 2.0, num=10), \
+        plot = map.contourf(x2d, y2d, 1000.*(ens['QV'][me,klevel,:,:]-ens['QV'][me,klevel,-1,-1]), np.linspace(0.0, 2.0, num=10), \
                             ax=ax2)
         cbar = map.colorbar(plot, ax=ax2)
         map.plot(xbox, ybox, color='k', ax=ax2)
@@ -1716,14 +1720,14 @@ def ens_IC_pert_from_box(ens, plot=False, writeout=False):
         # plot std-dev
 
         tstd = 1000.*ens['QV'][:,klevel,:,:].std(axis=0)
-        plot = map.contourf(x2d, y2d, tstd, N.linspace(0.0,qvpert,num=20), cmap=ctables.Not_PosDef_Default, ax=ax7)
+        plot = map.contourf(x2d, y2d, tstd, np.linspace(0.0,qvpert,num=20), cmap=ctables.Not_PosDef_Default, ax=ax7)
         cbar = map.colorbar(plot, ax=ax7)
         map.plot(xbox, ybox, color='k', ax=ax7) 
         cbar.set_label('QV-Perts Stdev')
         ax7.set_title('QV-Perts Stdev', fontsize=20)
 
     if upert > 0.0:
-        plot = map.contourf(x2d, y2d,ens['U'][me,klevel,:,:]-ens['U'][me,klevel,-1,-1], N.linspace(-upert, upert, num=10), ax=ax3)
+        plot = map.contourf(x2d, y2d,ens['U'][me,klevel,:,:]-ens['U'][me,klevel,-1,-1], np.linspace(-upert, upert, num=10), ax=ax3)
         cbar = map.colorbar(plot, ax=ax3)
         map.plot(xbox, ybox, color='k', ax=ax3)   
         cbar.set_label('U-PERTS')
@@ -1732,14 +1736,14 @@ def ens_IC_pert_from_box(ens, plot=False, writeout=False):
         # plot std-dev
 
         tstd = ens['U'][:,klevel,:,:].std(axis=0)
-        plot = map.contourf(x2d, y2d, tstd, N.linspace(0.0,vpert,num=10), cmap=ctables.Not_PosDef_Default, ax=ax8)
+        plot = map.contourf(x2d, y2d, tstd, np.linspace(0.0,vpert,num=10), cmap=ctables.Not_PosDef_Default, ax=ax8)
         cbar = map.colorbar(plot, ax=ax8)
         map.plot(xbox, ybox, color='k', ax=ax8) 
         cbar.set_label('U-Perts Stdev')
         ax8.set_title('U-Perts Stdev', fontsize=20)
 
     if vpert > 0.0:
-        plot = map.contourf(x2d, y2d,ens['V'][me,klevel,:,:]-ens['V'][me,klevel,-1,-1], N.linspace(-vpert, vpert, num=10), ax=ax4)
+        plot = map.contourf(x2d, y2d,ens['V'][me,klevel,:,:]-ens['V'][me,klevel,-1,-1], np.linspace(-vpert, vpert, num=10), ax=ax4)
         cbar = map.colorbar(plot, ax=ax4)
         map.plot(xbox, ybox, color='k', ax=ax4) 
         cbar.set_label('V-PERTS')
@@ -1748,14 +1752,14 @@ def ens_IC_pert_from_box(ens, plot=False, writeout=False):
         # plot std-dev
 
         tstd = ens['V'][:,klevel,:,:].std(axis=0)
-        plot = map.contourf(x2d, y2d, tstd, N.linspace(0.0,vpert,num=10), cmap=ctables.Not_PosDef_Default, ax=ax9)
+        plot = map.contourf(x2d, y2d, tstd, np.linspace(0.0,vpert,num=10), cmap=ctables.Not_PosDef_Default, ax=ax9)
         cbar = map.colorbar(plot, ax=ax9)
         map.plot(xbox, ybox, color='k', ax=ax9) 
         cbar.set_label('V-Perts Stdev')
         ax9.set_title('V-Perts Stdev', fontsize=20)
 
     if wpert > 0.0:
-        plot = map.contourf(x2d, y2d,ens['W'][me,klevel,:,:]-ens['W'][me,klevel,-1,-1], N.linspace(0.0, wpert, num=10), ax=ax5)
+        plot = map.contourf(x2d, y2d,ens['W'][me,klevel,:,:]-ens['W'][me,klevel,-1,-1], np.linspace(0.0, wpert, num=10), ax=ax5)
         cbar = map.colorbar(plot, ax=ax5)
         map.plot(xbox, ybox, color='k', ax=ax5) 
         cbar.set_label('W-PERTS')
@@ -1764,7 +1768,7 @@ def ens_IC_pert_from_box(ens, plot=False, writeout=False):
         # plot std-dev
 
         tstd = ens['W'][:,klevel,:,:].std(axis=0)
-        plot = map.contourf(x2d, y2d, tstd, N.linspace(0.0,wpert,num=10), cmap=ctables.Not_PosDef_Default, ax=ax10)
+        plot = map.contourf(x2d, y2d, tstd, np.linspace(0.0,wpert,num=10), cmap=ctables.Not_PosDef_Default, ax=ax10)
         cbar = map.colorbar(plot, ax=ax10)
         map.plot(xbox, ybox, color='k', ax=ax10) 
         cbar.set_label('W-Perts Stdev')
@@ -1779,6 +1783,94 @@ def ens_IC_pert_from_box(ens, plot=False, writeout=False):
   if writeout:
     write_CM1_ens(state, writeEns=True, writeFcstMean=True, overwrite=True)
 
+#===============================================================================
+#
+def ens_IC_warm_bubble(ens, plot=False, writeout=False):
+
+# These values are set in the experiment dictionary created at the begining of the run
+
+  nb           = ens.experiment['INIT']['nb']
+  wpert        = ens.experiment['INIT']['wpert']
+  upert        = ens.experiment['INIT']['upert']
+  vpert        = ens.experiment['INIT']['vpert']
+  tpert        = ens.experiment['INIT']['tpert']
+  tdpert       = ens.experiment['INIT']['tdpert']
+  qvpert       = ens.experiment['INIT']['qvpert']
+  centerx      = ens.experiment['INIT']['centerx']
+  centery      = ens.experiment['INIT']['centery']
+  max_x_offset = ens.experiment['INIT']['max_x_offset']
+  max_y_offset = ens.experiment['INIT']['max_y_offset']
+  zbmin        = ens.experiment['INIT']['zbmin']
+  zbmax        = ens.experiment['INIT']['zbmax']
+  bhrad        = ens.experiment['INIT']['rbubh']
+  bvrad        = ens.experiment['INIT']['rbubv']
+  r_seed       = ens.experiment['INIT']['r_seed']
+
+  print(upert, wpert, vpert, tpert, tdpert)
+
+  klevel      = 4   # level to plot perturbations
+  me          = int(ens.ne/2)  # which member to plot
+
+  np.random.seed(r_seed)
+  xypert = (np.random.rand(nb,2,ens.ne)*2)-1
+
+  for n in np.arange(ens.ne):
+
+      xb = centerx + xypert[:,0,n]*max_x_offset # these are length nb
+      yb = centery + xypert[:,1,n]*max_y_offset
+      zb = zbmax*np.ones(xb.shape) + ens.hgt
+      
+      ni, nj, nk = ens['nx'],ens['ny'],ens['nz']
+      xh= np.tile(ens['xc'][:], (nj*nk,1)).reshape(nk, nj, ni)
+      yh= np.tile(ens['yc'][:], (ni*nk,1)).reshape(nk, nj, ni).swapaxes(1,2) 
+      zh= ens['zc'][:, np.newaxis, np.newaxis]
+      
+      pert = np.zeros([nk,nj,ni])
+      
+      for b in range(nb): # this uses the equation from CM1 to create the warm bubbles
+          beta = np.sqrt( ((xh- xb[b])/bhrad)**2 + ((yh- yb[b])/bhrad)**2 + ((zh - zb[b])/bvrad)**2 )
+          mask = beta < 1
+          pert[mask]+= (np.cos(0.5*np.pi*beta[mask])**2)
+  
+      pospert = (pert - pert.min()) / (pert.max()-pert.min())
+      neupert = 0.5 - pospert
+      
+      print("\n ==> ens_IC_warm_bubble: NE:  %d  NegPert_Min:  %f  NegPert_Max:  %f" % (n, neupert.min(), neupert.max()))
+      print("\n ==> ens_IC_warm_bubble: NE:  %d  PosPert_Min:  %f  PosPert_Max:  %f" % (n, pospert.min(), pospert.max()))
+      
+      if tpert > 0.0:
+          ens['TH'][n] = ens['TH'][n] + tpert*pospert
+      if wpert > 0.0:
+          ens['W'][n]  = ens['W'][n]  + wpert*pospert        
+      if upert > 0.0:
+          ens['U'][n]  = ens['U'][n]  + upert*neupert
+      if vpert > 0.0:
+          ens['V'][n]  = ens['V'][n]  + vpert*neupert
+  
+      if tdpert > 0.0 and qvpert < 0.01:                                  # Dont do both, prefer saturations...
+          p0 = 1000.*(ens['PI0'][n])**3.508
+          e  = ens['QV'][n]*p0/(0.622+ens['QV'][n])                       # vapor pressure
+          e  = np.clip(e, 0.001, 100.)                                     # avoid problems near zero
+          td = 273.16 + ( 243.5 / ( 17.67/np.log(e/6.112) - 1.0 ) )        # Bolton's approximation
+          td = np.clip(td + tdpert*pospert, 200.0, (p0*ens['TH'][n])-0.1)  # make sure Td is < T
+      
+          # Transform back
+          tdc = td - 273.16
+          e   = 6.112 * np.exp(17.67*tdc / (tdc+243.5) )                   # Bolton's approximation
+          ens['QV'][n] = 0.622*e / (p0-e)
+      
+      # If qvpert > 0, essentially saturate the regions where the warm bubbles are.
+      if qvpert > 0.0:
+          tc = (ens['PI0'][n]*ens['TH'][n]) - 273.16
+          p0 = 1000.*(ens['PI0'][n])**3.508
+          e  = 6.112 * np.exp(17.67*tc / (tc+243.5) )  
+          qvs = (0.622*e)/ (p0-e)      
+          ens['QV'][n] = np.where(pospert > 0.0, (100.-qvpert)*qvs/100., ens['QV'][n])
+
+# Write ensemble back out
+  if writeout:
+    write_CM1_ens(state, writeEns=True, writeFcstMean=True, overwrite=True)
+
 #===================================================================================================
 def ens_CM1_coords(ens):
   """Creates the lat/lon coordinates for the ensemble grids for interp"""
@@ -1790,8 +1882,8 @@ def ens_CM1_coords(ens):
                          ens.lat0,             \
                          ens.lon0, degrees=True)
 
-  ens.latc    = N.array(latc)
-  ens.lonc    = N.array(lonc)
+  ens.latc    = np.array(latc)
+  ens.lonc    = np.array(lonc)
   fstate.latc = ens.latc[:]
   fstate.lonc = ens.lonc[:]
 
@@ -1802,7 +1894,7 @@ def ens_CM1_coords(ens):
                          ens.lat0,             \
                          ens.lon0, degrees=True)
 
-  ens.late    = N.array(late)
+  ens.late    = np.array(late)
   fstate.late = ens.late[:]
 
   late, lone = dxy_2_dll(ens.xe[:]+ens.xg_pos, \
@@ -1810,7 +1902,7 @@ def ens_CM1_coords(ens):
                          ens.lat0,             \
                          ens.lon0, degrees=True)
 
-  ens.lone    = N.array(lone)
+  ens.lone    = np.array(lone)
   fstate.lone = ens.lone[:]
   
 #  now assign coordinates to the fortran arrays....
@@ -1999,7 +2091,7 @@ def ens_CM1_A2C(ens, var='ALL'):
                                  -fstate.xyz3d[ens.w_ptr,:,3:nz,:,:]    + 7.0*fstate.xyz3d[ens.w_ptr,:,2:nz-1,:,:] ) / 12.0                                
   else:
 
-    tmp = N.zeros((fstate.xyz3d.shape[1:]))
+    tmp = np.zeros((fstate.xyz3d.shape[1:]))
 
     if var.upper() == "U" or var.upper() == "ALL":
     
@@ -2069,7 +2161,7 @@ def ens_CM1_mean(ens):
 
   for m, key in enumerate(ens.state_vector['xyz3d']): 
     
-    fstate.xyz3d[m,ens.ne,:,:,:] = N.mean(fstate.xyz3d[m,0:ens.ne,:,:,:],0)
+    fstate.xyz3d[m,ens.ne,:,:,:] = np.mean(fstate.xyz3d[m,0:ens.ne,:,:,:],0)
  
     if debug:  
       print("\n ENS_CM1_MEAN:  Created mean for variable: %s " % (key))
@@ -2078,11 +2170,11 @@ def ens_CM1_mean(ens):
 
   for key in ens.state_vector['xyz3d']: 
     
-    if key == "U":  fstate.u[ens.ne,:,:,:] = N.mean(fstate.u[0:ens.ne,:,:,:],0)
+    if key == "U":  fstate.u[ens.ne,:,:,:] = np.mean(fstate.u[0:ens.ne,:,:,:],0)
     
-    if key == "V":  fstate.v[ens.ne,:,:,:] = N.mean(fstate.v[0:ens.ne,:,:,:],0)
+    if key == "V":  fstate.v[ens.ne,:,:,:] = np.mean(fstate.v[0:ens.ne,:,:,:],0)
     
-    if key == "W":  fstate.w[ens.ne,:,:,:] = N.mean(fstate.w[0:ens.ne,:,:,:],0)
+    if key == "W":  fstate.w[ens.ne,:,:,:] = np.mean(fstate.w[0:ens.ne,:,:,:],0)
     
   if time_all:  print("\n Wallclock time to create ensemble means:", round(timer() - t0, 3), " sec")
 
@@ -2283,7 +2375,7 @@ def read_CM1_ens(files, experiment, state_vector=None, DateTime=None, time_index
     if d.ndim == 1 and d.dimensions[0] == 'TIME':
       ens.addvariable(key, data=d[time_index])
     else:
-      ens.addvariable(key, data=N.array(d[:], dtype=N.float32))
+      ens.addvariable(key, data=np.array(d[:], dtype=np.float32))
 
 # If the coordinates have attributes - attach them to the variable
 
@@ -2536,11 +2628,9 @@ def write_CM1_ens(ens, writeEns=False, overwrite=False, writeFcstMean=False, wri
       os.mkdir(member000_dir)
 
     if writeAnalMean == True:
-      #meanfile = os.path.join(member000_dir, os.path.basename(ens.files[0]).replace("_rst_", "_post_"))
       meanfile = os.path.join(member000_dir, os.path.basename(ens.files[0]).replace("rst_", "_post_"))
       print("\n ==> WRITE_CM1_ENS:  Now writing out posterior ensemble mean into %s" % (meanfile))
     else:
-      #meanfile = os.path.join(member000_dir, os.path.basename(ens.files[0]).replace("_rst_", "_prior_"))
       meanfile = os.path.join(member000_dir, os.path.basename(ens.files[0]).replace("rst_", "_prior_"))
       print("\n ==> WRITE_CM1_ENS:  Now writing out prior ensemble mean into %s" % (meanfile))
     
@@ -2781,7 +2871,8 @@ if __name__ == "__main__":
 
     if options.init0:
         #ens_IC_pertUV(state, writeout=False) # using soundings that are already fully perturbed
-        ens_IC_pert_from_box(state, plot=options.plot, writeout=False)
+        #ens_IC_pert_from_box(state, plot=options.plot, writeout=False)
+        ens_IC_warm_bubble(state, plot=options.plot, writeout=False)
         
     if options.init1 > 0:
         ens_INIT0(state, options)

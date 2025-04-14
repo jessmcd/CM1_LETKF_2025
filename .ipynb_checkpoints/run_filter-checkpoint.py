@@ -43,7 +43,8 @@ if __name__ == "__main__":
   parser.add_option(    "--nthreads",     dest="nthreads",  type="int",     help = "Number of threads for LETKF computation")
   parser.add_option(    "--aInflate",     dest="ainflate",  type = "int",   help = "Sets type of adaptive inflation (0,1,2,3)", default=None)
   parser.add_option(    "--HF",           dest="HF",        type = "int",   help = "Sets up writeback skip for HF filter", default=None)
-  parser.add_option(      "--obserr",     dest="obserr",    type="string",  nargs=4, help = "")
+  parser.add_option(    "--obserr",       dest="obserr",    type="string",  nargs=4, help = "")
+  parser.add_option(    "--included_obs", dest="obs_inc",   type="string", default='all',  help = "list of observation types to include, in form type1,type2,type3 etc.")
 
   (options, args) = parser.parse_args()
 
@@ -151,7 +152,7 @@ if __name__ == "__main__":
     Hx_time = DT.datetime(int(time[0]),int(time[1]),int(time[2]),int(time[3]),int(time[4]),int(time[5])) + dt
     print("\n  -->  Run_Filter calling computeHx for time %s  \n" % Hx_time.strftime("%Y,%m,%d,%H,%M,%S"))
 
-    cmd = "python computeHx.py --exper %s --time %s -o %s --window %d" % (options.exper, Hx_time.strftime("%Y,%m,%d,%H,%M,%S"), obs_file, freq)
+    cmd = "python computeHx.py --exper %s --time %s -o %s --window %d --included_obs %s" % (options.exper, Hx_time.strftime("%Y,%m,%d,%H,%M,%S"), obs_file, freq, options.obs_inc)
                                
     if n == 0:  cmd = "%s --init" % cmd
 
@@ -167,25 +168,25 @@ if __name__ == "__main__":
 
   newPriorFile = os.path.join(path, "Prior_%s.nc" % file_DT.strftime("%Y-%m-%d_%H:%M:%S"))
 
-  os.rename("Prior.nc", newPriorFile)
+  os.rename(os.path.join(path, "Prior.nc"), newPriorFile)
   
   print("\n  --> Moved Prior.nc file to %s\n" % (newPriorFile))
 
 #################################################################################################
 # Run LETKF 
-#
 
-  # print(("\n  >================ Run_Filter:  Running LETKF at time: %s ===================<  \n" % file_DT.strftime("%Y-%m-%d_%H:%M:%S")))
 
-  # cmd = "python letkf.py --exper %s --time %s --nthreads %d " % (options.exper, options.time, nthreads)
+  print(("\n  >================ Run_Filter:  Running LETKF at time: %s ===================<  \n" % file_DT.strftime("%Y-%m-%d_%H:%M:%S")))
+
+  cmd = "python letkf.py --exper %s --time %s --nthreads %d " % (options.exper, options.time, nthreads)
   
-  # if aInflate:   cmd = "%s --aInflate %d" % (cmd, aInflate)
-  # if options.HF != None: cmd = "%s --HF %d" % (cmd, options.HF)
+  if aInflate:   cmd = "%s --aInflate %d" % (cmd, aInflate)
+  if options.HF != None: cmd = "%s --HF %d" % (cmd, options.HF)
   
-  # print("\n  "+cmd+"\n")
-  # os.system(cmd)
-  # #print(run_unix_cmd(cmd))
+  print("\n  "+cmd+"\n")
+  os.system(cmd)
+  #print(run_unix_cmd(cmd))
 
-  # print("\n  ----------------------------------------------------------------------")
-  # print("\n                 END PROGRAM RUN_FILTER                                 ")
-  # print("\n  ----------------------------------------------------------------------")
+  print("\n  ----------------------------------------------------------------------")
+  print("\n                 END PROGRAM RUN_FILTER                                 ")
+  print("\n  ----------------------------------------------------------------------")

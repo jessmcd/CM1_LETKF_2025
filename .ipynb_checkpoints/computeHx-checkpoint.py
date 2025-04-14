@@ -66,6 +66,7 @@ if __name__ == "__main__":
   parser.add_option(      "--init",       dest="init",      default=False,  help = "Create new prior file", action="store_true")
   parser.add_option(      "--final",      dest="final",     default=False,  help = "Movie prior file to new DT-labeled file", action="store_true")
   parser.add_option(      "--obserr",     dest="obserr",    default=None,   type = "string", nargs=4, help = "Set observational errors, e.g., VR 3.0 DBZ 7.5")
+  parser.add_option(    "--included_obs", dest="obs_inc",   type="string", default='all',  help = "list of observation types to include, in form type1,type2,type3 etc.")
   
   (options, args) = parser.parse_args()
   
@@ -128,6 +129,14 @@ if __name__ == "__main__":
   else:
     obs_file = options.obs
     print("\n --> ComputeHx:  using the observation file from the command line:  %s" % obs_file)
+
+
+#-------------------------------------------------------------------------------    
+# obs to assimilate
+    if options.obs_inc != 'all':
+        obs_include = options.obs_inc.split(',')
+    else:
+        obs_include = []
 
 #-------------------------------------------------------------------------------    
 # Init flag creates a new file
@@ -192,53 +201,18 @@ if __name__ == "__main__":
   timeIO.stop()
     
   Hxfm = N.empty((0,state.ne))  # need to init this here cause need size of ensemble
-    
-#   g_lat_max = state.late[:].max()
-#   g_lat_min = state.late[:].min()
-#   g_lon_max = state.lone[:].max()
-#   g_lon_min = state.lone[:].min()
-#   g_alt_max = max(state.zc.data[:]) + state.hgt
-#   g_alt_min = min(state.zc.data[:]) + state.hgt
-    
-#   calt = " & ( " + str(g_alt_min) + " < height < " + str(g_alt_max) + " ) "
-#   clat = "( " + str(g_lat_min) + " < lat < " + str(g_lat_max) + " ) "
-#   condition = clat + " & ( " + str(g_lon_min) + " < lon < " + str(g_lon_max) + " ) "
 
-#   dt     = DT.timedelta(0,int(window/2))
-#   begin  = analysis_time - dt
-#   ending = analysis_time + dt
-    
-#   print("\n --> ComputeHx:  Using pyDart to search with condition: " + condition  )
-#   print("\n --> ComputeHx:  Using pyDart to search with begin time of: ", begin.timetuple()[:6])
-#   print("\n --> ComputeHx:  Using pyDart to search with end   time of: ", ending.timetuple()[:6])
-    
-# # I used to try and limit lat/lon of search, but gave up 
 
-# # ob_f.search(start=begin.timetuple()[:6], end=ending.timetuple()[:6], condition=condition)
-
-#   ob_f.search(start=begin.timetuple()[:6], end=ending.timetuple()[:6])
-
-# # number of observations, if there are none, kick out of the loop...
-  
-#   if len(ob_f.index) > 0:
-#     print("\n --> ComputeHx:  Total number of obs found at search time: %s \n" % len(ob_f.index))
-#   else:
-#     print("\n --> ComputeHx:  No obs found at search time:  %s exiting......\n" % (analysis_time))
-#     sys.exit(0)
-  
-# # using the search index generated from above, obtain the location, data, and type
-
-#   subdata = ob_f.get_data()
-
-# # Compute Hxfs from 
-
-#   idx, Hxf, kind, lat, lon, height, elev, azimuth = ens.calcHx(state, 
-#                                                                subdata['kind'], 
-#                                                                subdata['lat'],                                         
-#                                                                subdata['lon'],
-#                                                                subdata['height'],
-#                                                                subdata['elevation'], subdata['azimuth'])
-
+# if you want only a subset of observations, this will do that. Make sure to add additional options as the file contains more data
+  if len(obs_include) > 0:
+    include = []
+    for ob in obs_include:
+      if ob == "DBZ":
+         include.append(12)
+      if ob == 'VR':
+         include.append(11)
+    ob_f = ob_f[ob_f['kind'].isin(include)]
+ 
 #set spatial and temporal conditions to index the observation data 
   g_lat_max = state.late[:].max()
   g_lat_min = state.late[:].min()
@@ -257,8 +231,8 @@ if __name__ == "__main__":
   
   subdata = ob_f[data_mask]
 
-  #subdata = subdata[subdata.kind == 12] # 
-    
+ 
+        
 
   if len(subdata.index) > 0:
     print("\n --> ComputeHx:  Total number of obs found at search time: %s \n" % len(subdata.index))
@@ -342,9 +316,9 @@ if __name__ == "__main__":
 
 # Here we create the Prior file if needed.  Note, the prior file may not be same datetime as current time
   if init:
-    create_prior_file(state.ne)
+    create_prior_file(state.ne, path)
 
-  write_prior(state.ne, kind, value, dates, err_var, xs, ys, zs, Hxf, Hxfbar, lat, lon, elev, azimuth, status, outlier)
+  write_prior(state.ne, kind, value, dates, err_var, xs, ys, zs, Hxf, Hxfbar, lat, lon, elev, azimuth, status, outlier, path)
   
   if final:
     newPriorFile = os.path.join(path, "Prior_%s.nc" % analysis_time.strftime("%Y-%m-%d_%H:%M:%S"))

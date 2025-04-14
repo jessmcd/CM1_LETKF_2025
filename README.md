@@ -1,5 +1,15 @@
 2025 update
 
+
+
+TO ADD SOON: 
+- how to properly format the data
+- namelist readme
+- dependencies for new version
+
+
+
+
 Install a miniconda2 env in your home directory.
 
 Update conda:  conda update conda

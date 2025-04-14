@@ -1,0 +1,395 @@
+from optparse import OptionParser
+import sys
+import os
+import numpy as np
+import datetime as DT 
+import netCDF4 as ncdf
+import glob
+import pylab as P
+from datetime import datetime
+from Plotting.cbook2 import nice_mxmnintvl, nice_clevels
+import matplotlib.cm as cm
+import matplotlib.ticker as ticker
+import matplotlib.dates as mdates
+from scipy import ndimage
+
+_bin_delta = 1
+zbins = 2000. * np.arange(6)
+radar_hgt = 373.
+
+_prior_files = "Prior_*"
+_plotfilename = "DBZ_ConsistencyRatio"
+
+_cmin, _cmax = 0.0, 1.1   # limits for the single line plots...
+
+variable = "REFL"   # valid variables:  VR, REFL
+only_pos_dbz = True
+
+sec_utime = "seconds since 1970-01-01 00:00:00"
+auto_clevels = True
+
+# definitions for the plot layout with multiple panels
+left, width = 0.1, 0.5
+bottom, height = 0.1, 0.5
+bottom_h = left_h = left+width+0.03
+
+rectC = [left, bottom, width, height]
+rectX = [left, bottom_h, width, 0.2]
+rectY = [left_h, bottom, 0.2, height]
+
+kernel = np.array([[1,2,1],
+                  [-2,0,-2],
+                  [1,-2,1]])
+
+
+## settings for plots - makes them look nicer
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+plt.rc('xtick', labelsize=14) 
+plt.rc('ytick', labelsize=14) 
+plt.rc('axes', labelsize=14, titlesize=18) 
+mpl.rcParams.update({"axes.grid" : False, "grid.color": "0.6",  'grid.linestyle':':',
+                    'grid.linewidth':1, 'axes.labelweight':'bold', 'legend.framealpha':1.0})
+
+
+
+def smfnc(x):
+    return ndimage.gaussian_filter(x, sigma=0.75)
+    
+# ------------------------------------------------------------------------------------------
+# Search functions  each returns a boolean array of T/F with the same dimensions as field
+
+def getIndexVariable(field, variable):
+    return (field == variable)
+    
+def getIndexGreaterThan(field, value):
+    return ( field > value )
+    
+def getIndexLessThan(field, value):
+    return ( field < value )
+    
+def getIndexGreaterThanOrEqual(field, value):
+    return ( field >= value )
+    
+def getIndexLessThanOrEqual(field, value):
+    return ( field <= value )
+
+def getIndexEqual(field, value):
+    return ( field == value )
+
+def getIndexNotEqual(field, value):
+    return ( field != value )
+
+#####################################################################################################
+# Main program
+
+if __name__ == "__main__":
+
+    print("\n \n <<<<<======================================================================>>>>>> \n \n")
+    print("     CONSISTENCY RATIO PLOT       \n\n ")
+
+    usage = "usage: %prog [options] arg"
+    parser = OptionParser(usage)
+
+    parser.add_option("-d",  "--dir",    dest="dir",  type="string", help="Name of directory where Prior files are")
+    parser.add_option("-t",  "--title",  dest="title", type="string", help="Name of plot and used as the name of the outputfile")
+    parser.add_option(       "--noshow",  dest="noshow", default=False, action="store_true", help="Turn off screen plotting")
+
+    (options, args) = parser.parse_args()
+
+    if options.dir:
+      dirname = os.path.join(options.dir,_prior_files)
+    else:
+      print("\n  ====>  No directory supplied, using %s as prefix \n" % _prior_files)
+      dirname = os.path.join("./",_prior_files)
+
+    if options.title:
+      plotfilename = options.title
+    else:
+      plotfilename = _plotfilename
+
+    file_list = glob.glob(dirname)
+    file_list = sorted(file_list,key=os.path.getmtime)
+    print(file_list)
+
+    print("\nFirst file:  %s" % file_list[0])
+    print("Last file:   %s\n" % file_list[-1])
+
+    bin_delta = _bin_delta
+
+    nbins = len(file_list) // bin_delta
+    CR_TZ = np.zeros((zbins.size,nbins))
+    CR_T  = np.zeros((nbins))
+    CR_Z  = np.zeros((zbins.size))
+    m = -1
+    
+    fig = P.figure(figsize=(12,12))
+    fig.text(0.72, 0.72, "\n\nConsistency\nRatio", size=20, va="baseline", ha="center", multialignment="center", weight='bold')
+    fig.text(0.72, 0.65, plotfilename, size=16, va="baseline", ha="center", multialignment="center")
+
+    print("\n 2D CONSISTENCY RATIO CALCULATIONS......\n")
+    
+    datebins = []
+    secsbins = []
+
+    for n, file in enumerate(file_list):
+
+        f = ncdf.Dataset(file)
+
+        if n % bin_delta == 0:
+        
+            HxfL     = []
+            depL     = []
+            errorL   = []
+            secsL    = []
+            zL       = []
+            kindL    = []
+            valueL   = []
+
+        valueL.append(f.variables["value"][:])
+        HxfL.append(f.variables["Hxf"][:])
+        zL.append(f.variables["z"][:] - radar_hgt)
+        depL.append( f.variables["value"][:] - f.variables["Hxfbar"][:] )
+        secsL.append(f.variables["secs"][:])
+        errorL.append(np.sqrt(f.variables["error"][:]))
+        kindL.append(ncdf.chartostring(f.variables["type"][:]))
+
+        if n % bin_delta == bin_delta-1:
+            Hxf   = np.concatenate(HxfL, axis=0)
+            value = np.concatenate(valueL, axis=0)
+            z     = np.concatenate(zL, axis=0)
+            dep   = np.concatenate(depL, axis=0)
+            secs  = np.concatenate(secsL, axis=0)
+            error = np.concatenate(errorL, axis=0)
+            kind  = np.concatenate(kindL, axis=0)
+            #datebins.append((ncdf.num2date(secs[1],units=sec_utime)).strftime("%Y%m%d%H%M%S"))
+            datebins.append(DT.datetime.utcfromtimestamp(secs.mean()))
+
+            m = m + 1
+
+            index_kind  = getIndexVariable(kind,variable)
+            index_pos   = getIndexGreaterThanOrEqual(value, 10.0)
+
+            for k in np.arange(zbins.size-1):
+                index1                = getIndexGreaterThanOrEqual(z, zbins[k])
+                index2                = getIndexLessThan(z, zbins[k+1])
+
+                if only_pos_dbz:
+                    index             = index_kind & index1 & index2 & index_pos
+                else:
+                    index             = index_kind & index1 & index2
+
+                if np.sum(index == True) > 2: 
+                    v           = value[index]
+                    print(v.max(), v.min())
+                    d           = dep[index]
+                    obs_var     = error[index]
+                    Hxftmp      = Hxf[index,:]
+                    Hxf_var     = Hxftmp.var(ddof=1, axis=1).mean()
+                    inno_var    = np.mean((d - d.mean())**2)
+                    consi_ratio = (obs_var[1]**2 + Hxf_var) / inno_var
+                    print("%s  NOBS: %5.5d    %3.3s: %3.1f  ZBIN:  %f  %f  RMSI: %6.3f  M-Innov: %7.3f  Spread: %6.3f  CRatio: %7.4f " \
+                    % (file[-22:-3], d.size, "VR", obs_var[1], zbins[k], zbins[k+1], \
+                    np.sqrt(inno_var), d.mean(), np.sqrt(obs_var[1]**2 + Hxf_var), consi_ratio))
+                    CR_TZ[k,m] = consi_ratio
+          
+        f.close()
+
+# Plotting
+
+    axC = P.axes(rectC)
+
+    zmin, zmax, cint = nice_mxmnintvl(zbins.min()/1000., zbins.max()/1000., outside=True, cint=1.0)
+    zmin = 0.0
+
+    if auto_clevels:
+        cmin, cmax, cint, clevels = nice_clevels(0, 3, outside=False, cint = 0.25)
+    else:
+        clevels = np.arange(spread_limits[0], spread_limits[1], spread_limits[2])
+
+    cs1=axC.contourf(datebins, zbins/1000., CR_TZ, clevels, cmap='YlOrRd')
+    #axC.contour(datebins,  zbins/1000., CR_TZ, clevels, colors='k', linewidths=0.5, alpha=0.5)
+    cs2=axC.contour(datebins,  zbins/1000., CR_TZ, clevels, colors='k')
+
+    start = datebins[0]
+    end   = datebins[-1]
+    
+    nticks_approx = 8
+    minute_interval = 5*round((end-start).seconds/(nticks_approx*60*5)) #find the best interval divisble by 5 based on nticks
+    
+    axC.set_xlim(start, end)
+    axC.set_ylim(zmin,zmax)
+    
+    maj_loc = mdates.MinuteLocator(interval=minute_interval)
+    axC.xaxis.set_major_locator(maj_loc)
+    dateFmt = mdates.DateFormatter('%H:%M')
+    axC.xaxis.set_major_formatter(dateFmt)
+    
+    labels = axC.get_xticklabels()
+    P.setp(labels, rotation=40, fontsize=12)
+    
+    axC.clabel(cs2, inline=1, fontsize=10, fmt="%1.1f")
+    axC.set_ylabel("Height (km)", weight='bold')
+    axC.set_xlabel("Time (UTC)",weight='bold')
+
+#===================================================================================================
+# time series Consistency Ratio
+
+    print("\n TIME-SERIES CONSISTENCY RATIO CALCULATIONS......\n")
+
+    datebins = []
+    secsbins = []
+    m = -1
+
+    for n, file in enumerate(file_list):
+
+        f = ncdf.Dataset(file)
+
+        if n % bin_delta == 0:
+        
+            HxfL     = []
+            valueL   = []
+            depL     = []
+            errorL   = []
+            secsL    = []
+            zL       = []
+            kindL    = []
+
+        valueL.append(f.variables["value"][:])
+        HxfL.append(f.variables["Hxf"][:])
+        zL.append(f.variables["z"][:] - radar_hgt)
+        depL.append( f.variables["value"][:] - f.variables["Hxfbar"][:] )
+        secsL.append(f.variables["secs"][:])
+        errorL.append(np.sqrt(f.variables["error"][:]))
+        kindL.append(ncdf.chartostring(f.variables["type"][:]))
+
+        if n % bin_delta == bin_delta-1:
+            Hxf   = np.concatenate(HxfL, axis=0)
+            value = np.concatenate(valueL, axis=0)
+            z     = np.concatenate(zL, axis=0)
+            dep   = np.concatenate(depL, axis=0)
+            secs  = np.concatenate(secsL, axis=0)
+            error = np.concatenate(errorL, axis=0)
+            kind  = np.concatenate(kindL, axis=0)
+            #datebins.append((ncdf.num2date(secs[1],units=sec_utime)).strftime("%Y%m%d%H%M%S"))
+            datebins.append(DT.datetime.utcfromtimestamp(secs.mean()))
+
+            m = m + 1
+
+            if only_pos_dbz:
+                index_kind  = getIndexVariable(kind,variable)
+                index_pos   = getIndexGreaterThanOrEqual(value, 10.0)
+                index       = index_kind & index_pos
+            else:
+                index = getIndexVariable(kind,variable)
+       
+            if np.sum(index == True) > 2: 
+                d           = dep[index]
+                obs_var     = error[index]
+                Hxftmp      = Hxf[index,:]
+                Hxf_var     = Hxftmp.var(ddof=1, axis=1).mean()
+                inno_var    = np.mean((d - d.mean())**2)
+                consi_ratio = (obs_var[1]**2 + Hxf_var) / inno_var
+                print("%s  NOBS: %5.5d    %3.3s: %3.1f  ZBIN:  %f  %f  RMSI: %6.3f  M-Innov: %7.3f  Spread: %6.3f  CRatio: %7.4f " \
+                % (file[-22:-3], d.size, "VR", obs_var[1], 0.0, zbins.max(), \
+                np.sqrt(inno_var), d.mean(), np.sqrt(obs_var[1]**2 + Hxf_var), consi_ratio))
+                CR_T[m] = consi_ratio
+      
+        f.close()
+
+# Plotting
+
+    axX = P.axes(rectX)
+#   cmin, cmax, cint = nice_mxmnintvl(CR_T.min(), CR_T.max(), outside=True, cint=1.0)  # Use this to get limits of the plot
+    s = datebins[0]
+    e = datebins[-1]
+    axX.plot(datebins, CR_T, lw=2.0, color='k')
+    axX.set_xlim(s, e)
+    axX.set_ylim(_cmin, _cmax)
+    axX.set_xticklabels([])
+    axX.set_ylabel("Consistency Ratio")
+    axX.grid(True)
+
+    maj_loc = mdates.MinuteLocator(interval=10)
+
+#===================================================================================================
+# Height Consistency Ratio
+    
+    print("\n ZBIN-D CONSISTENCY RATIO CALCULATIONS......\n")
+
+    datebins = []
+    secsbins = []
+    m = -1
+        
+    HxfL     = []
+    depL     = []
+    errorL   = []
+    secsL    = []
+    zL       = []
+    kindL    = []
+    valueL   = []
+
+    for n, file in enumerate(file_list):
+
+        f = ncdf.Dataset(file)
+
+        HxfL.append(f.variables["Hxf"][:])
+        valueL.append(f.variables["value"][:])
+        zL.append(f.variables["z"][:] - radar_hgt)
+        depL.append( f.variables["value"][:] - f.variables["Hxfbar"][:] )
+        secsL.append(f.variables["secs"][:])
+        errorL.append(np.sqrt(f.variables["error"][:]))
+        kindL.append(ncdf.chartostring(f.variables["type"][:]))
+
+        f.close()
+
+    Hxf   = np.concatenate(HxfL, axis=0)
+    z     = np.concatenate(zL, axis=0)
+    dep   = np.concatenate(depL, axis=0)
+    secs  = np.concatenate(secsL, axis=0)
+    error = np.concatenate(errorL, axis=0)
+    kind  = np.concatenate(kindL, axis=0)
+    value = np.concatenate(valueL, axis=0)
+
+    if only_pos_dbz:
+        index_k     = getIndexVariable(kind,variable)
+        index_pos   = getIndexGreaterThanOrEqual(value, 10.0)
+        index_kind  = index_k & index_pos
+    else:
+        index_kind = getIndexVariable(kind,variable)
+       
+    for k in np.arange(zbins.size-1):
+        index1                = getIndexGreaterThanOrEqual(z, zbins[k])
+        index2                = getIndexLessThan(z, zbins[k+1])
+        index                 = index_kind & index1 & index2
+        if np.sum(index == True) > 2: 
+            d           = dep[index]
+            obs_var     = error[index]
+            Hxftmp      = Hxf[index,:]
+            Hxf_var     = Hxftmp.var(ddof=1, axis=1).mean()
+            inno_var    = np.mean((d - d.mean())**2)
+            consi_ratio = (obs_var[1]**2 + Hxf_var) / inno_var
+            print("%s  NOBS: %5.5d    %3.3s: %3.1f  ZBIN:  %05.0f  %05.5f  RMSI: %6.3f  M-Innov: %7.3f  Spread: %6.3f  CRatio: %7.4f " \
+            % (file[-22:-3], d.size, "VR", obs_var[1], zbins[k], zbins[k+1], \
+            np.sqrt(inno_var), d.mean(), np.sqrt(obs_var[1]**2 + Hxf_var), consi_ratio))
+            CR_Z[k] = consi_ratio
+    
+# Plotting
+  
+    axY = P.axes(rectY)
+#   cmin, cmax, cint = nice_mxmnintvl(CR_Z.min(), CR_Z.max(), outside=True, cint=1.0)  # Use this to get limits of the plot
+    
+    axY.plot(CR_Z, zbins/1000., lw=2.0, color='k')
+    axY.set_ylim(0.0,zbins.max()/1000.)
+    axY.set_xlim(_cmin,_cmax)
+    axY.set_yticklabels([])
+    axY.set_xlabel("Consistency Ratio")
+    axY.grid(True)
+    
+#===================================================================================================
+# SAVE FILE AND SHOW PLOT
+
+    P.savefig(plotfilename+".pdf")
+    if not options.noshow:
+        P.show()
+

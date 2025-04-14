@@ -19,11 +19,11 @@ _stringlen     = 8
 _datelen       = 19
 
 #####################################################################################################
-def create_prior_file(ne):
+def create_prior_file(ne, path):
         
 # create the fileput filename and create new netCDF4 file
 
-  filename = "%s%s" % ("Prior", ".nc" )
+  filename = os.path.join(path, "Prior.nc")#"%s%s" % ("Prior", ".nc" )
     
   rootgroup = ncdf.Dataset(filename, 'w', format='NETCDF4')
       
@@ -110,9 +110,9 @@ def create_prior_file(ne):
 
   rootgroup.close()
 ##################################################################################################### 
-def write_prior(ne, kind, value, dates, error, x, y, z, Hxf, Hxfbar, lat, lon, el, az, status, outlier):
+def write_prior(ne, kind, value, dates, error, x, y, z, Hxf, Hxfbar, lat, lon, el, az, status, outlier, path):
   
-  filename = "%s%s" % ("Prior", ".nc" )
+  filename = os.path.join(path, "Prior.nc")
     
   if os.path.isfile(filename) != True:
       print(" write_prior:  No Prior file found, creating %s \n" % filename)
