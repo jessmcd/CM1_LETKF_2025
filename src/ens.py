@@ -737,7 +737,7 @@ def calcHx(ens, kind, lat, lon, height, elev, azimuth, missing=None):
   
     if lon[n] != ilon:  
       ilon = lon[n]
-      i1, i2, dx1, dx2, dx = interp_wghts(ilon, mlons)
+      i1, i2, dx1, dx2, dx = interp_wghts(ilon, mlons) #ilon = location to be interpolated too, mlon = grid location
   
     if lat[n] != ilat:  
       ilat = lat[n]
@@ -761,8 +761,6 @@ def calcHx(ens, kind, lat, lon, height, elev, azimuth, missing=None):
   
     if kind[n] == 11:  # VR!
 
-        # this is doing a lot of fancy stuff that i will IGNORE for now
-        # but DO NOT forget to turn this back on when doing better experiments later!
   
       for m, key in enumerate( ["UA", "VA", "WA", "DBZ", "DEN"]):
         q1     = dx1*ens[key].data[:ens.ne,k1,j1,i1] + dx2*ens[key].data[:ens.ne,k1,j1,i2]

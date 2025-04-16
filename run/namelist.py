@@ -25,10 +25,11 @@ yoffset             = -180000.0
 microphysics        = 27
 
 # settings to help facilitate experiments: set all to True for a normal experiment
-run_setup     = True               # DA experiment only - ensemble "cook time" has already been done
-run_cook      = True               # run the warm up period before DA starts
-run_experiment= True               # don't run an experiment - can but used with run_setup = True to do basic testing
-make_plots    = True               # if you want to make the summary plots at the end (these need work... lolz)
+run_setup           = True  # DA experiment only - ensemble "cook time" has already been done
+run_cook            = True  # run the warm up period before DA starts
+run_assim           = True  # does the assimilation 
+run_forecast        = True  # does the forecast
+make_plots          = True  # if you want to make the summary plots at the end (these need work... lolz)
 
 
 ### DATA ASSIMILATION PARAMETERS ###

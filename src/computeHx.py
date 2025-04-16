@@ -230,9 +230,7 @@ if __name__ == "__main__":
               (ob_f.lon <= g_lon_max) & (ob_f.lon >= g_lon_min)
   
   subdata = ob_f[data_mask]
-
- 
-        
+    
 
   if len(subdata.index) > 0:
     print("\n --> ComputeHx:  Total number of obs found at search time: %s \n" % len(subdata.index))
