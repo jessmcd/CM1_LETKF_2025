@@ -50,9 +50,9 @@ if run_setup:
     os.system(f"python run_fcst.py          -e {exp_name} --ncores {ncores} -i") 
     os.system(f"python ens.py               -e {exp_name} --init0 -t {model_start} --write ")
       
-    # cook period!
-    if run_cook:
-        os.system(f"python run_fcst.py -e {exp_name} --run_time {cook_period} --freq {cook_freq} -t {model_start} --ncores {ncores}")
+# cook period!
+if run_cook:
+    os.system(f"python run_fcst.py -e {exp_name} --run_time {cook_period} --freq {cook_freq} -t {model_start} --ncores {ncores}")
 
 # --------------------------------------------------------------------------
 # Now loop through the cycling
