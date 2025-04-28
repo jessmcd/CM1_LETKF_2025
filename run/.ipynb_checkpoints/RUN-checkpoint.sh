@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# just in case one already exists
+rm letkf.out
+
 #get experiment filepath
 base_dir=$(python namelist.py)
 fname=$(basename "$base_dir")

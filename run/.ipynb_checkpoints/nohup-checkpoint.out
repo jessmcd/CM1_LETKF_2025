@@ -1,0 +1,5 @@
+Beginning test Experiment...
+Output directory is /work/jessica.mcdonald/newCM1_LETKF/test
+copying letkf.out to /work/jessica.mcdonald/newCM1_LETKF/test
+cp: cannot create regular file '/work/jessica.mcdonald/newCM1_LETKF/test': No such file or directory
+Experiment has completed

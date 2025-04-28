@@ -11,7 +11,6 @@ import datetime
 from optparse import OptionParser
 import f90nml
 import json
-#import namelist #namelist from 
 
 import sys
 sys.path.append('../run/')
@@ -21,7 +20,7 @@ print(os.getcwd())
 
 # variable prep
 _microphysics_options = {"morrison": 5, "zvdLFO":  28, "thompson": 3, "zvd": 26, '27':"zvdh" }
-_obs_codes = {'DBZ':12, 'VR':11}
+_obs_codes = {'DBZ':12, 'VR':11, 'DBZ0':13, 'DBZ0_W':14}
 
 if namelist.auto_model_start:
     ms = namelist.DA_start_time - datetime.timedelta(seconds=namelist.cook_period)
@@ -112,8 +111,12 @@ defaults = {
     "cutoff":            namelist.cutoff,
     "zcutoff":           namelist.zcutoff,
     "inflate":           namelist.inflate,
-    "print_state_stats": namelist.print_state_stats
+    "print_state_stats": namelist.print_state_stats,
+    "DA_start_time":     namelist.DA_start_time,
+    "DA_end_time":       namelist.DA_end_time,
+    "obs_included":      namelist.obs_include
                },
+    
 "base_path": "", 
 "fcst_path": "", 
 "plots_path": "",
@@ -327,7 +330,6 @@ for n in np.arange(1,defaults['ne']+1):
     defaults['fcst_members'].append(fcst_member)
     
 # Copy needed stuff into directories
-
     for key in list(DIR_DICT.keys()):
         
         if (key == 'fcst'):
@@ -335,7 +337,7 @@ for n in np.arange(1,defaults['ne']+1):
                 print(item[0])
 
                 if item[0] == 'sounding':
-                    from_target = os.path.join(os.getcwd().replace('src', 'run'),defaults[item[0]], f'Run{(n-1):02d}Sounding.txt')
+                    from_target = os.path.join(os.getcwd().replace('src', 'run'),defaults[item[0]], f'Run{n:02d}Sounding.txt')
                     to_target   = os.path.join(fcst_member,"input_sounding")
                     ret         = linkit(from_target, to_target, item[1])
        

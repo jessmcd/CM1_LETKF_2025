@@ -34,7 +34,7 @@ _variable_dbz_error = False
 #-------------------------------------------------------------------------------
 # Run parameters for the filter
 
-obs_diag = {11: ["VR"], 12:["DBZ"]}
+obs_diag = {11: ["VR"], 12:["DBZ"], 13:['DBZ0'], 14:['DBZ0_W']}
 
 #-------------------------------------------------------------------------------
 def getIndexEqual(field, value):
@@ -273,10 +273,10 @@ if __name__ == "__main__":
       print(('\n  --> LETKF called with an outlier threshold of %d standard deviations' % outlier_threshold))
 
       mask  = np.where( outlier <= outlier_threshold, True, False )
-      mask2 = np.where( kind == 11, True, False )
-      print(("Mask before Vr mask:  ", np.count_nonzero(mask)))
-      mask  = mask | mask2
-      print(("Mask after Vr mask:  ", np.count_nonzero(mask)))
+      # mask2 = np.where( kind == 11, True, False )
+      # print(("Mask before Vr mask:  ", np.count_nonzero(mask)))
+      # mask  = mask | mask2
+      # print(("Mask after Vr mask:  ", np.count_nonzero(mask)))
 
       kind   = kind[mask]
       value  = value[mask]
@@ -337,45 +337,62 @@ if __name__ == "__main__":
     index_kind  = getIndexEqual(kind, key)
     d           = dep[index_kind]
     
-    if obs_diag[key][0] == 'DBZ':
+  #   if obs_diag[key][0] == 'DBZ':
 
-  # Non-zero dBZ obs
+  # # Non-zero dBZ obs
   
-        index_dbz   = index_kind & getIndexGT(value, 0.1)
+  #       index_dbz   = index_kind & getIndexGT(value, 0.1)
 
-        if np.sum(index_dbz) > 0:
-          ob_err      = error[index_dbz].mean()
-          d           = dep[index_dbz]
-          Hxftmp      = Hxf[index_dbz,:]
-          Hxf_var     = Hxftmp.var(ddof=1, axis=1).mean()
-          inno_var    = np.mean((d - d.mean())**2)
-          consi_ratio = (ob_err + Hxf_var) / inno_var
+  #       if np.sum(index_dbz) > 0:
+  #         ob_err      = error[index_dbz].mean()
+  #         d           = dep[index_dbz]
+  #         Hxftmp      = Hxf[index_dbz,:]
+  #         Hxf_var     = Hxftmp.var(ddof=1, axis=1).mean()
+  #         inno_var    = np.mean((d - d.mean())**2)
+  #         consi_ratio = (ob_err + Hxf_var) / inno_var
 
-          print(("\n -->  LETKF:  %s  NOBS: %5.5d  %3.3s>0: %3.1f  RMSI: %6.3f  M-Innov: %7.3f  Spread: %6.3f  CRatio: %7.4f " \
-                % (analysis_time.strftime("%Y-%m-%d_%H:%M:%S"), np.sum(index_dbz), obs_diag[key][0], np.sqrt(ob_err), \
-                   np.sqrt(inno_var), d.mean(), np.sqrt(ob_err + Hxf_var), consi_ratio)))
-        else:
-          print(("\n -->  LETKF:  %3.3s>0: is not present in observations" % (obs_diag[key][0])))
+  #         print(("\n -->  LETKF:  %s  NOBS: %5.5d  %3.3s>0: %3.1f  RMSI: %6.3f  M-Innov: %7.3f  Spread: %6.3f  CRatio: %7.4f " \
+  #               % (analysis_time.strftime("%Y-%m-%d_%H:%M:%S"), np.sum(index_dbz), obs_diag[key][0], np.sqrt(ob_err), \
+  #                  np.sqrt(inno_var), d.mean(), np.sqrt(ob_err + Hxf_var), consi_ratio)))
+  #       else:
+  #         print(("\n -->  LETKF:  %3.3s>0: is not present in observations" % (obs_diag[key][0])))
 
-  # zero dBZ obs      
+  # # zero dBZ obs 
+  #   if obs_diag[key][0] == 'DBZ0':
 
-        index_dbz   = index_kind & getIndexLT(value, 0.1)
-        if np.sum(index_dbz) > 0:
-          ob_err      = error[index_dbz].mean()
-          d           = dep[index_dbz]
-          Hxftmp      = Hxf[index_dbz,:]
-          Hxf_var     = Hxftmp.var(ddof=1, axis=1).mean()
-          inno_var    = np.mean((d - d.mean())**2)
-          consi_ratio = (ob_err + Hxf_var) / inno_var
-          print(("\n --> LETKF:%s  NOBS: %5.5d  %3.3s<0: %3.1f  RMSI: %6.3f  M-Innov: %7.3f  Spread: %6.3f  CRatio: %7.4f " \
-                % (analysis_time.strftime("%Y-%m-%d_%H:%M:%S"), np.sum(index_dbz), obs_diag[key][0], np.sqrt(ob_err), \
-                   np.sqrt(inno_var), d.mean(), np.sqrt(ob_err + Hxf_var), consi_ratio)))
-        else:
-          print(("\n -->  LETKF:  %3.3s<=0: is not present in observations" % (obs_diag[key][0])))
+  #       index_dbz   = index_kind #& getIndexLT(value, 0.1)
+  #       if np.sum(index_dbz) > 0:
+  #         ob_err      = error[index_dbz].mean()
+  #         d           = dep[index_dbz]
+  #         Hxftmp      = Hxf[index_dbz,:]
+  #         Hxf_var     = Hxftmp.var(ddof=1, axis=1).mean()
+  #         inno_var    = np.mean((d - d.mean())**2)
+  #         consi_ratio = (ob_err + Hxf_var) / inno_var
+  #         print(("\n --> LETKF:%s  NOBS: %5.5d  %3.3s==0: %3.1f  RMSI: %6.3f  M-Innov: %7.3f  Spread: %6.3f  CRatio: %7.4f " \
+  #               % (analysis_time.strftime("%Y-%m-%d_%H:%M:%S"), np.sum(index_dbz), obs_diag[key][0], np.sqrt(ob_err), \
+  #                  np.sqrt(inno_var), d.mean(), np.sqrt(ob_err + Hxf_var), consi_ratio)))
+  #       else:
+  #         print(("\n -->  LETKF:  %3.3s<=0: is not present in observations" % (obs_diag[key][0])))
+
+  #   if obs_diag[key][0] == 'DBZ0_W':
+
+  #       index_dbz   = index_kind #& getIndexLT(value, 0.1)
+  #       if np.sum(index_dbz) > 0:
+  #         ob_err      = error[index_dbz].mean()
+  #         d           = dep[index_dbz]
+  #         Hxftmp      = Hxf[index_dbz,:]
+  #         Hxf_var     = Hxftmp.var(ddof=1, axis=1).mean()
+  #         inno_var    = np.mean((d - d.mean())**2)
+  #         consi_ratio = (ob_err + Hxf_var) / inno_var
+  #         print(("\n --> LETKF:%s  NOBS: %5.5d  %3.3s==0, **w==0**: %3.1f  RMSI: %6.3f  M-Innov: %7.3f  Spread: %6.3f  CRatio: %7.4f " \
+  #               % (analysis_time.strftime("%Y-%m-%d_%H:%M:%S"), np.sum(index_dbz), obs_diag[key][0], np.sqrt(ob_err), \
+  #                  np.sqrt(inno_var), d.mean(), np.sqrt(ob_err + Hxf_var), consi_ratio)))
+  #       else:
+  #         print(("\n -->  LETKF:  %3.3s<=0: is not present in observations" % (obs_diag[key][0])))
 
   # other obs
 
-    elif d.size > 0:
+    if d.size > 0:
 
       ob_err      = error[index_kind].mean()
       d           = dep[index_kind]

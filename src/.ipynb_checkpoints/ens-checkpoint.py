@@ -76,107 +76,116 @@ _dbz_max = 75.
 _clevels = {'DBZ':[5,75,5], 'W':[-10,11,1], 'TH':[295.,325.,1.], 'THP':[-5,6,0.5], 'QV':[0.0,0.022,0.002], \
             'WZ': [-100.,120.,20.], 'U':[-20,22,2], 'V':[-20,22,2]}
 
-#-----------------------------------------------------------------------------------------------------------------------------
-def run_unix_cmd(cmd):
-        p = Popen(cmd, shell=True, stdout=PIPE)
-        output = p.communicate()[0]
-        return output
 
 #-----------------------------------------------------------------------------------------------------------------------------
 def meshgrid_general(*args):
-   args = map(np.asarray,args)
-   return np.broadcast_arrays(*[x[(slice(None),)+(None,)*i] for i, x in enumerate(args)])
+    args = map(np.asarray,args)
+    return np.broadcast_arrays(*[x[(slice(None),)+(None,)*i] for i, x in enumerate(args)])
 
 #=======================================================================================================================
 # Find the CM1 file for time requested
 
-def FindRestartFiles(exper_filename, myDT, ret_exp=True, ret_DT=True):
+def FindRestartFiles(exper_filename, myDT, ret_exp=True, ret_DT=True, prior=False):
 
-# Open pickled experiment filename
-
+    # Quick snippet of code to sort based on file index
+    def getint(name):
+        num = name[:-3].split('_')[-1]  # get rid of *.nc
+        return int(num)
+    
+    # Open pickled experiment filename
     if type(exper_filename) == dict:
         exper = exper_filename
     else:
         with open(exper_filename, 'rb') as p:
             exper = json.load(p)
-
-# Figure out how myDT is being passed, and then convert to DT object
-
-    if type(myDT) == str:
-        myDT = [int(t) for t in myDT.split(",")]
     
-    if type(myDT) == list:
-        myDT = datetime.datetime(myDT[0],myDT[1],myDT[2],myDT[3],myDT[4],myDT[5])
+    # Figure out how myDT is being passed, and then convert to DT object if it isn't in that form already
+    if type(myDT) == str:  myDT = datetime.datetime.strptime(myDT, '%Y,%m,%d,%H,%M,%S')
+    if type(myDT) == list: myDT = datetime.datetime.strptime("".join(str(num)for num in myDT), '%Y%m%d%H%M%S')
         
     print("\n ==> FindRestartFiles: Date and time supplied is %s" % (myDT.strftime("%Y_%m_%d %H:%M:%S")))
-
-    rfiles = []
-
-# Figure out file time
-
-    mDT  = datetime.datetime(exper['YEAR'],
-                             exper['MONTH'],
-                             exper['DAY'],
-                             exper['HOUR'],
-                             exper['MINUTE'],
-                             exper['SECOND'])
-
-    time = (myDT - mDT).seconds
     
+    rfiles = []
+    
+    # Figure out file time
+    mDT  = datetime.datetime.strptime(exper['date_time'], '%Y-%m-%d %H:%M:%S')
+    time = (myDT - mDT).seconds
     fprefix = exper['fprefix']
-
-# Rebuild fcst member locations in case top level directory has changed.
-# If it has, it is already stored in the exper['base_dir'], so use it..
-
-    cwd = os.getcwd()
-    exper['fcst_path'] = os.path.join(cwd, exper['base_dir'])
+    
+    # Rebuild fcst member locations in case top level directory has changed.
+    # If it has, it is already stored in the exper['base_dir'], so use it..
+    exper['fcst_path'] = os.path.join(os.getcwd(), exper['base_dir'])
     exper['fcst_members'] = []
-
     for n in np.arange(1,exper['ne']+1):
         fcst_member = "%s/member%3.3i" % (exper['fcst_path'], n)
         exper['fcst_members'].append(fcst_member)
-
+    
     fileheader = os.path.join(exper['fcst_members'][0],fprefix)
-    files = glob.glob(fileheader+"rst_0*.nc")
+    
 
-# Quick snippet of code to sort based on file index
-    def getint(name):
-        num = name[:-3].split('_')[-1]  # get rid of *.nc
-        return int(num)
-
-    files = sorted(files, key=getint)
-
-    if len(files) > 0:
-
-        for n, file in enumerate(files):
-            f = ncdf.Dataset(file, "r")
-            #print(f.variables)
-            f_time = f.variables['time'][0]
-            f.close()
-            del f
+    # if prior files were requested, check for those first. If you can't find them, you'll look for normal restart files
+    if prior:          
+        print("you requested prior files.... searching for prior files.")
+        files = sorted(glob.glob(fileheader+"_prior_0*.nc"), key=getint)
         
-            if( np.abs(f_time - time) < 1.0 ):
-                print("\n ==> FindRestartFile:  Found time %d in file:  %s" % (f_time, file))
-                for g in exper['fcst_members']:
-                    rfiles.append(os.path.join(g, ("%srst_%6.6d.nc" % (fprefix,n))))
-           
-# Deal with the return cases
-         
-                if ret_exp and ret_DT:
-                    return rfiles, exper, myDT
-                elif ret_exp:
-                    return rfiles, exper
-                elif ret_DT:         
-                    return rfiles, myDT
-                else:
-                    return rfiles
+        if len(files) > 0:
+            for n, file in enumerate(files):
+                f = ncdf.Dataset(file, "r")
+                f_time = f.variables['time'][0]
+                f.close()
+                del f
+            
+                if( np.abs(f_time - time) < 1.0 ):
+                    num = getint(files[n])
+                    print("\n ==> FindRestartFile:  Found time %d in file:  %s" % (f_time, file))
+                    for g in exper['fcst_members']:
+                        rfiles.append(os.path.join(g, ("%s_prior_%6.6d.nc" % (fprefix,num))))
+                        
+        if len(rfiles) ==0 : # no prior files found
+            print("You requested prior files but they do not exist. Getting rst files instead.")
+            prior = False
+
+
+        
+    # looking for normal restart files 
+    if prior == False:
+        
+        files = sorted(glob.glob(fileheader+"rst_0*.nc"), key=getint)
+            
+        if len(files) > 0:
+            for n, file in enumerate(files):
+                f = ncdf.Dataset(file, "r")
+                f_time = f.variables['time'][0]
+                f.close()
+                del f
+            
+                if( np.abs(f_time - time) < 1.0 ):
+                    num = getint(files[n])
+                    print("\n ==> FindRestartFile:  Found time %d in file:  %s" % (f_time, file))
+                    for g in exper['fcst_members']:
+                        rfiles.append(os.path.join(g, ("%srst_%6.6d.nc" % (fprefix,num))))   
+
+    if len (rfiles) > 0:
+                        
+        # Deal with the return cases
+        if ret_exp and ret_DT:
+            return rfiles, exper, myDT
+        elif ret_exp:
+            return rfiles, exper
+        elif ret_DT:         
+            return rfiles, myDT
+        else:
+            return rfiles
+
+    else:
 
         print("\n\n  ERROR!!!")
         print("\n ==>!! FindRestartFile: A file with the restart time of %d cannot be found, exiting!!!" % time)
         print("\n\n  ERROR!!!")
         sys.exit(-1)
 
-    else:
+    if len(files) == 0:
+
         print("\n\n  ERROR!!!")
         print("\n  ==>!! FindRestartFile: No files where found having the header:  %s, exiting" % fileheader)
         print("\n\n  ERROR!!!")
@@ -227,114 +236,109 @@ ensemble_attributes = ["xc", "yc", "latc", "lonc", "zc",
 
 class variable(object):
   
-  def __init__(self, name, data=None, **kwargs):    
-    self.name = name    
-    if data.any() != None:      
-      self.data = data    
-    else:     
-      self.data = np.empty(0)
+    def __init__(self, name, data=None, **kwargs):    
+        self.name = name    
+        if data.any() != None:      
+            self.data = data    
+        else:     
+            self.data = np.empty(0)
     
-    if kwargs != None:
-      for key in kwargs:  setattr(self, key, kwargs[key])
+        if kwargs != None:
+            for key in kwargs:  setattr(self, key, kwargs[key])
 
-  def __getattr__(self, aname):  
-    if aname in ensemble_attributes:
-      return self.name
-    
-    elif aname == "max":   
-      return self.data.max()
-    
-    elif aname == "min":   
-      return self.data.min()
-    
-    elif aname == "mean":  
-      return self.data.mean()
-    
-    elif  hasattr(self, aname):
-      return getattr(self, aname)
-    else:
-      raise AttributeError("VAR: %s No such attribute %s " % (self.name, aname))
+    def __getattr__(self, aname):  
+        if aname in ensemble_attributes:
+            return self.name
+        elif aname == "max":   
+            return self.data.max()
+        elif aname == "min":   
+            return self.data.min()
+        elif aname == "mean":  
+            return self.data.mean()
+        elif  hasattr(self, aname):
+            return getattr(self, aname)
+        else:
+            raise AttributeError("VAR: %s No such attribute %s " % (self.name, aname))
 
-  def __setitem__(self, index, value): 
-    try:    
-      self.data[index] = value    
-    except IndexError:    
-      print("setitem: VAR %s --> index %s not valid  %s shape: %s  " % (self.name, str(index), self.name, str(self.data.shape)))
+    def __setitem__(self, index, value): 
+        try:    
+            self.data[index] = value    
+        except IndexError:    
+            print("setitem: VAR %s --> index %s not valid  %s shape: %s  " % (self.name, str(index), self.name, str(self.data.shape)))
 
       
-  def __getitem__(self, index):    
-    try:      
-      return self.data[index]    
-    except IndexError:     
-      print("getitem VAR: %s --> index %s not valid  %s shape: %s  " % (self.name, str(index), self.name, str(self.data.shape)))
+    def __getitem__(self, index):    
+        try:
+            return self.data[index]    
+        except IndexError:     
+            print("getitem VAR: %s --> index %s not valid  %s shape: %s  " % (self.name, str(index), self.name, str(self.data.shape)))
 
-  def keys(self):
-    return self.__dict__
+    def keys(self):
+        return self.__dict__
 
-  def addattribute(self, name, attribute):
-    if debug: print("VAR %s adding attribute:  %s " % (self.name, name))
-    setattr(self,name,attribute)
+    def addattribute(self, name, attribute):
+        if debug: print("VAR %s adding attribute:  %s " % (self.name, name))
+        setattr(self,name,attribute)
 
 #===============================================================================
 # Superclass ensemble
 
 class ensemble(variable):
-  def __init__(self, name):
-    self.name = name
+    def __init__(self, name):
+        self.name = name
 
-  def __getattr__(self, name):  
-    try:
-      if name in ensemble_attributes:
-        return self.name
-      elif  hasattr(self, name):
-        return self.__dict__[name].getattr(name)
-    except:
-      raise AttributeError("Clase ENS:  No such attribute " + name)
+    def __getattr__(self, name):  
+        try:
+            if name in ensemble_attributes:
+                return self.name
+            elif  hasattr(self, name):
+                return self.__dict__[name].getattr(name)
+        except:
+            raise AttributeError("Clase ENS:  No such attribute " + name)
 
-  def __setitem__(self, key, item): 
-    self.data[key] = item
+    def __setitem__(self, key, item): 
+        self.data[key] = item
 
-  def __getitem__(self, key):       
-    return self.__dict__[key]
+    def __getitem__(self, key):       
+        return self.__dict__[key]
 
-  def keys(self, only_variables=False):
-    if only_variables:
-      vars = []
-      for key in self.__dict__:
-        if isinstance(self.__dict__[key], variable):  vars.append(key)
-      return vars
-    else:
-      return self.__dict__
+    def keys(self, only_variables=False):
+        if only_variables:
+            vars = []
+            for key in self.__dict__:
+                if isinstance(self.__dict__[key], variable):  vars.append(key)
+            return vars
+        else:
+            return self.__dict__
 
-  def addvariable(self, name, **kwargs):
-    if debug:  print("ENS adding variable:  ", name)
-    self.__dict__[name] = variable(name, **kwargs)
+    def addvariable(self, name, **kwargs):
+        if debug:  print("ENS adding variable:  ", name)
+        self.__dict__[name] = variable(name, **kwargs)
   
-  def addattribute(self, key, name, attribute):
-    if isinstance(self.__dict__[key], variable):
-      self.__dict__[key].addattribute(name, attribute)
-    else:
-      if debug:  print("ENS adding attribute:  ", name)
-      setattr(self,name,attribute)
+    def addattribute(self, key, name, attribute):
+        if isinstance(self.__dict__[key], variable):
+            self.__dict__[key].addattribute(name, attribute)
+        else:
+            if debug:  print("ENS adding attribute:  ", name)
+            setattr(self,name,attribute)
 
 #===============================================================================
 def get_loc(x0, xc, radius):
 
-  """
+    """
       Finds the array index of locations around a center point
-  """
-  indices = np.where(x-radius <= xc <= x+radius)
-  
-  if np.size(indices[0]) == 0:
-    return -1, 0
-  else:
-    i0 = indices[0][0]
-    i1 = indices[0][-1]
-    return i0, i1
+    """
+    indices = np.where(x-radius <= xc <= x+radius)
+    if np.size(indices[0]) == 0:
+        return -1, 0
+    else:
+        i0 = indices[0][0]
+        i1 = indices[0][-1]
+        return i0, i1
 
 #===============================================================================
 def interp_wghts(x, xc, extrapolate=False):
-  """interp_weights returs the linear interpolation weights for a given
+    """interp_weights returs the linear interpolation weights for a given
      ascending array of coordinates.  
      
      x = location to be interpolated to
@@ -343,22 +347,22 @@ def interp_wghts(x, xc, extrapolate=False):
                    for now, if at edge, set return values to missing
      
      OUTPUTS:  i0, i1, dx0, dx1 locations and weights for the interpolation
-  """
+    """
   
-  indices = np.where(xc <= x)
+    indices = np.where(xc <= x)
   
-  if np.size(indices[0]) == 0:
-    return -1, -1, None, None, None
-  else:
-    i0 = indices[0][-1]
-    if i0 == np.size(xc)-1:  
-      return -1, -1, None, None, None
+    if np.size(indices[0]) == 0:
+        return -1, -1, None, None, None
     else:
-      i1  = i0 + 1
-      dx  = xc[i1] - xc[i0]
-      dx0 = xc[i1] - x
-      dx1 = dx-dx0
-      return i0, i1, dx0, dx1, dx
+        i0 = indices[0][-1]
+        if i0 == np.size(xc)-1:  
+            return -1, -1, None, None, None
+        else:
+            i1  = i0 + 1
+            dx  = xc[i1] - xc[i0]
+            dx0 = xc[i1] - x
+            dx1 = dx-dx0
+            return i0, i1, dx0, dx1, dx
 
 #===============================================================================
 def mymap(x, y, glat, glon, scale = 1.0, ax = None, noticks = False, resolution='c',\
@@ -380,25 +384,6 @@ def mymap(x, y, glat, glon, scale = 1.0, ax = None, noticks = False, resolution=
                    suppress_ticks=noticks, \
                    ax=ax)
 
-#   if counties:
-#       bmap.drawcounties(ax=ax)
-
-# Shape file stuff
-
-#   if shape_env:
-#
-#       for item in shape_env:
-#           items = item.split(",")
-#           shapefile  = items[0]
-#           color      = items[1]
-#           linewidth  = float(items[2])
-#
-#           s = bmap.readshapefile(shapefile,'shapeinfo',drawbounds=False)
-#
-#           for shape in bmap.shapeinfo:
-#               xx, yy = zip(*shape)
-#               bmap.plot(xx,yy,color=color,linewidth=linewidth,ax=ax)
-#
     return bmap
 
 #===============================================================================
@@ -426,9 +411,9 @@ def mymap_draw_details(bmap, shape_env=None, ax=None):
 #===============================================================================
 #   
 def mtokm(val,pos):
-  """Convert m to km for formatting axes tick labels"""
-  val=val/1000.0
-  return '%i' % val
+    """Convert m to km for formatting axes tick labels"""
+    val=val/1000.0
+    return '%i' % val
 #
 #===============================================================================
 def ens_quick4panel(ens, height = None, show=False, sfc=False, zoom=None, member = 5, filename= None, multipdf=None):
@@ -466,10 +451,7 @@ def ens_quick4panel(ens, height = None, show=False, sfc=False, zoom=None, member
         filename = "%s_%4.2f_MEMBER_%2.2d.pdf" % (time.strftime("%Y_%m-%d_%H:%M:%S"), height, member)
     else:
         filename = "%s_%s_%4.2f_MEMBER_%2.2d.pdf" % (filename, time.strftime("%H:%M:%S"), height, member)
-        
-#     if multipdf == None:
-#         pdf = PdfPages(filename)
-              
+    
     fig, ((ax1, ax2), (ax3, ax4)) = P.subplots(2, 2, sharex=True, sharey=True, figsize = (20,20))
     
 # get data
@@ -706,110 +688,127 @@ def plothodos(ens):
 #===============================================================================
 def calcHx(ens, kind, lat, lon, height, elev, azimuth, missing=None):
 
-  nobs = np.size(kind)
+    nobs = np.size(kind)
   
-  if missing == None:
-    missing = _missing
+    if missing == None:
+        missing = _missing
     
-  Hx = missing * np.ones([nobs,ens.ne])
-  
-  ilon = 0.0
-  ilat = 0.0
-  ihgt = 0.0
-
-  mlons = ens.lonc
-  mlats = ens.latc
-
-  print(' calcHx:  OBS   LAT MIN/MAX:  ', lat.min(), lat.max())
-  print(' calcHx:  MODEL LAT MIN/MAX:  ', mlats.min(), mlats.max())
-  print(' calcHx:  OBS   LON MIN/MAX:  ', lon.min(), lon.max())
-  print(' calcHx:  MODEL LON MIN/MAX:  ', mlons.min(), mlons.max())
-
-  print(' calcHx:  OBS   HGT MIN/MAX:  ', height.min(), height.max())
-  print(' calcHx:  MODEL HGT MIN/MAX:  ', ens.hgt+ens.zc.data.min(), ens.hgt+ens.zc.data.max())
-
-  b = np.zeros([5,ens.ne])
-
-  for n in np.arange(nobs):
-  
-  # need to acess lat lon alt info of ob loc from table and pass it to tlint
-  # check to see if ob position is the same then less work
-  
-    if lon[n] != ilon:  
-      ilon = lon[n]
-      i1, i2, dx1, dx2, dx = interp_wghts(ilon, mlons)
-  
-    if lat[n] != ilat:  
-      ilat = lat[n]
-      j1, j2, dy1, dy2, dy = interp_wghts(ilat, mlats)
-      
-    if height[n] != ihgt:
-      ihgt = height[n]
-      k1, k2, dz1, dz2, dz = interp_wghts(ihgt, ens.zc.data[:]+ens.hgt)
-  
-    if i1 < 0 or j1 < 0 or k1 < 0:  continue
-  
-    el = np.deg2rad(elev[n])
-  
-  # The azimuth (in my PAR file) have north as 0 degreees, but I think this is what is needed
+    Hx = missing * np.ones([nobs,ens.ne])
     
-    az = np.deg2rad(azimuth[n])
+    ilon = 0.0
+    ilat = 0.0
+    ihgt = 0.0
     
-  # have to avoid using last member since it the mean
-  
-    b[:,:] = missing
-  
-    if kind[n] == 11:  # VR!
+    mlons = ens.lonc
+    mlats = ens.latc
+    
+    print(' calcHx:  OBS   LAT MIN/MAX:  ', lat.min(), lat.max())
+    print(' calcHx:  MODEL LAT MIN/MAX:  ', mlats.min(), mlats.max())
+    print(' calcHx:  OBS   LON MIN/MAX:  ', lon.min(), lon.max())
+    print(' calcHx:  MODEL LON MIN/MAX:  ', mlons.min(), mlons.max())
+    print(' calcHx:  OBS   HGT MIN/MAX:  ', height.min(), height.max())
+    print(' calcHx:  MODEL HGT MIN/MAX:  ', ens.hgt+ens.zc.data.min(), ens.hgt+ens.zc.data.max())
 
-        # this is doing a lot of fancy stuff that i will IGNORE for now
-        # but DO NOT forget to turn this back on when doing better experiments later!
+    b = np.zeros([5,ens.ne])
+
+    for n in np.arange(nobs):
   
-      for m, key in enumerate( ["UA", "VA", "WA", "DBZ", "DEN"]):
-        q1     = dx1*ens[key].data[:ens.ne,k1,j1,i1] + dx2*ens[key].data[:ens.ne,k1,j1,i2]
-        q2     = dx1*ens[key].data[:ens.ne,k1,j2,i1] + dx2*ens[key].data[:ens.ne,k1,j2,i2]
-        vb     = (dy1*q1 + dy2*q2) / ( dx*dy )
-        q1     = dx1*ens[key].data[:ens.ne,k2,j1,i1] + dx2*ens[key].data[:ens.ne,k2,j1,i2]
-        q2     = dx1*ens[key].data[:ens.ne,k2,j2,i1] + dx2*ens[key].data[:ens.ne,k2,j2,i2]
-        vt     = (dy1*q1 + dy2*q2) / ( dx*dy )
-        b[m,:] = (dz1*vb + dz2*vt) / dz
+        # need to acess lat lon alt info of ob loc from table and pass it to tlint
+        # check to see if ob position is the same then less work
+        
+        if lon[n] != ilon:  
+            ilon = lon[n]
+            i1, i2, dx1, dx2, dx = interp_wghts(ilon, mlons) #ilon = location to be interpolated too, mlon = grid location
+        
+        if lat[n] != ilat:  
+            ilat = lat[n]
+            j1, j2, dy1, dy2, dy = interp_wghts(ilat, mlats)
+          
+        if height[n] != ihgt:
+            ihgt = height[n]
+            k1, k2, dz1, dz2, dz = interp_wghts(ihgt, ens.zc.data[:]+ens.hgt)
+        
+        if i1 < 0 or j1 < 0 or k1 < 0:  continue
+  
+        el = np.deg2rad(elev[n])
+  
+        # The azimuth (in my PAR file) have north as 0 degreees, but I think this is what is needed
+        az = np.deg2rad(azimuth[n])
+    
+        # have to avoid using last member since it the mean
+  
+        b[:,:] = missing
+  
+        if kind[n] == 11:  # VR!
+            for m, key in enumerate( ["UA", "VA", "WA", "DBZ", "DEN"]):
+                q1     = dx1*ens[key].data[:ens.ne,k1,j1,i1] + dx2*ens[key].data[:ens.ne,k1,j1,i2]
+                q2     = dx1*ens[key].data[:ens.ne,k1,j2,i1] + dx2*ens[key].data[:ens.ne,k1,j2,i2]
+                vb     = (dy1*q1 + dy2*q2) / ( dx*dy )
+                q1     = dx1*ens[key].data[:ens.ne,k2,j1,i1] + dx2*ens[key].data[:ens.ne,k2,j1,i2]
+                q2     = dx1*ens[key].data[:ens.ne,k2,j2,i1] + dx2*ens[key].data[:ens.ne,k2,j2,i2]
+                vt     = (dy1*q1 + dy2*q2) / ( dx*dy )
+                b[m,:] = (dz1*vb + dz2*vt) / dz
  
-    # In CM1, dont have fall speed from microphysics, so use typical DBZ power law here
+            # In CM1, dont have fall speed from microphysics, so use typical DBZ power law here
+            refl   = 10.0**(0.1*np.clip(b[3,:],_dbz_min,_dbz_max))
+            vfall  =  2.6 * refl**0.107 * (1.2/b[4,:])**0.4  
+        
+            # model's VR
+            Hx[n,:] = b[0,:]*M.sin(az)*M.cos(el) + b[1,:]*M.cos(az)*M.cos(el) + (b[2,:]-vfall)*M.sin(el) 
 
-      refl   = 10.0**(0.1*np.clip(b[3,:],_dbz_min,_dbz_max))
-      vfall  =  2.6 * refl**0.107 * (1.2/b[4,:])**0.4  
+        
+        if kind[n] == 12:  # DBZ
+            for m, key in enumerate( ["DBZ"]):
+                q1     = dx1*ens[key].data[:ens.ne,k1,j1,i1] + dx2*ens[key].data[:ens.ne,k1,j1,i2]
+                q2     = dx1*ens[key].data[:ens.ne,k1,j2,i1] + dx2*ens[key].data[:ens.ne,k1,j2,i2]
+                vb     = (dy1*q1 + dy2*q2) / ( dx*dy )
+                q1     = dx1*ens[key].data[:ens.ne,k2,j1,i1] + dx2*ens[key].data[:ens.ne,k2,j1,i2]
+                q2     = dx1*ens[key].data[:ens.ne,k2,j2,i1] + dx2*ens[key].data[:ens.ne,k2,j2,i2]
+                vt     = (dy1*q1 + dy2*q2) / ( dx*dy )
+                b[m,:] = (dz1*vb + dz2*vt) / dz
+        
+            # model's DBZ
+            Hx[n,:] = np.clip(b[0,:],_dbz_min,_dbz_max)
 
-    # model's VR
+        if kind[n] == 13: 
+            for m, key in enumerate( ["DBZ"]):
+                q1     = dx1*ens[key].data[:ens.ne,k1,j1,i1] + dx2*ens[key].data[:ens.ne,k1,j1,i2]
+                q2     = dx1*ens[key].data[:ens.ne,k1,j2,i1] + dx2*ens[key].data[:ens.ne,k1,j2,i2]
+                vb     = (dy1*q1 + dy2*q2) / ( dx*dy )
+                q1     = dx1*ens[key].data[:ens.ne,k2,j1,i1] + dx2*ens[key].data[:ens.ne,k2,j1,i2]
+                q2     = dx1*ens[key].data[:ens.ne,k2,j2,i1] + dx2*ens[key].data[:ens.ne,k2,j2,i2]
+                vt     = (dy1*q1 + dy2*q2) / ( dx*dy )
+                b[m,:] = (dz1*vb + dz2*vt) / dz
+                
+            # model's DBZ
+            Hx[n,:] = np.clip(b[0,:],_dbz_min,_dbz_max)
+
+
+        if kind[n] == 14: 
+            for m, key in enumerate( ["WA"]):
+                q1     = dx1*ens[key].data[:ens.ne,k1,j1,i1] + dx2*ens[key].data[:ens.ne,k1,j1,i2]
+                q2     = dx1*ens[key].data[:ens.ne,k1,j2,i1] + dx2*ens[key].data[:ens.ne,k1,j2,i2]
+                vb     = (dy1*q1 + dy2*q2) / ( dx*dy )
+                q1     = dx1*ens[key].data[:ens.ne,k2,j1,i1] + dx2*ens[key].data[:ens.ne,k2,j1,i2]
+                q2     = dx1*ens[key].data[:ens.ne,k2,j2,i1] + dx2*ens[key].data[:ens.ne,k2,j2,i2]
+                vt     = (dy1*q1 + dy2*q2) / ( dx*dy )
+                b[m,:] = (dz1*vb + dz2*vt) / dz
+                
+        # model's vertical velocity
+        Hx[n,:] = b[0,:]
+
+    # END OBS_OP
+    # Remove missing Hx's and strip the input data of those points as well...
     
-      Hx[n,:] = b[0,:]*M.sin(az)*M.cos(el) + b[1,:]*M.cos(az)*M.cos(el) + (b[2,:]-vfall)*M.sin(el) 
-      
-    if kind[n] == 12:  # DBZ
-  
-      for m, key in enumerate( ["DBZ"]):
-        q1     = dx1*ens[key].data[:ens.ne,k1,j1,i1] + dx2*ens[key].data[:ens.ne,k1,j1,i2]
-        q2     = dx1*ens[key].data[:ens.ne,k1,j2,i1] + dx2*ens[key].data[:ens.ne,k1,j2,i2]
-        vb     = (dy1*q1 + dy2*q2) / ( dx*dy )
-        q1     = dx1*ens[key].data[:ens.ne,k2,j1,i1] + dx2*ens[key].data[:ens.ne,k2,j1,i2]
-        q2     = dx1*ens[key].data[:ens.ne,k2,j2,i1] + dx2*ens[key].data[:ens.ne,k2,j2,i2]
-        vt     = (dy1*q1 + dy2*q2) / ( dx*dy )
-        b[m,:] = (dz1*vb + dz2*vt) / dz
-    
-    # model's DBZ
-    
-      Hx[n,:] = np.clip(b[0,:],_dbz_min,_dbz_max)
+    idx = np.where(Hx[:,0] != missing)
+    nobs= np.size(idx)
+    Hxf = np.zeros([nobs,ens.ne])  
+    Hxf[:,:]= Hx[idx,:]
 
-# END OBS_OP
-
-# Remove missing Hx's and strip the input data of those points as well...
-
-  idx = np.where(Hx[:,0] != missing)
-  nobs= np.size(idx)
-  Hxf = np.zeros([nobs,ens.ne])  
-  Hxf[:,:]= Hx[idx,:]
-
-  if nobs > 0:
-    return idx, Hxf, kind[idx], lat[idx], lon[idx], height[idx], elev[idx], azimuth[idx]
-  else:
-    return None, 0, 0, 0, 0, 0, 0, 0
+    if nobs > 0:
+        return idx, Hxf, kind[idx], lat[idx], lon[idx], height[idx], elev[idx], azimuth[idx]
+    else:
+        return None, 0, 0, 0, 0, 0, 0, 0
 
 #===============================================================================
 # Robert Kern's way of getting random perturbations
@@ -1785,175 +1784,171 @@ def ens_IC_pert_from_box(ens, plot=False, writeout=False):
 #
 def ens_IC_warm_bubble(ens, plot=False, writeout=False):
 
-# These values are set in the experiment dictionary created at the begining of the run
+    # These values are set in the experiment dictionary created at the begining of the run
 
-  nb           = ens.experiment['INIT']['nb']
-  wpert        = ens.experiment['INIT']['wpert']
-  upert        = ens.experiment['INIT']['upert']
-  vpert        = ens.experiment['INIT']['vpert']
-  tpert        = ens.experiment['INIT']['tpert']
-  tdpert       = ens.experiment['INIT']['tdpert']
-  qvpert       = ens.experiment['INIT']['qvpert']
-  centerx      = ens.experiment['INIT']['centerx']
-  centery      = ens.experiment['INIT']['centery']
-  max_x_offset = ens.experiment['INIT']['max_x_offset']
-  max_y_offset = ens.experiment['INIT']['max_y_offset']
-  zbmin        = ens.experiment['INIT']['zbmin']
-  zbmax        = ens.experiment['INIT']['zbmax']
-  bhrad        = ens.experiment['INIT']['rbubh']
-  bvrad        = ens.experiment['INIT']['rbubv']
-  r_seed       = ens.experiment['INIT']['r_seed']
+    nb           = ens.experiment['INIT']['nb']
+    wpert        = ens.experiment['INIT']['wpert']
+    upert        = ens.experiment['INIT']['upert']
+    vpert        = ens.experiment['INIT']['vpert']
+    tpert        = ens.experiment['INIT']['tpert']
+    tdpert       = ens.experiment['INIT']['tdpert']
+    qvpert       = ens.experiment['INIT']['qvpert']
+    centerx      = ens.experiment['INIT']['centerx']
+    centery      = ens.experiment['INIT']['centery']
+    max_x_offset = ens.experiment['INIT']['max_x_offset']
+    max_y_offset = ens.experiment['INIT']['max_y_offset']
+    zbmin        = ens.experiment['INIT']['zbmin']
+    zbmax        = ens.experiment['INIT']['zbmax']
+    bhrad        = ens.experiment['INIT']['rbubh']
+    bvrad        = ens.experiment['INIT']['rbubv']
+    r_seed       = ens.experiment['INIT']['r_seed']
 
-  print(upert, wpert, vpert, tpert, tdpert)
+    print(upert, wpert, vpert, tpert, tdpert)
 
-  klevel      = 4   # level to plot perturbations
-  me          = int(ens.ne/2)  # which member to plot
+    klevel      = 4   # level to plot perturbations
+    me          = int(ens_state.ne/2)  # which member to plot
+    
+    np.random.seed(r_seed)
+    xypert = (np.random.rand(nb,2,ens_state.ne)*2)-1
+    
+    # calculate additional random modifications to T, up to 75% the size of the prescribed perturbation   
+    t_adjust = (xypert[0][0])
+    rand_t = (tpert*.75) * t_adjust
+    
+    for n in np.arange(ens_state.ne):
+    
+        xb = centerx + xypert[:,0,n]*max_x_offset # these are length nb
+        yb = centery + xypert[:,1,n]*max_y_offset
+        zb = zbmax*np.ones(xb.shape) + ens_state.hgt
+        
+        ni, nj, nk = ens_state['nx'],ens_state['ny'],ens_state['nz']
+        xh= np.tile(ens_state['xc'][:], (nj*nk,1)).reshape(nk, nj, ni)
+        yh= np.tile(ens_state['yc'][:], (ni*nk,1)).reshape(nk, nj, ni).swapaxes(1,2) 
+        zh= ens_state['zc'][:, np.newaxis, np.newaxis]
+        
+        pert = np.zeros([nk,nj,ni])
+        
+        for b in range(nb): # this uses the equation from CM1 to create the warm bubbles
+            beta = np.sqrt( ((xh- xb[b])/bhrad)**2 + ((yh- yb[b])/bhrad)**2 + ((zh - zb[b])/bvrad)**2 )
+            mask = beta < 1
+            pert[mask]+= (np.cos(0.5*np.pi*beta[mask])**2)
+        
+        pospert = (pert - pert.min()) / (pert.max()-pert.min())
+        neupert = 0.5 - pospert
+      
+        print(f'\n ==> ens_IC_warm_bubble: ens member {n+1} max T perturbation = {tpert+rand_t[n]} ')
+        
+        if tpert > 0.0:
+            #ens_state['TH'][n]  = ens_state['TH'][n]*0
+            ens_state['TH'][n] = ens_state['TH'][n] + (tpert+rand_t[n])*pospert
+        if wpert > 0.0:
+            ens_state['W'][n]  = ens_state['W'][n]  + wpert*pospert        
+        if upert > 0.0:
+            ens_state['U'][n]  = ens_state['U'][n]  + upert*neupert
+        if vpert > 0.0:
+            ens_state['V'][n]  = ens_state['V'][n]  + vpert*neupert
+    
+        if tdpert > 0.0 and qvpert < 0.01:                                  # Dont do both, prefer saturations...
+            p0 = 1000.*(ens_state['PI0'][n])**3.508
+            e  = ens_state['QV'][n]*p0/(0.622+ens_state['QV'][n])                       # vapor pressure
+            e  = np.clip(e, 0.001, 100.)                                     # avoid problems near zero
+            td = 273.16 + ( 243.5 / ( 17.67/np.log(e/6.112) - 1.0 ) )        # Bolton's approximation
+            td = np.clip(td + tdpert*pospert, 200.0, (p0*ens_state['TH'][n])-0.1)  # make sure Td is < T
+            
+            # Transform back
+            tdc = td - 273.16
+            e   = 6.112 * np.exp(17.67*tdc / (tdc+243.5) )                   # Bolton's approximation
+            ens_state['QV'][n] = 0.622*e / (p0-e)
 
-  np.random.seed(r_seed)
-  xypert = (np.random.rand(nb,2,ens.ne)*2)-1
-
-  for n in np.arange(ens.ne):
-
-      xb = centerx + xypert[:,0,n]*max_x_offset # these are length nb
-      yb = centery + xypert[:,1,n]*max_y_offset
-      zb = zbmax*np.ones(xb.shape) + ens.hgt
-      
-      ni, nj, nk = ens['nx'],ens['ny'],ens['nz']
-      xh= np.tile(ens['xc'][:], (nj*nk,1)).reshape(nk, nj, ni)
-      yh= np.tile(ens['yc'][:], (ni*nk,1)).reshape(nk, nj, ni).swapaxes(1,2) 
-      zh= ens['zc'][:, np.newaxis, np.newaxis]
-      
-      pert = np.zeros([nk,nj,ni])
-      
-      for b in range(nb): # this uses the equation from CM1 to create the warm bubbles
-          beta = np.sqrt( ((xh- xb[b])/bhrad)**2 + ((yh- yb[b])/bhrad)**2 + ((zh - zb[b])/bvrad)**2 )
-          mask = beta < 1
-          pert[mask]+= (np.cos(0.5*np.pi*beta[mask])**2)
-  
-      pospert = (pert - pert.min()) / (pert.max()-pert.min())
-      neupert = 0.5 - pospert
-      
-      print("\n ==> ens_IC_warm_bubble: NE:  %d  NegPert_Min:  %f  NegPert_Max:  %f" % (n, neupert.min(), neupert.max()))
-      print("\n ==> ens_IC_warm_bubble: NE:  %d  PosPert_Min:  %f  PosPert_Max:  %f" % (n, pospert.min(), pospert.max()))
-      
-      if tpert > 0.0:
-          ens['TH'][n] = ens['TH'][n] + tpert*pospert
-      if wpert > 0.0:
-          ens['W'][n]  = ens['W'][n]  + wpert*pospert        
-      if upert > 0.0:
-          ens['U'][n]  = ens['U'][n]  + upert*neupert
-      if vpert > 0.0:
-          ens['V'][n]  = ens['V'][n]  + vpert*neupert
-  
-      if tdpert > 0.0 and qvpert < 0.01:                                  # Dont do both, prefer saturations...
-          p0 = 1000.*(ens['PI0'][n])**3.508
-          e  = ens['QV'][n]*p0/(0.622+ens['QV'][n])                       # vapor pressure
-          e  = np.clip(e, 0.001, 100.)                                     # avoid problems near zero
-          td = 273.16 + ( 243.5 / ( 17.67/np.log(e/6.112) - 1.0 ) )        # Bolton's approximation
-          td = np.clip(td + tdpert*pospert, 200.0, (p0*ens['TH'][n])-0.1)  # make sure Td is < T
-      
-          # Transform back
-          tdc = td - 273.16
-          e   = 6.112 * np.exp(17.67*tdc / (tdc+243.5) )                   # Bolton's approximation
-          ens['QV'][n] = 0.622*e / (p0-e)
-      
-      # If qvpert > 0, essentially saturate the regions where the warm bubbles are.
-      if qvpert > 0.0:
-          tc = (ens['PI0'][n]*ens['TH'][n]) - 273.16
-          p0 = 1000.*(ens['PI0'][n])**3.508
-          e  = 6.112 * np.exp(17.67*tc / (tc+243.5) )  
-          qvs = (0.622*e)/ (p0-e)      
-          ens['QV'][n] = np.where(pospert > 0.0, (100.-qvpert)*qvs/100., ens['QV'][n])
-
-# Write ensemble back out
-  if writeout:
-    write_CM1_ens(state, writeEns=True, writeFcstMean=True, overwrite=True)
+    # Write ensemble back out
+    if writeout:
+        write_CM1_ens(state, writeEns=True, writeFcstMean=True, overwrite=True)
 
 #===================================================================================================
 def ens_CM1_coords(ens):
-  """Creates the lat/lon coordinates for the ensemble grids for interp"""
+    """Creates the lat/lon coordinates for the ensemble grids for interp"""
 
-  t0 = timer()
-
-  latc, lonc = dxy_2_dll(ens.xc[:]+ens.xg_pos, \
+    t0 = timer()
+    
+    latc, lonc = dxy_2_dll(ens.xc[:]+ens.xg_pos, \
                          ens.yc[:]+ens.yg_pos, \
                          ens.lat0,             \
                          ens.lon0, degrees=True)
-
-  ens.latc    = np.array(latc)
-  ens.lonc    = np.array(lonc)
-  fstate.latc = ens.latc[:]
-  fstate.lonc = ens.lonc[:]
-
-#  Do each staggered direction one at a time
-
-  late, lone = dxy_2_dll(ens.xc[:]+ens.xg_pos, \
+    
+    ens.latc    = np.array(latc)
+    ens.lonc    = np.array(lonc)
+    fstate.latc = ens.latc[:]
+    fstate.lonc = ens.lonc[:]
+    
+    #  Do each staggered direction one at a time
+    
+    late, lone = dxy_2_dll(ens.xc[:]+ens.xg_pos, \
                          ens.ye[:]+ens.yg_pos, \
                          ens.lat0,             \
                          ens.lon0, degrees=True)
-
-  ens.late    = np.array(late)
-  fstate.late = ens.late[:]
-
-  late, lone = dxy_2_dll(ens.xe[:]+ens.xg_pos, \
+    
+    ens.late    = np.array(late)
+    fstate.late = ens.late[:]
+    
+    late, lone = dxy_2_dll(ens.xe[:]+ens.xg_pos, \
                          ens.yc[:]+ens.yg_pos, \
                          ens.lat0,             \
                          ens.lon0, degrees=True)
-
-  ens.lone    = np.array(lone)
-  fstate.lone = ens.lone[:]
-  
-#  now assign coordinates to the fortran arrays....
-
-  fstate.xoffset = ens.xg_pos
-  fstate.yoffset = ens.yg_pos
-  fstate.zoffset = ens.hgt  
-  fstate.xe      = ens.xe[:] + ens.xg_pos
-  fstate.xc      = ens.xc[:] + ens.xg_pos
-  fstate.ye      = ens.ye[:] + ens.yg_pos
-  fstate.yc      = ens.yc[:] + ens.yg_pos
-  fstate.ze      = ens.ze[:] + ens.hgt
-  fstate.zc      = ens.zc[:] + ens.hgt
-
-  ens.dx         = ens.xe[1] - ens.xe[0]
-  ens.dy         = ens.ye[1] - ens.ye[0]
- 
-  if debug_coords:
-    print("\n  -------------------------------------------------")
-    print("\n  ------> Debugging coordinates turned on")
-    print("\n  ENS  Xoffset:    %f " % ens.xg_pos)
-    print("\n  ENS  Yoffset:    %f " % ens.yg_pos)
-    print("\n  ENS  Zoffset:    %f " % ens.hgt)
-    print("\n  ENS  Lat0:       %f " % ens.lat0)
-    print("\n  ENS  Lon0:       %f " % ens.lon0)
-
-    print("\n  ENS  Lat Cntrs:  %f  %f  DIM=%d" % (ens.latc[0], ens.latc[-1], len(ens.latc)))
-    print("\n  ENS  Lat Edges:  %f  %f  DIM=%d" % (ens.late[0], ens.late[-1], len(ens.late)))
-    print("\n  ENS  Lon Cntrs:  %f  %f  DIM=%d" % (ens.lonc[0], ens.lonc[-1], len(ens.lonc)))
-    print("\n  ENS  Lon Edges:  %f  %f  DIM=%d" % (ens.lone[0], ens.lone[-1], len(ens.lone)))
-    print("\n  ENS  XG  Cntrs:  %f  %f  DIM=%d" % (fstate.xc[0], fstate.xc[-1], len(fstate.xc)))
-    print("\n  ENS  XG  Edges:  %f  %f  DIM=%d" % (fstate.xe[0], fstate.xe[-1], len(fstate.xe)))
-    print("\n  ENS  YG  Cntrs:  %f  %f  DIM=%d" % (fstate.yc[0], fstate.yc[-1], len(fstate.yc)))
-    print("\n  ENS  YG  Edges:  %f  %f  DIM=%d" % (fstate.ye[0], fstate.ye[-1], len(fstate.ye)))
-    print("\n  ENS  ZG  Cntrs:  %f  %f  DIM=%d" % (fstate.zc[0], fstate.zc[-1], len(fstate.zc)))
-    print("\n  ENS  ZG  Edges:  %f  %f  DIM=%d" % (fstate.ze[0], fstate.ze[-1], len(fstate.ze)))
-    print("\n  -------------------------------------------------")
+    
+    ens.lone    = np.array(lone)
+    fstate.lone = ens.lone[:]
+    
+    #  now assign coordinates to the fortran arrays....
+    
+    fstate.xoffset = ens.xg_pos
+    fstate.yoffset = ens.yg_pos
+    fstate.zoffset = ens.hgt  
+    fstate.xe      = ens.xe[:] + ens.xg_pos
+    fstate.xc      = ens.xc[:] + ens.xg_pos
+    fstate.ye      = ens.ye[:] + ens.yg_pos
+    fstate.yc      = ens.yc[:] + ens.yg_pos
+    fstate.ze      = ens.ze[:] + ens.hgt
+    fstate.zc      = ens.zc[:] + ens.hgt
+    
+    ens.dx         = ens.xe[1] - ens.xe[0]
+    ens.dy         = ens.ye[1] - ens.ye[0]
+    
+    if debug_coords:
+        print("\n  -------------------------------------------------")
+        print("\n  ------> Debugging coordinates turned on")
+        print("\n  ENS  Xoffset:    %f " % ens.xg_pos)
+        print("\n  ENS  Yoffset:    %f " % ens.yg_pos)
+        print("\n  ENS  Zoffset:    %f " % ens.hgt)
+        print("\n  ENS  Lat0:       %f " % ens.lat0)
+        print("\n  ENS  Lon0:       %f " % ens.lon0)
+        
+        print("\n  ENS  Lat Cntrs:  %f  %f  DIM=%d" % (ens.latc[0], ens.latc[-1], len(ens.latc)))
+        print("\n  ENS  Lat Edges:  %f  %f  DIM=%d" % (ens.late[0], ens.late[-1], len(ens.late)))
+        print("\n  ENS  Lon Cntrs:  %f  %f  DIM=%d" % (ens.lonc[0], ens.lonc[-1], len(ens.lonc)))
+        print("\n  ENS  Lon Edges:  %f  %f  DIM=%d" % (ens.lone[0], ens.lone[-1], len(ens.lone)))
+        print("\n  ENS  XG  Cntrs:  %f  %f  DIM=%d" % (fstate.xc[0], fstate.xc[-1], len(fstate.xc)))
+        print("\n  ENS  XG  Edges:  %f  %f  DIM=%d" % (fstate.xe[0], fstate.xe[-1], len(fstate.xe)))
+        print("\n  ENS  YG  Cntrs:  %f  %f  DIM=%d" % (fstate.yc[0], fstate.yc[-1], len(fstate.yc)))
+        print("\n  ENS  YG  Edges:  %f  %f  DIM=%d" % (fstate.ye[0], fstate.ye[-1], len(fstate.ye)))
+        print("\n  ENS  ZG  Cntrs:  %f  %f  DIM=%d" % (fstate.zc[0], fstate.zc[-1], len(fstate.zc)))
+        print("\n  ENS  ZG  Edges:  %f  %f  DIM=%d" % (fstate.ze[0], fstate.ze[-1], len(fstate.ze)))
+        print("\n  -------------------------------------------------")
 
 # Plot domain of model
 
   
-  if time_all:  print("\n Wallclock time to create coordinates:", round(timer() - t0, 3), " sec")
+    if time_all:  print("\n Wallclock time to create coordinates:", round(timer() - t0, 3), " sec")
     
-  return
+    return
 
 #===================================================================================================
 def ens_CM1_C2A(ens, var = 'ALL'):
   
-  """
+    """
       Creates cell-centered averages from the U/V/W staggered variables using
      
       explicit formulas from:
-
+    
         "Brian Sanderson & Gary Brassington (1998): Accuracy in the context of a 
               control volume model, Atmosphere-Ocean, 36:4, 355-384."
      
@@ -1964,7 +1959,7 @@ def ens_CM1_C2A(ens, var = 'ALL'):
       The corresponding edge value for the opposite interpolation is
       
          u(i-1/2) = (-u(i-2) + 7u(i-1) + 7u(i) - u(i+1)) / 12
-
+    
       These formulas are not reversible, but they are significantly less dissipative than 2nd order averaging    
      
       For the A-grid boundary points, simple 2nd order averages/interpolation will be performed.
@@ -1980,46 +1975,46 @@ def ens_CM1_C2A(ens, var = 'ALL'):
       implicit diffusion in regions of strong gradients where NO observations update the state.
       
       Currently the default value for UVW_A2C_method is True --> interpret full fields
-  """
+    """
   
-#  Copy data from cell centered surrogate, then average the staggered fields to the centers
+    #  Copy data from cell centered surrogate, then average the staggered fields to the centers
   
-  t0 = timer()
-  
-  nx = ens.nx
-  ny = ens.ny
-  nz = ens.nz
-  
-  if var.upper() == "U" or var.upper() == "ALL":
-
-    fstate.xyz3d[ens.u_ptr,:,:,:,0]      = 0.5*(fstate.u[:,:,:,0]    + fstate.u[:,:,:,1])
-    fstate.xyz3d[ens.u_ptr,:,:,:,nx-1]   = 0.5*(fstate.u[:,:,:,nx-1] + fstate.u[:,:,:,nx])
-    fstate.xyz3d[ens.u_ptr,:,:,:,1:nx-1] = (-fstate.u[:,:,:,0:nx-2]  + 13.0*fstate.u[:,:,:,1:nx-1] \
-                                            -fstate.u[:,:,:,3:nx+1]  + 13.0*fstate.u[:,:,:,2:nx] ) / 24.0
+    t0 = timer()
+    
+    nx = ens.nx
+    ny = ens.ny
+    nz = ens.nz
+    
+    if var.upper() == "U" or var.upper() == "ALL":
+    
+        fstate.xyz3d[ens.u_ptr,:,:,:,0]      = 0.5*(fstate.u[:,:,:,0]    + fstate.u[:,:,:,1])
+        fstate.xyz3d[ens.u_ptr,:,:,:,nx-1]   = 0.5*(fstate.u[:,:,:,nx-1] + fstate.u[:,:,:,nx])
+        fstate.xyz3d[ens.u_ptr,:,:,:,1:nx-1] = (-fstate.u[:,:,:,0:nx-2]  + 13.0*fstate.u[:,:,:,1:nx-1] \
+                                                -fstate.u[:,:,:,3:nx+1]  + 13.0*fstate.u[:,:,:,2:nx] ) / 24.0
                                                                              
-  if var.upper() == "V" or var.upper() == "ALL":
-
-    fstate.xyz3d[ens.v_ptr,:,:,0,:]      = 0.5*(fstate.v[:,:,0,:]    + fstate.v[:,:,1,:])
-    fstate.xyz3d[ens.v_ptr,:,:,ny-1,:]   = 0.5*(fstate.v[:,:,ny-1,:] + fstate.v[:,:,ny,:])
-    fstate.xyz3d[ens.v_ptr,:,:,1:ny-1,:] = (-fstate.v[:,:,0:ny-2,:]  + 13.0*fstate.v[:,:,1:ny-1,:] \
-                                            -fstate.v[:,:,3:ny+1,:]  + 13.0*fstate.v[:,:,2:ny,:] ) / 24.0
+    if var.upper() == "V" or var.upper() == "ALL":
+        
+        fstate.xyz3d[ens.v_ptr,:,:,0,:]      = 0.5*(fstate.v[:,:,0,:]    + fstate.v[:,:,1,:])
+        fstate.xyz3d[ens.v_ptr,:,:,ny-1,:]   = 0.5*(fstate.v[:,:,ny-1,:] + fstate.v[:,:,ny,:])
+        fstate.xyz3d[ens.v_ptr,:,:,1:ny-1,:] = (-fstate.v[:,:,0:ny-2,:]  + 13.0*fstate.v[:,:,1:ny-1,:] \
+                                                -fstate.v[:,:,3:ny+1,:]  + 13.0*fstate.v[:,:,2:ny,:] ) / 24.0
                                         
-  if var.upper() == "W" or var.upper() == "ALL":
-
-    fstate.xyz3d[ens.w_ptr,:,0,:,:]      = 0.5*(fstate.w[:,0,:,:]    + fstate.w[:,1,:,:])
-    fstate.xyz3d[ens.w_ptr,:,nz-1,:,:]   = 0.5*(fstate.w[:,nz-1,:,:] + fstate.w[:,nz,:,:])
-    fstate.xyz3d[ens.w_ptr,:,1:nz-1,:,:] = (-fstate.w[:,0:nz-2,:,:]  + 13.0*fstate.w[:,1:nz-1,:,:] \
-                                            -fstate.w[:,3:nz+1,:,:]  + 13.0*fstate.w[:,2:nz,:,:] ) / 24.0
-       
+    if var.upper() == "W" or var.upper() == "ALL":
+    
+        fstate.xyz3d[ens.w_ptr,:,0,:,:]      = 0.5*(fstate.w[:,0,:,:]    + fstate.w[:,1,:,:])
+        fstate.xyz3d[ens.w_ptr,:,nz-1,:,:]   = 0.5*(fstate.w[:,nz-1,:,:] + fstate.w[:,nz,:,:])
+        fstate.xyz3d[ens.w_ptr,:,1:nz-1,:,:] = (-fstate.w[:,0:nz-2,:,:]  + 13.0*fstate.w[:,1:nz-1,:,:] \
+                                                -fstate.w[:,3:nz+1,:,:]  + 13.0*fstate.w[:,2:nz,:,:] ) / 24.0
+           
 # Create ens variables to point at A-grid velocities
-
-  ens.addvariable("UA", data=fstate.xyz3d[ens.u_ptr,:,:,:,:], coords = ('MEMBER,NZ,NY,NX'))  
-  ens.addvariable("VA", data=fstate.xyz3d[ens.v_ptr,:,:,:,:], coords = ('MEMBER,NZ,NY,NX'))  
-  ens.addvariable("WA", data=fstate.xyz3d[ens.w_ptr,:,:,:,:], coords = ('MEMBER,NZ,NY,NX'))  
-  
-  if time_all:  print("\n Wallclock time to convert from C to A grid:", round(timer() - t0, 3), " sec")
-
-  return
+    
+    ens.addvariable("UA", data=fstate.xyz3d[ens.u_ptr,:,:,:,:], coords = ('MEMBER,NZ,NY,NX'))  
+    ens.addvariable("VA", data=fstate.xyz3d[ens.v_ptr,:,:,:,:], coords = ('MEMBER,NZ,NY,NX'))  
+    ens.addvariable("WA", data=fstate.xyz3d[ens.w_ptr,:,:,:,:], coords = ('MEMBER,NZ,NY,NX'))  
+    
+    if time_all:  print("\n Wallclock time to convert from C to A grid:", round(timer() - t0, 3), " sec")
+    
+    return
 
 #===================================================================================================
 #
@@ -2767,51 +2762,27 @@ if __name__ == "__main__":
     parser = OptionParser(usage)
 
     parser.add_option("-d",    "--dir", dest="dir", type="string", help = "Experiment directory - looks for a *.exp file in this directory")
-  
-    parser.add_option("-e",    "--exp", dest="exp", type="string", help = "Path to the pickled experiment file generated \
-                                                                           from the create_run_letkf script")
-                                                                         
+    parser.add_option("-e",    "--exp", dest="exp", type="string", help = "Path to the pickled experiment file generated from the create_run_letkf script")
     parser.add_option("-t",   "--time", dest="datetime", default=None, type = "string", help = "Usage:  --time 2003,5,8,21,0,0")   
-
     parser.add_option(       "--write", dest="write", default=False, action="store_true", help="Write the restart files out")
-
     parser.add_option("-o",    "--obs", dest="obs", type="string", help = "Path to an pyDART obs file")
-
     parser.add_option("-p",   "--plot", dest="plot", default=False, action="store_true", help = "Plot fields after initializing them")
-
     parser.add_option("-k", "--klevel", dest="klevel", default=4, type="int", help = "Grid level to plot for plot8, plot9, plotmean")
-
     parser.add_option(     "--cparams", dest="cparams", default=None, type="float", nargs=3, help = "Contour interval for plot8, plot9: usage: cmin,cmax,cint" )
-
     parser.add_option(       "--init0", dest="init0", default=False, action="store_true", help = "Using typical 3D perts IC strategy to initialize")
-   
     parser.add_option(       "--init1", dest="init1", default=0, type="int", help = "Using zero wind IC strategy to initialize")
-
-    parser.add_option(   "--crefperts", dest="cRef_perts", default=False, action="store_true", help = "Add noise based on observed \
-                                                                                                       composite radar reflectivity")
+    parser.add_option(   "--crefperts", dest="cRef_perts", default=False, action="store_true", help = "Add noise based on observed composite radar reflectivity")
     parser.add_option(   "--inflperts", dest="aInf_perts", default=False, action="store_true", help = "Add noise based on adpative inflation field")
-
     parser.add_option(       "--plot4", dest="plot4", default=None, type = "string", help = "Plots 4panel XY cross sections:  Usage:  --plotxy height(m),member")   
-    
     parser.add_option(       "--plot8", dest="plot8", default=False, action="store_true", help = "Plots reflectivity for 8 panels + obs")   
-    
     parser.add_option(       "--plot9", dest="plot9", default=False, action="store_true", help = "Plots 9 members of reflectivity")   
-
     parser.add_option("-v",    "--var", dest="var",   default="DBZ", type="string", help = "Plot a different variable for using --plot9")
-    
     parser.add_option(    "--plotmean", dest="plotmean", default=False, action="store_true", help = "Plots 10 panel mean and stddev of U,V,W,TH,QV")   
-    
-    parser.add_option(   "--plothodos", dest="plothodos", default=False,  action="store_true", help = "Plots ensemble hodographs:  Usage:  --plothodos")   
-
+    parser.add_option(   "--plothodos", dest="plothodos", default=False,  action="store_true", help = "Plots ensemble hodographs:  Usage:  --plothodos")  
     parser.add_option(  "--plotskewts", dest="plotskewts", default=False,  action="store_true", help = "Plots ensemble skewts:  Usage:  --plotskewts")   
-
-    parser.add_option(       "--check", dest="check", default=False, action="store_true", help = "Does a quick and dirty check to see if ens data\
-                                                                                             structure and data in netCDF files match, then exits")
-
+    parser.add_option(       "--check", dest="check", default=False, action="store_true", help = "Does a quick and dirty check to see if ens data structure and data in netCDF files match, then exits")
     parser.add_option(        "--nens", dest="nens", type="int", default=0, help = "For large ensembles, only read in the first nens members; this saves time")
-
     parser.add_option(        "--zoom", dest="zoom", type="int", default=None, nargs = 4, help="Zoom into domain for plotting: 4 args required: xmin xmax ymin ymax (SW CORNER=0,0)")
-    
     parser.add_option(        "--vswath", dest="vswath", type="float", default=None, help="Produce a swath of vorticity probabilities greater than value of vswath")
 
     (options, args) = parser.parse_args()

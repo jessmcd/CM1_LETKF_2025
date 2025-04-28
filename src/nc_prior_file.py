@@ -142,8 +142,12 @@ def write_prior(ne, kind, value, dates, error, x, y, z, Hxf, Hxfbar, lat, lon, e
   ltypes = np.empty([obs,stringlen], dtype=str)
 
   for k, ktype in enumerate(kind):
+      if ktype == 14: 
+          ltypes[k,:] = ncdf.stringtoarr("DBZ0_W", stringlen)
+      if ktype == 13: 
+          ltypes[k,:] = ncdf.stringtoarr("DBZ0", stringlen)
       if ktype == 12: 
-          ltypes[k,:] = ncdf.stringtoarr("REFL", stringlen)
+          ltypes[k,:] = ncdf.stringtoarr("DBZ", stringlen)
       if ktype == 11: 
           ltypes[k,:] = ncdf.stringtoarr("VR", stringlen)
       if ktype == 111: 

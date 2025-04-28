@@ -133,40 +133,21 @@ if __name__ == "__main__":
 #
 # CREATE Hx's.  
 #
-# Assumption here is that one can sub-divide the input into N-frequency minute bins cleanly, 
-#            this assumes 1, 3, 5, 7, ... minute windows
-#    
-  if freq > 0:
-    h_width = ((int(window/freq))/2)*freq
-
-# If freq is less than zero, that is a flag to use only one history file for Hxfs.  Essentially, the code runs synchronous
-  else:
-     h_width = 0
-     freq    = -freq
+# JM edit, 2025: this used to have somewhat complicated code for asynchronous assimilation
+# however, we can easily control that just by adjusting the assimilation window
      
   print("\n  >=======================  Run_Filter:  Now creating Priors =============================<  \n")
+
+  current_time = DT.datetime(int(time[0]),int(time[1]),int(time[2]),int(time[3]),int(time[4]),int(time[5])) 
+  print("\n  -->  Run_Filter calling computeHx for time %s  \n" % current_time.strftime("%Y,%m,%d,%H,%M,%S"))
   
-  for n, sec in enumerate(np.arange(-h_width,h_width+freq,freq)):
-  
-    dt      = DT.timedelta(seconds=int(sec))
-    Hx_time = DT.datetime(int(time[0]),int(time[1]),int(time[2]),int(time[3]),int(time[4]),int(time[5])) + dt
-    print("\n  -->  Run_Filter calling computeHx for time %s  \n" % Hx_time.strftime("%Y,%m,%d,%H,%M,%S"))
+  cmd = "python computeHx.py --exper %s --time %s -o %s --window %d --included_obs %s --init" % (options.exper, current_time.strftime("%Y,%m,%d,%H,%M,%S"), obs_file, window, options.obs_inc)
+                             
+  print("\n  "+cmd+"\n")
+  os.system(cmd)
 
-    cmd = "python computeHx.py --exper %s --time %s -o %s --window %d --included_obs %s" % (options.exper, Hx_time.strftime("%Y,%m,%d,%H,%M,%S"), obs_file, freq, options.obs_inc)
-                               
-    if n == 0:  cmd = "%s --init" % cmd
 
-    if options.obserr:  cmd = "%s --obserr %s %s %s %s" % (cmd, \
-                        options.obserr[0],options.obserr[1],options.obserr[2],options.obserr[3])
-       
-    print("\n  "+cmd+"\n")
-
-    #print(run_unix_cmd(cmd))
-    os.system(cmd)
-
-  file_DT = DT.datetime(int(time[0]),int(time[1]),int(time[2]),int(time[3]),int(time[4]),int(time[5]))
-
-  newPriorFile = os.path.join(path, "Prior_%s.nc" % file_DT.strftime("%Y-%m-%d_%H:%M:%S"))
+  newPriorFile = os.path.join(path, "Prior_%s.nc" % current_time.strftime("%Y-%m-%d_%H:%M:%S"))
 
   os.rename(os.path.join(path, "Prior.nc"), newPriorFile)
   
@@ -176,7 +157,7 @@ if __name__ == "__main__":
 # Run LETKF 
 
 
-  print(("\n  >================ Run_Filter:  Running LETKF at time: %s ===================<  \n" % file_DT.strftime("%Y-%m-%d_%H:%M:%S")))
+  print(("\n  >================ Run_Filter:  Running LETKF at time: %s ===================<  \n" % current_time.strftime("%Y-%m-%d_%H:%M:%S")))
 
   cmd = "python letkf.py --exper %s --time %s --nthreads %d " % (options.exper, options.time, nthreads)
   

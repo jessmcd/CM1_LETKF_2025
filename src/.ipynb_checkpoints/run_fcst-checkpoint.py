@@ -163,11 +163,11 @@ if __name__ == '__main__':
   
 	if init:
 		namelist['param1']['run_time']= 0
-		namelist['param2']['irst']             = 0
-		namelist['param1']['rstfrq']           = 0.0
+		namelist['param2']['irst']= 0
+		namelist['param1']['rstfrq']= 0.0
 		namelist['param16']['restart_format'] = 2
 		namelist['param16']['restart_filetype'] = 2 #changed from 1
-		namelist['param2']['rstnum']           = 0
+		namelist['param2']['rstnum'] = 0
 
 	else:
 		output_basename = 'cm1' #cm1out #namelist['param9']['output_basename']
@@ -217,7 +217,6 @@ if __name__ == '__main__':
 			print(("%s is the model path" % model))
 			print(("%s is the outputfile path" % outputfile))
 
-		#cmd = "cd %s ; %s >> %s" % (fcst_member, "mpirun -n 64 cm1.exe", "cm1.out")
 		cmd = f'cd {fcst_member} ; mpirun -n {ncores} cm1.exe >> cm1.out'
 		pool.apply_async(RunMember, (cmd,))
 

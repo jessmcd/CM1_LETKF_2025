@@ -3,17 +3,17 @@ import datetime as dt
 
 #### BASIC SETUP #######
 
-base_dir            = "/work/jessica.mcdonald/newCM1_LETKF/test"# do not include final "/"/scratch/home/jessica.mcdonald/LETKF_runs/test"
+base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/test_w"# do not include final "/"
 fprefix             = "cm1"
-ne                  = 3
+ne                  = 36
 model               = "cm1r21v1/run/cm1.exe"
 src                 = "cm1r21v1/run/onefile.F"
 namelist            = "cm1r21v1/run/namelist.input"
 landsfc             = "cm1r21v1/run/LANDUSE.TBL"
 sounding            = "soundings/"
-radar_obs           = "observations/8may24_cm1_obs.csv"
+radar_obs           = "observations/8may24_cm1_5km_obs.csv"
 nthreads            = 8
-ncores              = 32
+ncores              = 64
 
 model_start         = dt.datetime(2000,1,1,1)
 auto_model_start    = True   # allows you to have the program automatically determine start date/time based on DA parameters
@@ -22,7 +22,7 @@ lon0                = -97.46194
 hgt                 = 0
 xoffset             = -180000.0
 yoffset             = -180000.0
-microphysics        = 27
+microphysics        = 27 #same as CM1 ptype
 
 # settings to help facilitate experiments: set all to True for a normal experiment
 run_setup           = True  # DA experiment only - ensemble "cook time" has already been done
@@ -31,24 +31,27 @@ run_assim           = True  # does the assimilation
 run_forecast        = True  # does the forecast
 make_plots          = True  # if you want to make the summary plots at the end (these need work... lolz)
 
+pre_cook            = True # IF THIS IS TRUE = run_setup and run_cook are ignored! It copies the directory below and sets up a new experiment
+                           # only do this if you have "locked in" your inital CM1 set up
+cook_path           = '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/cooked_CM1'
 
 ### DATA ASSIMILATION PARAMETERS ###
 
 DA_start_time       = dt.datetime(2024, 5, 8, 20)
-DA_end_time         = dt.datetime(2024, 5, 8, 20,5) # time that DA will end (inclusive)
-assim_freq          = 300  # 5 minutes
-cook_period         = 2700 # 45 minutes
-cook_freq           = 900  #assim_freq # note: cook_period must be evenly divisible by cook_freq
+DA_end_time         = dt.datetime(2024, 5, 8, 22) # time that DA will end (inclusive)
+assim_freq          = 600  # 10 minutes
+cook_period         = 1800 # 30 minutes
+cook_freq           = 300  # note: cook_period must be evenly divisible by cook_freq
 forecast_length     = 1800 # 30 minutes
-forecast_freq       = assim_freq
+forecast_freq       = 300 # 5 minutes
 
-obs_include         = ['DBZ', 'VR'] #options: DBZ, VR
-obs_error           = {'VR':3, 'DBZ':7}
+obs_include         = ['DBZ', 'VR', 'DBZ0_W'] #options: DBZ, VR, DBZ0, DBZ0_W(updates w instead of ref)
+obs_error           = {'VR':3.0, 'DBZ':7.0, 'DBZ0':5.0, 'DBZ0_W': 0.5}
 aInflate            = 1
 outlier             = 3
 nthreads            = 8
-assim_window        = 30
-async_freq          = 300
+assim_window        = 15    # set to a small number for synthetic data (real radar data has a slight time range)
+async_freq          = 0     # this is currently not really used... you can do asynchronous assimilation by adjusting the assimilation window
 additive_noise      =[False,1]
 mpass               = False
 writeFcstMean       = True
@@ -76,7 +79,7 @@ ppnode              = ncores
 dx                  = 3000.0
 dy                  = 3000.0
 dz                  = 400.0
-dtl                 = 5.0 # NOTE: this num
+dtl                 = 7.5 
 isnd                = 7
 ihail               = 1
 stretch_z           = 2
@@ -99,8 +102,8 @@ upert               = 0.0
 vpert               = 0.0
 centerx             = 100000.0
 centery             = 100000.0
-max_x_offset        = 8000.0
-max_y_offset        = 8000.0
+max_x_offset        = 20000.0
+max_y_offset        = 20000.0
 min_z               = 0.0
 max_z               = 1500.0
 bub_horz_radius     = 10000.0
@@ -135,6 +138,9 @@ if __name__ == "__main__":
         
     if ((nx % ncores) != 0) | ((ny % ncores) != 0):
         error_out.append('nx or ny is not evenly divisible by ncores, try again.  ')
+        
+    if ('DBZ0' in obs_include) & ('DBZ0_W' in obs_include):
+        error_out.append('you included both DBZ0 and DBZ0_W. Please only select one.')
     
     if len(error_out) != 0:
         print(error_out)
