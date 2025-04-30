@@ -87,6 +87,9 @@ if run_assim:
     
         if time != times[-1]: #do the pure forecast at the end, not forward integration to next DA cycle
             os.system(f"python run_fcst.py -e {exp_name} --run_time {assim_freq} --freq {assim_freq}  -t {time} --ncores {ncores}" )
+
+    # when assimilation completes, calculate the posterior Hxf stuff for later analysis
+    os.system(f"python stats_calc.py -e {exp_name}")
             
 #--------------------------------------------------------------------------
 # Make a forecast

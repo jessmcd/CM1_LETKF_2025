@@ -3,7 +3,7 @@ import datetime as dt
 
 #### BASIC SETUP #######
 
-base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/test_w"# do not include final "/"
+base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/test_noref"# do not include final "/"
 fprefix             = "cm1"
 ne                  = 36
 model               = "cm1r21v1/run/cm1.exe"
@@ -28,8 +28,8 @@ microphysics        = 27 #same as CM1 ptype
 run_setup           = True  # DA experiment only - ensemble "cook time" has already been done
 run_cook            = True  # run the warm up period before DA starts
 run_assim           = True  # does the assimilation 
-run_forecast        = True  # does the forecast
-make_plots          = True  # if you want to make the summary plots at the end (these need work... lolz)
+run_forecast        = False  # does the forecast
+make_plots          = False  # if you want to make the summary plots at the end (these need work... lolz)
 
 pre_cook            = True # IF THIS IS TRUE = run_setup and run_cook are ignored! It copies the directory below and sets up a new experiment
                            # only do this if you have "locked in" your inital CM1 set up
@@ -38,15 +38,15 @@ cook_path           = '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/cooked_
 ### DATA ASSIMILATION PARAMETERS ###
 
 DA_start_time       = dt.datetime(2024, 5, 8, 20)
-DA_end_time         = dt.datetime(2024, 5, 8, 22) # time that DA will end (inclusive)
+DA_end_time         = dt.datetime(2024, 5, 8, 20,10) # time that DA will end (inclusive)
 assim_freq          = 600  # 10 minutes
 cook_period         = 1800 # 30 minutes
 cook_freq           = 300  # note: cook_period must be evenly divisible by cook_freq
 forecast_length     = 1800 # 30 minutes
 forecast_freq       = 300 # 5 minutes
 
-obs_include         = ['DBZ', 'VR', 'DBZ0_W'] #options: DBZ, VR, DBZ0, DBZ0_W(updates w instead of ref)
-obs_error           = {'VR':3.0, 'DBZ':7.0, 'DBZ0':5.0, 'DBZ0_W': 0.5}
+obs_include         = ['DBZ'] #options: DBZ, VR, DBZ0, DBZ0_W(updates w instead of ref)
+obs_error           = {'VR':3.0, 'DBZ':7.0, 'DBZ0':5.0, 'DBZ0_W': 0.5} #7
 aInflate            = 1
 outlier             = 3
 nthreads            = 8

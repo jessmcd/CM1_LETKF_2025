@@ -1,0 +1,126 @@
+#!/usr/bin/env python
+
+import sys
+import os
+import glob
+import string
+from optparse import OptionParser
+
+f2py_only    = ["fpython2.f90"]
+
+fortran_only = ["rand_openmp.f90", "fileio.f90",
+                "mrgrnk.f90",     "qsort.f90",
+                "common_mtx.f90", "common_letkf.f90",
+                "netlib.f",       "netlibblas.f"]
+
+preprocess   = "-DF2PY_REPORT_ON_ARRAY_COPY"
+preprocess   = ""
+
+#fopts        = {'pgf': ['pg',"-tp x64 -fastsse -mp -fPIC",""], \
+#                'gnu': ['gnu95',"-O3 -ffast-math -ftree-vectorizer-verbose=2 -fopenmp -fPIC","-lgomp"], \
+#                'intel': ['intelem',"-v -O3", "-liomp5"], \
+#                'cray': ['ftn',"-v -fPIC -O3", ""]}
+
+fopts        = {'pgf': ['pg',"-Bdynamic -fast -mp",""], \
+                'gnu': ['gnu95',"-O3 -ffast-math -ftree-vectorizer-verbose=2 -fopenmp -fPIC -I/opt/cray/netcdf/4.3.2/GNU/49/include", \
+                        "-lgomp -L/opt/cray/netcdf/4.3.2/GNU/49/lib -lnetcdf -lnetcdff"], \
+                'intel': ['intel',"-O3 -openmp -I/usr/local/intel/include -I/opt/intel/include", \
+                          "-L/opt/intel/lib -liomp5 -L/usr/local/intel/lib -lnetcdf -lnetcdff "], \
+                'ftn': ["ftn","-O3 -Ovector3 -Oscalar3 -Othread3 -h noomp -I/opt/cray/netcdf/4.3.2/CRAY/83/include", \
+                        "-L/opt/cray/netcdf/4.3.2/CRAY/83/lib -lnetcdf -lnetcdff"]}
+
+parser = OptionParser()
+parser.add_option("-f","--fc",dest="compiler",type="string", default='gnu', \
+                  help = "fortran compiler to be used valid compiler: [gfortran, intel, ppgf, default is gfortran]")
+
+(options, args) = parser.parse_args()
+
+objects = ""
+
+# remove all module files in directory - this can trip you up bad!
+
+cmd = 'rm fpython2.so fpython2.so.* fpython2module.c fstate.mod'
+print "\n=====================================================\n"
+print("   ---> Removing all module files...safety first!")
+print "\n=====================================================\n"
+ret = os.system(cmd)
+
+# First compiler the fortran only files
+
+for ffile in fortran_only:
+
+    item = ffile
+    
+    print "\n=====================================================\n"
+    print "  Compiling file: %s using the %s compiler" % (item, options.compiler)
+    print "\n====================================================="
+    
+    if options.compiler == 'gnu':
+        print("\n  Using GNU gfortran compiler \n")
+        cmd = 'gfortran %s -c %s ' % (fopts['gnu'][1],item)
+    if options.compiler == 'intel':
+        print("\n  Using Intel compiler \n")
+        cmd = 'ifort %s -c %s ' % (fopts['intel'][1],item)
+    if options.compiler == 'pgf':
+        print("\n  Using Portland group compiler \n")
+        cmd = 'pgf90 %s -c %s ' % (fopts['pgf'][1],item)
+    if options.compiler == 'ftn':
+        print("\n  Using Cray fortran compiler \n")
+        cmd = 'ftn %s -c %s ' % (fopts['ftn'][1],item)
+
+
+    print("  "+cmd+"\n")
+    ret = os.system(cmd)
+
+    if ret == 0:
+        objects = objects + " %s.o" % item.split(".")[0]
+
+print "\nFortran object files compiled:  %s \n" % objects    
+print "\n=====================================================\n"
+
+for ffile in f2py_only:
+
+    item = ffile
+
+    ret = os.system('rm %s.so ' % (item.split(".")[0]))
+
+    if options.compiler == 'gnu':
+        cmd = ("f2py --debug --fcompiler=%s --f90flags='%s' %s -c -m %s %s %s %s " % (fopts['gnu'][0],fopts['gnu'][1], \
+                preprocess, item.split(".")[0], item, objects, fopts['gnu'][2]))
+
+    if options.compiler == 'intel':
+
+        cmd = ("f2py --fcompiler=%s --f90flags='-nofor-main %s %s' -c -m %s %s %s %s" % (fopts['intel'][0], \
+               fopts['intel'][1], preprocess, item.split(".")[0], item, objects,fopts['intel'][2]))
+
+    if options.compiler == 'pgf':
+        cmd = ('f2py --fcompiler=%s "--f90flags=%s" %s -c -m %s %s %s %s' % (fopts['pgf'][0],fopts['pgf'][1], \
+               preprocess, item.split(".")[0], item, objects,fopts['pgf'][2]))
+
+    if options.compiler == 'ftn':
+        cmd = ("f2py --debug --fcompiler=%s --f90flags='%s' %s -c -m %s %s %s %s " % (fopts['ftn'][0],fopts['ftn'][1], \
+                preprocess, item.split(".")[0], item, objects, fopts['ftn'][2]))
+
+print("\n\n ==> %s \n\n" % cmd)
+
+ret = os.system(cmd)
+
+print "\n==========================================================================================\n"
+
+if ret == 0:
+    print("\nSuccessfully compiled file: %s " % item)
+    print("\nObject file is: %s " % (item.split(".")[0] + ".so"))
+else:
+    print "   ERROR !!!!!   ERROR--> unsuccessful compile file: %s\n" % item
+    sys.exit(0)
+
+cmd = "python -c 'import fpython2'"
+ret = os.system(cmd)
+
+if ret == 0:
+    print("\n   --> fpython2 was successfully imported into python, you should be good to go...\n")
+else:
+    print("\n\n!!!!!! fcompile ERROR, compile must have failed as fpython2 cannot be loaded....")
+    print("\n error: %s" % ret)
+
+print("\n==========================================================================================\n")

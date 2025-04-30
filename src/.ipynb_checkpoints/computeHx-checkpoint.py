@@ -241,6 +241,10 @@ if __name__ == "__main__":
         sys.exit(0)
 
 
+    idx = np.where(subdata.value>20.0)[0][0]
+    subdata = subdata.iloc[idx]
+
+
 
     #### IF DOING NORMAL EXPERIMENT, USE THIS
     idx, Hxf, kind, lat, lon, height, elev, azimuth = ens.calcHx(state, 
@@ -251,15 +255,17 @@ if __name__ == "__main__":
                                                                subdata['elevation'].values,
                                                                subdata['azimuth'].values)
 
+
+
     
    #### IF DOING ONE OB TEST, USE THIS 
-  # idx, Hxf, kind, lat, lon, height, elev, azimuth = ens.calcHx(state, 
-  #                                                              np.array([subdata['kind']]), 
-  #                                                              np.array([subdata['lat']]),                                         
-  #                                                              np.array([subdata['lon']]),
-  #                                                              np.array([subdata['height']]),
-  #                                                              np.array([subdata['elevation']]), 
-  #                                                              np.array([subdata['azimuth']]))
+    # idx, Hxf, kind, lat, lon, height, elev, azimuth = ens.calcHx(state, 
+    #                                                            np.array([subdata['kind']]), 
+    #                                                            np.array([subdata['lat']]),                                         
+    #                                                            np.array([subdata['lon']]),
+    #                                                            np.array([subdata['height']]),
+    #                                                            np.array([subdata['elevation']]), 
+    #                                                            np.array([subdata['azimuth']]))
 
 # At this point we have created all the Hxfs and so we can make sure we have enough obs to run
 
