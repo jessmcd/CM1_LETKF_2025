@@ -2,7 +2,15 @@
 
 import os
 
+# remove all module files in directory - this can trip you up bad!
+
+cmd = 'rm *.mod'
+print "\n=====================================================\n"
+print("   ---> Removing all module files...safety first!")
+print "\n=====================================================\n"
+ret = os.system(cmd)
+
+#cmd = "f2py --fcompiler='intel' --f90flags='-O3' -c -m cressman cressman.f90"
+#os.system(cmd)
 cmd = "f2py --fcompiler='gnu95' --f90flags='-O3' -c -m cressman cressman.f90"
 os.system(cmd)
-#cmd = "f2py --fcompiler='gnu95' --f90flags='-O3' -c -m -m uhcalc uhcalc.f90"
-#os.system(cmd)

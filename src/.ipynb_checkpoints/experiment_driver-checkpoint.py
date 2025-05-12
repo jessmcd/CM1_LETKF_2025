@@ -39,6 +39,8 @@ name = base_dir.split('/')[-1]
 exp_name = f'{base_dir}/{name}.exp' # name of json file with all of the experiment info
 obs_inc_list = ','.join(obs_inc)    # convert the list of obs to include into proper format, "opt1,opt2,opt3" ... etc
 
+print(run_fcst)
+
 # --------------------------------------------------------------------------
 # THIS PART ACTUALLY DRIVES THE ENTIRE EXPERIEMENT
 
@@ -86,17 +88,32 @@ if run_assim:
         # if you want to add in additive noise, this is where you would do it (see run_exper.py on github)
     
         if time != times[-1]: #do the pure forecast at the end, not forward integration to next DA cycle
-            os.system(f"python run_fcst.py -e {exp_name} --run_time {assim_freq} --freq {assim_freq}  -t {time} --ncores {ncores}" )
+            freq = np.min([forecast_freq, assim_freq]) # frequency needs to at least be the assim_freq, but sometimes forecast freq < assim_freq
+            os.system(f"python run_fcst.py -e {exp_name} --run_time {assim_freq} --freq {freq}  -t {time} --ncores {ncores}" )
 
     # when assimilation completes, calculate the posterior Hxf stuff for later analysis
-    os.system(f"python stats_calc.py -e {exp_name}")
+    os.system(f"python stats_calc.py -e {exp_name} -s")
             
 #--------------------------------------------------------------------------
 # Make a forecast
 if run_fcst:
+    print('RUNNING FORECAST')
     if forecast_length > 0:
-        time = times[-1].astype(dt.datetime).strftime('%Y,%m,%d,%H,%M,%S')
+
+        print(forecast_length)
+        if run_assim:
+            time = times[-1].astype(dt.datetime).strftime('%Y,%m,%d,%H,%M,%S')
+        else:
+            time = DA_start_time.strftime('%Y,%m,%d,%H,%M,%S')
+            
         os.system(f"python run_fcst.py -e {exp_name} --run_time {forecast_length} --freq {forecast_freq} -t {time} --ncores {ncores}")
+
+        os.system(f"python stats_calc.py -e {exp_name} -f") # combine forecast plots into single file
+
+#--------------------------------------------------------------------------
+# Make a few plots every 10 minutes
+if run_assim:
+    os.system(f"python stats_calc.py -e {exp_name} -w") # after everything, calculate weak thermal gradient calculation 
 
 #--------------------------------------------------------------------------
 # Make a few plots every 10 minutes
@@ -123,6 +140,7 @@ if run_setup | run_assim | run_fcst | run_cook :
         experiment = json.load(f)
         for mem in experiment['fcst_members']:
             os.system('rm '+os.path.join(mem, 'cm1out_000*.nc'))
+
 
 print("\nEnded CM1 OSSE experiment")
 

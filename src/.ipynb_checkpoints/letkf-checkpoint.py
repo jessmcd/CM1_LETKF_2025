@@ -17,7 +17,7 @@ import state_vector as state
 import pickle
 import json
 # Fortran functions
-sys.path.append( "./fsrc" )
+sys.path.append( "fsrc/" )
 from fpython2 import fstate
 
 #-------------------------------------------------------------------------------
@@ -81,7 +81,8 @@ if __name__ == "__main__":
   parser.add_option("-t", "--time",      dest="time",     type="string", help = "Analysis time in YYYY,MM,DD,HH,MM,SS")
   parser.add_option("-e", "--exper",     dest="exper",    type="string", help = "experiment run file created to store database info")
   parser.add_option(      "--nthreads",  dest="nthreads", type="int",    help = "Number of threads for LETKF computation")
-  parser.add_option(      "--outl",      dest="outl",     type="int",    help = "Outlier threshold for observations")
+  parser.add_option(      "--outl",      dest="outl",     type="float",    help = "Outlier threshold for observations")
+  parser.add_option(      "--oinl",      dest="inl",      type="float",    help = "Inlier threshold for observations")
   parser.add_option(      "--saveW",     dest="saveW",    default=False, help = "Save LETKF weights...", action="store_true")
   parser.add_option(      "--readW",     dest="readW",    default=False, help = "Read LETKF weights...", action="store_true")
   parser.add_option(      "--noupdate",  dest="noupdate", default=False, help = "Do not update variables", action="store_true")
@@ -214,6 +215,17 @@ if __name__ == "__main__":
     outlier_threshold = options.outl
     print(("\n --> LETKF: obs outlier is from command line:  %d" % outlier_threshold))
 
+
+#-------------------------------------------------------------------------------
+# inlier threshold
+
+  if options.inl == None:
+    inlier_threshold = exper['DA_PARAMS']['inlier']
+    print(("\n --> LETKF: obs inlier is from EXPER file:  %d" % inlier_threshold))
+  else:
+    inlier_threshold = options.inl
+    print(("\n --> LETKF: obs inlier is from command line:  %d" % inlier_threshold))
+
 ########################################################################################################################
 #
 # Read in STATE VECTOR for ensemble
@@ -272,7 +284,7 @@ if __name__ == "__main__":
     if (outlier_threshold > 0):
       print(('\n  --> LETKF called with an outlier threshold of %d standard deviations' % outlier_threshold))
 
-      mask  = np.where( outlier <= outlier_threshold, True, False )
+      mask  = np.where( (outlier <= outlier_threshold) & (outlier >= inlier_threshold), True, False )
       # mask2 = np.where( kind == 11, True, False )
       # print(("Mask before Vr mask:  ", np.count_nonzero(mask)))
       # mask  = mask | mask2
@@ -336,62 +348,8 @@ if __name__ == "__main__":
   for key in list(obs_diag.keys()):
     index_kind  = getIndexEqual(kind, key)
     d           = dep[index_kind]
-    
-  #   if obs_diag[key][0] == 'DBZ':
 
-  # # Non-zero dBZ obs
-  
-  #       index_dbz   = index_kind & getIndexGT(value, 0.1)
-
-  #       if np.sum(index_dbz) > 0:
-  #         ob_err      = error[index_dbz].mean()
-  #         d           = dep[index_dbz]
-  #         Hxftmp      = Hxf[index_dbz,:]
-  #         Hxf_var     = Hxftmp.var(ddof=1, axis=1).mean()
-  #         inno_var    = np.mean((d - d.mean())**2)
-  #         consi_ratio = (ob_err + Hxf_var) / inno_var
-
-  #         print(("\n -->  LETKF:  %s  NOBS: %5.5d  %3.3s>0: %3.1f  RMSI: %6.3f  M-Innov: %7.3f  Spread: %6.3f  CRatio: %7.4f " \
-  #               % (analysis_time.strftime("%Y-%m-%d_%H:%M:%S"), np.sum(index_dbz), obs_diag[key][0], np.sqrt(ob_err), \
-  #                  np.sqrt(inno_var), d.mean(), np.sqrt(ob_err + Hxf_var), consi_ratio)))
-  #       else:
-  #         print(("\n -->  LETKF:  %3.3s>0: is not present in observations" % (obs_diag[key][0])))
-
-  # # zero dBZ obs 
-  #   if obs_diag[key][0] == 'DBZ0':
-
-  #       index_dbz   = index_kind #& getIndexLT(value, 0.1)
-  #       if np.sum(index_dbz) > 0:
-  #         ob_err      = error[index_dbz].mean()
-  #         d           = dep[index_dbz]
-  #         Hxftmp      = Hxf[index_dbz,:]
-  #         Hxf_var     = Hxftmp.var(ddof=1, axis=1).mean()
-  #         inno_var    = np.mean((d - d.mean())**2)
-  #         consi_ratio = (ob_err + Hxf_var) / inno_var
-  #         print(("\n --> LETKF:%s  NOBS: %5.5d  %3.3s==0: %3.1f  RMSI: %6.3f  M-Innov: %7.3f  Spread: %6.3f  CRatio: %7.4f " \
-  #               % (analysis_time.strftime("%Y-%m-%d_%H:%M:%S"), np.sum(index_dbz), obs_diag[key][0], np.sqrt(ob_err), \
-  #                  np.sqrt(inno_var), d.mean(), np.sqrt(ob_err + Hxf_var), consi_ratio)))
-  #       else:
-  #         print(("\n -->  LETKF:  %3.3s<=0: is not present in observations" % (obs_diag[key][0])))
-
-  #   if obs_diag[key][0] == 'DBZ0_W':
-
-  #       index_dbz   = index_kind #& getIndexLT(value, 0.1)
-  #       if np.sum(index_dbz) > 0:
-  #         ob_err      = error[index_dbz].mean()
-  #         d           = dep[index_dbz]
-  #         Hxftmp      = Hxf[index_dbz,:]
-  #         Hxf_var     = Hxftmp.var(ddof=1, axis=1).mean()
-  #         inno_var    = np.mean((d - d.mean())**2)
-  #         consi_ratio = (ob_err + Hxf_var) / inno_var
-  #         print(("\n --> LETKF:%s  NOBS: %5.5d  %3.3s==0, **w==0**: %3.1f  RMSI: %6.3f  M-Innov: %7.3f  Spread: %6.3f  CRatio: %7.4f " \
-  #               % (analysis_time.strftime("%Y-%m-%d_%H:%M:%S"), np.sum(index_dbz), obs_diag[key][0], np.sqrt(ob_err), \
-  #                  np.sqrt(inno_var), d.mean(), np.sqrt(ob_err + Hxf_var), consi_ratio)))
-  #       else:
-  #         print(("\n -->  LETKF:  %3.3s<=0: is not present in observations" % (obs_diag[key][0])))
-
-  # other obs
-
+    # other obs
     if d.size > 0:
 
       ob_err      = error[index_kind].mean()

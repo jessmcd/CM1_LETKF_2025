@@ -1,0 +1,47 @@
+README for namelist.py
+
+---- BASIC SETUP ----
+
+base_dir           –  filepath to directory where all the model output will be saved
+        
+fprefix            –  start of the model output filenames. You probably won’t need to change this
+        
+ne                 –  number of ensemble members
+        
+model              –  relative filepath to CM1 cm1.exe file. You probably won’t need to change this unless you change the CM1 version
+        
+src                –  relative filepath to CM1 onefile.F
+        
+namelist           –  relative filepath to CM1 namelist
+        
+landsfc            –  relative path CM1 LANDUSE.TBL file
+        
+sounding           –  relative path to directory with model base state soundings. The code (in src/create_run_letkf.py) expects there to be a unique sounding for each ensemble member, with name RunXXSounding.txt, with XX corresponding to the member number (zero-padded for members <10)
+
+radar_obs          –  relative path to directory containing the obs in csv format. See existing files for format. (Eventually write obs_seq file reader?)
+
+nthreads           –  number of threads for the LETKF code (in python and fortran)
+
+ncores             –  number of cores to run CM1 with (mpirun)
+
+model_start        –  datetime format of model start time. This can be random if you aren’t tied to a location or event, but code is designed to also handle real data with real dates, locations, and in lat/lon format
+
+auto_model_start   –  bool. If True, model_start is ignored and the code manually figures out the appropriate start time based on when DA will start and how long you specify model “cook” time to be.
+
+Lat0, lon0, hgt    –  location (degrees N and W) and height (meters) of the radar providing data. This can be random.
+
+xoffset and yoffset – location of radar (in meters) relative to lower left corner of CM1 domain. For example, if radar is located at x = 180 km  and y = 100 km (CM1 domain must have 0s in lower-left  corner; iorigin=1) then xoffset would be -180000 and yoffset would be -100000 (note the numbers are negative)
+
+microphysics       –  microphysics scheme, uses the CM1 namelist options for ptype to set (i.e., 27 = NSSL double moment)
+
+---- SETTINGS FOR EXPERIMENT WORK FLOW ----
+
+run_setup          –  bool. If True, this creates the base_dir and fills it with the file structure needed for the experiments (create_run_letkf.py) and initializes the ensemble (ens.py)
+
+run_cook           –  bool. If True, this runs the ensemble for the designated “cook period” set below. 
+
+run_assim          –  bool. If True, this runs the data assimilation process (run_filter.py and run_fcst.py). This also automatically runs a script (stats_calc) which 
+
+run_forecast       –  bool. If True, this runs the ensemble for the designated forecast time set below. 
+
+

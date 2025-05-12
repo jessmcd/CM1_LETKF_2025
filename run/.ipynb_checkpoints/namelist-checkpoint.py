@@ -3,7 +3,7 @@ import datetime as dt
 
 #### BASIC SETUP #######
 
-base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/test_noref"# do not include final "/"
+base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min_inlier"# do not include final "/"
 fprefix             = "cm1"
 ne                  = 36
 model               = "cm1r21v1/run/cm1.exe"
@@ -25,30 +25,31 @@ yoffset             = -180000.0
 microphysics        = 27 #same as CM1 ptype
 
 # settings to help facilitate experiments: set all to True for a normal experiment
-run_setup           = True  # DA experiment only - ensemble "cook time" has already been done
-run_cook            = True  # run the warm up period before DA starts
+run_setup           = False  # DA experiment only - ensemble "cook time" has already been done
+run_cook            = False  # run the warm up period before DA starts
 run_assim           = True  # does the assimilation 
-run_forecast        = False  # does the forecast
-make_plots          = False  # if you want to make the summary plots at the end (these need work... lolz)
+run_forecast        = True  # does the forecast
+make_plots          = True  # if you want to make the summary plots at the end (these need work... lolz)
 
 pre_cook            = True # IF THIS IS TRUE = run_setup and run_cook are ignored! It copies the directory below and sets up a new experiment
                            # only do this if you have "locked in" your inital CM1 set up
-cook_path           = '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/cooked_CM1'
+cook_path           = '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/cooked_ens_30min'
 
 ### DATA ASSIMILATION PARAMETERS ###
 
-DA_start_time       = dt.datetime(2024, 5, 8, 20)
-DA_end_time         = dt.datetime(2024, 5, 8, 20,10) # time that DA will end (inclusive)
+DA_start_time       = dt.datetime(2024, 5, 8, 20,0) # if run_assim is false, this is the start of "run forecast" if using a precooked run
+DA_end_time         = dt.datetime(2024, 5, 8, 21,30) # time that DA will end (inclusive)
 assim_freq          = 600  # 10 minutes
 cook_period         = 1800 # 30 minutes
 cook_freq           = 300  # note: cook_period must be evenly divisible by cook_freq
-forecast_length     = 1800 # 30 minutes
+forecast_length     = 3600 #2.5 hrs min for control #3600 # 60 minutes
 forecast_freq       = 300 # 5 minutes
 
-obs_include         = ['DBZ'] #options: DBZ, VR, DBZ0, DBZ0_W(updates w instead of ref)
+obs_include         = ['DBZ', 'VR', 'DBZ0'] #options: DBZ, VR, DBZ0, DBZ0_W(updates w instead of ref)
 obs_error           = {'VR':3.0, 'DBZ':7.0, 'DBZ0':5.0, 'DBZ0_W': 0.5} #7
 aInflate            = 1
 outlier             = 3
+inlier              = 0.25 # set to 0 to turn off
 nthreads            = 8
 assim_window        = 15    # set to a small number for synthetic data (real radar data has a slight time range)
 async_freq          = 0     # this is currently not really used... you can do asynchronous assimilation by adjusting the assimilation window
@@ -94,13 +95,13 @@ radopt              = 0
 ### INITIATION MECHANISM ###
 
 nb                  = 3
-tpert               = 2.0
+tpert               = 3.0
 wpert               = 1.0
 tdpert              = 0.0
 qvpert              = 5.0
 upert               = 0.0
 vpert               = 0.0
-centerx             = 100000.0
+centerx             = 120000.0
 centery             = 100000.0
 max_x_offset        = 20000.0
 max_y_offset        = 20000.0

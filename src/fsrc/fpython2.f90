@@ -3,24 +3,30 @@ MODULE INFLATE_PARAMS
 
 ! These parameters bind the maximum amount of multiplicative inflation used (LETKF AI and RTPS)
 
-  real(kind=4), parameter :: min_inflate = 0.99, max_inflate = 4.0
+  real(kind=4), parameter :: min_inflate = 0.99, max_inflate = 9.0
 
 ! These parameters are for the Relaxation to Prior Spread (RTPS)
 ! Negative means use adaptive RTPS
 
-  real(kind=4), parameter :: inflate_RTPS = 0.7, eps = 1.0e-10
+  real(kind=4), parameter :: inflate_RTPS = 1.25, eps = 1.0e-10
 
 ! These parameters are for the Relaxation to Prior Perturbation (RTPP)
 ! Negative means use adaptive RTPP
 
   real(kind=4), parameter :: inflate_RTPP = 0.5
 
-! Choose whether to run Anderson (2007) HF 
+! This parameter is for the fixed priors inflation, value > 1 turns off adaptive inflation.
+! Normal values of 1.1 --> 1.3 (10% - 30%)
+
+  real(kind=4), parameter    :: inflate_PRIOR = 1.1
+  integer(kind=4), parameter :: prior_inflate_flag = 1
+
+! Choose whether to run Anderson (2007) RCF 
 ! Two options:  (1) use RCF in localization matrix within LETKF (expensive)
 !               (2) use RCF value and blend with RTPP value from Zhang (2007)
 
-  integer, parameter :: HF = 0
-  integer, dimension(4) :: sub_ens = (/6,8,10,12/)
+  integer, parameter :: rcf_flag = 0
+  integer(kind=4), dimension(5) :: sub_ens = (/5,6,8,10,12/)
 
 ! Parameters for the positive definite code in UPDATE
 !----------------------------------------------------
@@ -39,8 +45,8 @@ END MODULE INFLATE_PARAMS
 MODULE FSTATE
 
   USE OMP_LIB
-  USE COMMON_LETKF
   USE INFLATE_PARAMS
+  USE COMMON_LETKF
 
   implicit none
   
@@ -77,7 +83,7 @@ MODULE FSTATE
   
   real(kind=wordsize)  :: xoffset, yoffset, zoffset
 
-  integer sub_ens_size
+  integer(kind=wordsize) sub_ens_size
   
 CONTAINS
 
@@ -119,8 +125,9 @@ CONTAINS
     integer                     :: gp_update_count, total_valid_obs
     real(kind=8)                :: t0, t1, t_local, t_letkf, t_core, t_update
     real(kind=4), allocatable   :: trans3D(:,:,:,:,:), mean_wgt3D(:,:,:,:)
-    real(kind=8)                :: rcp_mean(nxyz3d), rcp_mean2D(nxyz3d,nz)
+    real(kind=8)                :: rcf_mean(nxyz3d), rcf_mean2D(nxyz3d,nz)
     real(kind=8)                :: rcf_coeff(1)
+
 
 !-- Functions
 
@@ -171,46 +178,14 @@ CONTAINS
     t_local         = 0.0
     t_core          = 0.0
     t_update        = 0.0
-    rcp_mean(:)     = 0.0
+    rcf_mean(:)     = 0.0
 
-    write(std_out,*) "COMPUTE_LETKF, NTHREADS:  ", nthreads
+    write(std_out,*) "COMPUTE_LETKF:  NTHREADS:  ", nthreads
 
-! Logic for inflation, set defaults, and initialize out_inflate since not all grid points are processed.
+! Determine whether we need to compute Anderson's reliability coefficient.  If so, determine sub-group size
 
-    out_inflate(:,:,:) = 1.0
-
-    IF( inflate_flag .eq. 1 )  var_inflation(:) = 1
-
-    IF( inflate_flag .eq. 1 .or. inflate_flag .eq. 4 ) THEN
-      out_inflate(:,:,:) = in_inflate(:,:,:)
-      write(std_out,*) "COMPUTE_LETKF, MULTIPLICATIVE ADAPTIVE INFLATION IS ON"
-      write(std_out,*) "Min value of AI:  ",minval(out_inflate)
-      write(std_out,*) "Max value of AI:  ",maxval(out_inflate)
-      WHERE( out_inflate > max_inflate ) out_inflate = max_inflate
-      write(std_out,*) "Max value of limited AI:  ",maxval(out_inflate)
-      write(std_out,*) 
-    ENDIF
-    
-    IF( inflate_flag .eq. 2 ) THEN
-      write(std_out,*) "COMPUTE_LETKF, WH2010 RTPS ADAPTIVE INFLATION IS ON"
-      write(std_out,*) "Inflation alpha is: ", inflate_RTPS
-      write(std_out,*) 
-    ENDIF
-    
-    IF( inflate_flag .eq. 3 ) THEN
-      write(std_out,*) "COMPUTE_LETKF, FIXED COEFF RELAXATION TO PRIOR PERTURBATION (RTPP) is ON"
-      write(std_out,*) "Relaxation alpha is: ", inflate_RTPP
-      write(std_out,*) 
-    ENDIF
-
-    IF( inflate_flag .eq. 4 ) THEN
-      write(std_out,*) "COMPUTE_LETKF: MULTPLICATIVE and RELAXATION TO PRIOR PERTURBATION (RTPP) is ON"
-      write(std_out,*) "Relaxation alpha is: ", inflate_RTPP
-      write(std_out,*) 
-    ENDIF
-
-    IF( HF .gt. 0 ) THEN  ! If heirarctical filter being used, determine sub-group size
-      write(std_out,*) "COMPUTE_LETKF, HIERARCTICAL FILTER is ON!" 
+    IF( rcf_flag > 0 ) THEN  
+      write(std_out,*) "COMPUTE_LETKF:  RCF > 0, ANDERSON'S RELIABILITY COEFFICIENT WILL BE USED IN CALCULATIONS!"
       DO i = size(sub_ens),1,-1
         IF( mod(fne,sub_ens(i)) .eq. 0 ) THEN
            sub_ens_size = sub_ens(i)
@@ -218,21 +193,79 @@ CONTAINS
         ENDIF
       ENDDO
       write(std_out,*)
-      write(std_out,*) fne, " MEMBERS ARE GROUPED INTO SETS OF ", sub_ens_size
+      write(std_out,*) "               ", fne, " MEMBERS ARE GROUPED INTO ",fne/sub_ens_size," SETS OF ", sub_ens_size
       write(std_out,*)
     ELSE
+      write(std_out,*) "COMPUTE_LETKF:  RCF == 0, NO ADAPTIVE RCF CALCALUTIONS USED"
       sub_ens_size = 0
     ENDIF
 
-    write(std_out,*) "COMPUTE_LETKF, POSITIVE DEFINITE SCHEME IS:  ", pos_def_scheme
-    write(std_out,*) "COMPUTE_LETKF, POSITIVE DEFINITE FLOOR VALUE:  ", nu0
+! For right now, ignore the ability to use different kinds of inflation base on state vector
+
+!   var_inflation(:) = 1
+!   write(std_out,*) 
+!   write(std_out,*) "COMPUTE_LETKF: USING VARIABLE DEPENDENT INFLATION SCHEME"
+!   write(std_out,*) var_inflation(:)
+!   write(std_out,*) 
+
+! Logic for inflation, set defaults, and initialize out_inflate since not all grid points are processed.
+
+    out_inflate(:,:,:) = 1.0
+
+    IF( inflate_flag .eq. 1 ) THEN
+      out_inflate(:,:,:) = in_inflate(:,:,:)
+      write(std_out,*) 
+      write(std_out,*) "COMPUTE_LETKF: PRIOR ADAPTIVE INFLATION IS ON"
+      write(std_out,*) "               Min value of AI:  ",sqrt(minval(out_inflate))
+      write(std_out,*) "               Max value of AI:  ",sqrt(maxval(out_inflate))
+      WHERE( out_inflate > max_inflate ) out_inflate = max_inflate
+      write(std_out,*) "               Max value of limited AI:  ",sqrt(maxval(out_inflate))
+      write(std_out,*) 
+    ENDIF
+    
+    IF( prior_inflate_flag .eq. 1 ) THEN
+      out_inflate(:,:,:) = inflate_PRIOR
+      write(std_out,*) 
+      write(std_out,*) "COMPUTE_LETKF: FIXED PRIOR INFLATION IS ON"
+      write(std_out,*) "               Min value of AI:  ",sqrt(minval(out_inflate))
+      write(std_out,*) "               Max value of AI:  ",sqrt(maxval(out_inflate))
+      write(std_out,*) 
+    ENDIF
+    
+    IF( inflate_flag .eq. 2 ) THEN
+      IF( rcf_flag > 1 ) THEN
+        write(std_out,*) 
+        write(std_out,*) "COMPUTE_LETKF: ADAPTIVE WH2010 RTPS INFLATION IS ON"
+      else
+        write(std_out,*) 
+        write(std_out,*) "COMPUTE_LETKF: WH2010 RTPS INFLATION IS ON"
+      ENDIF
+      write(std_out,*) "                 Inflation alpha is: ", inflate_RTPS
+      write(std_out,*) 
+    ENDIF
+    
+    IF( inflate_flag .eq. 3 ) THEN
+      IF( rcf_flag > 1 ) THEN
+        write(std_out,*) 
+        write(std_out,*) "COMPUTE_LETKF: ADAPTIVE RELAXATION TO TO PRIOR PERTURBATION (RTPP) is ON"
+      ELSE
+        write(std_out,*) 
+        write(std_out,*) "COMPUTE_LETKF: FIXED COEFF RELAXATION TO PRIOR PERTURBATION (RTPP) is ON"
+      ENDIF
+      write(std_out,*) "                 Relaxation alpha is: ", inflate_RTPP
+      write(std_out,*) 
+    ENDIF
+
+    write(std_out,*) "COMPUTE_LETKF: POSITIVE DEFINITE SCHEME IS:  ", pos_def_scheme
+    write(std_out,*) "COMPUTE_LETKF: POSITIVE DEFINITE FLOOR VALUE:  ", nu0
     write(std_out,*)
 
     CALL OMP_SET_NUM_THREADS(nthreads)
     CALL OMP_SET_DYNAMIC(.FALSE.)       ! Needed for some shared memory systems
 
-    write(std_out,*) "COMPUTE_LETKF, MAXIMUM NUMBER OF THREADS AVAILABLE:  ", OMP_GET_MAX_THREADS()
-    write(std_out,*) "COMPUTE_LETKF, NUMBER OF THREADS TO USE IS:          ", OMP_GET_NUM_THREADS()
+    write(std_out,*) "COMPUTE_LETKF: MAXIMUM NUMBER OF THREADS AVAILABLE:  ", OMP_GET_MAX_THREADS()
+    write(std_out,*) "COMPUTE_LETKF: NUMBER OF THREADS TO USE IS:          ", OMP_GET_NUM_THREADS()
+    write(std_out,*) "COMPUTE_LETKF: INFLATION at (21,51,41) ", in_inflate(21,51,41)
     write(std_out,*)
 
 !---------------->>>   MAIN COMPUTATIONAL LOOP FOR LETKF   <<<------------------------------------------------
@@ -248,7 +281,7 @@ CONTAINS
        
 !$OMP PARALLEL DO DEFAULT(SHARED) PRIVATE(m,k,z0,t1,t0,nvalid,obindex,obwgt,trans,mean_wgt,new1,var,rcf_coeff) &
 !$OMP REDUCTION( +: t_local ) REDUCTION( +: t_core ) REDUCTION( +: t_update) REDUCTION( +: gp_update_count ) &
-!$OMP REDUCTION( +: total_valid_obs ) REDUCTION( +: rcp_mean )
+!$OMP REDUCTION( +: total_valid_obs ) REDUCTION( +: rcf_mean )
 
         DO k = 1,nz
           z0 = zc(k) 
@@ -271,9 +304,9 @@ CONTAINS
             gp_update_count = gp_update_count + 1
             total_valid_obs = total_valid_obs + nvalid
 
-!-------------->>>   HF==1, call LETKF_CORE for each state variable individually   <<<--------------------
+!-------------->>>   RCF_flag == 2, call LETKF_CORE for each state variable individually   <<<--------------------
 
-            IF( HF .eq. 1 ) THEN  
+            IF( RCF_flag .eq. 2 ) THEN  
 
               DO m = 1,nxyz3d
   
@@ -284,7 +317,7 @@ CONTAINS
                 CALL LETKF_CORE(fne, fnobs, nvalid, var, Hx, rdiag, obwgt, dep, obindex, in_inflate(k,j,i), &
                                 trans, mean_wgt, out_inflate(k,j,i), sub_ens_size, rcf_coeff)
 
-                rcp_mean(m) = rcp_mean(m) + rcf_coeff(1)
+                rcf_mean(m) = rcf_mean(m) + rcf_coeff(1)
                                         
                 t_core = t_core + omp_get_wtime() - t0
           
@@ -295,9 +328,9 @@ CONTAINS
             
               ENDDO  ! m-index
 
-!---------------->>>  Call LETKF_CORE once / IF HF==2, then call adaptive RTPP, else regular UPDATES
+!---------------->>>  Call LETKF_CORE once / IF RCF_flag > 1 adaptive inflation methods in UPDATE used
 
-            ELSE   
+            ELSEIF( RCF_flag < 2 ) THEN
 
               t0 = omp_get_wtime()              ! Compute transformation matrix
 
@@ -310,14 +343,14 @@ CONTAINS
   
                 var(:) = xyz3d(m,:,k,j,i)
 
-                IF( HF .eq. 2 ) THEN 
+                IF( RCF_flag .eq. 1 .and. inflate_flag .gt. 1 ) THEN 
 
-                  rcf_coeff(1) = inflate_RTPP
+                  rcf_coeff(1) = inflate_RTPP   
 
                   CALL UPDATE(var, trans, mean_wgt, out_inflate(k,j,i), inflate_flag, posdef(m), ne, new1, fnobs, &
                               nvalid, sub_ens_size, Hx, obindex, rcf_coeff)
 
-                  rcp_mean(m) = rcp_mean(m) + rcf_coeff(1)
+                  rcf_mean(m) = rcf_mean(m) + rcf_coeff(1)
 
                 ELSE
             
@@ -391,17 +424,26 @@ CONTAINS
     write(std_out,*) "COMPUTE_LETKF:  Number of observations used is: ", total_valid_obs
     write(std_out,*) 
     
-    IF( HF .eq. 1 ) THEN   ! print out Mean RCP value for each state variable...
-      rcp_mean(:) = rcp_mean(:) / float(gp_update_count)
+    IF( RCF_flag .eq. 1 ) THEN   ! print out Mean RCF value for each state variable...
+      rcf_mean(:) = rcf_mean(:) / float(gp_update_count)
       DO m = 1,nxyz3d
-        write(std_out,FMT='("COMPUTE_LETKF:  State Variable:  ",i2," MEAN RCP Value: ",g15.7)') m, rcp_mean(m)
+        write(std_out,FMT='("COMPUTE_LETKF:  State Variable:  ",i2," MEAN RCF Value: ",g15.7)') m, rcf_mean(m)
       ENDDO
     ENDIF
 
-    IF( HF .eq. 2 ) THEN   ! print out Mean Adaptive RTPP value for each state variable...
-      rcp_mean(:) = rcp_mean(:) / float(gp_update_count)
+    IF( RCF_flag > 1 .and. inflate_flag .eq. 2 ) THEN   ! print out Mean Adaptive RTPS value for each state variable...
+      rcf_mean(:) = rcf_mean(:) / float(gp_update_count)
+      write(std_out,FMT='("COMPUTE_LETKF:  INITIAL RTPS VALUE:  ",g15.7," no inflat <- 0 (value) 1 -> full inflat")') inflate_RTPS
       DO m = 1,nxyz3d
-        write(std_out,FMT='("COMPUTE_LETKF:  State Variable:  ",i2," MEAN RTPP Value: ",g15.7)') m, rcp_mean(m)
+        write(std_out,FMT='("COMPUTE_LETKF:  State Variable:  ",i2," MEAN RTPP Value: ",g15.7)') m, rcf_mean(m)
+      ENDDO
+    ENDIF
+
+    IF( RCF_flag > 1 .and. inflate_flag .eq. 3 ) THEN   ! print out Mean Adaptive RTPS value for each state variable...
+      rcf_mean(:) = rcf_mean(:) / float(gp_update_count)
+      write(std_out,FMT='("COMPUTE_LETKF:  INITIAL RTPP VALUE:  ",g15.7," posterior <- 0 (value) 1 -> prior")') inflate_RTPP
+      DO m = 1,nxyz3d
+        write(std_out,FMT='("COMPUTE_LETKF:  State Variable:  ",i2," MEAN RTPP Value: ",g15.7)') m, rcf_mean(m)
       ENDDO
     ENDIF
 
@@ -882,9 +924,9 @@ SUBROUTINE UPDATE(var, trans, wa, inflate, inflate_flag, pos_def, ne, new1, &
   real(kind=8)    :: inflate1, inflate2, ai_fac
   integer(kind=4) :: n
   real(kind=8)    :: HxfL(ne-1)
-  real(kind=8)    :: rcp_mean
-  real(kind=4)    :: F_RCP
-  external        :: F_RCP
+  real(kind=8)    :: rcf_mean, rcf0
+  real(kind=4)    :: F_RCF, F_CORR
+  external        :: F_RCF, F_CORR
 
   var2(:) = var(:)
 
@@ -909,46 +951,73 @@ SUBROUTINE UPDATE(var, trans, wa, inflate, inflate_flag, pos_def, ne, new1, &
 ! Adaptive inflation RTPS from Whitaker and Hamill (inflate_flag = 2)
 
   IF( inflate_flag .eq. 2 ) THEN
-    IF ( inflate_RTPS > 0.0) THEN
-      sigmaB   = sqrt( sum(pvar*pvar) / float(ne-2) )
-      sigmaA   = sqrt( sum(new1(1:ne-1)*new1(1:ne-1)) / float(ne-2) )
-      inflate2 = 1.0 + inflate_RTPS*((sigmaB-sigmaA)/(eps+sigmaA))
-      inflate2 = max(min_inflate, min(inflate, max_inflate))
-      new1(1:ne-1) = new1(1:ne-1) * inflate2
+
+! Compute background (prior) and analysis (posterior) variances
+
+    sigmaB = sqrt( sum(pvar*pvar) / float(ne-2) )
+    sigmaA = sqrt( sum(new1(1:ne-1)*new1(1:ne-1)) / float(ne-2) )
+
+! Check to see if its adaptive....
+
+    IF( present(adapt_rtpp) .and. sub_ens_size > 0 ) THEN
+
+      rcf_mean = 0.0d0
+      vartmp   = var(1:ne-1)
+      DO m = 1,nvalid_obs
+        HxfL(:)  = hdxb(obIndex(m),:)
+        rcf0     = F_RCF(vartmp, HxfL, ne-1, sub_ens_size)
+        rcf_mean = rcf_mean + rcp0
+      ENDDO
+      rcf_mean = rcf_mean / float(nvalid_obs)
+      adapt_rtpp(1) = (1.0 - inflate_RTPS) * rcf_mean + inflate_RTPS
+      inflate2      = 1.0 + adapt_rtpp(1)*((sigmaB-sigmaA)/(eps+sigmaA))
+      new1(1:ne-1)  = new1(1:ne-1) * inflate2
+
     ELSE
-      rcp_mean = max(0.2, min(-inflate_RTPS, sqrt(inflate)-1.0))
-      sigmaB   = sqrt( sum(pvar*pvar) / float(ne-2) )
-      sigmaA   = sqrt( sum(new1(1:ne-1)*new1(1:ne-1)) / float(ne-2) )
-      inflate2 = 1.0 + rcp_mean*((sigmaB-sigmaA)/(eps+sigmaA))
-      inflate2 = max(min_inflate, min(inflate, max_inflate))
+
+      inflate2     = 1.0 + inflate_RTPS*((sigmaB-sigmaA)/(eps+sigmaA))
       new1(1:ne-1) = new1(1:ne-1) * inflate2
+
     ENDIF
-  ENDIF
+
+  ENDIF  ! ENDIF RTPS
 
 ! Relaxation to the prior perturbation (RTPP) from Zhang et al (2004) (inflate_flag = 3)
+! Note: inflate_RTPP/adapt_rtpp = 1.0, the prior perturbations replace the new perturbations
 
   IF( inflate_flag .ge. 3 ) THEN
-    IF ( inflate_RTPP > 0.0) THEN
-      new1(1:ne-1) = pvar(1:ne-1) * inflate_RTPP + (1.0 - inflate_RTPP) * new1(1:ne-1)
+
+! Check to see if its adaptive....
+
+    IF( present(adapt_rtpp) .and. sub_ens_size > 0 ) THEN
+
+      rcf_mean = 0.0d0
+      vartmp   = var(1:ne-1)
+      DO m = 1,nvalid_obs
+        HxfL(:)  = hdxb(obIndex(m),:)
+        rcf0     = F_RCF(vartmp, HxfL, ne-1, sub_ens_size)
+        rcf_mean = rcf_mean + rcf0
+!       rcf0     = F_CORR(vartmp, HxfL, ne-1)
+!       rcf_mean = rcf_mean + sqrt(rcf**2)
+!       write(6,*) 'UPDATE RCF: ', rcf0, sqrt(rcf0**2)
+      ENDDO
+      rcf_mean = rcf_mean / float(nvalid_obs)
+!     write(6,*) 'UPDATE CORR_MEAN: ', rcf_mean
+
+! adapt_rtpp(1) is remapped such that 1=prior, 0=posterior perturbations
+
+      adapt_rtpp(1) = adapt_rtpp(1) - (1.0 - adapt_rtpp(1)) * rcf_mean 
+      new1(1:ne-1)  = pvar(1:ne-1) * adapt_rtpp(1) + (1.0 - adapt_rtpp(1)) * new1(1:ne-1)
+ 
     ELSE
-      new1(1:ne-1) = pvar(1:ne-1) * (sqrt(inflate)-1.0) + sqrt(inflate) * new1(1:ne-1)
+
+! Do the standard blending of prior and posterior perturbations
+
+      new1(1:ne-1) = pvar(1:ne-1) * inflate_RTPP + (1.0 - inflate_RTPP) * new1(1:ne-1)
+
     ENDIF
+
   ENDIF
-
-! Relaxation to the prior perturbation (RTPP) from Zhang et al (2004) adaptively
-
- IF( present(adapt_rtpp) .and. sub_ens_size > 0 ) THEN
-   rcp_mean = 0.0d0
-   vartmp   = var(1:ne-1)
-   DO m = 1,nvalid_obs
-     HxfL(:) = hdxb(obIndex(m),:)
-     rcp          = F_RCP(vartmp, HxfL, ne-1, sub_ens_size)
-     rcp_mean     = rcp_mean + rcp
-   ENDDO
-!  adapt_rtpp(1)  = adapt_rtpp(1) + (1.0 - adapt_rtpp(1)) * rcp_mean / float(nvalid_obs)
-!  new1(1:ne-1)   = pvar(1:ne-1) * (1.0 - adapt_rtpp(1)) + adapt_rtpp(1) * new1(1:ne-1)
-   new1(1:ne-1)   = new1(1:ne-1) * (1.0 + (sqrt(inflate)-1.0) * rcp_mean / float(nvalid_obs))
- ENDIF
 
 ! Add mean back in and its the PRIOR MEAN according to Hunt et al (2007; eq. 25)
 
@@ -2001,7 +2070,7 @@ END FUNCTION PEAKF_OB
 !
 !======================================================================================================'
 
-REAL FUNCTION F_RCP(var, Hx, ne, me)
+REAL FUNCTION F_RCF(var, Hx, ne, me)
 
   implicit none
   
@@ -2010,27 +2079,27 @@ REAL FUNCTION F_RCP(var, Hx, ne, me)
   real(kind=8) :: Hx(ne)
   
   real(kind=8) :: beta(ne/me), syy, sxy, vmean, Hxmean
-  real(kind=8), parameter :: eps = 1.0e-5
+  real(kind=8), parameter :: eps = 1.0e-15
 
   integer       :: n, m, ndm, nstart, nend
   integer, save :: error_flag = 0
 
   ndm = ne / me
   
-!  write(6,*) 'INSIDE F_RCP:  NE= ',ne, '  ME = ', me, ' NDM = ', ndm
+! write(6,*) 'INSIDE F_RCF:  NE= ',ne, '  ME = ', me, ' NDM = ', ndm
 
   IF( mod(ne,me) .ne. 0 .and. error_flag < 10 ) THEN
     error_flag = error_flag + 1
-    write(6,*) 'FUNCTION RCP:  ERROR ERROR ERROR!!!!'
-    write(6,*) 'FUNCTION RCP:  MOD(# of ensemble members, # of sub-ensembles) != 0'
-    write(6,*) 'FUNCTION RCP:  Returning RCP of 1.0'
-    F_RCP = 1.0
+    write(6,*) 'FUNCTION RCF:  ERROR ERROR ERROR!!!!'
+    write(6,*) 'FUNCTION RCF:  MOD(# of ensemble members, # of sub-ensembles) != 0'
+    write(6,*) 'FUNCTION RCF:  Returning RCF of 1.0'
+    F_RCF = 1.0
     RETURN
   ENDIF
   
   DO m = 1,ndm
-   nstart  = (m-1)*me+1 
-   nend    = (m-1)*me+1 + me-1
+   nstart  = 1 + (m-1)*me 
+   nend    =      (m) *me
    vmean   = SUM(var(nstart:nend))/float(me)
    Hxmean  = SUM(Hx(nstart:nend))/float(me)
    syy     = SUM(Hx(nstart:nend)**2) - me*Hxmean*Hxmean
@@ -2038,20 +2107,80 @@ REAL FUNCTION F_RCP(var, Hx, ne, me)
    IF( abs(syy) < eps ) THEN 
      beta(m) = 0.0   
    ELSE
-     beta(m) = sxy / (syy + eps**2)   
+     beta(m) = sxy / (syy + eps)   
    ENDIF
-!  write(6,*) 'INSIDE F_RCP: ', m, nstart, nend
-!  write(6,*) 'INSIDE F_RCP:  VAR MEAN = ',vmean, '  Hxmean = ', Hxmean
-!  write(6,*) 'INSIDE F_RCP:  SYY= ',syy, '  SXY = ', sxy
-!  write(6,*) 'INSIDE F_RCP:  BETA= ',beta(m)
+!  write(6,*) 'INSIDE F_RCF: ', m, nstart, nend
+!  write(6,*) 'INSIDE F_RCF:  STATE MEAN = ',vmean, '  Hxmean = ', Hxmean
+!  write(6,*) 'INSIDE F_RCF:  SYY= ',syy, '  SXY = ', sxy
+!  write(6,*) 'INSIDE F_RCF:  BETA= ',beta(m)
   ENDDO
   
-  F_RCP = max( ((SUM(beta(:))**2 / SUM(beta(:)**2)) - 1.0d0) / float(me - 1), 0.0d0)
+  F_RCF = max( ((SUM(beta(:))**2 / SUM(beta(:)**2)) - 1.0d0) / float(me - 1), 0.0d0)
+
+! IF sample is small F_RCF can get > 1...bad things
+
+  F_RCF = min(F_RCF, 1.0d0)
   
-! IF( F_RCP > 0.1 ) write(6,*) 'F_RCP:  RCP= ',F_RCP
+! IF( F_RCF > 0.1 ) write(6,*) 'F_RCF:  RCF= ',F_RCF
 
 RETURN
-END FUNCTION F_RCP
+END FUNCTION F_RCF
+
+!======================================================================================================'
+!
+! Compute sample correlation function
+!
+! Formulas from http://mathworld.wolfram.com/LeastSquaresFitting.html
+!
+!======================================================================================================'
+
+REAL FUNCTION F_CORR(var, Hx, ne)
+
+  implicit none
+
+  integer(kind=4) ne
+  real(kind=4) :: var(ne)
+  real(kind=8) :: Hx(ne)
+
+  integer(kind=4) n
+  real(kind=8) :: sx, sy, sxy, vmean, Hxmean
+  real(kind=8), parameter :: eps = 1.0e-5
+
+  integer, save :: error_flag = 0
+
+! write(6,*) 'INSIDE F_CORR:  NE= ',ne
+
+  vmean  = SUM(var) / float(ne)
+  Hxmean = SUM(Hx) / float(ne)
+
+  IF( abs(nint(100.0*Hxmean)) .lt. 0.001 ) THEN
+    F_CORR = 1.0
+    RETURN
+  ENDIF 
+
+  sx  = 0.0d0
+  sy  = 0.0d0
+  sxy = 0.0d0
+
+  DO n = 1,ne
+   sx  = sx  + ((var(n)-vmean)*(var(n)-vmean))
+   sy  = sy  + ((Hx(n)-Hxmean)*(Hx(n)-Hxmean)) 
+   sxy = sxy + ((var(n)-vmean)*(Hx(n)-Hxmean))
+  ENDDO
+
+  sx  = SQRT(sx / float(ne-1))
+  sy  = SQRT(sy / float(ne-1))
+  sxy = sxy / float(ne-1)
+   
+  F_CORR = ( sxy / (eps+sx*sy) ) / float(ne-1)
+
+! write(6,*) 'INSIDE F_CORR: ', ne
+! write(6,*) 'INSIDE F_CORR:  VAR MEAN = ',vmean, '  Hxmean = ', Hxmean
+! write(6,*) 'INSIDE F_CORR:  SX = ',sx, 'SY = ', sy, '  SXY = ', sxy
+! write(6,*) 'INSIDE F_CORR:  CORR = ', F_CORR
+
+RETURN
+END FUNCTION F_CORR
 
 !======================================================================================================'
 !
@@ -2301,7 +2430,7 @@ END
 ! Routine to map raw dbz obs to model grid for additive noise calcs.  Implemention
 ! uses the cKDTree algorithm in python to find the indices for each ob that is on the grid.
 !
-! Example code in python to test code
+! Example code in python to create fields that are needed.
 !=======================================================================================================
 !# Begin python code
 !
@@ -2328,10 +2457,14 @@ END
 !
 !distances, indices1D = mytree.query(obs_list)
 !
+!indices3D = numpy.unravel_index(numpy.ravel(indices1D, y_array.size), y_array.shape)
+!
 !# these are the integer indices that you now pass into the fortran routine. They
 !# are the un-raveled 3D index locations nearest the observation point in the 3D array
 !
-!kk, jj, ii = N.unravel_index(indices1D, (len(z1d), len(y1d), len(x1d)))
+!k = indices3D[0]
+!j = indices3D[1]
+!i = indices3D[2]
 !
 !for n in numpy.arange(obs.shape[1]) :
 !    print n, obs[0,n], obs[1,n], obs[2,n], z_array[k[n],j[n],i[n]], y_array[k[n],j[n],i[n]], x_array[k[n],j[n],i[n]]
@@ -2368,7 +2501,7 @@ SUBROUTINE OBS_2_GRID3D(field, obs, xob, yob, zob, xc, yc, zc, ii, jj, kk, hscal
   real(kind=4), allocatable, dimension(:,:,:) :: sum, wgt_sum
 
 ! DEBUG
-  logical, parameter :: debug = .true.
+  logical, parameter :: debug = .false.
   
 ! Allocate local memory
 
@@ -2410,7 +2543,8 @@ SUBROUTINE OBS_2_GRID3D(field, obs, xob, yob, zob, xc, yc, zc, ii, jj, kk, hscal
     idx = 1+nint(hscale/abs(xc(k0,j0,i0) - xc(k0,j0,i0-1)))
     jdx = 1+nint(hscale/abs(yc(k0,j0,i0) - yc(k0,j0-1,i0)))
     
-    kdx = 5
+    if( n .eq. 10 ) print *, idx, jdx
+    kdx = 3
     
     i0m = max(i0-idx,1)
     j0m = max(j0-jdx,1)

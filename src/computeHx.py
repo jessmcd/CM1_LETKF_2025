@@ -241,8 +241,8 @@ if __name__ == "__main__":
         sys.exit(0)
 
 
-    idx = np.where(subdata.value>20.0)[0][0]
-    subdata = subdata.iloc[idx]
+    # idx = np.where(subdata.value>20.0)[0][0]
+    # subdata = subdata.iloc[idx]
 
 
 

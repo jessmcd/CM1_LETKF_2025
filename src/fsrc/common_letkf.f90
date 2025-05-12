@@ -97,11 +97,11 @@ SUBROUTINE letkf_core(nbv,nobs,nobsl,var,hdxb,rdiag,rloc,dep,obIndex,infl_in,tra
   REAL*8 :: parm(4),sigma_o,gain
   REAL*8 :: mean, stddev, rcp
   REAL*8, PARAMETER :: rcp_weight = 0.5
-  REAL*8, PARAMETER :: sigma_b = 0.10d0 ! error stdev of parm_infl
+  REAL*8, PARAMETER :: sigma_b = 0.15d0 ! error stdev of parm_infl
   INTEGER :: i,j,k,m
   
-  REAL(KIND=4)  :: F_RCP
-  EXTERNAL F_RCP
+  REAL(KIND=4)  :: F_RCF
+  EXTERNAL F_RCF
 
   LOGICAL, PARAMETER :: wgt_regularization  = .false.
 
@@ -147,7 +147,7 @@ SUBROUTINE letkf_core(nbv,nobs,nobsl,var,hdxb,rdiag,rloc,dep,obIndex,infl_in,tra
     rcp_return(1) = 0.0
     DO m = 1,nobsl
       HxfL(:)    = hdxb(obIndex(m),:)
-      rcp        = F_RCP(var, HxfL, nbv, hf)
+      rcp        = F_RCF(var, HxfL, nbv, hf)
       rlocL(m)   = rcp_weight * rcp + (1.0 - rcp_weight) * rlocL(m)
       rcp_return(1) = rcp_return(1) + rcp
     ENDDO

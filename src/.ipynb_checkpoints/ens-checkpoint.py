@@ -38,10 +38,14 @@ from mpl_toolkits.basemap import Basemap
 
 from plot_src.cbook2 import nice_mxmnintvl, nice_clevels
 
-from fsrc.fpython2 import fstate, addbubbles_box, obs_2_grid3d
-from fsrc.fpython2 import add_smooth_perts
+# from fsrc.fpython2 import fstate, addbubbles_box, obs_2_grid3d
+# from fsrc.fpython2 import add_smooth_perts
 
 import state_vector as state
+
+import sys
+sys.path.append('fsrc/')
+from fpython2 import fstate, addbubbles_box, obs_2_grid3d, add_smooth_perts
 
 #-----------------------------------------------------------------------------------------------------------------------------
 # Debug settings
@@ -1782,26 +1786,26 @@ def ens_IC_pert_from_box(ens, plot=False, writeout=False):
 
 #===============================================================================
 #
-def ens_IC_warm_bubble(ens, plot=False, writeout=False):
+def ens_IC_warm_bubble(ens_state, plot=False, writeout=False):
 
     # These values are set in the experiment dictionary created at the begining of the run
 
-    nb           = ens.experiment['INIT']['nb']
-    wpert        = ens.experiment['INIT']['wpert']
-    upert        = ens.experiment['INIT']['upert']
-    vpert        = ens.experiment['INIT']['vpert']
-    tpert        = ens.experiment['INIT']['tpert']
-    tdpert       = ens.experiment['INIT']['tdpert']
-    qvpert       = ens.experiment['INIT']['qvpert']
-    centerx      = ens.experiment['INIT']['centerx']
-    centery      = ens.experiment['INIT']['centery']
-    max_x_offset = ens.experiment['INIT']['max_x_offset']
-    max_y_offset = ens.experiment['INIT']['max_y_offset']
-    zbmin        = ens.experiment['INIT']['zbmin']
-    zbmax        = ens.experiment['INIT']['zbmax']
-    bhrad        = ens.experiment['INIT']['rbubh']
-    bvrad        = ens.experiment['INIT']['rbubv']
-    r_seed       = ens.experiment['INIT']['r_seed']
+    nb           = ens_state.experiment['INIT']['nb']
+    wpert        = ens_state.experiment['INIT']['wpert']
+    upert        = ens_state.experiment['INIT']['upert']
+    vpert        = ens_state.experiment['INIT']['vpert']
+    tpert        = ens_state.experiment['INIT']['tpert']
+    tdpert       = ens_state.experiment['INIT']['tdpert']
+    qvpert       = ens_state.experiment['INIT']['qvpert']
+    centerx      = ens_state.experiment['INIT']['centerx']
+    centery      = ens_state.experiment['INIT']['centery']
+    max_x_offset = ens_state.experiment['INIT']['max_x_offset']
+    max_y_offset = ens_state.experiment['INIT']['max_y_offset']
+    zbmin        = ens_state.experiment['INIT']['zbmin']
+    zbmax        = ens_state.experiment['INIT']['zbmax']
+    bhrad        = ens_state.experiment['INIT']['rbubh']
+    bvrad        = ens_state.experiment['INIT']['rbubv']
+    r_seed       = ens_state.experiment['INIT']['r_seed']
 
     print(upert, wpert, vpert, tpert, tdpert)
 
@@ -1816,9 +1820,13 @@ def ens_IC_warm_bubble(ens, plot=False, writeout=False):
     rand_t = (tpert*.75) * t_adjust
     
     for n in np.arange(ens_state.ne):
+
+        # randomized shift for the whole bubble cluster
+        xshift = xypert[0,0,n]*max_x_offset*1.5 
+        yshift = xypert[0,1,n]*max_y_offset*1.5
     
-        xb = centerx + xypert[:,0,n]*max_x_offset # these are length nb
-        yb = centery + xypert[:,1,n]*max_y_offset
+        xb = centerx + (xypert[:,0,n]*max_x_offset) +xshift# these are length nb
+        yb = centery + (xypert[:,1,n]*max_y_offset) +yshift
         zb = zbmax*np.ones(xb.shape) + ens_state.hgt
         
         ni, nj, nk = ens_state['nx'],ens_state['ny'],ens_state['nz']
@@ -1862,7 +1870,7 @@ def ens_IC_warm_bubble(ens, plot=False, writeout=False):
 
     # Write ensemble back out
     if writeout:
-        write_CM1_ens(state, writeEns=True, writeFcstMean=True, overwrite=True)
+        write_CM1_ens(ens_state, writeEns=True, writeFcstMean=True, overwrite=True)
 
 #===================================================================================================
 def ens_CM1_coords(ens):

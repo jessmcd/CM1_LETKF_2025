@@ -1,29 +1,19 @@
-
-# Very quick JMM edit:
-Use the run_OSSE_experiment.py script to run a simple experiment. 
-Update create_run_letkf to match your specs. Right now, each run get its own sounding copied in from the run_soundings directory, so the UV perturbation addition has been turned off (in ens.py)
-
-
-
-
-
 #
 # How to run the CM1_LETKF system
-#
+# updated 05/2025
 #
 
 0.  Required software:
 
-    Anaconda python distribution:  need pytables, netCDF4, pyproj, basemap, and probably something else...
-    Gfortran > 4.8
-    netCDF installation (I use homebrew)
+    see the letkf_env.yml file 
 
 1.  Compilation.
 
-a)  compile the CM1r18v2 code (not the code from the G. Bryan site, I need to retro my
-    altered I/O code in as of yet).
+a)  compile the cm1r21v1 code. If you want to use older versions of CM1, you will need to make a number of edits in ens.py and run_fcst.py (possibly others). Older versions of CM1 have differently named restart files (cm1_rst_XXXXXX vs cm1rst_XXXX) and the restart files also don't have a time dimension, so they are 3D rather than 4D. 
 
-b)  compile the code in fsrc:  type fcompile.py, make sure at the end you get:
+b)  compile the code in fsrc:  *** this needs work because it has been manually edited to point to my conda environment ***
+
+    type fcompile.py, make sure at the end you get:
 
      ==========================================================================================
 
@@ -42,44 +32,31 @@ b)  compile the code in fsrc:  type fcompile.py, make sure at the end you get:
    again.
 
 
-2.  There are two main python scripts and one csh script that runs the entire system.
+2.  The main python script to edit is namelist.py. This is a typical namelist but in python format to take advantage of datetime object syntax. When that has been edited, cd into the run directory and type "./RUN.sh >> letkf.out". This runs the experiment_driver.py script in the src directory, which manages the other scripts and reads in the applicable variables from the namelist. 
 
-   The base run will run by simply doing:
-
-   runit.csh > log
-
-   This run requires about 6 hours of CPU.  Most of that time is the CM1 model (about 5 hours).
-   The base run is a 40 member, 2km mesh.
-
-   runit.csh runs 1 python script at the top, called "run_exper.py".  That script runs the initialization
-   and then runs the forecast and data assimilation cycle.  Look inside, and the top lines are the 
-   "ic_cmds" --> which create the initialization.  The only thing you might want change in run_exper.py is
-
-   stop     = [2013,5,20,20,10,0]
-   fcst     = 0
-
-   Which tell the system to stop assimilation at 20:10, and do not run a forecast after this.  Right now,
-   every other piece of possible parameter change in run_exper.py IS IGNORED.  
-
-   The BIG file to change is one called "create_run_letkf.py".  This is my attempt (not perfect)
-   a having all the parameters for data assimilation and the run in one file.  For testing, do
-   not change the top stuff, but the stuff you might want to play with, after you replicate the
-   benchmark run is in the list:
-
-   cm1_nml = {"cm1namelist": [......
+To edit the assimilated data and/or the base state sounding(s), make sure the obs are placed in the observations/ directory (in run/) in the proper csv format, and fill the soundings/ directory (in run/) with appropriately named soundings (RunXXSounding.txt, where XX corresponds to the 0-padded member number).
 
 
-   That is where the model time step, grid pts, domain, etc. are run.  The microphysics is
-   actually set higher up in the code, the in the "defaults" section.  This code creates
-   a file in the RUN_LETKF directory called "RUN_LETKF.exp" which contains a pickled dictionary
-   of all the model and data assimilation information.  That is why all the commands to plot
-   or analyze the data use the "-d directory", because they read that information.
+-----------------------------------------------------------------------------------------------
+Overview of how the program works:
 
-3.  Benchmark run:  if you have all things compiled, and all the python libs installed, then
-    type "runit.csh".  About 6 hours later you should have a run.
+The python script create_run_letkf.py reads in the namelist, saves the important values into a json  which is then placed in the base directory and used to drive the rest of the experiment and plots, and sets up the entire data structure. Structure is:
+base directory/
+        member000/ - contains the mean ensemble data
+        member00n/ - contains all of the restart cm1 files for that member. when DA starts, the rst files are copied to a "prior" file and the rst is edited to become the posterior
+        soundings/ - contains all of the soundings used to initialize the different members
+        plots/     - contains all the plots (if make_plots is set to True in namelist.py), otherwise it is empty
+        Inflation....nc - all the inflation netcdfs (for each DA timestep) if adaptive inflation is used
+        Prior ......nc - all the prior netcdfs (for each DA timestep) that contains the radar data and the Hxf (model data at obs locations, using the forward operator calculated in ComputeHx.py which calls the calcHx function in ens.py )
+        Copies of the namelist, onefile.F, cm1.exe, and landuse file (these are linked to all of the member folders)
+        letkf.out - at the end of the experiment, the outfile is copied from the run directory 
+        XXXX.exp - the json file created by creat_run_letkf.py. The name will be the basename from the base_directory (i.e., if the base directory is /work/experiments/test then the file will be test.exp)
 
-    The run is not great, but its not bad either.  Pretty noisy, I probably have to turn down the
-    additive noise.  We can talk about tunning after you start to get a feel for things.
+In a normal experiment, calc_stats.py will run, which will result in additional files called "Posterior .... nc" (for each DA timestep, identical to Prior...nc but using the posterior model data), AllPost_prior.nc which merges the Prior and Posterior files together (np.nan padded as each timestep will have a different number of obs), full_ens_fcst.nc which includes all of the member forecasts merged into a single file (makes probabilistic plots wayyyy faster), and WTD.py (which contains weak thermal gradient calculations (from Diefenbach et al. 2024; to use this data, you will need to do a control run without any DA.)
+
+
+*** finish description here ****
+
 
    
 
