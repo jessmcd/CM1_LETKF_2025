@@ -3148,6 +3148,114 @@
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+
+
+     subroutine calc_2D_mean(nstat,rstat,myvar2d, amin) !! find the mean of a 2d field - added for LETKF code
+      use input
+      use constants
+      use mpi
+      implicit none
+
+      integer nstat
+      real, dimension(stat_out) :: rstat
+      real, dimension(ib:ie,jb:je) :: myvar2d
+
+      character(len=6) :: amin
+ 
+      integer i,j,k
+      double precision :: tot_myvar,meanvar, var
+ 
+!$omp parallel do default(shared)  &
+!$omp private(i,j,k)
+     tot_myvar = 0.0d0
+
+    do j=1,nj
+    do i=1,ni
+       tot_myvar = tot_myvar+ myvar2d(i,j)
+    enddo 
+    enddo
+    
+
+      var=0.0d0
+      call MPI_REDUCE(tot_myvar,var,1,MPI_DOUBLE_PRECISION,MPI_SUM,0,   &
+                      MPI_COMM_WORLD,ierr)
+      tot_myvar=var
+      if(myid.eq.0)then
+
+      meanvar =tot_myvar / (nx * ny)
+
+    write(6,100) amin,meanvar
+100   format(2x,a6,':',1x,e13.6)
+
+      nstat = nstat + 1
+      rstat(nstat) = meanvar
+
+
+
+      endif
+ 
+      if(timestats.ge.1) time_stat=time_stat+mytime()
+ 
+      end subroutine calc_2D_mean
+
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+
+     subroutine calc_3D_mean(nstat,rstat,myvar3d, amin) !! find the mean of a 2d field - added for LETKF code
+      use input
+      use constants
+      use mpi
+      implicit none
+
+      integer nstat
+      real, dimension(stat_out) :: rstat
+      real, dimension(ib:ie,jb:je, kb:ke) :: myvar3d
+
+      character(len=6) :: amin
+ 
+      integer i,j,k
+      double precision :: tot_myvar,meanvar, var
+ 
+!$omp parallel do default(shared)  &
+!$omp private(i,j,k)
+     tot_myvar = 0.0d0
+
+    do k=1,nk
+    do j=1,nj
+    do i=1,ni
+       tot_myvar = tot_myvar+ myvar3d(i,j,k)
+    enddo 
+    enddo
+    enddo
+    
+
+      var=0.0d0
+      call MPI_REDUCE(tot_myvar,var,1,MPI_DOUBLE_PRECISION,MPI_SUM,0,   &
+                      MPI_COMM_WORLD,ierr)
+      tot_myvar=var
+      if(myid.eq.0)then
+
+      meanvar =tot_myvar / (nx * ny * nk)
+
+    write(6,100) amin,meanvar
+100   format(2x,a6,':',1x,e13.6)
+
+      nstat = nstat + 1
+      rstat(nstat) = meanvar
+
+
+
+      endif
+ 
+      if(timestats.ge.1) time_stat=time_stat+mytime()
+ 
+      end subroutine calc_3D_mean
+
+
+
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+ 
  
  
       subroutine totmois(nstat,rstat,train,ruh,rvh,rmh,qv,ql,qi,rho)

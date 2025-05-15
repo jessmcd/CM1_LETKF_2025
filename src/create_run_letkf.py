@@ -140,6 +140,7 @@ cm1_nml = {"cm1namelist": [
  ('param1',  'dtl', namelist.dtl),
  ('param1',  'run_time', 0),
  ('param1',  'rstfrq', 0.0),
+ ('param1',  'statfrq',  namelist.dtl),
  ('param2',  'ptype', namelist.microphysics),
  ('param2',  'rstnum', 0),
  ('param2',  'irst', 0),

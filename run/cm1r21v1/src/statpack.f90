@@ -13,7 +13,7 @@
                           xh,rxh,uh,ruh,xf,uf,yh,vh,rvh,vf,zh,mh,rmh,zf,mf,   &
                           zs,rgzu,rgzv,rds,sigma,rdsf,sigmaf,                 &
                           rstat,pi0,rho0,thv0,th0,qv0,u0,v0,                  &
-                          dum1,dum2,dum3,dum4,dum5,rho  ,prs,                 &
+                          dum1,dum2,dum3,dum4,dum5,rho  ,prs, qtten,                &
                           ua,va,wa,ppi,tha,qa,vq  ,kmh,kmv,khh,khv,tkea,qke,  &
                           tke_myj,xkzh,xkzq,xkzm,                             &
                           pta,u10,v10,hpbl,prate,reset,nstatout,restarted)
@@ -50,7 +50,7 @@
       real, intent(in), dimension(kb:ke+1) :: rdsf,sigmaf
       real, dimension(stat_out) :: rstat
       real, dimension(ib:ie,jb:je,kb:ke) :: pi0,rho0,thv0,th0,qv0
-      real, dimension(ib:ie,jb:je,kb:ke) :: dum1,dum2,dum3,dum4,dum5,rho,prs
+      real, dimension(ib:ie,jb:je,kb:ke) :: dum1,dum2,dum3,dum4,dum5,rho,prs, qtten
       real, dimension(ib:ie+1,jb:je,kb:ke) :: u0,ua
       real, dimension(ib:ie,jb:je+1,kb:ke) :: v0,va
       real, dimension(ib:ie,jb:je,kb:ke+1) :: wa
@@ -70,7 +70,7 @@
 
 !-----------------------------------------------------------------------
 
-      integer :: i,j,k,n,nstat,nloop,nkm,kmin,kmax
+      integer :: i,j,k,n,nstat,nloop,nkm,kmin,kmax, n5km
       character(len=6) :: text1,text2
       real :: qvs,zlev,r1,r2
       double precision, dimension(nbudget) :: cfoo
@@ -167,9 +167,7 @@
               do while( sigmaf(nkm).gt.zlev .and. nkm.gt.1 )
                 nkm = nkm-1
               enddo
-              ! dum1(i,j,1) = wa(i,j,nkm)+(wa(i,j,nkm+1)-wa(i,j,nkm))  &
-              !                          *(         zlev-sigmaf(nkm))  &
-              !                          /(sigmaf(nkm+1)-sigmaf(nkm))
+     
               r2 = (zlev-sigmaf(nkm))/(sigmaf(nkm+1)-sigmaf(nkm))
               r1 = 1.0-r2
               do j=1,nj
@@ -199,7 +197,56 @@
             enddo
           endif
           call maxmin2d(ni,nj,dum1(ib,jb,1),nstat,rstat,text1,text2)
+
+        !!!!! jessmcdo add
+          if (nloop.eq.4) then ! 5km height
+              call calc_2D_mean(nstat,rstat,dum1(ib,jb,1),'WMEAN5000')
+                do j=1,nj !!!! save this for a later calculation
+                do i=1,ni
+                  dum5(i,j,1) = dum1(i,j,1)
+                enddo
+                enddo
+              
+          endif
+        !!!!!
         enddo  wloop
+
+
+   !!! start WTG calculation!
+   !! find mean qtten at 5 km qa(ib,jb,kb,n)
+   !! find mean dtheta0/dz at 5 km 
+
+      ! calcualte the 5km mean Wwtg 
+      n5km=nk+1
+      do k=nk,1,-1 !! this does a top down check to find the proper index
+        if(zh(1,1,k).ge.5000.0) n5km=k
+      enddo
+
+      do j=1, nj
+      do i=1, ni
+      !! qtten / (dtheta0/dz)
+         dum1(i,j, 1) =abs( dum5(i,j,1) - (qtten(i,j,n5km) / ( (th0(i,j, n5km+1)-th0(i,j, n5km-1)) / (zh(i,j, n5km+1)-zh(i,j, n5km-1)) )))
+         dum5(i,j,1) = 0.0 !release this dummy variable
+      enddo
+      enddo
+      call calc_2D_mean(nstat,rstat,dum1(ib,jb,1),'WRESMEAN5000')
+
+      do j=1, nj
+      do i=1, ni
+      !! qtten / (dtheta0/dz)
+         dum1(i,j, 1) = qtten(i,j,n5km)
+      enddo
+      enddo
+      call calc_2D_mean(nstat,rstat,dum1(ib,jb,1),'QTTEN5000')
+
+
+      ! calculate domain mean QR
+      call calc_3D_mean(nstat,rstat,qa(ib,jb,kb,nqr),'QRMEAN')
+
+
+      !!!
+  !!! end WTG calculation
+       
       endif  wlevs
 
       if(stat_u.eq.1)then
@@ -289,19 +336,41 @@
       IF(axisymm.eq.0)THEN
 !$omp parallel do default(shared)  &
 !$omp private(i,j,k)
+!        do k=1,nk
+!        do j=1,nj
+!        do i=1,ni
+!          dum5(i,j,k)=                                                     &
+!              0.5*( (rho0(i,j,k)+rho0(i+1,j,k))*ua(i+1,j,k)                &
+!                   -(rho0(i,j,k)+rho0(i-1,j,k))*ua(i  ,j,k) )*rdx*uh(i)    &
+!             +0.5*( (rho0(i,j,k)+rho0(i,j+1,k))*va(i,j+1,k)                &
+!                   -(rho0(i,j,k)+rho0(i,j-1,k))*va(i,j  ,k) )*rdy*vh(j)    &
+!             +0.5*( (rho0(i,j,k)+rho0(i,j,k+1))*wa(i,j,k+1)                &
+!                   -(rho0(i,j,k)+rho0(i,j,k-1))*wa(i,j,k  ) )*rdz*mh(i,j,k)
+!        enddo
+!        enddo
+!        enddo
+!! jmcdonald edit
         do k=1,nk
         do j=1,nj
         do i=1,ni
-          dum5(i,j,k)=                                                     &
+         IF( k.eq.1 ) THEN
+          dum5(i,j,k)= abs(                                                    &
               0.5*( (rho0(i,j,k)+rho0(i+1,j,k))*ua(i+1,j,k)                &
                    -(rho0(i,j,k)+rho0(i-1,j,k))*ua(i  ,j,k) )*rdx*uh(i)    &
              +0.5*( (rho0(i,j,k)+rho0(i,j+1,k))*va(i,j+1,k)                &
                    -(rho0(i,j,k)+rho0(i,j-1,k))*va(i,j  ,k) )*rdy*vh(j)    &
              +0.5*( (rho0(i,j,k)+rho0(i,j,k+1))*wa(i,j,k+1)                &
-                   -(rho0(i,j,k)+rho0(i,j,k-1))*wa(i,j,k  ) )*rdz*mh(i,j,k)
-        enddo
-        enddo
-        enddo
+                   -(rho0(i,j,k)+rho0(i,j,k-1))*wa(i,j,k  ) )*rdz*mh(i,j,k)     ) !take absolute value
+
+          
+         ELSE
+           dum5(i,j,k)= dum5(i,j,1) ! just fill the rest with stuff 
+          ENDIF
+            enddo
+           enddo
+         enddo  
+
+       
       ELSE
 !$omp parallel do default(shared)  &
 !$omp private(i,j,k)
@@ -316,8 +385,12 @@
         enddo
         enddo
         enddo
+
+        
       ENDIF
         call maxmin(ni,nj,nk,dum5,nstat,rstat,kmin,kmax,'DIVMAX','DIVMIN')
+        ! maxmin(izz,jzz,kzz,f,nstat,rstat,kmin,kmax,amax,amin)
+        
       endif
 
       IF(imoist.eq.1)THEN
@@ -421,6 +494,8 @@
         enddo
         enddo
         call maxmin2d(ni,nj,dum1(ib,jb,1),nstat,rstat,'PSFCMX','PSFCMN')
+        !call calcTEST2d(nstat,rstat,prs(ib,jb,1),'PSFCMX','PSFCMN') !jessmcdo 1st model level
+        call calc_2D_mean(nstat,rstat,dum1(ib,jb,1),'PSFCMEAN') !jessmcdo sfc pressure
       endif
 
       if(stat_wsp.eq.1)then
@@ -747,6 +822,11 @@
       unit_stat(stat_out) = 'm/s'
 
       stat_out = stat_out+1
+      name_stat(stat_out) = 'wmean5000'
+      desc_stat(stat_out) = 'mean vertical velocity at 5000 m AGL'
+      unit_stat(stat_out) = 'm/s'
+
+      stat_out = stat_out+1
       name_stat(stat_out) = 'wmax10k'
       desc_stat(stat_out) = 'max vertical velocity at 10 km AGL'
       unit_stat(stat_out) = 'm/s'
@@ -755,6 +835,22 @@
       name_stat(stat_out) = 'wmin10k'
       desc_stat(stat_out) = 'min vertical velocity at 10 km AGL'
       unit_stat(stat_out) = 'm/s'
+
+      stat_out = stat_out+1
+      name_stat(stat_out) = 'wresmean5000'
+      desc_stat(stat_out) = 'mean absolute Wres (w - (qtten / dtheta0/dz)) at 5000 m AGL'
+      unit_stat(stat_out) = 'm/s'
+
+      stat_out = stat_out+1
+      name_stat(stat_out) = 'qtten5000'
+      desc_stat(stat_out) = 'mean qtten at 5000m'
+      unit_stat(stat_out) = 'm/s'
+
+      stat_out = stat_out+1
+      name_stat(stat_out) = 'qrmean'
+      desc_stat(stat_out) = 'domain mean qr, for use in WTG calculation'
+      unit_stat(stat_out) = 'kg/kg'
+      
     endif
 
     if(stat_u.eq.1)then
@@ -1176,6 +1272,12 @@
       name_stat(stat_out) = 'psfcmin'
       desc_stat(stat_out) = 'min pressure at surface'
       unit_stat(stat_out) = 'Pa'
+
+      stat_out = stat_out+1 !jessmcdo add
+      name_stat(stat_out) = 'psfcmean'
+      desc_stat(stat_out) = 'mean pressure at surface'
+      unit_stat(stat_out) = 'Pa'
+      
     endif
 
     if( stat_wsp.eq.1 )then

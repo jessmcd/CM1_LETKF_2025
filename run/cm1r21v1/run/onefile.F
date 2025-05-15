@@ -25,7 +25,7 @@ mp_wsm6_effectRad.F/
 module_libmassv.F/
 mmm_physics_wrapper.F/
 
-constants.F/    1711321984  3193  100   100644  5569      `
+constants.F/    1744672191  3193  100   100644  5569      `
   MODULE constants
 
   implicit none
@@ -260,7 +260,7 @@ constants.F/    1711321984  3193  100   100644  5569      `
   END MODULE index_module
  
 
-input.F/        1711321984  3193  100   100644  24941     `
+input.F/        1747343538  3193  100   100644  24941     `
   MODULE input
 
   implicit none
@@ -653,7 +653,7 @@ input.F/        1711321984  3193  100   100644  24941     `
 
   END MODULE input
 
-adv.F/          1711321984  3193  100   100644  120515    `
+adv.F/          1744672191  3193  100   100644  120515    `
   MODULE adv_module
 
   implicit none
@@ -4273,7 +4273,7 @@ adv.F/          1711321984  3193  100   100644  120515    `
 
   END MODULE adv_module
 
-adv_routines.F/ 1711321984  3193  100   100644  260818    `
+adv_routines.F/ 1744672191  3193  100   100644  260818    `
   MODULE adv_routines
 
   implicit none
@@ -13604,7 +13604,7 @@ adv_routines.F/ 1711321984  3193  100   100644  260818    `
 
 
   END MODULE adv_routines
-anelp.F/        1603075933  3193  100   100644  9545      `
+anelp.F/        1744672191  3193  100   100644  9545      `
   MODULE anelp_module
 
   implicit none
@@ -13894,7 +13894,7 @@ anelp.F/        1603075933  3193  100   100644  9545      `
 
   END MODULE anelp_module
 
-azimavg.F/      1711321984  3193  100   100644  137292    `
+azimavg.F/      1744672191  3193  100   100644  137292    `
   MODULE azimavg_module
 
   implicit none
@@ -18539,7 +18539,7 @@ azimavg.F/      1711321984  3193  100   100644  137292    `
 
 
   END MODULE azimavg_module
-base.F/         1711321984  3193  100   100644  103157    `
+base.F/         1744672191  3193  100   100644  103157    `
   MODULE base_module
 
   implicit none
@@ -21969,7 +21969,7 @@ base.F/         1711321984  3193  100   100644  103157    `
 
   END MODULE base_module
 
-bc.F/           1711321984  3193  100   100644  64802     `
+bc.F/           1744672191  3193  100   100644  64802     `
   MODULE bc_module
 
   implicit none
@@ -24657,7 +24657,7 @@ bc.F/           1711321984  3193  100   100644  64802     `
 
 
   END MODULE bc_module
-cm1.F/          1711322020  3193  100   100644  172367    `
+cm1.F/          1747335942  3193  100   100644  172395    `
 
       program cm1
 
@@ -28524,10 +28524,10 @@ cm1.F/          1711322020  3193  100   100644  172367    `
                           xh,rxh,uh,ruh,xf,uf,yh,vh,rvh,vf,zh,mh,rmh,zf,mf,   &
                           zs,rgzu,rgzv,rds,sigma,rdsf,sigmaf,                 &
                           rstat,pi0,rho0,thv0,th0,qv0,u0,v0,                  &
-                          dum1,dum2,dum3,dum4,dum5,ppten,prs,                 &
+                          dum1,dum2,dum3,dum4,dum5,ppten,prs, qtten,                &
                           ua,va,wa,ppi,tha,qa,qten,kmh,kmv,khh,khv,tkea,qke,  &
                           tke_myj,xkzh,xkzq,xkzm,                             &
-                          pta,u10,v10,hpbl,prate,reset,nstatout,restarted)
+                          pta,u10,v10,hpbl,prate,reset,nstatout,restarted) !jessmcdo added qtten
         nrec = nrec + 1
         nstatout = nstatout + 1
         if( statfrq.gt.0.0 .and. ( .not. restarted ) )then
@@ -29421,7 +29421,7 @@ cm1.F/          1711322020  3193  100   100644  172367    `
       end program cm1
 
 
-cm1libs.F/      1508769490  3193  100   100644  14222     `
+cm1libs.F/      1744672191  3193  100   100644  14222     `
   MODULE cm1libs
 
   implicit none
@@ -29805,7 +29805,7 @@ cm1libs.F/      1508769490  3193  100   100644  14222     `
 
 
   END MODULE cm1libs
-comm.F/         1711321984  3193  100   100644  163440    `
+comm.F/         1744672191  3193  100   100644  163440    `
   MODULE comm_module
 
   implicit none
@@ -36884,7 +36884,7 @@ comm.F/         1711321984  3193  100   100644  163440    `
 #endif
 
   END MODULE comm_module
-/0              1711321984  3193  100   100644  14831     `
+/0              1744672191  3193  100   100644  14831     `
   MODULE simple_phys_module
 
   implicit none
@@ -37367,7 +37367,7 @@ comm.F/         1711321984  3193  100   100644  163440    `
 
   END MODULE simple_phys_module
 
-diff2.F/        1711321984  3193  100   100644  34982     `
+diff2.F/        1744672191  3193  100   100644  34982     `
   MODULE diff2_module
 
   implicit none
@@ -38592,7 +38592,7 @@ diff2.F/        1711321984  3193  100   100644  34982     `
 
 
   END MODULE diff2_module
-eddy_recycle.F/ 1650481246  3193  100   100644  91470     `
+eddy_recycle.F/ 1744672191  3193  100   100644  91470     `
   module eddy_recycle
   implicit none
 
@@ -41040,7 +41040,7 @@ eddy_recycle.F/ 1650481246  3193  100   100644  91470     `
 !-----------------------------------------------------------------------
 
   end module eddy_recycle
-goddard.F/      1500485824  3193  100   100644  62672     `
+goddard.F/      1744672191  3193  100   100644  62672     `
   MODULE goddard_module
 
   implicit none
@@ -42430,7 +42430,7 @@ goddard.F/      1500485824  3193  100   100644  62672     `
       END subroutine consat2
 
   END MODULE goddard_module
-hifrq.F/        1711321984  3193  100   100644  53923     `
+hifrq.F/        1744672191  3193  100   100644  53923     `
   MODULE hifrq_module
 
   implicit none
@@ -44224,7 +44224,7 @@ hifrq.F/        1711321984  3193  100   100644  53923     `
 
   END MODULE hifrq_module
 
-ib_module.F/    1650481249  3193  100   100644  60025     `
+ib_module.F/    1744672191  3193  100   100644  60025     `
   module ib_module
   implicit none
 
@@ -46107,7 +46107,7 @@ ib_module.F/    1650481249  3193  100   100644  60025     `
 
   end module ib_module
 
-init3d.F/       1711321984  3193  100   100644  90547     `
+init3d.F/       1744672191  3193  100   100644  90547     `
   MODULE init3d_module
 
   implicit none
@@ -48984,7 +48984,7 @@ init3d.F/       1711321984  3193  100   100644  90547     `
 
   END MODULE init3d_module
 
-init_physics.F/ 1711321984  3193  100   100644  10116     `
+init_physics.F/ 1744672191  3193  100   100644  10116     `
   MODULE init_physics_module
 
   implicit none
@@ -49300,7 +49300,7 @@ init_physics.F/ 1711321984  3193  100   100644  10116     `
       end subroutine initrad
 
   END MODULE init_physics_module
-init_surface.F/ 1711321984  3193  100   100644  14725     `
+init_surface.F/ 1744672191  3193  100   100644  14725     `
   MODULE init_surface_module
 
   implicit none
@@ -49800,7 +49800,7 @@ init_surface.F/ 1711321984  3193  100   100644  14725     `
 
   END MODULE init_surface_module
 
-init_terrain.F/ 1711321984  3193  100   100644  9455      `
+init_terrain.F/ 1744672191  3193  100   100644  9455      `
   MODULE init_terrain_module
 
   implicit none
@@ -50107,7 +50107,7 @@ init_terrain.F/ 1711321984  3193  100   100644  9455      `
 
   END MODULE init_terrain_module
 
-/24             1519171035  3193  100   100644  27918     `
+/24             1744672191  3193  100   100644  27918     `
   MODULE interp_routines
 
   implicit none
@@ -51195,7 +51195,7 @@ init_terrain.F/ 1711321984  3193  100   100644  9455      `
 !-----------------------------------------------------------------------------------------------
 
   END MODULE interp_routines
-kessler.F/      1533326950  3193  100   100644  15990     `
+kessler.F/      1744672191  3193  100   100644  15990     `
   MODULE kessler_module
 
   implicit none
@@ -51761,7 +51761,7 @@ kessler.F/      1533326950  3193  100   100644  15990     `
 
 
   END MODULE kessler_module
-lfoice.F/       1598305202  3193  100   100644  70375     `
+lfoice.F/       1744672191  3193  100   100644  70375     `
   MODULE lfoice_module
 
   implicit none
@@ -53820,7 +53820,7 @@ lfoice.F/       1598305202  3193  100   100644  70375     `
 
   END MODULE lfoice_module
 
-lsnudge.F/      1650481248  3193  100   100644  13340     `
+lsnudge.F/      1744672191  3193  100   100644  13340     `
   MODULE lsnudge_module
 
   ! code for large-scale nudging 
@@ -54259,7 +54259,7 @@ lsnudge.F/      1650481248  3193  100   100644  13340     `
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 
   END MODULE lsnudge_module
-maxmin.F/       1589146343  3193  100   100644  5935      `
+maxmin.F/       1744672191  3193  100   100644  5935      `
   MODULE maxmin_module
 
   CONTAINS
@@ -54489,7 +54489,7 @@ maxmin.F/       1589146343  3193  100   100644  5935      `
 
   END MODULE maxmin_module
 
-misclibs.F/     1711321984  3193  100   100644  108091    `
+misclibs.F/     1747343946  3193  100   100644  110548    `
   MODULE misclibs
 
   implicit none
@@ -57686,6 +57686,126 @@ misclibs.F/     1711321984  3193  100   100644  108091    `
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+
+
+     subroutine calc_2D_mean(nstat,rstat,myvar2d, amin) !! find the mean of a 2d field - added for LETKF code
+      use input
+      use constants
+#ifdef MPI
+      use mpi
+#endif
+      implicit none
+
+      integer nstat
+      real, dimension(stat_out) :: rstat
+      real, dimension(ib:ie,jb:je) :: myvar2d
+
+      character(len=6) :: amin
+ 
+      integer i,j,k
+      double precision :: tot_myvar,meanvar, var
+ 
+!$omp parallel do default(shared)  &
+!$omp private(i,j,k)
+     tot_myvar = 0.0d0
+
+    do j=1,nj
+    do i=1,ni
+       tot_myvar = tot_myvar+ myvar2d(i,j)
+    enddo 
+    enddo
+    
+
+#ifdef MPI
+      var=0.0d0
+      call MPI_REDUCE(tot_myvar,var,1,MPI_DOUBLE_PRECISION,MPI_SUM,0,   &
+                      MPI_COMM_WORLD,ierr)
+      tot_myvar=var
+      if(myid.eq.0)then
+#endif
+
+      meanvar =tot_myvar / (nx * ny)
+
+    write(6,100) amin,meanvar
+100   format(2x,a6,':',1x,e13.6)
+
+      nstat = nstat + 1
+      rstat(nstat) = meanvar
+
+
+
+#ifdef MPI
+      endif
+#endif
+ 
+      if(timestats.ge.1) time_stat=time_stat+mytime()
+ 
+      end subroutine calc_2D_mean
+
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+
+     subroutine calc_3D_mean(nstat,rstat,myvar3d, amin) !! find the mean of a 2d field - added for LETKF code
+      use input
+      use constants
+#ifdef MPI
+      use mpi
+#endif
+      implicit none
+
+      integer nstat
+      real, dimension(stat_out) :: rstat
+      real, dimension(ib:ie,jb:je, kb:ke) :: myvar3d
+
+      character(len=6) :: amin
+ 
+      integer i,j,k
+      double precision :: tot_myvar,meanvar, var
+ 
+!$omp parallel do default(shared)  &
+!$omp private(i,j,k)
+     tot_myvar = 0.0d0
+
+    do k=1,nk
+    do j=1,nj
+    do i=1,ni
+       tot_myvar = tot_myvar+ myvar3d(i,j,k)
+    enddo 
+    enddo
+    enddo
+    
+
+#ifdef MPI
+      var=0.0d0
+      call MPI_REDUCE(tot_myvar,var,1,MPI_DOUBLE_PRECISION,MPI_SUM,0,   &
+                      MPI_COMM_WORLD,ierr)
+      tot_myvar=var
+      if(myid.eq.0)then
+#endif
+
+      meanvar =tot_myvar / (nx * ny * nk)
+
+    write(6,100) amin,meanvar
+100   format(2x,a6,':',1x,e13.6)
+
+      nstat = nstat + 1
+      rstat(nstat) = meanvar
+
+
+
+#ifdef MPI
+      endif
+#endif
+ 
+      if(timestats.ge.1) time_stat=time_stat+mytime()
+ 
+      end subroutine calc_3D_mean
+
+
+
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+ 
  
  
       subroutine totmois(nstat,rstat,train,ruh,rvh,rmh,qv,ql,qi,rho)
@@ -58271,8 +58391,7 @@ misclibs.F/     1711321984  3193  100   100644  108091    `
 
 
   END MODULE misclibs
-
-morrison.F/     1711321984  3193  100   100644  222953    `
+morrison.F/     1744672191  3193  100   100644  222953    `
 !WRF:MODEL_LAYER:PHYSICS
 !
 ! Current version is tagged as V3.6
@@ -64784,7 +64903,7 @@ END SUBROUTINE MP_GRAUPEL
 
 END MODULE module_mp_GRAUPEL
 
-/43             1598372129  3193  100   100644  203558    `
+/43             1744672191  3193  100   100644  203558    `
 module module_mp_jensen_ishmael
 
   !------------------------------------------------------------------------------------------------------!
@@ -69630,7 +69749,7 @@ end module module_mp_jensen_ishmael
 
   !.. Full stop
 
-/71             1711321984  3193  100   100644  950769    `
+/71             1744672191  3193  100   100644  950769    `
 !COMMAS/1:MODEL_LAYER:PHYSICS
 
 ! prepocessed on "Aug 14 2023" at "11:12:05" - update Oct 29 2023
@@ -95784,7 +95903,7 @@ END SUBROUTINE nssl_2mom_driver
 
 END MODULE module_mp_nssl_2mom
 
-module_mp_p3.F/ 1711321984  3193  100   100644  332765    `
+module_mp_p3.F/ 1744672191  3193  100   100644  332765    `
 ! GHB, 230721: this file comes from WRFV4.5.2
 !__________________________________________________________________________________________
 ! This module contains the Predicted Particle Property (P3) bulk microphysics scheme.      !
@@ -103178,7 +103297,7 @@ SUBROUTINE access_lookup_table_coll_3mom(dumzz,dumjj,dumii,dumj,dumi,index,dum1,
 !======================================================================================!
  END MODULE microphy_p3
 
-mp_driver.F/    1711321984  3193  100   100644  74253     `
+mp_driver.F/    1744672191  3193  100   100644  74253     `
   MODULE mp_driver_module
 
              !------  Microphysics Driver ------!
@@ -104886,7 +105005,7 @@ mp_driver.F/    1711321984  3193  100   100644  74253     `
 
   END MODULE mp_driver_module
 
-param.F/        1711321984  3193  100   100644  326358    `
+param.F/        1744672191  3193  100   100644  326358    `
   MODULE param_module
 
   implicit none
@@ -114919,7 +115038,7 @@ param.F/        1711321984  3193  100   100644  326358    `
 !-------------------------------------------------------------------------------
 
   END MODULE param_module
-parcel.F/       1650481248  3193  100   100644  66663     `
+parcel.F/       1744672191  3193  100   100644  66663     `
   MODULE parcel_module
 
   implicit none
@@ -117139,7 +117258,7 @@ parcel.F/       1650481248  3193  100   100644  66663     `
 
   END MODULE parcel_module
 
-pdef.F/         1597369594  3193  100   100644  17322     `
+pdef.F/         1744672191  3193  100   100644  17322     `
   MODULE pdef_module
 
   implicit none
@@ -117724,7 +117843,7 @@ pdef.F/         1597369594  3193  100   100644  17322     `
 
 
   END MODULE pdef_module
-pdcomp.F/       1711321984  3193  100   100644  13470     `
+pdcomp.F/       1744672191  3193  100   100644  13470     `
   MODULE pdcomp_module
 
   implicit none
@@ -118147,7 +118266,7 @@ pdcomp.F/       1711321984  3193  100   100644  13470     `
       end subroutine pidcomp
 
   END MODULE pdcomp_module
-poiss.F/        1531169147  3193  100   100644  5803      `
+poiss.F/        1744672191  3193  100   100644  5803      `
   MODULE poiss_module
 
   implicit none
@@ -118372,7 +118491,7 @@ poiss.F/        1531169147  3193  100   100644  5803      `
 
   END MODULE poiss_module
 
-sfcphys.F/      1650481248  3193  100   100644  40467     `
+sfcphys.F/      1744672191  3193  100   100644  40467     `
   MODULE sfcphys_module
 
   implicit none
@@ -119697,7 +119816,7 @@ sfcphys.F/      1650481248  3193  100   100644  40467     `
 
   END MODULE sfcphys_module
 
-singleton.F/    1621884011  3193  100   100644  38630     `
+singleton.F/    1744672191  3193  100   100644  38630     `
 MODULE singleton
   !-----------------------------------------------------------------------------
   ! Multivariate Fast Fourier Transform
@@ -120770,7 +120889,7 @@ CONTAINS
   END SUBROUTINE fftradix
 
 END MODULE singleton
-/94             1711321984  3193  100   100644  44141     `
+/94             1744672191  3193  100   100644  44141     `
   MODULE radiation_module
 
   implicit none
@@ -121936,7 +122055,7 @@ END MODULE singleton
 
   END MODULE radiation_module
 
-solve1.F/       1711322020  3193  100   100644  61895     `
+solve1.F/       1744672191  3193  100   100644  61895     `
   MODULE solve1_module
 
         ! solve1: pre-RK terms
@@ -123732,7 +123851,7 @@ solve1.F/       1711322020  3193  100   100644  61895     `
 
   END MODULE solve1_module
 
-solve2.F/       1711322020  3193  100   100644  71898     `
+solve2.F/       1744672191  3193  100   100644  71898     `
   MODULE solve2_module
 
         ! solve2: RK loop and pressure solver
@@ -125830,7 +125949,7 @@ solve2.F/       1711322020  3193  100   100644  71898     `
 
 
   END MODULE solve2_module
-solve3.F/       1711322020  3193  100   100644  41773     `
+solve3.F/       1744672191  3193  100   100644  41773     `
   MODULE solve3_module
 
         ! solve3: finish primary dynamical solver
@@ -126978,7 +127097,7 @@ solve3.F/       1711322020  3193  100   100644  41773     `
 
   END MODULE solve3_module
 
-sounde.F/       1711321984  3193  100   100644  32653     `
+sounde.F/       1744672191  3193  100   100644  32653     `
   MODULE sounde_module
 
   implicit none
@@ -128006,7 +128125,7 @@ sounde.F/       1711321984  3193  100   100644  32653     `
 
   END MODULE sounde_module
 
-sound.F/        1711321984  3193  100   100644  27741     `
+sound.F/        1744672191  3193  100   100644  27741     `
   MODULE sound_module
 
   implicit none
@@ -128867,7 +128986,7 @@ sound.F/        1711321984  3193  100   100644  27741     `
 
   END MODULE sound_module
 
-soundns.F/      1603076088  3193  100   100644  10545     `
+soundns.F/      1744672191  3193  100   100644  10545     `
   MODULE soundns_module
 
   implicit none
@@ -129213,7 +129332,7 @@ soundns.F/      1603076088  3193  100   100644  10545     `
 
   END MODULE soundns_module
 
-soundcb.F/      1650481248  3193  100   100644  17245     `
+soundcb.F/      1744672191  3193  100   100644  17245     `
   MODULE soundcb_module
 
   implicit none
@@ -129807,7 +129926,7 @@ soundcb.F/      1650481248  3193  100   100644  17245     `
 
   END MODULE soundcb_module
 
-statpack.F/     1711321984  3193  100   100644  47455     `
+statpack.F/     1747350365  3193  100   100644  50605     `
   MODULE statpack_module
 
   implicit none
@@ -129823,7 +129942,7 @@ statpack.F/     1711321984  3193  100   100644  47455     `
                           xh,rxh,uh,ruh,xf,uf,yh,vh,rvh,vf,zh,mh,rmh,zf,mf,   &
                           zs,rgzu,rgzv,rds,sigma,rdsf,sigmaf,                 &
                           rstat,pi0,rho0,thv0,th0,qv0,u0,v0,                  &
-                          dum1,dum2,dum3,dum4,dum5,rho  ,prs,                 &
+                          dum1,dum2,dum3,dum4,dum5,rho  ,prs, qtten,                &
                           ua,va,wa,ppi,tha,qa,vq  ,kmh,kmv,khh,khv,tkea,qke,  &
                           tke_myj,xkzh,xkzq,xkzm,                             &
                           pta,u10,v10,hpbl,prate,reset,nstatout,restarted)
@@ -129864,7 +129983,7 @@ statpack.F/     1711321984  3193  100   100644  47455     `
       real, intent(in), dimension(kb:ke+1) :: rdsf,sigmaf
       real, dimension(stat_out) :: rstat
       real, dimension(ib:ie,jb:je,kb:ke) :: pi0,rho0,thv0,th0,qv0
-      real, dimension(ib:ie,jb:je,kb:ke) :: dum1,dum2,dum3,dum4,dum5,rho,prs
+      real, dimension(ib:ie,jb:je,kb:ke) :: dum1,dum2,dum3,dum4,dum5,rho,prs, qtten
       real, dimension(ib:ie+1,jb:je,kb:ke) :: u0,ua
       real, dimension(ib:ie,jb:je+1,kb:ke) :: v0,va
       real, dimension(ib:ie,jb:je,kb:ke+1) :: wa
@@ -129884,7 +130003,7 @@ statpack.F/     1711321984  3193  100   100644  47455     `
 
 !-----------------------------------------------------------------------
 
-      integer :: i,j,k,n,nstat,nloop,nkm,kmin,kmax
+      integer :: i,j,k,n,nstat,nloop,nkm,kmin,kmax, n5km
       character(len=6) :: text1,text2
       real :: qvs,zlev,r1,r2
 #ifdef MPI
@@ -129985,9 +130104,7 @@ statpack.F/     1711321984  3193  100   100644  47455     `
               do while( sigmaf(nkm).gt.zlev .and. nkm.gt.1 )
                 nkm = nkm-1
               enddo
-              ! dum1(i,j,1) = wa(i,j,nkm)+(wa(i,j,nkm+1)-wa(i,j,nkm))  &
-              !                          *(         zlev-sigmaf(nkm))  &
-              !                          /(sigmaf(nkm+1)-sigmaf(nkm))
+     
               r2 = (zlev-sigmaf(nkm))/(sigmaf(nkm+1)-sigmaf(nkm))
               r1 = 1.0-r2
               do j=1,nj
@@ -130017,7 +130134,56 @@ statpack.F/     1711321984  3193  100   100644  47455     `
             enddo
           endif
           call maxmin2d(ni,nj,dum1(ib,jb,1),nstat,rstat,text1,text2)
+
+        !!!!! jessmcdo add
+          if (nloop.eq.4) then ! 5km height
+              call calc_2D_mean(nstat,rstat,dum1(ib,jb,1),'WMEAN5000')
+                do j=1,nj !!!! save this for a later calculation
+                do i=1,ni
+                  dum5(i,j,1) = dum1(i,j,1)
+                enddo
+                enddo
+              
+          endif
+        !!!!!
         enddo  wloop
+
+
+   !!! start WTG calculation!
+   !! find mean qtten at 5 km qa(ib,jb,kb,n)
+   !! find mean dtheta0/dz at 5 km 
+
+      ! calcualte the 5km mean Wwtg 
+      n5km=nk+1
+      do k=nk,1,-1 !! this does a top down check to find the proper index
+        if(zh(1,1,k).ge.5000.0) n5km=k
+      enddo
+
+      do j=1, nj
+      do i=1, ni
+      !! qtten / (dtheta0/dz)
+         dum1(i,j, 1) =abs( dum5(i,j,1) - (qtten(i,j,n5km) / ( (th0(i,j, n5km+1)-th0(i,j, n5km-1)) / (zh(i,j, n5km+1)-zh(i,j, n5km-1)) )))
+         dum5(i,j,1) = 0.0 !release this dummy variable
+      enddo
+      enddo
+      call calc_2D_mean(nstat,rstat,dum1(ib,jb,1),'WRESMEAN5000')
+
+      do j=1, nj
+      do i=1, ni
+      !! qtten / (dtheta0/dz)
+         dum1(i,j, 1) = qtten(i,j,n5km)
+      enddo
+      enddo
+      call calc_2D_mean(nstat,rstat,dum1(ib,jb,1),'QTTEN5000')
+
+
+      ! calculate domain mean QR
+      call calc_3D_mean(nstat,rstat,qa(ib,jb,kb,nqr),'QRMEAN')
+
+
+      !!!
+  !!! end WTG calculation
+       
       endif  wlevs
 
       if(stat_u.eq.1)then
@@ -130107,19 +130273,41 @@ statpack.F/     1711321984  3193  100   100644  47455     `
       IF(axisymm.eq.0)THEN
 !$omp parallel do default(shared)  &
 !$omp private(i,j,k)
+!        do k=1,nk
+!        do j=1,nj
+!        do i=1,ni
+!          dum5(i,j,k)=                                                     &
+!              0.5*( (rho0(i,j,k)+rho0(i+1,j,k))*ua(i+1,j,k)                &
+!                   -(rho0(i,j,k)+rho0(i-1,j,k))*ua(i  ,j,k) )*rdx*uh(i)    &
+!             +0.5*( (rho0(i,j,k)+rho0(i,j+1,k))*va(i,j+1,k)                &
+!                   -(rho0(i,j,k)+rho0(i,j-1,k))*va(i,j  ,k) )*rdy*vh(j)    &
+!             +0.5*( (rho0(i,j,k)+rho0(i,j,k+1))*wa(i,j,k+1)                &
+!                   -(rho0(i,j,k)+rho0(i,j,k-1))*wa(i,j,k  ) )*rdz*mh(i,j,k)
+!        enddo
+!        enddo
+!        enddo
+!! jmcdonald edit
         do k=1,nk
         do j=1,nj
         do i=1,ni
-          dum5(i,j,k)=                                                     &
+         IF( k.eq.1 ) THEN
+          dum5(i,j,k)= abs(                                                    &
               0.5*( (rho0(i,j,k)+rho0(i+1,j,k))*ua(i+1,j,k)                &
                    -(rho0(i,j,k)+rho0(i-1,j,k))*ua(i  ,j,k) )*rdx*uh(i)    &
              +0.5*( (rho0(i,j,k)+rho0(i,j+1,k))*va(i,j+1,k)                &
                    -(rho0(i,j,k)+rho0(i,j-1,k))*va(i,j  ,k) )*rdy*vh(j)    &
              +0.5*( (rho0(i,j,k)+rho0(i,j,k+1))*wa(i,j,k+1)                &
-                   -(rho0(i,j,k)+rho0(i,j,k-1))*wa(i,j,k  ) )*rdz*mh(i,j,k)
-        enddo
-        enddo
-        enddo
+                   -(rho0(i,j,k)+rho0(i,j,k-1))*wa(i,j,k  ) )*rdz*mh(i,j,k)     ) !take absolute value
+
+          
+         ELSE
+           dum5(i,j,k)= dum5(i,j,1) ! just fill the rest with stuff 
+          ENDIF
+            enddo
+           enddo
+         enddo  
+
+       
       ELSE
 !$omp parallel do default(shared)  &
 !$omp private(i,j,k)
@@ -130134,8 +130322,12 @@ statpack.F/     1711321984  3193  100   100644  47455     `
         enddo
         enddo
         enddo
+
+        
       ENDIF
         call maxmin(ni,nj,nk,dum5,nstat,rstat,kmin,kmax,'DIVMAX','DIVMIN')
+        ! maxmin(izz,jzz,kzz,f,nstat,rstat,kmin,kmax,amax,amin)
+        
       endif
 
       IF(imoist.eq.1)THEN
@@ -130239,6 +130431,8 @@ statpack.F/     1711321984  3193  100   100644  47455     `
         enddo
         enddo
         call maxmin2d(ni,nj,dum1(ib,jb,1),nstat,rstat,'PSFCMX','PSFCMN')
+        !call calcTEST2d(nstat,rstat,prs(ib,jb,1),'PSFCMX','PSFCMN') !jessmcdo 1st model level
+        call calc_2D_mean(nstat,rstat,dum1(ib,jb,1),'PSFCMEAN') !jessmcdo sfc pressure
       endif
 
       if(stat_wsp.eq.1)then
@@ -130571,6 +130765,11 @@ statpack.F/     1711321984  3193  100   100644  47455     `
       unit_stat(stat_out) = 'm/s'
 
       stat_out = stat_out+1
+      name_stat(stat_out) = 'wmean5000'
+      desc_stat(stat_out) = 'mean vertical velocity at 5000 m AGL'
+      unit_stat(stat_out) = 'm/s'
+
+      stat_out = stat_out+1
       name_stat(stat_out) = 'wmax10k'
       desc_stat(stat_out) = 'max vertical velocity at 10 km AGL'
       unit_stat(stat_out) = 'm/s'
@@ -130579,6 +130778,22 @@ statpack.F/     1711321984  3193  100   100644  47455     `
       name_stat(stat_out) = 'wmin10k'
       desc_stat(stat_out) = 'min vertical velocity at 10 km AGL'
       unit_stat(stat_out) = 'm/s'
+
+      stat_out = stat_out+1
+      name_stat(stat_out) = 'wresmean5000'
+      desc_stat(stat_out) = 'mean absolute Wres (w - (qtten / dtheta0/dz)) at 5000 m AGL'
+      unit_stat(stat_out) = 'm/s'
+
+      stat_out = stat_out+1
+      name_stat(stat_out) = 'qtten5000'
+      desc_stat(stat_out) = 'mean qtten at 5000m'
+      unit_stat(stat_out) = 'm/s'
+
+      stat_out = stat_out+1
+      name_stat(stat_out) = 'qrmean'
+      desc_stat(stat_out) = 'domain mean qr, for use in WTG calculation'
+      unit_stat(stat_out) = 'kg/kg'
+      
     endif
 
     if(stat_u.eq.1)then
@@ -131000,6 +131215,12 @@ statpack.F/     1711321984  3193  100   100644  47455     `
       name_stat(stat_out) = 'psfcmin'
       desc_stat(stat_out) = 'min pressure at surface'
       unit_stat(stat_out) = 'Pa'
+
+      stat_out = stat_out+1 !jessmcdo add
+      name_stat(stat_out) = 'psfcmean'
+      desc_stat(stat_out) = 'mean pressure at surface'
+      unit_stat(stat_out) = 'Pa'
+      
     endif
 
     if( stat_wsp.eq.1 )then
@@ -131348,7 +131569,7 @@ statpack.F/     1711321984  3193  100   100644  47455     `
 
   END MODULE statpack_module
 
-stopcm1.F/      1490887374  3193  100   100644  228       `
+stopcm1.F/      1744672191  3193  100   100644  228       `
 
       subroutine stopcm1()
 #ifdef MPI
@@ -131366,7 +131587,7 @@ stopcm1.F/      1490887374  3193  100   100644  228       `
 
       end subroutine stopcm1
 
-thompson.F/     1650481249  3193  100   100644  218355    `
+thompson.F/     1744672191  3193  100   100644  218355    `
 !+---+-----------------------------------------------------------------+
 !.. This subroutine computes the moisture tendencies of water vapor,
 !.. cloud droplets, rain, cloud ice (pristine), snow, and graupel.
@@ -137043,7 +137264,7 @@ END SUBROUTINE nl_get_write_thompson_tables
 END MODULE module_mp_thompson
 !+---+-----------------------------------------------------------------+
 
-/114            1496066831  3193  100   100644  23668     `
+/114            1744672191  3193  100   100644  23668     `
 !+---+-----------------------------------------------------------------+
 !..This set of routines facilitates computing radar reflectivity.
 !.. This module is more library code whereas the individual microphysics
@@ -137673,7 +137894,7 @@ CONTAINS
 !+---+-----------------------------------------------------------------+
 END MODULE module_mp_radar
 !+---+-----------------------------------------------------------------+
-turb.F/         1711321984  3193  100   100644  264795    `
+turb.F/         1744672191  3193  100   100644  264795    `
   MODULE turb_module
 
   implicit none
@@ -145221,7 +145442,7 @@ turb.F/         1711321984  3193  100   100644  264795    `
 
   END MODULE turb_module
 
-turbtend.F/     1711321984  3193  100   100644  88004     `
+turbtend.F/     1744672191  3193  100   100644  88004     `
   MODULE turbtend_module
 
   implicit none
@@ -148114,7 +148335,7 @@ turbtend.F/     1711321984  3193  100   100644  88004     `
 !CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
   END MODULE turbtend_module
-turbnba.F/      1650481249  3193  100   100644  33199     `
+turbnba.F/      1744672191  3193  100   100644  33199     `
   MODULE turbnba_module
 
   implicit none
@@ -148980,7 +149201,7 @@ turbnba.F/      1650481249  3193  100   100644  33199     `
 
   END MODULE turbnba_module
 
-domaindiag.F/   1711321984  3193  100   100644  298050    `
+domaindiag.F/   1744672191  3193  100   100644  298050    `
   MODULE domaindiag_module
 
   implicit none
@@ -159801,7 +160022,7 @@ domaindiag.F/   1711321984  3193  100   100644  298050    `
     !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 
   END MODULE domaindiag_module
-writeout.F/     1711321984  3193  100   100644  354700    `
+writeout.F/     1744672191  3193  100   100644  354700    `
   MODULE writeout_module
 
   implicit none
@@ -170076,7 +170297,7 @@ writeout.F/     1711321984  3193  100   100644  354700    `
 
 
   END MODULE writeout_module
-restart_write.F/1711321984  3193  100   100644  142430    `
+restart_write.F/1744672191  3193  100   100644  142430    `
   MODULE restart_write_module
 
   implicit none
@@ -172927,7 +173148,7 @@ restart_write.F/1711321984  3193  100   100644  142430    `
 !ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 
   END MODULE restart_write_module
-restart_read.F/ 1711321984  3193  100   100644  182105    `
+restart_read.F/ 1744672191  3193  100   100644  182105    `
   MODULE restart_read_module
 
   implicit none
@@ -176483,7 +176704,7 @@ restart_read.F/ 1711321984  3193  100   100644  182105    `
 
   END MODULE restart_read_module
 
-writeout_nc.F/  1711321984  3193  100   100644  132275    `
+writeout_nc.F/  1744672191  3193  100   100644  132275    `
   MODULE writeout_nc_module
 
   implicit none
@@ -179173,7 +179394,7 @@ writeout_nc.F/  1711321984  3193  100   100644  132275    `
 
   END MODULE writeout_nc_module
 
-radlib3d.F/     1490887374  3193  100   100644  25513     `
+radlib3d.F/     1744672191  3193  100   100644  25513     `
   MODULE radlib3d_module
 
   implicit none
@@ -180095,7 +180316,7 @@ END SUBROUTINE sagpol
 
   END MODULE radlib3d_module
 
-irrad3d.F/      1490887374  3193  100   100644  251624    `
+irrad3d.F/      1744672191  3193  100   100644  251624    `
   MODULE irrad3d_module
 
   implicit none
@@ -184982,7 +185203,7 @@ SUBROUTINE co2kdis(m,n,np,k,co2exp,tco2,tran)
 END SUBROUTINE co2kdis
 
   END MODULE irrad3d_module
-sorad3d.F/      1490887374  3193  100   100644  83536     `
+sorad3d.F/      1744672191  3193  100   100644  83536     `
   MODULE sorad3d_module
 
   implicit none
@@ -187448,7 +187669,7 @@ SUBROUTINE cldflx(m,n,np,ict,icb,cc,rr,tt,td,rs,ts,                     &
 END SUBROUTINE cldflx
 
   END MODULE sorad3d_module
-radtrns3d.F/    1531087027  3193  100   100644  88223     `
+radtrns3d.F/    1744672191  3193  100   100644  88223     `
   MODULE radtrns3d_module
 
   use radlib3d_module
@@ -190055,7 +190276,7 @@ END SUBROUTINE zenangl
 
   END MODULE radtrns3d_module
 
-getcape.F/      1508769469  3193  100   100644  16994     `
+getcape.F/      1744672191  3193  100   100644  16994     `
   MODULE getcape_module
 
   implicit none
@@ -190656,7 +190877,7 @@ getcape.F/      1508769469  3193  100   100644  16994     `
 !-----------------------------------------------------------------------
 
   END MODULE getcape_module
-sfclay.F/       1554068137  3193  100   100644  50587     `
+sfclay.F/       1744672191  3193  100   100644  50587     `
 !WRF:MODEL_LAYER:PHYSICS
 !
 MODULE module_sf_sfclay
@@ -191619,7 +191840,7 @@ CONTAINS
 
 END MODULE module_sf_sfclay
 
-slab.F/         1490887374  3193  100   100644  28270     `
+slab.F/         1744672191  3193  100   100644  28270     `
 !WRF:MODEL_LAYER:PHYSICS
 !
 MODULE module_sf_slab
@@ -192191,7 +192412,7 @@ CONTAINS
 !-------------------------------------------------------------------          
 
 END MODULE module_sf_slab
-oml.F/          1490887374  3193  100   100644  12944     `
+oml.F/          1744672191  3193  100   100644  12944     `
 !WRF:MODEL_LAYER:PHYSICS
 !
 MODULE module_sf_oml
@@ -192525,7 +192746,7 @@ CONTAINS
    END SUBROUTINE omlinit
 !-------------------------------------------------------------------          
 END MODULE module_sf_oml
-/133            1581110223  3193  100   100644  567       `
+/133            1744672191  3193  100   100644  567       `
       MODULE MODULE_GFS_MACHINE
 
       IMPLICIT NONE
@@ -192543,7 +192764,7 @@ END MODULE module_sf_oml
 
       END MODULE MODULE_GFS_MACHINE
 
-/155            1581110223  3193  100   100644  2781      `
+/155            1744672191  3193  100   100644  2781      `
 module module_gfs_physcons
   use module_gfs_machine,only:kind_phys
 !  Physical constants as set in NMC handbook from Smithsonian tables.
@@ -192585,7 +192806,7 @@ module module_gfs_physcons
   real(kind=kind_phys),parameter:: con_xponb   =-con_dldt/con_rv+con_hvap/(con_rv*con_ttp)
 end module module_gfs_physcons
 
-/178            1581110223  3193  100   100644  112944    `
+/178            1744672191  3193  100   100644  112944    `
 !-------------------------------------------------------------------------------
 module module_gfs_funcphys
 !$$$  Module Documentation Block
@@ -195565,7 +195786,7 @@ contains
   end subroutine
 !-------------------------------------------------------------------------------
 end module module_gfs_funcphys
-/201            1581110223  3193  100   100644  23928     `
+/201            1744672191  3193  100   100644  23928     `
 !  This MODULE holds the routines that calculate air-sea exchange coefficients 
 
 MODULE module_sf_exchcoef
@@ -196299,7 +196520,7 @@ CONTAINS
 
 END MODULE module_sf_exchcoef
 
-/223            1593199119  3193  100   100644  80052     `
+/223            1744672191  3193  100   100644  80052     `
 !-- XLV         latent heat of vaporization for water (J/kg)
 !
 MODULE module_sf_gfdl
@@ -198226,7 +198447,7 @@ CONTAINS
       END FUNCTION ran1
 
 END MODULE module_sf_gfdl
-/241            1597155556  3193  100   100644  81651     `
+/241            1744672191  3193  100   100644  81651     `
 !LWRF:MODEL_LAYER:PHYSICS
 !
 MODULE module_bl_gfsedmf
@@ -200555,7 +200776,7 @@ CONTAINS
 !!!#endif
       END MODULE module_bl_gfsedmf
 
-module_ra_etc.F/1711321984  3193  100   100644  49704     `
+module_ra_etc.F/1744672191  3193  100   100644  49704     `
 
  !-------------------------------------------------------------------!
  !---  cm1r19:  misc stuff needed to adapt WRF RRTMG code to cm1  ---!
@@ -202029,7 +202250,7 @@ END MODULE module_ra_rrtmg_wrf
 
  !-c-c-c-c-c-c-c-c-c-c-c-c-c-c-c-c-c-c-c-c-c-c-c-c-c-c-c-c-!
 
-/262            1711321984  3193  100   100644  652682    `
+/262            1744672191  3193  100   100644  652682    `
 !MODULE module_ra_rrtmg_lw
 
       module parkind
@@ -216697,7 +216918,7 @@ IMPLICIT NONE
 !------------------------------------------------------------------
 
 END MODULE module_ra_rrtmg_lw
-/284            1711321984  3193  100   100644  592989    `
+/284            1744672191  3193  100   100644  592989    `
 !!MODULE module_ra_rrtmg_sw
                 
       module parrrsw
@@ -229218,7 +229439,7 @@ IMPLICIT NONE
 END MODULE module_ra_rrtmg_sw
 !***********************************************************************
 
-/306            1711321984  3193  100   100644  299123    `
+/306            1744672191  3193  100   100644  299123    `
 ! GHB, 230721: this file comes from WRFV4.5.2
 !>\file module_bl_mynn.F90
 !! This file contains the entity of MYNN-EDMF PBL scheme.
@@ -236972,7 +237193,7 @@ END FUNCTION phih
 
 END MODULE module_bl_mynn
 
-/324            1711321984  3193  100   100644  4026      `
+/324            1744672191  3193  100   100644  4026      `
 ! GHB, 230721: this file comes from WRFV4.5.2
 !====================================================================
 
@@ -237072,7 +237293,7 @@ END MODULE module_bl_mynn
 
 
  end module module_bl_mynn_common
-/349            1711321984  3193  100   100644  31900     `
+/349            1744672191  3193  100   100644  31900     `
 ! GHB, 230721: this file comes from WRFV4.5.2
 !> \file module_bl_mynn_wrapper.F90
 !!  This serves as the interface between the WRF PBL driver and the MYNN 
@@ -237863,7 +238084,7 @@ SUBROUTINE mynnedmf_wrapper_run(                 &
 !###=================================================================
 
 END MODULE module_bl_mynn_wrapper
-/375            1711321984  3193  100   100644  90987     `
+/375            1744672191  3193  100   100644  90987     `
 ! GHB, 230721: this file comes from WRFV4.5.2
 !WRF:MODEL_LAYER:PHYSICS
 !
@@ -240141,7 +240362,7 @@ END SUBROUTINE SFCLAY1D_mynn
 END MODULE module_sf_mynn
 
 
-/393            1711321984  3193  100   100644  65206     `
+/393            1744672191  3193  100   100644  65206     `
 !-----------------------------------------------------------------------
 !
       MODULE MODULE_BL_MYJPBL
@@ -241885,7 +242106,7 @@ END MODULE module_sf_mynn
       END MODULE MODULE_BL_MYJPBL
 !
 !-----------------------------------------------------------------------
-/413            1711321984  3193  100   100644  47018     `
+/413            1744672191  3193  100   100644  47018     `
 !----------------------------------------------------------------------
 !
       MODULE MODULE_SF_MYJSFC
@@ -243246,13 +243467,13 @@ CONTAINS
       END MODULE MODULE_SF_MYJSFC
 !
 !----------------------------------------------------------------------
-/433            1711321984  3193  100   100644  137       `
+/433            1744672191  3193  100   100644  137       `
 module ccpp_kind_types
     integer, parameter :: kind_phys = selected_real_kind(6)  ! 4-byte real
    contains
 end module ccpp_kind_types
 
-bl_ysu.F/       1711321984  3193  100   100644  61627     `
+bl_ysu.F/       1744672191  3193  100   100644  61627     `
 #define  NEED_B4B_DURING_CCPP_TESTING 0
 !=================================================================================================================
  module bl_ysu
@@ -244950,7 +245171,7 @@ bl_ysu.F/       1711321984  3193  100   100644  61627     `
  end module bl_ysu
 !=================================================================================================================
 
-mp_wsm6.F/      1711321984  3193  100   100644  92808     `
+mp_wsm6.F/      1744672191  3193  100   100644  92808     `
 !=================================================================================================================
  module mp_wsm6
  use ccpp_kind_types,only: kind_phys
@@ -247400,7 +247621,7 @@ mp_wsm6.F/      1711321984  3193  100   100644  92808     `
 !=================================================================================================================
  end module mp_wsm6
 !=================================================================================================================
-/452            1711321984  3193  100   100644  6591      `
+/452            1744672191  3193  100   100644  6591      `
 !=================================================================================================================
  module mp_wsm6_effectrad
  use ccpp_kind_types,only: kind_phys
@@ -247590,7 +247811,7 @@ mp_wsm6.F/      1711321984  3193  100   100644  92808     `
  end module mp_wsm6_effectrad
 !=================================================================================================================
 
-mp_radar.F/     1711321984  3193  100   100644  24781     `
+mp_radar.F/     1744672191  3193  100   100644  24781     `
 !=================================================================================================================
  module mp_radar
  use ccpp_kind_types,only: kind_phys
@@ -248269,7 +248490,7 @@ mp_radar.F/     1711321984  3193  100   100644  24781     `
  end module mp_radar
 !=================================================================================================================
 
-/473            1711321984  3193  100   100644  3040      `
+/473            1744672191  3193  100   100644  3040      `
 !=================================================================================================================
  module module_libmassv
 
@@ -248361,7 +248582,7 @@ mp_radar.F/     1711321984  3193  100   100644  24781     `
 !=================================================================================================================
  end module module_libmassv
 !=================================================================================================================
-sf_sfclayrev.F/ 1711321984  3193  100   100644  43060     `
+sf_sfclayrev.F/ 1744672191  3193  100   100644  43060     `
 !=================================================================================================================
  module sf_sfclayrev
  use ccpp_kind_types,only: kind_phys
@@ -249477,7 +249698,7 @@ sf_sfclayrev.F/ 1711321984  3193  100   100644  43060     `
 !=================================================================================================================
  end module sf_sfclayrev
 !=================================================================================================================
-cu_ntiedtke.F/  1711321984  3193  100   100644  138749    `
+cu_ntiedtke.F/  1744672191  3193  100   100644  138749    `
 !=================================================================================================================
  module cu_ntiedtke_common
  use ccpp_kind_types,only: kind_phys
@@ -253063,7 +253284,7 @@ cu_ntiedtke.F/  1711321984  3193  100   100644  138749    `
  end module cu_ntiedtke
 !=================================================================================================================
 
-/492            1711321984  3193  100   100644  28913     `
+/492            1744672191  3193  100   100644  28913     `
   MODULE mmm_physics_wrapper_module
 
   use ccpp_kind_types,only: kind_phys
