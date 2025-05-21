@@ -1474,8 +1474,8 @@ def ens_ADDITIVE_NOISE(ens, ob_file=None, plot=False, cref=True):
   hradius = ens.experiment['ADD_NOISE']['hradius']
   vradius = ens.experiment['ADD_NOISE']['vradius']
   r_seed  = ens.experiment['ADD_NOISE']['r_seed']
-  gaussH  = ens.experiment['ADD_NOISE']['gaussH']
-  gaussV  = ens.experiment['ADD_NOISE']['gaussV']
+  # gaussH  = ens.experiment['ADD_NOISE']['gaussH']
+  # gaussV  = ens.experiment['ADD_NOISE']['gaussV']
   xoffset = ens.experiment['xoffset']
   yoffset = ens.experiment['yoffset']
     

@@ -24,15 +24,17 @@ nthreads           –  number of threads for the LETKF code (in python and fort
 
 ncores             –  number of cores to run CM1 with (mpirun)
 
-model_start        –  datetime format of model start time. This can be random if you aren’t tied to a location or event, but code is designed to also handle real data with real dates, locations, and in lat/lon format
+model_start        –  datetime object. CM1 start time. This can be random if you aren’t tied to a location or event, but code is designed to also handle real data with real dates, locations, and in lat/lon format
 
 auto_model_start   –  bool. If True, model_start is ignored and the code manually figures out the appropriate start time based on when DA will start and how long you specify model “cook” time to be.
 
-Lat0, lon0, hgt    –  location (degrees N and W) and height (meters) of the radar providing data. This can be random.
+Lat0, lon0, hgt    –  location (degrees N and W) and height (meters) of the radar providing data. lat and lon can be random, set hgt to 0 for synthetic data. 
 
-xoffset and yoffset – location of radar (in meters) relative to lower left corner of CM1 domain. For example, if radar is located at x = 180 km  and y = 100 km (CM1 domain must have 0s in lower-left  corner; iorigin=1) then xoffset would be -180000 and yoffset would be -100000 (note the numbers are negative)
+xoffset,yoffset    –  meters. Location of radar relative to lower left corner of CM1 domain. For example, if radar is located at x = 180 km  and y = 100 km (CM1 domain must have 0s in lower-left  corner; iorigin=1) then xoffset would be -180000 and yoffset would be -100000 (note the numbers are negative)
 
 microphysics       –  microphysics scheme, uses the CM1 namelist options for ptype to set (i.e., 27 = NSSL double moment)
+
+
 
 ---- SETTINGS FOR EXPERIMENT WORK FLOW ----
 
@@ -44,4 +46,150 @@ run_assim          –  bool. If True, this runs the data assimilation process (
 
 run_forecast       –  bool. If True, this runs the ensemble for the designated forecast time set below. 
 
+make_plots         -  bool. If True, it runs CR_INNO_plots.py in src/plot_src. *** under development, plots aren't very good ****
 
+pre_cook           -  bool. If True, run_setup and run_cook are ignored!  It copies the directory below and sets up a new experiment. Only do this if you have "locked in" your initial CM1 set up 
+
+cook_path          -  filepath to directory that contains the "pre_cooked" ensemble (i.e.,filepath to the member001, member002, etc directories)
+
+
+
+---- DATA ASSIMILATION PARAMETERS ----
+
+DA_start_time     -  datetime object. Time to start data assimilation
+
+DA_end_time       -  datetime object. Time to end data assimilation (inclusive, DA will occur at this time as well)
+
+assim_freq        -  seconds. Cycling interval (time between each data assimilation cycle). NOTE !!!! if this value is larger than forecast_freq, CM1 will output at forecast_freq rather than assim_freq. 
+
+cook_period       -  seconds. Amount of time to let CM1 run before DA start. Ignored if run_cook is False or pre_cook is True. 
+
+cook_freq         -  seconds. CM1 output frequency during cook period. Ignored if run_cook is False or pre_cook is True. 
+
+forecast_length   -  seconds. Length of forecast after DA finishes. Ignored if run_forecast is False.
+
+forecast_freq     -  seconds. CM1 output freqncy during cook period. NOTE !!!! if forecast_freq is smaller than assim_freq, CM1 will output at the forecast frequency during data assimilation!!
+
+
+obs_include       -  list of strings. Observation types to include in DA. Current available options are VR (radar radial velocity), DBZ (radar reflectivity), DBZ0 (clear air reflectivity), and DBZ0_W (***clear air reflectivity that updates vertical velocity instead of reflectivity)
+
+obs_error         -  dictionary of errors to use for each observation type (options above). Include an error value for each observation type in obs_include. Format example: {'DBZ': 7.0, 'VR': 3.0}
+
+aInflate          -  integer options for adaptive inflation. (Note that these have been edited... only option 1 has been tested, use others at own risk!!!)
+                     Base value for adaptive inflation is set in src/fsrc/fpython2.f90, line ~20, inflate_PRIOR. * remember to recompile after changing this value * 
+                      0 => no adaptive inflation
+                      1 => LETKF adaptive inflation
+                      2 => WH2010 RTPS
+                      3 => RTPP
+
+outlier           -  number of standard deviations to set outlier threshold at (where observations are discarded due to being too different from the ensemble values). 3 is default
+
+inlier            -  number of standard deviations to set inlier threshold at (where observations are so close to ensemble that they are discarded, theoretically because the increments are too small to be worth the unbalancing of DA). Set to zero to turn off. 
+
+nthreads          -  number of threads for python to use for the data assimilation python and fortran code. (CM1 relies on ncores, not nthreads)
+
+assim_window      -  seconds. Time window (+/- assim window/2) to include observations for during assimilation. Useful for real world data. For synthetic data, set to a small number (like 10)
+
+async_freq        -  seconds. For asynchronous DA. Currently this parameter is not used, I think making the assim window larger will allow for asynchronous DA if that's what you want to do
+
+additive_noise    -  list,[bool, integer]. Whether or not to add noise based on:
+                      1 => composite reflectivity
+                      2 => adaptive inflation field 
+                      **** currently not implemented in experiment_driver.py!!! ****
+
+mpass             -  multipass (assimilates each variable separately (?) Implemented in letkf.py)
+
+WriteFcstMean     -  bool. If True, a directory named member000 is created in base_dir  and is filled with the ensemble mean priors (cm1_prior_000XXX.nc), and the final ensemble member contained in the ensemble state object (from ens.py, read_CM1_ens) will be the ensemble mean. 
+
+WriteFcstAnal     -  bool. If True, a directory named member000 is created in base_dir and is filled with the ensemble mean posteriors (cm1_post_000XXX.nc) 
+
+saveWeights       -  bool. If True, weights from letkf code is saved (not recently tested)
+
+readWeights       -  bool. If True, weight file is read in and used in place of the letkf code (not recently tested)
+
+rhoriz            -  meters. Horizontal covariance localization radius for data assimilation. 
+
+rvert             -  meters. Vertical covariance localization radius for data assimilation. 
+
+cutoff            -  integer. 
+
+zcutoff           -  meters. 
+
+inflate           -  inflation value to start before adaptive inflation takes over.
+
+print_state_stats -  bool. If True, DA statistics are printed in the outfile while the experiment is running. 
+
+
+
+---- IMPORTANT CM1 NAMELIST VALUES ----
+This is just a list of the included variables. Please read the CM1 documentation to see how to fill. You can modify any/all namelist variables, but these ones will be overwritten, along with rstnum, run_time, rstfreq, etc. 
+Note: This program currently can NOT handle horizontal stretched grids OR a nonzero umove or vmove. 
+
+nx, ny, nz, ppnode, dx, dy, dz, dtl, isnd, ihail, stretch_z, ztop, str_bot, str_top, dz_bot, dz_top, radopt 
+
+
+
+---- INITIATION MECHANISM ----
+
+currently this is set to use the ens_IC_warm_bubble function in ens.py. This produces randomized warm bubbles (with increased Td and w) clustered around a center location. 
+
+nb                -  number of warm bubbles to use (3 is recommended)
+
+tpert             -  K. Max theta perturbation of warm bubble(s). !!!! NOTE: for added spread, this value is multiplied by a random value and can be changed by up to 75% of the original value. (i.e., a 2 K perturbation will have ensemble members ranging from 0.5 to 3.5 K)
+
+wpert             -  m/s. Max vertical velocity perturbation within warm bubble(s)
+
+tdpert            -  K. Max dewpoint perturbation within warm bubble(s)
+
+upert             -  m/s. Max u velocity perturbation within warm bubble(s)
+
+vpert             -  m/s. Max v velocity perturbation within warm bubble(s)
+
+centerx           -  meters. Approximate center location in x direction of warm bubble(s), in CM1 grid coordinates 
+
+centery           -  meters. Approximate center location in y direction of warm bubble(s), in CM1 grid coordinates
+
+max_x_offset      -  meters. Maximum x direction offset between warm bubbles. The whole cluster is also shifted by [this value * 1.5 * a random number between 0 and 1] for additional spread. 
+
+max_y_offset      -  meters. Maximum y direction offset between warm bubbles. The whole cluster is also shifted by [this value * 1.5 * a random number between 0 and 1] for additional spread. 
+
+min_z             -  meters. Bottom height of warm bubble(s)
+
+max_z             -  meters. Maximum height of warm bubble(s)
+
+bub_horz_radius   -  meters. Horizontal radius of each bubble
+
+bub_vert_radius   -  meters. Vertical radius of each bubble 
+
+r_seed            -  seed for random bubble generator - allows for reproducible experiments. 
+
+
+
+---- ADDING NOISE TO MODEL FIELDS ----
+
+ only used if additive_noise is set to True (*** currently not implemented)
+
+min_dbz_4pert      -  dBZ. minimum value of reflectivity that must be exceeded before additive noise is applied
+ 
+tpert_noise        -  K. Maximum theta perturbation applied in regions that exceed min_dbz_4pert
+
+wpert_noise        -  m/s. 
+
+tdpert_noise       -  K. 
+
+upert_noise        -  m/s.
+
+vpert_noise        -  m/s.
+
+qvpert_noise       -  this number means add perturbations up to 1 g/kg (but limited to 99% RH)
+
+hradius            -  meters. horizontal filtering/length scale of smoothing
+
+vradius            -  meters. Vertical filtering/length scale of smoothing
+
+gaussV, gaussH     -  not currently used
+  
+r_seed_noise       -  seed for random noise- allows for reproducible experiments. 
+ 
+
+ 

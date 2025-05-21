@@ -285,10 +285,9 @@ if __name__ == "__main__":
       print(('\n  --> LETKF called with an outlier threshold of %d standard deviations' % outlier_threshold))
 
       mask  = np.where( (outlier <= outlier_threshold) & (outlier >= inlier_threshold), True, False )
-      # mask2 = np.where( kind == 11, True, False )
-      # print(("Mask before Vr mask:  ", np.count_nonzero(mask)))
-      # mask  = mask | mask2
-      # print(("Mask after Vr mask:  ", np.count_nonzero(mask)))
+
+      #mask = np.where( ((kind !=13) & (outlier <= outlier_threshold)) | ((kind==13) & (outlier >= 0.25)), True, False ) # only outliers for DBZ and VR, only inliers for DBZ0
+  
 
       kind   = kind[mask]
       value  = value[mask]

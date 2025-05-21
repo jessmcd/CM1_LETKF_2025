@@ -119,10 +119,10 @@ if __name__ == '__main__':
 
 	if options.ncores != None:
 		ncores = options.ncores
-		print(("\n Run_Fcst Script:  %d cores requested...." % nthreads))
+		print(("\n Run_Fcst Script:  %d cores requested...." % ncores))
 	else:
 		ncores = _ncores
-		print(("\n Run_Fcst Script:  defaulting to %d cores" % nthreads))
+		print(("\n Run_Fcst Script:  defaulting to %d cores" % ncores))
 	
 	if options.range == None:
 		ne = experiment['ne']
@@ -170,7 +170,7 @@ if __name__ == '__main__':
 		namelist['param2']['rstnum'] = 0
 
 	else:
-		output_basename = 'cm1' #cm1out #namelist['param9']['output_basename']
+		output_basename = experiment['fprefix']
 		namelist['param2']['irst']             = 1
 		print(FindRestartFile(experiment['fcst_members'][0],output_basename,start_time))
 		namelist['param2']['rstnum']           = FindRestartFile(experiment['fcst_members'][0],output_basename,start_time)

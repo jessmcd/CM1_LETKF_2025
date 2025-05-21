@@ -90,9 +90,7 @@ defaults = {
     'qvpert':        namelist.qvpert_noise,    
     'hradius':       namelist.hradius, 
     'vradius':       namelist.vradius,
-    'r_seed':        namelist.r_seed_noise, 
-    'gaussH':        namelist.gaussH, 
-    'gaussV':        namelist.gaussV 
+    'r_seed':        namelist.r_seed_noise
             },
                       
 "DA_PARAMS" : {

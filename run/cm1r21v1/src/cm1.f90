@@ -3693,7 +3693,7 @@
                           xh,rxh,uh,ruh,xf,uf,yh,vh,rvh,vf,zh,mh,rmh,zf,mf,   &
                           zs,rgzu,rgzv,rds,sigma,rdsf,sigmaf,                 &
                           rstat,pi0,rho0,thv0,th0,qv0,u0,v0,                  &
-                          dum1,dum2,dum3,dum4,dum5,ppten,prs, qtten,                &
+                          dum1,dum2,dum3,dum4,dum5,ppten,prs, qtten, ppten,               &
                           ua,va,wa,ppi,tha,qa,qten,kmh,kmv,khh,khv,tkea,qke,  &
                           tke_myj,xkzh,xkzq,xkzm,                             &
                           pta,u10,v10,hpbl,prate,reset,nstatout,restarted) !jessmcdo added qtten

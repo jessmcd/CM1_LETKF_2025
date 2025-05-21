@@ -1,0 +1,19 @@
+
+
+
+FILL IN DATA STRUCTURE NEEDED FOR OBSERVATIONS
+
+
+save observations into a csv file and place in run/observations
+
+the csv file should contain the following column headers:
+
+'azimuth', 'date', 'days', 'elevation', 'error_var', 'height', 'index', 'kind', 'lat', 'lon', 'seconds', 'utime', 'value', 'x', 'y', 'z'
+
+
+note that error_var will get overwritten in computeHx.py. 
+
+azimuth is in degrees with 0 to the north
+date is in datetime format
+elevation is in meters
+kind is observation type: 11 = VR, 12 = DBZ, 13 = DBZ0, 14=DBZ0_W (see namelist readme for info on what these variables are)

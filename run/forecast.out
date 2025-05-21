@@ -1,0 +1,1345 @@
+
+ ==> RUN_FCST: Date&time supplied: 2024 05-08 20:30:00, which corresponds to a local model time of 3600 sec
+
+ Run_Fcst Script:  defaulting to 1 threads
+
+ Run_Fcst Script:  1 cores requested....
+
+ Run_Fcst Script: Number ensemble members to run not supplied, defaulting to experiment file:  36
+
+ Run_Fcst Script: Integrating 036 ensemble members for 7200 seconds
+
+ Found time 3600 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000012.nc
+12
+
+ Found time 3600 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000012.nc
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member002 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member002 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member003 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member003 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member004 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member004 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member005 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member005 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member006 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member006 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member007 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member007 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member008 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member008 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member009 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member009 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member010 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member010 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member011 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member011 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member012 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member012 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member013 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member013 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member014 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member014 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member015 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member015 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member016 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member016 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member017 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member017 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member018 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member018 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member019 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member019 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member020 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member020 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member021 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member021 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member022 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member022 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member023 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member023 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member024 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member024 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member025 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member025 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member026 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member026 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member027 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member027 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member028 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member028 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member029 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member029 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member030 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member030 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member031 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member031 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member032 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member032 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member033 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member033 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member034 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member034 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member035 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member035 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member036 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member036 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member002
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member002/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member002/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member003
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member003/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member003/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member004
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member004/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member004/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member005
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member005/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member005/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member006
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member006/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member006/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member007
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member007/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member007/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member008
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member008/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member008/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member009
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member009/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member009/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member010
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member010/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member010/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member011
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member011/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member011/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member012
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member012/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member012/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member013
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member013/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member013/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member014
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member014/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member014/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member015
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member015/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member015/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member016
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member016/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member016/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member017
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member017/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member017/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member018
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member018/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member018/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member019
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member019/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member019/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member020
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member020/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member020/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member021
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member021/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member021/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member022
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member022/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member022/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member023
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member023/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member023/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member024
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member024/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member024/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member025
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member025/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member025/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member026
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member026/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member026/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member027
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member027/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member027/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member028
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member028/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member028/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member029
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member029/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member029/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member030
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member030/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member030/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member031
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member031/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member031/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member032
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member032/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member032/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member033
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member033/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member033/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member034
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member034/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member034/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member035
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member035/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member035/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member036
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member036/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member036/cm1.out is the outputfile path
+
+Run_Fcst Script: Model runs integrated out 7200 seconds, used   4353.493000  CPU secs
+
+
+ 
+ <<<<<======================================================================>>>>>> 
+ 
+
+     EXPERIMENT CALCULATIONS!       
+
+ 
+PRODUCING FORECAST FILES
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 20:30:00
+
+ ==> FindRestartFile:  Found time 3600 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000012.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 20:30:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 25.845  sec
+
+ Wallclock time to convert from C to A grid: 0.668  sec
+
+ Wallclock time to create ensemble means: 1.201  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 28.449  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 20:35:00
+
+ ==> FindRestartFile:  Found time 3900 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000013.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 20:35:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 30.815  sec
+
+ Wallclock time to convert from C to A grid: 0.786  sec
+
+ Wallclock time to create ensemble means: 1.21  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 33.565  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 20:40:00
+
+ ==> FindRestartFile:  Found time 4200 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000014.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 20:40:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 30.283  sec
+
+ Wallclock time to convert from C to A grid: 0.7  sec
+
+ Wallclock time to create ensemble means: 1.208  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 32.934  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 20:45:00
+
+ ==> FindRestartFile:  Found time 4500 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000015.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 20:45:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 25.347  sec
+
+ Wallclock time to convert from C to A grid: 0.693  sec
+
+ Wallclock time to create ensemble means: 1.206  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 27.985  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 20:50:00
+
+ ==> FindRestartFile:  Found time 4800 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000016.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 20:50:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 30.983  sec
+
+ Wallclock time to convert from C to A grid: 0.797  sec
+
+ Wallclock time to create ensemble means: 1.21  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 33.731  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 20:55:00
+
+ ==> FindRestartFile:  Found time 5100 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000017.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 20:55:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 27.994  sec
+
+ Wallclock time to convert from C to A grid: 0.692  sec
+
+ Wallclock time to create ensemble means: 1.218  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 30.645  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 21:00:00
+
+ ==> FindRestartFile:  Found time 5400 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000018.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 21:00:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 26.614  sec
+
+ Wallclock time to convert from C to A grid: 0.689  sec
+
+ Wallclock time to create ensemble means: 1.216  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 29.262  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 21:05:00
+
+ ==> FindRestartFile:  Found time 5700 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000019.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 21:05:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 28.577  sec
+
+ Wallclock time to convert from C to A grid: 0.786  sec
+
+ Wallclock time to create ensemble means: 1.211  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 31.321  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 21:10:00
+
+ ==> FindRestartFile:  Found time 6000 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000020.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 21:10:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 27.797  sec
+
+ Wallclock time to convert from C to A grid: 0.812  sec
+
+ Wallclock time to create ensemble means: 1.214  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 30.571  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 21:15:00
+
+ ==> FindRestartFile:  Found time 6300 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000021.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 21:15:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 32.073  sec
+
+ Wallclock time to convert from C to A grid: 0.804  sec
+
+ Wallclock time to create ensemble means: 1.189  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 34.808  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 21:20:00
+
+ ==> FindRestartFile:  Found time 6600 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000022.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 21:20:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 31.268  sec
+
+ Wallclock time to convert from C to A grid: 0.805  sec
+
+ Wallclock time to create ensemble means: 1.191  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 34.002  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 21:25:00
+
+ ==> FindRestartFile:  Found time 6900 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000023.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 21:25:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 38.533  sec
+
+ Wallclock time to convert from C to A grid: 0.806  sec
+
+ Wallclock time to create ensemble means: 1.255  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 41.334  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 21:30:00
+
+ ==> FindRestartFile:  Found time 7200 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000024.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 21:30:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 35.032  sec
+
+ Wallclock time to convert from C to A grid: 0.806  sec
+
+ Wallclock time to create ensemble means: 1.253  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 37.833  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 21:35:00
+
+ ==> FindRestartFile:  Found time 7500 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000025.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 21:35:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 36.109  sec
+
+ Wallclock time to convert from C to A grid: 0.812  sec
+
+ Wallclock time to create ensemble means: 1.254  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 38.914  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 21:40:00
+
+ ==> FindRestartFile:  Found time 7800 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000026.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 21:40:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 31.91  sec
+
+ Wallclock time to convert from C to A grid: 0.805  sec
+
+ Wallclock time to create ensemble means: 1.252  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 34.71  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 21:45:00
+
+ ==> FindRestartFile:  Found time 8100 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000027.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 21:45:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 33.271  sec
+
+ Wallclock time to convert from C to A grid: 0.804  sec
+
+ Wallclock time to create ensemble means: 1.253  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 36.068  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 21:50:00
+
+ ==> FindRestartFile:  Found time 8400 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000028.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 21:50:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 32.846  sec
+
+ Wallclock time to convert from C to A grid: 0.804  sec
+
+ Wallclock time to create ensemble means: 1.252  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 35.642  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 21:55:00
+
+ ==> FindRestartFile:  Found time 8700 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000029.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 21:55:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 31.387  sec
+
+ Wallclock time to convert from C to A grid: 0.808  sec
+
+ Wallclock time to create ensemble means: 1.254  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 34.188  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 22:00:00
+
+ ==> FindRestartFile:  Found time 9000 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000030.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 22:00:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 38.695  sec
+
+ Wallclock time to convert from C to A grid: 0.813  sec
+
+ Wallclock time to create ensemble means: 1.254  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 41.505  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 22:05:00
+
+ ==> FindRestartFile:  Found time 9300 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000031.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 22:05:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 38.892  sec
+
+ Wallclock time to convert from C to A grid: 0.812  sec
+
+ Wallclock time to create ensemble means: 1.244  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 41.692  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 22:10:00
+
+ ==> FindRestartFile:  Found time 9600 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000032.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 22:10:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 35.481  sec
+
+ Wallclock time to convert from C to A grid: 0.808  sec
+
+ Wallclock time to create ensemble means: 1.247  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 38.284  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 22:15:00
+
+ ==> FindRestartFile:  Found time 9900 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000033.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 22:15:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 36.03  sec
+
+ Wallclock time to convert from C to A grid: 0.808  sec
+
+ Wallclock time to create ensemble means: 1.252  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 39.37  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 22:20:00
+
+ ==> FindRestartFile:  Found time 10200 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000034.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 22:20:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 37.321  sec
+
+ Wallclock time to convert from C to A grid: 0.807  sec
+
+ Wallclock time to create ensemble means: 1.251  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 40.127  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 22:25:00
+
+ ==> FindRestartFile:  Found time 10500 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000035.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 22:25:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 39.922  sec
+
+ Wallclock time to convert from C to A grid: 0.808  sec
+
+ Wallclock time to create ensemble means: 1.251  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 42.727  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 22:30:00
+
+ ==> FindRestartFile:  Found time 10800 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001/cm1rst_000036.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 22:30:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 37.748  sec
+
+ Wallclock time to convert from C to A grid: 0.81  sec
+
+ Wallclock time to create ensemble means: 1.252  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 40.556  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 20:30:00
+
+ ==> FindRestartFile:  Found time 3600 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member001/cm1rst_000012.nc
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/cm1.exe to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/onefile.F to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/LANDUSE.TBL to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/namelist.input to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member001/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member001/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member001/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member001/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member001
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member002
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member002
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member002
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member002
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member002
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member002
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member002
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member002
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member002/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member002
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member002/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member002
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member002/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member002
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member002/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member002
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member003
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member003
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member003
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member003
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member003
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member003
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member003
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member003
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member003/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member003
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member003/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member003
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member003/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member003
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member003/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member003
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member004
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member004
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member004
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member004
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member004
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member004
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member004
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member004
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member004/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member004
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member004/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member004
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member004/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member004
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member004/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member004
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member005
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member005
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member005
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member005
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member005
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member005
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member005
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member005
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member005/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member005
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member005/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member005
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member005/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member005
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member005/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member005
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member006
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member006
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member006
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member006
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member006
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member006
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member006
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member006
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member006/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member006
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member006/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member006
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member006/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member006
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member006/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member006
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member007
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member007
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member007
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member007
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member007
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member007
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member007
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member007
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member007/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member007
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member007/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member007
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member007/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member007
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member007/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member007
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member008
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member008
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member008
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member008
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member008
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member008
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member008
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member008
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member008/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member008
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member008/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member008
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member008/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member008
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member008/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member008
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member009
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member009
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member009
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member009
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member009
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member009
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member009
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member009
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member009/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member009
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member009/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member009
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member009/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member009
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member009/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member009
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member010
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member010
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member010
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member010
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member010
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member010
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member010
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member010
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member010/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member010
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member010/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member010
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member010/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member010
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member010/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member010
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member011
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member011
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member011
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member011
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member011
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member011
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member011
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member011
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member011/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member011
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member011/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member011
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member011/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member011
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member011/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member011
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member012
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member012
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member012
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member012
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member012
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member012
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member012
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member012
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member012/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member012
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member012/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member012
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member012/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member012
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member012/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member012
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member013
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member013
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member013
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member013
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member013
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member013
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member013
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member013
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member013/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member013
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member013/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member013
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member013/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member013
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member013/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member013
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member014
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member014
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member014
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member014
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member014
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member014
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member014
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member014
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member014/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member014
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member014/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member014
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member014/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member014
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member014/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member014
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member015
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member015
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member015
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member015
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member015
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member015
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member015
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member015
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member015/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member015
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member015/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member015
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member015/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member015
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member015/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member015
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member016
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member016
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member016
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member016
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member016
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member016
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member016
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member016
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member016/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member016
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member016/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member016
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member016/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member016
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member016/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member016
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member017
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member017
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member017
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member017
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member017
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member017
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member017
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member017
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member017/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member017
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member017/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member017
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member017/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member017
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member017/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member017
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member018
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member018
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member018
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member018
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member018
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member018
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member018
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member018
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member018/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member018
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member018/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member018
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member018/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member018
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member018/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member018
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member019
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member019
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member019
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member019
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member019
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member019
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member019
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member019
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member019/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member019
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member019/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member019
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member019/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member019
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member019/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member019
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member020
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member020
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member020
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member020
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member020
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member020
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member020
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member020
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member020/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member020
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member020/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member020
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member020/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member020
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member020/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member020
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member021
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member021
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member021
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member021
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member021
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member021
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member021
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member021
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member021/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member021
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member021/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member021
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member021/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member021
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member021/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member021
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member022
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member022
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member022
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member022
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member022
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member022
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member022
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member022
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member022/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member022
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member022/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member022
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member022/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member022
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member022/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member022
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member023
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member023
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member023
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member023
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member023
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member023
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member023
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member023
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member023/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member023
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member023/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member023
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member023/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member023
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member023/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member023
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member024
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member024
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member024
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member024
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member024
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member024
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member024
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member024
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member024/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member024
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member024/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member024
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member024/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member024
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member024/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member024
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member025
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member025
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member025
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member025
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member025
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member025
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member025
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member025
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member025/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member025
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member025/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member025
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member025/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member025
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member025/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member025
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member026
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member026
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member026
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member026
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member026
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member026
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member026
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member026
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member026/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member026
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member026/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member026
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member026/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member026
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member026/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member026
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member027
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member027
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member027
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member027
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member027
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member027
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member027
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member027
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member027/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member027
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member027/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member027
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member027/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member027
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member027/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member027
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member028
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member028
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member028
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member028
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member028
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member028
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member028
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member028
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member028/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member028
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member028/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member028
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member028/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member028
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member028/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member028
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member029
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member029
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member029
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member029
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member029
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member029
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member029
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member029
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member029/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member029
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member029/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member029
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member029/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member029
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member029/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member029
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member030
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member030
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member030
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member030
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member030
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member030
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member030
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member030
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member030/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member030
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member030/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member030
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member030/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member030
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member030/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member030
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member031
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member031
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member031
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member031
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member031
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member031
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member031
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member031
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member031/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member031
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member031/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member031
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member031/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member031
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member031/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member031
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member032
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member032
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member032
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member032
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member032
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member032
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member032
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member032
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member032/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member032
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member032/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member032
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member032/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member032
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member032/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member032
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member033
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member033
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member033
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member033
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member033
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member033
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member033
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member033
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member033/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member033
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member033/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member033
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member033/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member033
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member033/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member033
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member034
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member034
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member034
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member034
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member034
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member034
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member034
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member034
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member034/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member034
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member034/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member034
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member034/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member034
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member034/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member034
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member035
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member035
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member035
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member035
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member035
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member035
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member035
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member035
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member035/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member035
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member035/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member035
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member035/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member035
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member035/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member035
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member036
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/cm1.exe to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member036
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member036
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/onefile.F to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member036
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member036
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/LANDUSE.TBL to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member036
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member036
+Linked /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/namelist.input to directory  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member036
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member036/input_sounding  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member036
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member036/input_sounding to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member036
+LINKIT:  ARG[0]: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member036/cm1rst_000012.nc  ARG[1]:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member036
+Copied /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/member036/cm1rst_000012.nc to directory /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min/FORECAST_20240508_2030/member036

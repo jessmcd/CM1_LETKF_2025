@@ -13,7 +13,7 @@
                           xh,rxh,uh,ruh,xf,uf,yh,vh,rvh,vf,zh,mh,rmh,zf,mf,   &
                           zs,rgzu,rgzv,rds,sigma,rdsf,sigmaf,                 &
                           rstat,pi0,rho0,thv0,th0,qv0,u0,v0,                  &
-                          dum1,dum2,dum3,dum4,dum5,rho  ,prs, qtten,                &
+                          dum1,dum2,dum3,dum4,dum5,rho  ,prs, qtten, ppten,               &
                           ua,va,wa,ppi,tha,qa,vq  ,kmh,kmv,khh,khv,tkea,qke,  &
                           tke_myj,xkzh,xkzq,xkzm,                             &
                           pta,u10,v10,hpbl,prate,reset,nstatout,restarted)
@@ -50,7 +50,7 @@
       real, intent(in), dimension(kb:ke+1) :: rdsf,sigmaf
       real, dimension(stat_out) :: rstat
       real, dimension(ib:ie,jb:je,kb:ke) :: pi0,rho0,thv0,th0,qv0
-      real, dimension(ib:ie,jb:je,kb:ke) :: dum1,dum2,dum3,dum4,dum5,rho,prs, qtten
+      real, dimension(ib:ie,jb:je,kb:ke) :: dum1,dum2,dum3,dum4,dum5,rho,prs, qtten, ppten
       real, dimension(ib:ie+1,jb:je,kb:ke) :: u0,ua
       real, dimension(ib:ie,jb:je+1,kb:ke) :: v0,va
       real, dimension(ib:ie,jb:je,kb:ke+1) :: wa
@@ -243,6 +243,14 @@
       ! calculate domain mean QR
       call calc_3D_mean(nstat,rstat,qa(ib,jb,kb,nqr),'QRMEAN')
 
+      ! calculate lowest model level pressure tendcies
+      do j=1, nj
+      do i=1, ni
+          dum5(i,j,1) = abs( ppten(i,j,1) )
+      enddo
+      enddo
+      call calc_2D_mean(nstat,rstat,dum5(ib,jb,1),'PPTENMEAN')
+
 
       !!!
   !!! end WTG calculation
@@ -390,6 +398,16 @@
       ENDIF
         call maxmin(ni,nj,nk,dum5,nstat,rstat,kmin,kmax,'DIVMAX','DIVMIN')
         ! maxmin(izz,jzz,kzz,f,nstat,rstat,kmin,kmax,amax,amin)
+
+        ! now take the absolute value of the divergence and find the mean at the lowest model level
+        do j=1,nj
+        do i=1,ni
+          dum5(i,j,1) = abs ( dum5(i,j,1) ) 
+        enddo
+        enddo
+
+        call calc_2D_mean(nstat,rstat,dum5(ib,jb,1),'DIVMEAN')
+        
         
       endif
 
@@ -494,7 +512,6 @@
         enddo
         enddo
         call maxmin2d(ni,nj,dum1(ib,jb,1),nstat,rstat,'PSFCMX','PSFCMN')
-        !call calcTEST2d(nstat,rstat,prs(ib,jb,1),'PSFCMX','PSFCMN') !jessmcdo 1st model level
         call calc_2D_mean(nstat,rstat,dum1(ib,jb,1),'PSFCMEAN') !jessmcdo sfc pressure
       endif
 
@@ -850,6 +867,12 @@
       name_stat(stat_out) = 'qrmean'
       desc_stat(stat_out) = 'domain mean qr, for use in WTG calculation'
       unit_stat(stat_out) = 'kg/kg'
+
+
+      stat_out = stat_out+1
+      name_stat(stat_out) = 'pptenmean'
+      desc_stat(stat_out) = 'mean absolute tendency of pressure at the lowest model level '
+      unit_stat(stat_out) = 'pa'
       
     endif
 
@@ -1148,6 +1171,11 @@
       stat_out = stat_out+1
       name_stat(stat_out) = 'divmin'
       desc_stat(stat_out) = 'min 3d divergence'
+      unit_stat(stat_out) = '1/s'
+
+      stat_out = stat_out+1
+      name_stat(stat_out) = 'divmean'
+      desc_stat(stat_out) = 'mean of abs(divergence) at lowest model level'
       unit_stat(stat_out) = '1/s'
     endif
 

@@ -3,7 +3,7 @@ import datetime as dt
 
 #### BASIC SETUP #######
 
-base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/Control"# do not include final "/"
+base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2"# do not include final "/"
 fprefix             = "cm1"
 ne                  = 36
 model               = "cm1r21v1/run/cm1.exe"
@@ -11,7 +11,7 @@ src                 = "cm1r21v1/run/onefile.F"
 namelist            = "cm1r21v1/run/namelist.input"
 landsfc             = "cm1r21v1/run/LANDUSE.TBL"
 sounding            = "soundings/"
-radar_obs           = "observations/8may24_cm1_5km_obs.csv"
+radar_obs           = "observations/8may24_cm1_5km_obs_loc2.csv"
 nthreads            = 8
 ncores              = 64
 
@@ -20,34 +20,35 @@ auto_model_start    = True   # allows you to have the program automatically dete
 lat0                = 35.23583
 lon0                = -97.46194
 hgt                 = 0
-xoffset             = -180000.0
-yoffset             = -180000.0
+xoffset             = -200000#-180000.0 
+yoffset             = -105000#-180000.0
 microphysics        = 27 #same as CM1 ptype
 
 # settings to help facilitate experiments: set all to True for a normal experiment
-run_setup           = True  # DA experiment only - ensemble "cook time" has already been done
-run_cook            = True  # run the warm up period before DA starts
-run_assim           = False  # does the assimilation 
-run_forecast        = False  # does the forecast
-make_plots          = False  # if you want to make the summary plots at the end (these need work... lolz)
+run_setup           = False  # DA experiment only - ensemble "cook time" has already been done
+run_cook            = False  # run the warm up period before DA starts
+run_assim           = True  # does the assimilation 
+run_forecast        = True  # does the forecast
+make_plots          = False  # if you want to make the summary plots at the end (these need work... lol)
 
-pre_cook            = False # IF THIS IS TRUE = run_setup and run_cook are ignored! It copies the directory below and sets up a new experiment
+#### additional, more specialized settings
+pre_cook            = True# IF THIS IS TRUE = run_setup and run_cook are ignored! It copies the directory below and sets up a new experiment
                            # only do this if you have "locked in" your inital CM1 set up
 cook_path           = '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/cooked_ens_30min'
 
 ### DATA ASSIMILATION PARAMETERS ###
 
-DA_start_time       = dt.datetime(2024, 5, 8, 20) # if run_assim is false, this is the start of "run forecast" if using a precooked run
+DA_start_time       = dt.datetime(2024, 5, 8, 20,0) # if run_assim is false, this is the start of "run forecast" if using a precooked run
 DA_end_time         = dt.datetime(2024, 5, 8, 21,30) # time that DA will end (inclusive)
-assim_freq          = 300  # 5 minutes
-cook_period         = 1080#7200#1800 # 30 minutes
+assim_freq          = 180  # 3 minutes
+cook_period         = 1800 # 30 minutes
 cook_freq           = 300  # note: cook_period must be evenly divisible by cook_freq
 forecast_length     = 3600 #2.5 hrs min for control #3600 # 60 minutes
 forecast_freq       = 300 # 5 minutes
 
 obs_include         = ['DBZ', 'VR', 'DBZ0'] #options: DBZ, VR, DBZ0, DBZ0_W(updates w instead of ref)
-obs_error           = {'VR':4.24, 'DBZ':9.899, 'DBZ0':7.071, 'DBZ0_W': 0.5} #{'VR':5.196, 'DBZ':12.124, 'DBZ0':8.660} #{'VR':3.0, 'DBZ':7.0, 'DBZ0':5.0, 'DBZ0_W': 0.5} #7
-aInflate            = 1
+obs_error           = {'VR':3.0, 'DBZ':7.0, 'DBZ0':5.0, 'DBZ0_W': 0.5} #{'VR':4.24, 'DBZ':9.899, 'DBZ0':7.071, 'DBZ0_W': 0.5} #{'VR':5.196, 'DBZ':12.124, 'DBZ0':8.660}
+aInflate            = 3  # 1 is letkf adaptive, 3 is RTPP
 outlier             = 3
 inlier              = 0.0 # set to 0 to turn off
 nthreads            = 8
@@ -114,7 +115,6 @@ r_seed              = 2147483562
 
 ### ADDING NOISE TO MODEL FIELDS ###
 
-add_noise           = False
 min_dbz_4pert       = 25
 tpert_noise         = 1.0
 wpert_noise         = 0.5
@@ -125,8 +125,6 @@ qvpert_noise        = 0.0
 hradius             = 9000.
 vradius             = 4000.
 r_seed_noise        = 123321
-gaussH              = 5
-gaussV              = 5
 
 
 #### DONT EDIT BELOW THIS ########

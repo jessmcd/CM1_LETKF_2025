@@ -1,0 +1,31 @@
+README for forecast_namelist.py
+
+*** For use only after a DA experiment as been completed. This script allows you to run additional forecasts (other than the 1 forecast that can be run after the DA experiment, as controlled by namelist.py)
+
+You can run a single forecast, or run multiple at a specified time interval (i.e., a new forecast is launched every 30 minutes)
+You can set all forecasts to end at the same time (i.e., the first forecast will be longer than any proceeding forecast), or set all forecasts to be the same length. 
+For each launched forecast, a new directory in base_dir is made called FORECAST_YYmmdd_HHMM that will contain all forecast members. To change this, edit forecast_driver.py in the src folder. 
+
+
+---- BASIC SETUP ----
+
+base_dir                  –  filepath to directory that includes your completed experiment (the same as the base_dir in namelist.py)
+
+ncores                    –  number of cores to run CM1 with (mpirun)
+
+forecast_output_freq      –  seconds. Frequency that cm1rst files are output during the forecast period
+
+forecast_start            –  datetime object. Starting time of your forecast (or of the first forecast)
+
+forecast_end              -  datetime object. End time for your forecast. This can be overwritten by forecast_len, see below
+
+
+forecast_launch_frequency -  seconds. If more than zero, this is the interval at which new forecasts will be launched. 
+
+same_end_time             -  bool. If you are launching more than one forecast (forecast_launch_frequency > 0) and this is set to True, then forecast_end is used to clip all forecasts (forecast_len is ignored)
+
+forecast_len              -  seconds. If forecast_len is greater than zero and same_end_time is set to False, the all forecasts will run for the time specified by forecast_len
+
+
+
+To run forecasts, edit this script and then run RUN_forecast.sh, which will run forecast_driver.py in the src folder. 

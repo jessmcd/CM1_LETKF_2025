@@ -111,8 +111,8 @@ if run_fcst:
         os.system(f"python stats_calc.py -e {exp_name} -f") # combine forecast plots into single file
 
 #--------------------------------------------------------------------------
-# Make a few plots every 10 minutes
-if run_assim:
+# Run some stats if you just did the assimilation
+if run_assim | run_fcst:
     os.system(f"python stats_calc.py -e {exp_name} -w") # after everything, calculate weak thermal gradient calculation 
 
 #--------------------------------------------------------------------------
