@@ -1,19 +1,26 @@
 
+Save your synthetic or real observations into a csv file and place in run/observations directory.
 
-
-FILL IN DATA STRUCTURE NEEDED FOR OBSERVATIONS
-
-
-save observations into a csv file and place in run/observations
-
-the csv file should contain the following column headers:
+The csv file should contain the following column headers:
 
 'azimuth', 'date', 'days', 'elevation', 'error_var', 'height', 'index', 'kind', 'lat', 'lon', 'seconds', 'utime', 'value', 'x', 'y', 'z'
 
+VARIABLE DESCRIPTIONS
 
-note that error_var will get overwritten in computeHx.py. 
+date        -  full date, can use datetime object or Timestamp
+days        -  days since 1601-01-01 00:00:00
+utime       -  seconds since 1970-01-01 00:00:00
+seconds     -  seconds since start of current day
 
-azimuth is in degrees with 0 to the north
-date is in datetime format
-elevation is in meters
-kind is observation type: 11 = VR, 12 = DBZ, 13 = DBZ0, 14=DBZ0_W (see namelist readme for info on what these variables are)
+x           -  meters. x location relative to radar
+y           -  meters. y location relative to radar
+z           -  meters. height relative to radar
+lat         -  deg latitude (relative to assigned lat0/lon0 for radar location in namelist.py)
+lon         -  deg longitude (relative to assigned lat0/lon0 for radar location in namelist.py)
+elevation   -  deg. elevation angle of radar data
+azimuth     -  deg. Zero is north. azimuth of radar data
+value       -  data value 
+
+kind        -  observation type: 11 = VR, 12 = DBZ, 13 = DBZ0, 14=DBZ0_W (see namelist readme for info on what these variables are)
+error_var   -  observation error variance (error squared). This is overwritten in computeHx.py using error values assigned in namelist 
+index       -  rangeIndex for data (0 to N observations)

@@ -29421,3 +29421,722 @@ COMBINING FILES
  READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
  READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
  READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+ READ_NAMELIST: PROBLEM WITH NSSL_MP_PARAMS namelist: not found or bad token
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member001 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member001 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member002 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member002 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member003 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member003 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member004 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member004 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member005 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member005 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member006 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member006 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member007 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member007 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member008 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member008 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member009 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member009 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member010 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member010 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member011 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member011 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member012 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member012 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member013 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member013 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member014 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member014 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member015 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member015 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member016 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member016 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member017 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member017 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member018 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member018 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member019 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member019 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member020 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member020 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member021 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member021 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member022 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member022 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member023 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member023 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member024 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member024 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member025 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member025 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member026 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member026 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member027 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member027 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member028 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member028 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member029 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member029 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member030 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member030 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member031 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member031 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member032 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member032 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member033 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member033 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member034 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member034 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member035 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member035 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Executing command:  cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member036 ; mpirun -n 64 cm1.exe >> cm1.out 
+
+ cd /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member036 ; mpirun -n 64 cm1.exe >> cm1.out completed....
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member001
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member001/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member001/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member002
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member002/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member002/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member003
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member003/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member003/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member004
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member004/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member004/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member005
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member005/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member005/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member006
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member006/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member006/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member007
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member007/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member007/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member008
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member008/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member008/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member009
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member009/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member009/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member010
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member010/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member010/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member011
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member011/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member011/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member012
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member012/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member012/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member013
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member013/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member013/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member014
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member014/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member014/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member015
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member015/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member015/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member016
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member016/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member016/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member017
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member017/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member017/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member018
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member018/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member018/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member019
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member019/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member019/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member020
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member020/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member020/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member021
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member021/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member021/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member022
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member022/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member022/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member023
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member023/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member023/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member024
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member024/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member024/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member025
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member025/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member025/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member026
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member026/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member026/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member027
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member027/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member027/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member028
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member028/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member028/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member029
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member029/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member029/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member030
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member030/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member030/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member031
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member031/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member031/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member032
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member032/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member032/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member033
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member033/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member033/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member034
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member034/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member034/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member035
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member035/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member035/cm1.out is the outputfile path
+
+ Now setting up forecast member: /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member036
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member036/cm1.exe is the model path
+/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member036/cm1.out is the outputfile path
+
+Run_Fcst Script: Model runs integrated out 3600 seconds, used   2550.285000  CPU secs
+
+
+ 
+ <<<<<======================================================================>>>>>> 
+ 
+
+     EXPERIMENT CALCULATIONS!       
+
+ 
+PRODUCING FORECAST FILES
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 21:35:00
+
+ ==> FindRestartFile:  Found time 7500 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member001/cm1rst_000037.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 21:35:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 14.194  sec
+
+ Wallclock time to convert from C to A grid: 0.673  sec
+
+ Wallclock time to create ensemble means: 1.198  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 16.804  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 21:40:00
+
+ ==> FindRestartFile:  Found time 7800 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member001/cm1rst_000038.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 21:40:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 9.8  sec
+
+ Wallclock time to convert from C to A grid: 0.671  sec
+
+ Wallclock time to create ensemble means: 1.202  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 12.419  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 21:45:00
+
+ ==> FindRestartFile:  Found time 8100 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member001/cm1rst_000039.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 21:45:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 10.426  sec
+
+ Wallclock time to convert from C to A grid: 0.676  sec
+
+ Wallclock time to create ensemble means: 1.199  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 13.051  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 21:50:00
+
+ ==> FindRestartFile:  Found time 8400 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member001/cm1rst_000040.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 21:50:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 10.941  sec
+
+ Wallclock time to convert from C to A grid: 0.675  sec
+
+ Wallclock time to create ensemble means: 1.205  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 13.564  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 21:55:00
+
+ ==> FindRestartFile:  Found time 8700 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member001/cm1rst_000041.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 21:55:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 10.53  sec
+
+ Wallclock time to convert from C to A grid: 0.677  sec
+
+ Wallclock time to create ensemble means: 1.207  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 13.16  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 22:00:00
+
+ ==> FindRestartFile:  Found time 9000 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member001/cm1rst_000042.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 22:00:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 8.19  sec
+
+ Wallclock time to convert from C to A grid: 0.677  sec
+
+ Wallclock time to create ensemble means: 1.202  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 10.816  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 22:05:00
+
+ ==> FindRestartFile:  Found time 9300 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member001/cm1rst_000043.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 22:05:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 6.388  sec
+
+ Wallclock time to convert from C to A grid: 0.672  sec
+
+ Wallclock time to create ensemble means: 1.201  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 9.003  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 22:10:00
+
+ ==> FindRestartFile:  Found time 9600 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member001/cm1rst_000044.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 22:10:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 11.218  sec
+
+ Wallclock time to convert from C to A grid: 0.678  sec
+
+ Wallclock time to create ensemble means: 1.204  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 13.848  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 22:15:00
+
+ ==> FindRestartFile:  Found time 9900 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member001/cm1rst_000045.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 22:15:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 12.657  sec
+
+ Wallclock time to convert from C to A grid: 0.675  sec
+
+ Wallclock time to create ensemble means: 1.205  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 15.286  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 22:20:00
+
+ ==> FindRestartFile:  Found time 10200 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member001/cm1rst_000046.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 22:20:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 10.919  sec
+
+ Wallclock time to convert from C to A grid: 0.677  sec
+
+ Wallclock time to create ensemble means: 1.202  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 13.546  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 22:25:00
+
+ ==> FindRestartFile:  Found time 10500 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member001/cm1rst_000047.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 22:25:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 11.116  sec
+
+ Wallclock time to convert from C to A grid: 0.676  sec
+
+ Wallclock time to create ensemble means: 1.203  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 13.74  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ ==> FindRestartFiles: Date and time supplied is 2024_05_08 22:30:00
+
+ ==> FindRestartFile:  Found time 10800 in file:  /work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member001/cm1rst_000048.nc
+
+ ==> READ_CM1_ENS:  No state_vector supplied - trying to match microphysics schemes
+
+ ==> READ_CM1_ENS ==> Matching state_vector found !!! using zvdh
+
+ ==> READ_CM1_ENS: reading from time INDEX:  0
+ ==> READ_CM1_ENS: reading from state TIME:  2024-05-08 22:30:00 
+
+
+ Wallclock time for serial read netCDF ensemble files: 9.976  sec
+
+ Wallclock time to convert from C to A grid: 0.672  sec
+
+ Wallclock time to create ensemble means: 1.203  sec
+
+ Wallclock time to read arrays from netCDF ensemble files: 12.593  sec
+
+ Wallclock time to create coordinates: 0.0  sec
+
+ 
+ <<<<<======================================================================>>>>>> 
+ 
+
+     EXPERIMENT CALCULATIONS!       
+
+ 
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member001/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member002/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member003/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member004/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member005/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member006/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member007/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member008/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member009/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member010/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member011/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member012/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member013/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member014/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member015/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member016/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member017/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member018/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member019/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member020/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member021/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member022/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member023/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member024/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member025/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member026/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member027/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member028/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member029/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member030/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member031/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member032/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member033/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member034/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member035/cm1out_000*.nc': No such file or directory
+rm: cannot remove '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_RTPP_05_loc2/member036/cm1out_000*.nc': No such file or directory
+/work/jessica.mcdonald/CM1_LETKF_2025/src
+True
+copying over existing CM1 ensemble
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T20:00:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T20:03:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T20:06:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T20:09:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T20:12:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T20:15:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T20:18:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T20:21:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T20:24:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T20:27:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T20:30:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T20:33:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T20:36:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T20:39:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T20:42:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T20:45:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T20:48:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T20:51:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T20:54:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T20:57:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T21:00:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T21:03:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T21:06:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T21:09:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T21:12:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T21:15:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T21:18:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T21:21:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T21:24:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T21:27:00.000000!!!!
+ **************** 
+ **************** 
+ now starting time = 2024-05-08T21:30:00.000000!!!!
+RUNNING FORECAST
+3600
+
+Ended CM1 OSSE experiment
