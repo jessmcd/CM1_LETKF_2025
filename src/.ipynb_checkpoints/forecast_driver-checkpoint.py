@@ -61,7 +61,7 @@ forecast_launch_freq = namelist.forecast_launch_freq # seconds. if more than zer
 same_end_time        = namelist.same_end_time 
 
 name = base_dir.split('/')[-1]
-exp_name = f'{base_dir}/{name}.exp' # name of json file with all of the experiment info
+exp_name = f'{base_dir}/letkf.exp' # name of json file with all of the experiment info
 
 # open experiment file to get experiment info
 with open(exp_name, 'rb') as f: exper = json.load(f)
@@ -141,7 +141,7 @@ for time in times:
     exper['fcst_path']    = fpath
     exper['fcst_members'] = fcst_members
     
-    exp_name = os.path.join(fpath,os.path.basename(fpath)+'.exp' )
+    exp_name = os.path.join(fpath,'fcst.exp' )
     with open(exp_name, 'w') as handle:
         json.dump(exper, handle, default = myconverter)
     

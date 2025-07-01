@@ -9,7 +9,7 @@
 
 1.  Compilation.
 
-a)  compile the cm1r21v1 code. If you want to use older versions of CM1, you will need to make a number of edits in ens.py and run_fcst.py (possibly others). Older versions of CM1 have differently named restart files (cm1_rst_XXXXXX vs cm1rst_XXXX) and the restart files also don't have a time dimension, so they are 3D rather than 4D. 
+a)  compile the cm1r21v1 code. If you want to use older versions of CM1, you will need to make a number of edits in ens.py and run_fcst.py (possibly others). Older versions of CM1 have differently named restart files (cm1_rst_XXXXXX vs cm1rst_XXXX) and the restart files also don't have a time dimension, so they are 3D rather than 4D. Note that in the provided version of CM1, Statspack.F and Misclibs.F have been altered to output pressure tendency proxies, domean mean qr, and mean 5-km AGL vertical velocity. If stats are output at every timestep (in the cm1out_stats.nc file), you can calculate dp/ds and weak temperature gradient w residuals for model balance metrics.
 
 b)  compile the code in fsrc:  *** this needs work because it has been manually edited to point to my conda environment ***
 
@@ -40,7 +40,8 @@ To edit the assimilated data and/or the base state sounding(s), make sure the ob
 -----------------------------------------------------------------------------------------------
 Overview of how the program works:
 
-The python script create_run_letkf.py reads in the namelist, saves the important values into a json  which is then placed in the base directory and used to drive the rest of the experiment and plots, and sets up the entire data structure. Structure is:
+The python script create_run_letkf.py reads in the namelist, puts the important values into a json file which is saved in the base directory (it is used to drive the rest of the experiment), and sets up the entire data structure. Structure is:
+
 base directory/
         member000/ - contains the mean ensemble data
         member00n/ - contains all of the restart cm1 files for that member. when DA starts, the rst files are copied to a "prior" file and the rst is edited to become the posterior
@@ -49,13 +50,13 @@ base directory/
         Inflation....nc - all the inflation netcdfs (for each DA timestep) if adaptive inflation is used
         Prior ......nc - all the prior netcdfs (for each DA timestep) that contains the radar data and the Hxf (model data at obs locations, using the forward operator calculated in ComputeHx.py which calls the calcHx function in ens.py )
         Copies of the namelist, onefile.F, cm1.exe, and landuse file (these are linked to all of the member folders)
-        letkf.out - at the end of the experiment, the outfile is copied from the run directory 
-        XXXX.exp - the json file created by creat_run_letkf.py. The name will be the basename from the base_directory (i.e., if the base directory is /work/experiments/test then the file will be test.exp)
+        letkf.out - at the end of the experiment, the outfile is copied from the run directory to here
+        letkf.exp - the json file created by creat_run_letkf.py. 
 
-In a normal experiment, calc_stats.py will run, which will result in additional files called "Posterior .... nc" (for each DA timestep, identical to Prior...nc but using the posterior model data), AllPost_prior.nc which merges the Prior and Posterior files together (np.nan padded as each timestep will have a different number of obs), full_ens_fcst.nc which includes all of the member forecasts merged into a single file (makes probabilistic plots wayyyy faster), and WTD.py (which contains weak thermal gradient calculations (from Diefenbach et al. 2024; to use this data, you will need to do a control run without any DA.)
+In a normal experiment, calc_stats.py will run, which will result in additional files called "Posterior .... nc" (for each DA timestep, identical to Prior...nc but using the posterior model data), AllPost_prior.nc which merges the Prior and Posterior files together (np.nan padded as each timestep will have a different number of obs), full_ens_fcst.nc which includes all of the member forecasts merged into a single file and also contains 2-5 km AGL UH (makes probabilistic plots wayyyy faster), and balance.nc (which contains pressure tendencies and weak thermal gradient calculations [from Diefenbach et al. 2024; to use this data, you will need to do a control run without any DA] which were pulled from the cm1out_stats.nc file from each member).
 
 
-*** finish description here ****
+3.  To Run a forecast, edit the namelist_forecast.py script, and type "./RUN_FORECAST.SH >> forecast.out". This runs the forecast_driver.py script. The output is similar to the main experiment, except that the json file is called "fcst.exp" and there will be no posterior or prior files created. 
 
 
    

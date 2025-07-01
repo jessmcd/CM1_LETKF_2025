@@ -95,7 +95,8 @@ async_freq        -  seconds. For asynchronous DA. Currently this parameter is n
 additive_noise    -  list,[bool, integer]. Whether or not to add noise based on:
                       1 => composite reflectivity
                       2 => adaptive inflation field 
-                      **** currently not implemented in experiment_driver.py!!! ****
+                      3 => 3D reflectivity and innovations (similar to WoFs)
+                    
 
 mpass             -  multipass (assimilates each variable separately (?) Implemented in letkf.py)
 
@@ -111,9 +112,9 @@ rhoriz            -  meters. Horizontal covariance localization radius for data 
 
 rvert             -  meters. Vertical covariance localization radius for data assimilation. 
 
-cutoff            -  integer. 
+cutoff            -  integer. 1 = sharp, 2 = smooth. **** I don't think this is implemented in the LETKF code!
 
-zcutoff           -  meters. 
+zcutoff           -  meters. maximum height for adjustments
 
 inflate           -  inflation value to start before adaptive inflation takes over.
 
@@ -122,7 +123,7 @@ print_state_stats -  bool. If True, DA statistics are printed in the outfile whi
 
 
 ---- IMPORTANT CM1 NAMELIST VALUES ----
-This is just a list of the included variables. Please read the CM1 documentation to see how to fill. You can modify any/all namelist variables, but these ones will be overwritten, along with rstnum, run_time, rstfreq, etc. 
+This is just a list of the included variables. Please read the CM1 documentation to see how to fill. You can modify any/all namelist variables, but the variables listed below will be overwritten, along with rstnum, run_time, rstfreq, etc. 
 Note: This program currently can NOT handle horizontal stretched grids OR a nonzero umove or vmove. 
 
 nx, ny, nz, ppnode, dx, dy, dz, dtl, isnd, ihail, stretch_z, ztop, str_bot, str_top, dz_bot, dz_top, radopt 
@@ -149,13 +150,15 @@ centerx           -  meters. Approximate center location in x direction of warm 
 
 centery           -  meters. Approximate center location in y direction of warm bubble(s), in CM1 grid coordinates
 
+centerz           -  meters. Center location in z direction of warm bubble(s), in CM1 grid coordinates
+
 max_x_offset      -  meters. Maximum x direction offset between warm bubbles. The whole cluster is also shifted by [this value * 1.5 * a random number between 0 and 1] for additional spread. 
 
 max_y_offset      -  meters. Maximum y direction offset between warm bubbles. The whole cluster is also shifted by [this value * 1.5 * a random number between 0 and 1] for additional spread. 
 
-min_z             -  meters. Bottom height of warm bubble(s)
+#min_z             -  meters. Bottom height of warm bubble(s)
 
-max_z             -  meters. Maximum height of warm bubble(s)
+#max_z             -  meters. Maximum height of warm bubble(s)
 
 bub_horz_radius   -  meters. Horizontal radius of each bubble
 
@@ -167,9 +170,11 @@ r_seed            -  seed for random bubble generator - allows for reproducible 
 
 ---- ADDING NOISE TO MODEL FIELDS ----
 
- only used if additive_noise is set to True (*** currently not implemented)
+only used if additive_noise is set to True 
 
-min_dbz_4pert      -  dBZ. minimum value of reflectivity that must be exceeded before additive noise is applied
+min_dbz_4pert      -  dBZ. minimum value of reflectivity that must be exceeded before additive noise is applied (used in option 1 and 3)
+
+min_inno_4pert     - innovation in dBZ. minimum (absolute) innovation that must be exceeded before additive noise is applied (used in option 3)
  
 tpert_noise        -  K. Maximum theta perturbation applied in regions that exceed min_dbz_4pert
 
@@ -181,7 +186,7 @@ upert_noise        -  m/s.
 
 vpert_noise        -  m/s.
 
-qvpert_noise       -  this number means add perturbations up to 1 g/kg (but limited to 99% RH)
+qvpert_noise       -  g/kg. this number means add perturbations up to ___ g/kg (but limited to 99% RH)
 
 hradius            -  meters. horizontal filtering/length scale of smoothing
 
@@ -190,6 +195,4 @@ vradius            -  meters. Vertical filtering/length scale of smoothing
 gaussV, gaussH     -  not currently used
   
 r_seed_noise       -  seed for random noise- allows for reproducible experiments. 
- 
-
- 
+  

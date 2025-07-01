@@ -71,26 +71,28 @@ defaults = {
     'vpert':        namelist.vpert,
     'centerx':      namelist.centerx, 
     'centery':      namelist.centery, 
+    'centerz':      namelist.centerz, 
     'max_x_offset': namelist.max_x_offset, 
     'max_y_offset': namelist.max_y_offset, 
-    'zbmin':        namelist.min_z,
-    'zbmax':        namelist.max_z,
+    #'zbmin':        namelist.min_z,
+    #'zbmax':        namelist.max_z,
     'rbubh':        namelist.bub_horz_radius,
     'rbubv':        namelist.bub_vert_radius, 
     'r_seed':       namelist.r_seed,
             },
     
 "ADD_NOISE": {
-    "min_dbz_4pert": namelist.min_dbz_4pert,
-    'tpert':         namelist.tpert_noise,
-    'wpert':         namelist.wpert_noise,
-    'tdpert':        namelist.tdpert_noise,
-    'upert':         namelist.upert_noise,
-    'vpert':         namelist.vpert_noise,
-    'qvpert':        namelist.qvpert_noise,    
-    'hradius':       namelist.hradius, 
-    'vradius':       namelist.vradius,
-    'r_seed':        namelist.r_seed_noise
+    "min_dbz_4pert":  namelist.min_dbz_4pert,
+    "min_inno_4pert": namelist.min_inno_4pert,
+    'tpert':          namelist.tpert_noise,
+    'wpert':          namelist.wpert_noise,
+    'tdpert':         namelist.tdpert_noise,
+    'upert':          namelist.upert_noise,
+    'vpert':          namelist.vpert_noise,
+    'qvpert':         namelist.qvpert_noise,    
+    'hradius':        namelist.hradius, 
+    'vradius':        namelist.vradius,
+    'r_seed':         namelist.r_seed_noise
             },
                       
 "DA_PARAMS" : {
@@ -355,5 +357,5 @@ def myconverter(o):
     if isinstance(o, datetime.datetime):
         return o.__str__()
         
-with open("%s/%s.exp" % (defaults['base_path'],defaults['base_dir'].split('/')[-1]), 'w') as handle:
+with open(f"{defaults['base_path']}/letkf.exp", 'w') as handle:
     json.dump(defaults, handle, default = myconverter)

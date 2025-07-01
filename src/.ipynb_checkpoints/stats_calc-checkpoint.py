@@ -46,20 +46,23 @@ if __name__ == "__main__":
     if options.exp:
         with open(options.exp, 'rb') as f:
             exper = json.load(f)
-
-    obs_file = exper['radar_obs']
-    window = int(exper['DA_PARAMS']['assim_window'])
-    obs_error = exper['DA_PARAMS']['obs_errors']
-    outlier = exper['DA_PARAMS']['outlier']
-    obs_include = exper['DA_PARAMS']['obs_included']
+    
     path = exper['base_path']
-    start = DT.datetime.strptime(exper['DA_PARAMS']['DA_start_time'], '%Y-%m-%d %H:%M:%S')
-    end   = DT.datetime.strptime(exper['DA_PARAMS']['DA_end_time'], '%Y-%m-%d %H:%M:%S')
-    tdel  = DT.timedelta(seconds=exper['DA_PARAMS']['assim_freq'])
+    
 
 
     if options.stats:
         print('PRODUCING POSTERIOR FILES')
+
+        obs_file = exper['radar_obs']
+        window = int(exper['DA_PARAMS']['assim_window'])
+        obs_error = exper['DA_PARAMS']['obs_errors']
+        outlier = exper['DA_PARAMS']['outlier']
+        obs_include = exper['DA_PARAMS']['obs_included']
+    
+        start = DT.datetime.strptime(exper['DA_PARAMS']['DA_start_time'], '%Y-%m-%d %H:%M:%S')
+        end   = DT.datetime.strptime(exper['DA_PARAMS']['DA_end_time'], '%Y-%m-%d %H:%M:%S')
+        tdel  = DT.timedelta(seconds=exper['DA_PARAMS']['assim_freq'])
 
 
         ## step 1 = calculate posterior files just like the prior files
@@ -297,6 +300,30 @@ if __name__ == "__main__":
                 myds[v.lower()][i,:,:,:,:] = ens_state[v][:]
         
             del ens_state
+
+        # now add in 2-5 km UH
+        z = myds.z
+        ztop = findnearest(z, 5)
+        zbot = findnearest(z, 2)
+        
+        # note = we are calculating this for the mean member as well
+        w        = myds['w'][:, :, zbot:ztop+1].values
+        u        = myds['u'][:, :, zbot:ztop+1].values
+        v        = myds['v'][:, :, zbot:ztop+1].values
+        
+        dx  = np.gradient(myds.xh)*1000
+        dy  = np.gradient(myds.yh)*1000
+        dz  = np.gradient(myds.z)[zbot:ztop+1]*1000
+        
+        dudy = np.gradient(u, axis=3)/dy
+        dvdx = np.gradient(v, axis=4)/dx
+        zeta = dvdx-dudy
+        
+        UH = np.sum(zeta*w*dz[np.newaxis, np.newaxis, :, np.newaxis, np.newaxis], axis=2)
+        del u,v,w,dx,dy,dz,dudy, dvdx, zeta
+        
+        myds['UH_2-5km'] = (('t', 'ne','nj','ni'), UH)
+        
         myds.to_netcdf(exper['base_path']+'/full_ens_fcst.nc', format='NETCDF4')
 
 

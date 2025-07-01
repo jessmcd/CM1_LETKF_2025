@@ -1,3 +1,8 @@
+2025 update
+
+
+
+
 Install a miniconda2 env in your home directory.
 
 Update conda:  conda update conda
@@ -54,8 +59,7 @@ setenv FOPTS "-O2 -m64 -ffixed-line-length-132"
 
 1.  Compilation.
 
-a)  compile the CM1r18v2 code (not the code from the G. Bryan site, I need to retro my
-    altered I/O code in as of yet).
+a)  compile the CM1r21v1 code. Note that Statspack.F and Misclibs.F have been altered to output pressure tendency proxies, domean mean qr, and mean 5-km AGL vertical velocity. If stats are output at every timestep (in the cm1out_stats.nc file), you can calculate dp/ds and weak temperature gradient w residuals for model balance metrics. However, you can also compile code directly from George Bryan's website, as long as it is version 20 or later. 
 
 b)  compile the code in fsrc:  type fcompile.py, make sure at the end you get:
 

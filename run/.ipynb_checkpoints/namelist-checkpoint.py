@@ -3,7 +3,7 @@ import datetime as dt
 
 #### BASIC SETUP #######
 
-base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/Control_multi"# do not include final "/"
+base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min_multi_a3"# do not include final "/"
 fprefix             = "cm1"
 ne                  = 36
 model               = "cm1r21v1/run/cm1.exe"
@@ -25,23 +25,23 @@ yoffset             = -115000.0 #-125000.0
 microphysics        = 27 #same as CM1 ptype
 
 # settings to help facilitate experiments: set all to True for a normal experiment
-run_setup           = True # DA experiment only - ensemble "cook time" has already been done
-run_cook            = True  # run the warm up period before DA starts
-run_assim           = False  # does the assimilation 
-run_forecast        = False # does the forecast
+run_setup           = False # DA experiment only - ensemble "cook time" has already been done
+run_cook            = False  # run the warm up period before DA starts
+run_assim           = True  # does the assimilation 
+run_forecast        = True # does the forecast
 make_plots          = False  # if you want to make the summary plots at the end (these need work... lol)
 
 #### additional, more specialized settings
-pre_cook            = False #IF THIS IS TRUE = run_setup and run_cook are ignored! It copies the directory below and sets up a new experiment
+pre_cook            = True #IF THIS IS TRUE = run_setup and run_cook are ignored! It copies the directory below and sets up a new experiment
                            # only do this if you have "locked in" your inital CM1 set up
-cook_path           = '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/Control'#_60
+cook_path           = '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/Control_multi'#_60
 
 ### DATA ASSIMILATION PARAMETERS ###
 
 DA_start_time       = dt.datetime(2024, 5, 8, 20,0) # if run_assim is false, this is the start of "run forecast" if using a precooked run
 DA_end_time         = dt.datetime(2024, 5, 8, 21,30) # time that DA will end (inclusive)
-assim_freq          = 180  # 10 minutes
-cook_period         = 10800 #1800 # 30 minutes
+assim_freq          = 600  # 10 minutes
+cook_period         = 1800 # 30 minutes
 cook_freq           = 900  # note: cook_period must be evenly divisible by cook_freq
 forecast_length     = 3600 # 60 minutes
 forecast_freq       = 300  # 5 minutes
@@ -54,7 +54,7 @@ inlier              = 0.0 # set to 0 to turn off
 nthreads            = 8
 assim_window        = 15    # set to a small number for synthetic data (real radar data has a slight time range)
 async_freq          = 0     # this is currently not really used... you can do asynchronous assimilation by adjusting the assimilation window
-additive_noise      =[False,1]
+additive_noise      =[True,3]
 mpass               = False
 writeFcstMean       = True
 writeAnalMean       = True
@@ -64,7 +64,7 @@ rhoriz              = 18000.0
 rvert               = 4500.0
 rtime               = -600.0
 cutoff              = 2
-zcutoff             = 10000.0
+zcutoff             = 10000.0  
 inflate             = 1.0
 print_state_stats   = True
 
@@ -118,12 +118,13 @@ r_seed              = 2147483562
 ### ADDING NOISE TO MODEL FIELDS ###
 
 min_dbz_4pert       = 25
+min_inno_4pert      = 10
 tpert_noise         = 1.0
 wpert_noise         = 0.5
-tdpert_noise        = .25
+tdpert_noise        = 0.0
 upert_noise         = 1.0
 vpert_noise         = 1.0
-qvpert_noise        = 0.0
+qvpert_noise        = 1.0
 hradius             = 9000.
 vradius             = 4000.
 r_seed_noise        = 123321

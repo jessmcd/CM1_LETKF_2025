@@ -1449,154 +1449,365 @@ def ens_GRID_RELECTIVITY(ens, ob_file=None, plot=False, cref=True, verbose=False
              
 #   return dbz3d
 
-#===============================================================================
-#
-def ens_ADDITIVE_NOISE(ens, ob_file=None, plot=False, cref=True):
-#
-#===============================================================================
+# #===============================================================================
+# #
+# def ens_ADDITIVE_NOISE(ens, ob_file=None, plot=False, cref=True):
+# #
+# #===============================================================================
 
-  print("\n  ----------------------------------------------------------------------")
-  print("\n                 BEGIN ADD_NOISE                                        ")
-  print("\n  ----------------------------------------------------------------------")
+#   print("\n  ----------------------------------------------------------------------")
+#   print("\n                 BEGIN ADD_NOISE                                        ")
+#   print("\n  ----------------------------------------------------------------------")
 
-  t0 = timer()
+#   t0 = timer()
   
-  debugAN = False
+#   debugAN = False
   
-# These values are set in the experiment dictionary created at the begining of the run
+# # These values are set in the experiment dictionary created at the begining of the run
 
-  wpert   = ens.experiment['ADD_NOISE']['wpert']
-  upert   = ens.experiment['ADD_NOISE']['upert']
-  vpert   = ens.experiment['ADD_NOISE']['vpert']
-  tpert   = ens.experiment['ADD_NOISE']['tpert']
-  tdpert  = ens.experiment['ADD_NOISE']['tdpert']
-  qvpert  = ens.experiment['ADD_NOISE']['qvpert']
-  hradius = ens.experiment['ADD_NOISE']['hradius']
-  vradius = ens.experiment['ADD_NOISE']['vradius']
-  r_seed  = ens.experiment['ADD_NOISE']['r_seed']
-  # gaussH  = ens.experiment['ADD_NOISE']['gaussH']
-  # gaussV  = ens.experiment['ADD_NOISE']['gaussV']
-  xoffset = ens.experiment['xoffset']
-  yoffset = ens.experiment['yoffset']
+#   wpert   = ens.experiment['ADD_NOISE']['wpert']
+#   upert   = ens.experiment['ADD_NOISE']['upert']
+#   vpert   = ens.experiment['ADD_NOISE']['vpert']
+#   tpert   = ens.experiment['ADD_NOISE']['tpert']
+#   tdpert  = ens.experiment['ADD_NOISE']['tdpert']
+#   qvpert  = ens.experiment['ADD_NOISE']['qvpert']
+#   hradius = ens.experiment['ADD_NOISE']['hradius']
+#   vradius = ens.experiment['ADD_NOISE']['vradius']
+#   r_seed  = ens.experiment['ADD_NOISE']['r_seed']
+#   # gaussH  = ens.experiment['ADD_NOISE']['gaussH']
+#   # gaussV  = ens.experiment['ADD_NOISE']['gaussV']
+#   xoffset = ens.experiment['xoffset']
+#   yoffset = ens.experiment['yoffset']
     
-# Add time so random number seed changes at each time
+# # Add time so random number seed changes at each time
   
-  r_seed  = r_seed + int(ens.time)
+#   r_seed  = r_seed + int(ens.time)
   
-# CREF = TRUE, grid and use the composite reflectivity (2D composite on 3D grid) for pert mask
+# # CREF = TRUE, grid and use the composite reflectivity (2D composite on 3D grid) for pert mask
 
-  if cref == True:
+#   if cref == True:
   
-    f3d = ens_GRID_RELECTIVITY(ens, ob_file=ob_file, cref=cref)
+#     f3d = ens_GRID_RELECTIVITY(ens, ob_file=ob_file, cref=cref)
 
-    if type(f3d) == str :
-      print("\n  ==> ens_ADDITIVE_NOISE: Not enough reflectivity obs to grid, exiting ADDITIVE_NOISE")
-      return
+#     if type(f3d) == str :
+#       print("\n  ==> ens_ADDITIVE_NOISE: Not enough reflectivity obs to grid, exiting ADDITIVE_NOISE")
+#       return
 
-    else:
-      f3d_min = ens.experiment['ADD_NOISE']['min_dbz_4pert']
-      print("\n ==> ens_ADDITIVE_NOISE: Observed reflectivity gridded:  Max:  %4.2f  Min:  %4.2f" % (f3d.max(), f3d.min()))
+#     else:
+#       f3d_min = ens.experiment['ADD_NOISE']['min_dbz_4pert']
+#       print("\n ==> ens_ADDITIVE_NOISE: Observed reflectivity gridded:  Max:  %4.2f  Min:  %4.2f" % (f3d.max(), f3d.min()))
 
-  else:
+#   else:
   
-# Use the adaptive inflation file as the mask
+# # Use the adaptive inflation file as the mask
 
-    infilename = "Inflation_%s.nc" % (ens.datetime[0].strftime("%Y-%m-%d_%H:%M:%S"))
-    newfile    = os.path.join(ens.experiment['base_path'], infilename)  
-    file_obj   = netCDF4.Dataset(newfile, "r")
-    f3d        = file_obj.variables['inflation'][...]
-    f3d_min    = 2.0
-    file_obj.close()
+#     infilename = "Inflation_%s.nc" % (ens.datetime[0].strftime("%Y-%m-%d_%H:%M:%S"))
+#     newfile    = os.path.join(ens.experiment['base_path'], infilename)  
+#     file_obj   = netCDF4.Dataset(newfile, "r")
+#     f3d        = file_obj.variables['inflation'][...]
+#     f3d_min    = 2.0
+#     file_obj.close()
     
-    print("\n ==> ens_ADDITIVE_NOISE: Inflation file read in:  Max:  %4.2f  Min:  %4.2f" % (f3d.max(), f3d.min()))
+#     print("\n ==> ens_ADDITIVE_NOISE: Inflation file read in:  Max:  %4.2f  Min:  %4.2f" % (f3d.max(), f3d.min()))
 
-  for n in np.arange(ens.ne):
+#   for n in np.arange(ens.ne):
   
-    if upert > 0:
-      raw_pert = fnormal(np.random.RandomState([1+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
-      pert     = np.where(f3d > f3d_min, raw_pert, 0.0)
-      p        = add_smooth_perts(pert, hradius, vradius, fstate.xc, fstate.yc, fstate.zc)
-#      p        = ndimage.gaussian_filter(pert, sigma=[gaussV,gaussH,gaussH], order=0)
-      p        = 1.0 - 2.0*(p - p.min()) / (p.max()-p.min())
-      ens['U'][n] = ens['U'][n] + upert*p
-      if debugAN:  print("\n ==> ens_ADD_NOISE: VAR:  %s  NE:  %d  Pert_Min:  %f  Pert_Max:  %f" % ("U", n, p.min(), p.max()))
+#     if upert > 0:
+#       raw_pert = fnormal(np.random.RandomState([1+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
+#       pert     = np.where(f3d > f3d_min, raw_pert, 0.0)
+#       p        = add_smooth_perts(pert, hradius, vradius, fstate.xc, fstate.yc, fstate.zc)
+# #      p        = ndimage.gaussian_filter(pert, sigma=[gaussV,gaussH,gaussH], order=0)
+#       p        = 1.0 - 2.0*(p - p.min()) / (p.max()-p.min())
+#       ens['U'][n] = ens['U'][n] + upert*p
+#       if debugAN:  print("\n ==> ens_ADD_NOISE: VAR:  %s  NE:  %d  Pert_Min:  %f  Pert_Max:  %f" % ("U", n, p.min(), p.max()))
 
-    if vpert > 0:
-      raw_pert = fnormal(np.random.RandomState([2+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
-      pert     = np.where(f3d > f3d_min, raw_pert, 0.0)
-      p        = add_smooth_perts(pert, hradius, vradius, fstate.xc, fstate.yc, fstate.zc)
-#     p        = ndimage.gaussian_filter(pert, sigma=[gaussV,gaussH,gaussH], order=0)
-      p        = 1.0 - 2.0*(p - p.min()) / (p.max()-p.min())
-      ens['V'][n] = ens['V'][n] + vpert*p
-      if debugAN:  print("\n ==> ens_ADD_NOISE: VAR:  %s  NE:  %d  Pert_Min:  %f  Pert_Max:  %f" % ("V", n, p.min(), p.max()))
+#     if vpert > 0:
+#       raw_pert = fnormal(np.random.RandomState([2+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
+#       pert     = np.where(f3d > f3d_min, raw_pert, 0.0)
+#       p        = add_smooth_perts(pert, hradius, vradius, fstate.xc, fstate.yc, fstate.zc)
+# #     p        = ndimage.gaussian_filter(pert, sigma=[gaussV,gaussH,gaussH], order=0)
+#       p        = 1.0 - 2.0*(p - p.min()) / (p.max()-p.min())
+#       ens['V'][n] = ens['V'][n] + vpert*p
+#       if debugAN:  print("\n ==> ens_ADD_NOISE: VAR:  %s  NE:  %d  Pert_Min:  %f  Pert_Max:  %f" % ("V", n, p.min(), p.max()))
 
-    if wpert > 0:
-      raw_pert = fnormal(np.random.RandomState([3+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
-      pert     = np.where(f3d > f3d_min, raw_pert, 0.0)
-      p        = add_smooth_perts(pert, hradius, vradius, fstate.xc, fstate.yc, fstate.zc)
-#      p        = ndimage.gaussian_filter(pert, sigma=[gaussV,gaussH,gaussH], order=0)
-      p        = 1.0 - 2.0*(p - p.min()) / (p.max()-p.min())
-      ens['W'][n] = ens['W'][n] + wpert*p
-      if debugAN:  print("\n ==> ens_ADD_NOISE: VAR:  %s  NE:  %d  Pert_Min:  %f  Pert_Max:  %f" % ("W", n, p.min(), p.max()))
+#     if wpert > 0:
+#       raw_pert = fnormal(np.random.RandomState([3+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
+#       pert     = np.where(f3d > f3d_min, raw_pert, 0.0)
+#       p        = add_smooth_perts(pert, hradius, vradius, fstate.xc, fstate.yc, fstate.zc)
+# #      p        = ndimage.gaussian_filter(pert, sigma=[gaussV,gaussH,gaussH], order=0)
+#       p        = 1.0 - 2.0*(p - p.min()) / (p.max()-p.min())
+#       ens['W'][n] = ens['W'][n] + wpert*p
+#       if debugAN:  print("\n ==> ens_ADD_NOISE: VAR:  %s  NE:  %d  Pert_Min:  %f  Pert_Max:  %f" % ("W", n, p.min(), p.max()))
 
-    if tpert > 0:
-      raw_pert = fnormal(np.random.RandomState([4+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
-      pert     = np.where(f3d > f3d_min, raw_pert, 0.0)
-      p        = add_smooth_perts(pert, hradius, vradius, fstate.xc, fstate.yc, fstate.zc)
-#      p        = ndimage.gaussian_filter(pert, sigma=[gaussV,gaussH,gaussH], order=0)
-      p        = 1.0 - 2.0*(p - p.min()) / (p.max()-p.min())
-      ens['TH'][n] = ens['TH'][n] + tpert*p
-      if debugAN:  print("\n ==> ens_ADD_NOISE: VAR:  %s  NE:  %d  Pert_Min:  %f  Pert_Max:  %f" % ("TH", n, p.min(), p.max()))
+#     if tpert > 0:
+#       raw_pert = fnormal(np.random.RandomState([4+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
+#       pert     = np.where(f3d > f3d_min, raw_pert, 0.0)
+#       p        = add_smooth_perts(pert, hradius, vradius, fstate.xc, fstate.yc, fstate.zc)
+# #      p        = ndimage.gaussian_filter(pert, sigma=[gaussV,gaussH,gaussH], order=0)
+#       p        = 1.0 - 2.0*(p - p.min()) / (p.max()-p.min())
+#       ens['TH'][n] = ens['TH'][n] + tpert*p
+#       if debugAN:  print("\n ==> ens_ADD_NOISE: VAR:  %s  NE:  %d  Pert_Min:  %f  Pert_Max:  %f" % ("TH", n, p.min(), p.max()))
       
-# If Tdpert > 0, add dewpoint perturbations to QV - do it in Td space
+# # If Tdpert > 0, add dewpoint perturbations to QV - do it in Td space
 
-    if tdpert > 0.0 and qvpert < 0.01:                                  # Dont do both, prefer saturations...
-      raw_pert = fnormal(np.random.RandomState([5+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
-      pert     = np.where(f3d > f3d_min, raw_pert, 0.0)
-      p        = add_smooth_perts(pert, hradius, vradius, fstate.xc, fstate.yc, fstate.zc)
-#      p        = ndimage.gaussian_filter(pert, sigma=[gaussV,gaussH,gaussH], order=0)
-      p        = 1.0 - 2.0*(p - p.min()) / (p.max()-p.min())
+#     if tdpert > 0.0 and qvpert < 0.01:                                  # Dont do both, prefer saturations...
+#       raw_pert = fnormal(np.random.RandomState([5+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
+#       pert     = np.where(f3d > f3d_min, raw_pert, 0.0)
+#       p        = add_smooth_perts(pert, hradius, vradius, fstate.xc, fstate.yc, fstate.zc)
+# #      p        = ndimage.gaussian_filter(pert, sigma=[gaussV,gaussH,gaussH], order=0)
+#       p        = 1.0 - 2.0*(p - p.min()) / (p.max()-p.min())
 
-      p0 = 1000.*(ens['PI0'][n])**3.508
-      e  = ens['QV'][n]*p0/(0.622+ens['QV'][n])                       # vapor pressure
-      e  = np.clip(e, 0.001, 100.)                                     # avoid problems near zero
-      td = 273.16 + ( 243.5 / ( 17.67/np.log(e/6.112) - 1.0 ) )        # Bolton's approximation
-      td = np.clip(td + tdpert*p, 200.0, (p0*ens['TH'][n])-0.1)        # make sure Td is < T
+#       p0 = 1000.*(ens['PI0'][n])**3.508
+#       e  = ens['QV'][n]*p0/(0.622+ens['QV'][n])                       # vapor pressure
+#       e  = np.clip(e, 0.001, 100.)                                     # avoid problems near zero
+#       td = 273.16 + ( 243.5 / ( 17.67/np.log(e/6.112) - 1.0 ) )        # Bolton's approximation
+#       td = np.clip(td + tdpert*p, 200.0, (p0*ens['TH'][n])-0.1) #theres probably a bug here       # make sure Td is < T
     
-    # Transform back to QV
+#     # Transform back to QV
 
-      tdc = td - 273.16
-      e   = 6.112 * np.exp(17.67*tdc / (tdc+243.5) )                   # Bolton's approximation
-      ens['QV'][n] = 0.622*e / (p0-e)
+#       tdc = td - 273.16
+#       e   = 6.112 * np.exp(17.67*tdc / (tdc+243.5) )                   # Bolton's approximation
+#       ens['QV'][n] = 0.622*e / (p0-e)
 
-      if debugAN:  print("\n ==> ens_ADD_NOISE: VAR:  %s  NE:  %d  Pert_Min:  %f  Pert_Max:  %f" % ("Td/QV", n, ens['QV'][n] .min(), ens['QV'][n] .max()))
+#       if debugAN:  print("\n ==> ens_ADD_NOISE: VAR:  %s  NE:  %d  Pert_Min:  %f  Pert_Max:  %f" % ("Td/QV", n, ens['QV'][n] .min(), ens['QV'][n] .max()))
 
-# If qvpert > 0, add noise to Qv, restricting the RH <= 99%.
+# # If qvpert > 0, add noise to Qv, restricting the RH <= 99%.
 
-    if qvpert > 0.0:
-      raw_pert = fnormal(np.random.RandomState([5+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
-      pert     = np.where(f3d > f3d_min, raw_pert, 0.0)
-      p        = add_smooth_perts(pert, hradius, vradius, fstate.xc, fstate.yc, fstate.zc)
-#      p        = ndimage.gaussian_filter(pert, sigma=[gaussV,gaussH,gaussH], order=0)
-      p        = 1.0 - 2.0*(p - p.min()) / (p.max()-p.min())
+#     if qvpert > 0.0:
+#       raw_pert = fnormal(np.random.RandomState([5+r_seed+n**2]), scale=1.0, size=(ens.nz,ens.ny,ens.nx))
+#       pert     = np.where(f3d > f3d_min, raw_pert, 0.0)
+#       p        = add_smooth_perts(pert, hradius, vradius, fstate.xc, fstate.yc, fstate.zc)
+# #      p        = ndimage.gaussian_filter(pert, sigma=[gaussV,gaussH,gaussH], order=0)
+#       p        = 1.0 - 2.0*(p - p.min()) / (p.max()-p.min())
 
-      tc = (ens['PI0'][n]*ens['TH'][n]) - 273.16
-      p0 = 1000.*(ens['PI0'][n])**3.508
-      e  = 6.112 * np.exp(17.67*tc / (tc+243.5) )  
-      qvs = (0.622*e)/ (p0-e)
-      ens['QV'][n] = ens['QV'][n] + p*qvpert/100.      
-      ens['QV'][n] = np.where(ens['QV'][n] >= qvs/100., 0.99*qvs/100., ens['QV'][n])     
+#       tc = (ens['PI0'][n]*ens['TH'][n]) - 273.16
+#       p0 = 1000.*(ens['PI0'][n])**3.508
+#       e  = 6.112 * np.exp(17.67*tc / (tc+243.5) )  
+#       qvs = (0.622*e)/ (p0-e)
+#       ens['QV'][n] = ens['QV'][n] + p*qvpert/100.      
+#       ens['QV'][n] = np.where(ens['QV'][n] >= qvs/100., 0.99*qvs/100., ens['QV'][n])     
         
-      if debugAN:  print("\n ==> ens_ADD_NOISE: VAR:  %s  NE:  %d  Pert_Min:  %f  Pert_Max:  %f" % ("QV", n, p.min(), p.max()))
+#       if debugAN:  print("\n ==> ens_ADD_NOISE: VAR:  %s  NE:  %d  Pert_Min:  %f  Pert_Max:  %f" % ("QV", n, p.min(), p.max()))
   
-  if plot:
-    ens_PLOT_MEAN_STDDEV(ens, klevel = 4, savefig="ADDITIVE_NOISE_PLOT.pdf")
+#   if plot:
+#     ens_PLOT_MEAN_STDDEV(ens, klevel = 4, savefig="ADDITIVE_NOISE_PLOT.pdf")
        
-  if time_all:  print("\n Wallclock time to run ADDITIVE_NOISE:", round(timer() - t0, 3), " sec")
+#   if time_all:  print("\n Wallclock time to run ADDITIVE_NOISE:", round(timer() - t0, 3), " sec")
 
-  print("\n  ----------------------------------------------------------------------")
-  print("\n                 END ADD_NOISE                                          ")
-  print("\n  ----------------------------------------------------------------------")
+#   print("\n  ----------------------------------------------------------------------")
+#   print("\n                 END ADD_NOISE                                          ")
+#   print("\n  ----------------------------------------------------------------------")
+
+
+#===============================================================================
+#
+def get_inno_and_ref_mask(ens_state, inno_threshold=10, dbz_threshold=25, verbose=False):
+#
+#===============================================================================
+
+
+    xoffset       = ens_state.experiment['xoffset']
+    yoffset       = ens_state.experiment['yoffset']
+    glat          = ens_state.experiment['lat0']
+    glon          = ens_state.experiment['lon0']
+    analysis_time = ens_state.datetime[0]
+    
+    # get obs and innovations from prior
+    priors = xr.open_dataset(os.path.join(ens_state['experiment']['base_path'],f'Prior_{analysis_time.strftime("%Y-%m-%d_%H:%M:%S.nc")}'))
+    prior = priors.sel(ob_num=priors.ob_num[priors.kind==12])
+    
+    data    =prior.value.values
+    inno    =prior.value.values-prior.Hxfbar.values 
+    lats    =prior.lat.values
+    lons    =prior.lon.values
+    hgts    =prior.z.values
+    
+    if verbose: print("\n ==> ens_state_GRID_REFL: Number of points found from initial search:      %d" % (data.size))
+    
+    # The coordinate system here is based on the grid lat0/lon0/hgt0, and the offset grid stored in fstate
+    #     ens_state stores the x/y grid in grid-internal coordinates
+    map      = mymap(fstate.xc, fstate.yc, glat, glon)
+    xob, yob = map(lons, lats)
+    xob, yob = xob+xoffset, yob+yoffset
+    
+    # Create obs list for KDTree query...
+    xyz_obs  = np.vstack((hgts,yob,xob))
+    obs_list = list(xyz_obs.transpose())
+    
+    # Create 3D grid arrays for KDTree
+    y_array, z_array, x_array = np.meshgrid(fstate.yc, fstate.zc, fstate.xc)
+    xyz_grid = np.dstack([z_array.ravel(),y_array.ravel(),x_array.ravel()])[0]
+    
+    # Use cKDTree to create fast indexing for 3D grid....
+    mytree = scipy.spatial.cKDTree(xyz_grid)
+    distance, indices1D = mytree.query(obs_list)
+    
+    # these are the integer indices that you now pass into the fortran routine. They
+    # are the un-raveled 3D index locations nearest the observation point in the 3D array
+    kk,jj,ii = np.unravel_index(indices1D, (len(fstate.zc), len(fstate.yc), len(fstate.xc)))
+    
+    # Call the fortran routine that grids the dbz data
+    dbz3d  = obs_2_grid3d(data, xob, yob, hgts, x_array, y_array, z_array, ii, jj, kk, 4000., 2000., 0.0)
+    inno3d = obs_2_grid3d(inno, xob, yob, hgts, x_array, y_array, z_array, ii, jj, kk, 4000., 2000., 0.0)
+
+    if verbose:
+        print("\n ==> ens_ADDITIVE_NOISE: Observed reflectivity gridded:  Max:  %4.2f  Min:  %4.2f" % (dbz3d.max(), dbz3d.min()))
+        print("\n ==> ens_ADDITIVE_NOISE: innovations gridded:  Max:  %4.2f  Min:  %4.2f" % (inno3d.max(), inno3d.min()))
+    
+    mask = (dbz3d > dbz_threshold ) & (inno3d > inno_threshold)
+    return mask
+
+    
+#===============================================================================
+#
+def ens_ADDITIVE_NOISE(ens_state, ob_file=None, plot=False, option=1):
+#
+#===============================================================================
+
+    ''' updated version - 6/25'''
+
+    print("\n  ----------------------------------------------------------------------")
+    print("\n                 BEGIN ADD_NOISE                                        ")
+    print("\n  ----------------------------------------------------------------------")
+    
+    t0 = timer()
+    debugAN=False
+
+    def debug(n,p, name):
+         print("\n"+f" ==> ens_ADD_NOISE: VAR: {name}  NE: {n}  Pert_Min:  {p.min():0.3f}  Pert_Max:  {p.max():0.3f}")
+        
+      
+    # These values are set in the experiment dictionary created at the begining of the run
+    wpert   = ens_state.experiment['ADD_NOISE']['wpert']
+    upert   = ens_state.experiment['ADD_NOISE']['upert']
+    vpert   = ens_state.experiment['ADD_NOISE']['vpert']
+    tpert   = ens_state.experiment['ADD_NOISE']['tpert']
+    tdpert  = ens_state.experiment['ADD_NOISE']['tdpert']
+    qvpert  = ens_state.experiment['ADD_NOISE']['qvpert']
+    hradius = ens_state.experiment['ADD_NOISE']['hradius']
+    vradius = ens_state.experiment['ADD_NOISE']['vradius']
+    r_seed  = ens_state.experiment['ADD_NOISE']['r_seed']
+    xoffset = ens_state.experiment['xoffset']
+    yoffset = ens_state.experiment['yoffset']
+    nz,ny,nx= ens_state.nz,ens_state.ny,ens_state.nx
+    xc,yc,zc= fstate.xc, fstate.yc, fstate.zc
+    
+    # Add time so random number seed changes at each time
+    r_seed  = r_seed + int(ens_state.time)
+    
+    
+    if option==1: # composite reflectivity
+    
+        f3d = ens_GRID_RELECTIVITY(ens_state, ob_file=ob_file, cref=True)
+    
+        if type(f3d) == str :
+            print("\n  ==> ens_ADDITIVE_NOISE: Not enough reflectivity obs to grid, exiting ADDITIVE_NOISE")
+            #return
+        
+        else:
+            f3d_min = ens_state.experiment['ADD_NOISE']['min_dbz_4pert']
+            print("\n ==> ens_ADDITIVE_NOISE: Observed reflectivity gridded:  Max:  %4.2f  Min:  %4.2f" % (f3d.max(), f3d.min()))
+            mask = f3d > f3d_min
+    
+    if option==2: # adaptive inflation
+    
+        # Use the adaptive inflation file as the mask
+        
+        infilename = "Inflation_%s.nc" % (ens_state.datetime[0].strftime("%Y-%m-%d_%H:%M:%S"))
+        newfile    = os.path.join(ens_state.experiment['base_path'], infilename)  
+        file_obj   = netCDF4.Dataset(newfile, "r")
+        f3d        = file_obj.variables['inflation'][...]
+        f3d_min    = 2.0
+        file_obj.close()
+        mask = f3d > f3d_min
+        print("\n ==> ens_ADDITIVE_NOISE: Inflation file read in:  Max:  %4.2f  Min:  %4.2f" % (f3d.max(), f3d.min()))
+        
+    if option == 3: # innovations AND reflectivity (3D)
+    
+        mask = get_inno_and_ref_mask(ens_state, inno_threshold=ens_state.experiment['ADD_NOISE']['min_inno_4pert'], dbz_threshold=ens_state.experiment['ADD_NOISE']['min_dbz_4pert'], verbose=True)
+         
+        
+    ### now apply the smoothed perturbations
+    
+    for n in np.arange(ens_state.ne):
+
+        if upert > 0:
+            raw_pert = fnormal(np.random.RandomState([1+r_seed+n**2]), scale=1.0, size=(nz,ny,nx))
+            pert     = np.where(mask, raw_pert, 0.0)
+            praw     = add_smooth_perts(pert, hradius, vradius,xc,yc,zc)
+            p        = np.where(praw!=0, 1.0 - 2.0*(praw - praw.min()) / (praw.max()-praw.min()), praw)
+            ens_state['U'][n] = ens_state['U'][n] + upert*p
+            if debugAN: debug(n,p,'U')
+        
+        if vpert > 0:
+            raw_pert = fnormal(np.random.RandomState([2+r_seed+n**2]), scale=1.0, size=(nz,ny,nx))
+            pert     = np.where(mask, raw_pert, 0.0)
+            praw     = add_smooth_perts(pert, hradius, vradius,xc,yc,zc)
+            p        = np.where(praw!=0, 1.0 - 2.0*(praw - praw.min()) / (praw.max()-praw.min()), praw)
+            ens_state['V'][n] = ens_state['V'][n] + vpert*p
+            if debugAN: debug(n,p,'V')
+        
+        if wpert > 0:
+            raw_pert = fnormal(np.random.RandomState([3+r_seed+n**2]), scale=1.0, size=(nz,ny,nx))
+            pert     = np.where(mask, raw_pert, 0.0)
+            praw     = add_smooth_perts(pert, hradius, vradius,xc,yc,zc)
+            p        = np.where(praw!=0, 1.0 - 2.0*(praw - praw.min()) / (praw.max()-praw.min()), praw)
+            ens_state['W'][n] = ens_state['W'][n] + wpert*p
+            if debugAN: debug(n,p,'W')
+        
+        if tpert > 0:
+            raw_pert = fnormal(np.random.RandomState([4+r_seed+n**2]), scale=1.0, size=(nz,ny,nx))
+            pert     = np.where(mask, raw_pert, 0.0)
+            praw     = add_smooth_perts(pert, hradius, vradius,xc,yc,zc)
+            p        = np.where(praw!=0, 1.0 - 2.0*(praw - praw.min()) / (praw.max()-praw.min()), praw)
+            ens_state['TH'][n] = ens_state['TH'][n] + tpert*p
+            if debugAN:  debug(n,p,'T')
+          
+        # If Tdpert > 0, add dewpoint perturbations to QV - do it in Td space
+        if tdpert > 0.0 and qvpert < 0.01:                                  # Dont do both, prefer saturations...
+            raw_pert = fnormal(np.random.RandomState([5+r_seed+n**2]), scale=1.0, size=(nz,ny,nx))
+            pert     = np.where(mask, raw_pert, 0.0)
+            praw     = add_smooth_perts(pert, hradius, vradius,xc,yc,zc)
+            p        = np.where(praw!=0, 1.0 - 2.0*(praw - praw.min()) / (praw.max()-praw.min()), praw)
+            
+            p0 = 1000.*(ens_state['PI0'][n])**3.508
+            e  = ens_state['QV'][n]*p0/(0.622+ens_state['QV'][n])            # vapor pressure
+            e  = np.clip(e, 0.001, 100.)                                     # avoid problems near zero
+            td = 273.16 + ( 243.5 / ( 17.67/np.log(e/6.112) - 1.0 ) )        # Bolton's approximation
+            td = np.clip(td + tdpert*p, 200.0, (p0*ens_state['TH'][n])-0.1)  #theres probably a bug here       # make sure Td is < T
+            
+            # Transform back to QV
+            
+            tdc = td - 273.16
+            e   = 6.112 * np.exp(17.67*tdc / (tdc+243.5) )                   # Bolton's approximation
+            ens_state['QV'][n] = 0.622*e / (p0-e)
+            
+            if debugAN: debug(n,ens_state['QV'][n],"Td/QV")
+        
+        # If qvpert > 0, add noise to Qv, restricting the RH <= 99%.
+        if qvpert > 0.0:
+            raw_pert = fnormal(np.random.RandomState([5+r_seed+n**2]), scale=1.0, size=(nz,ny,nx))
+            pert     = np.where(mask, raw_pert, 0.0)
+            praw     = add_smooth_perts(pert, hradius, vradius,xc,yc,zc)
+            p        = np.where(praw!=0, 1.0 - 2.0*(praw - praw.min()) / (praw.max()-praw.min()), praw)
+            
+            tc = (ens_state['PI0'][n]*ens_state['TH'][n]) - 273.16 # celcius
+            p0 = 1000.*(ens_state['PI0'][n])**3.508                # hpa
+            e  = 6.112 * np.exp(17.67*tc / (tc+243.5) )            # hpa
+            qvs = (0.622*e)/ (p0-e)                                # this is dimensionless, so it is equivalent to kg/kg!                            
+            ens_state['QV'][n] = ens_state['QV'][n] + p*qvpert/1000. # divide qvpert by 1000 to convert from g/kg to kg/kg     
+            #ens_state['QV'][n] = np.where(ens_state['QV'][n] >= qvs/100., 0.99*qvs/100., ens_state['QV'][n]) # do not divide by 100
+            ens_state['QV'][n] = np.where(ens_state['QV'][n] >= qvs, 0.99*qvs, ens_state['QV'][n]) 
+        
+    if plot:
+        ens_state_PLOT_MEAN_STDDEV(ens_state, klevel = 4, savefig="ADDITIVE_NOISE_PLOT.pdf")
+       
+    if time_all:  print("\n Wallclock time to run ADDITIVE_NOISE:", round(timer() - t0, 3), " sec")
+    
+    print("\n  ----------------------------------------------------------------------")
+    print("\n                 END ADD_NOISE                                          ")
+    print("\n  ----------------------------------------------------------------------")
+
 
 #===============================================================================
 #
@@ -1799,10 +2010,11 @@ def ens_IC_warm_bubble(ens_state, plot=False, writeout=False):
     qvpert       = ens_state.experiment['INIT']['qvpert']
     centerx      = ens_state.experiment['INIT']['centerx']
     centery      = ens_state.experiment['INIT']['centery']
+    centerz      = ens_state.experiment['INIT']['centerz']
     max_x_offset = ens_state.experiment['INIT']['max_x_offset']
     max_y_offset = ens_state.experiment['INIT']['max_y_offset']
-    zbmin        = ens_state.experiment['INIT']['zbmin']
-    zbmax        = ens_state.experiment['INIT']['zbmax']
+    #zbmin        = ens_state.experiment['INIT']['zbmin']
+    #zbmax        = ens_state.experiment['INIT']['zbmax']
     bhrad        = ens_state.experiment['INIT']['rbubh']
     bvrad        = ens_state.experiment['INIT']['rbubv']
     r_seed       = ens_state.experiment['INIT']['r_seed']
@@ -1827,7 +2039,7 @@ def ens_IC_warm_bubble(ens_state, plot=False, writeout=False):
     
         xb = centerx + (xypert[:,0,n]*max_x_offset) +xshift# these are length nb
         yb = centery + (xypert[:,1,n]*max_y_offset) +yshift
-        zb = zbmax*np.ones(xb.shape) + ens_state.hgt
+        zb = centerz*np.ones(xb.shape) + ens_state.hgt
         
         ni, nj, nk = ens_state['nx'],ens_state['ny'],ens_state['nz']
         xh= np.tile(ens_state['xc'][:], (nj*nk,1)).reshape(nk, nj, ni)
@@ -2781,6 +2993,7 @@ if __name__ == "__main__":
     parser.add_option(       "--init1", dest="init1", default=0, type="int", help = "Using zero wind IC strategy to initialize")
     parser.add_option(   "--crefperts", dest="cRef_perts", default=False, action="store_true", help = "Add noise based on observed composite radar reflectivity")
     parser.add_option(   "--inflperts", dest="aInf_perts", default=False, action="store_true", help = "Add noise based on adpative inflation field")
+    parser.add_option(   "--innoperts", dest="inno_perts", default=False, action="store_true", help = "Add noise based on innovations AND reflectivity (3D)")
     parser.add_option(       "--plot4", dest="plot4", default=None, type = "string", help = "Plots 4panel XY cross sections:  Usage:  --plotxy height(m),member")   
     parser.add_option(       "--plot8", dest="plot8", default=False, action="store_true", help = "Plots reflectivity for 8 panels + obs")   
     parser.add_option(       "--plot9", dest="plot9", default=False, action="store_true", help = "Plots 9 members of reflectivity")   
@@ -2886,10 +3099,13 @@ if __name__ == "__main__":
         plotskewts(state)
 
     if options.cRef_perts:
-        ens_ADDITIVE_NOISE(state, plot=options.plot, cref=True)
+        ens_ADDITIVE_NOISE(state, plot=options.plot, option=1)
     
     if options.aInf_perts:
-        ens_ADDITIVE_NOISE(state, plot=options.plot, cref=False)
+        ens_ADDITIVE_NOISE(state, plot=options.plot, option=2)
+        
+    if options.inno_perts:
+        ens_ADDITIVE_NOISE(state, plot=options.plot, option=3)
 
     if options.write:
         print("\n  ==> Overwriting restart files with new IC's\n")

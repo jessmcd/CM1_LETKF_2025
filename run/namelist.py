@@ -3,7 +3,7 @@ import datetime as dt
 
 #### BASIC SETUP #######
 
-base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min_multi"# do not include final "/"
+base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_10min_multi_a3"# do not include final "/"
 fprefix             = "cm1"
 ne                  = 36
 model               = "cm1r21v1/run/cm1.exe"
@@ -54,7 +54,7 @@ inlier              = 0.0 # set to 0 to turn off
 nthreads            = 8
 assim_window        = 15    # set to a small number for synthetic data (real radar data has a slight time range)
 async_freq          = 0     # this is currently not really used... you can do asynchronous assimilation by adjusting the assimilation window
-additive_noise      =[False,1]
+additive_noise      =[True,3]
 mpass               = False
 writeFcstMean       = True
 writeAnalMean       = True
@@ -64,7 +64,7 @@ rhoriz              = 18000.0
 rvert               = 4500.0
 rtime               = -600.0
 cutoff              = 2
-zcutoff             = 10000.0
+zcutoff             = 10000.0  
 inflate             = 1.0
 print_state_stats   = True
 
@@ -118,12 +118,13 @@ r_seed              = 2147483562
 ### ADDING NOISE TO MODEL FIELDS ###
 
 min_dbz_4pert       = 25
+min_inno_4pert      = 10
 tpert_noise         = 1.0
 wpert_noise         = 0.5
-tdpert_noise        = .25
+tdpert_noise        = 0.0
 upert_noise         = 1.0
 vpert_noise         = 1.0
-qvpert_noise        = 0.0
+qvpert_noise        = 1.0
 hradius             = 9000.
 vradius             = 4000.
 r_seed_noise        = 123321
