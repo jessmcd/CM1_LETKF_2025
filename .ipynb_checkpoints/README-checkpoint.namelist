@@ -75,14 +75,22 @@ obs_include       -  list of strings. Observation types to include in DA. Curren
 
 obs_error         -  dictionary of errors to use for each observation type (options above). Include an error value for each observation type in obs_include. Format example: {'DBZ': 7.0, 'VR': 3.0}
 
-aInflate          -  integer options for adaptive inflation. (Note that these have been edited... only option 1 has been tested, use others at own risk!!!)
-                     Base value for adaptive inflation is set in src/fsrc/fpython2.f90, line ~20, inflate_PRIOR. * remember to recompile after changing this value * 
+prior_inflate     -  option to use inflation or adaptive inflation algorithms
                       0 => no adaptive inflation
-                      1 => LETKF adaptive inflation
-                      2 => WH2010 RTPS
-                      3 => RTPP
+                      1 => LETKF adaptive inflation (Miyoshi)
+                      2 => fixed value
+prior_inflate_value- float. if prior_inflate is set to 2, this is the value that the priors will be multipled by (i.e., a value of 1.1 equals a 5% inflation).
+                      this value is ignored if you are using prior_inflate options 0 or 1 (option 0 uses an array of 1s, option 1 starts with an array of 1s and goes from there)
+      
+post_inflate       -  option to use algorithms to inflate the posteriors. 
+                      0 => no inflation
+                      1 => RTPS (relaxation to prior spread) using a fixed alpha (post_inflate_alpha)
+                      2 => RTPS + adaptive
+                      3 => RTPP (relaxation to prior perturbation) using a fixed alpha (post_inflate_alpha: 1 is analysis only, 0 is prior only, 0.5 would be an average, etc.)
+                      4 => RTPP + adaptive
 
-RTPP_coefficient  -  float between 0 and 1. This is the scaling factor for RTPP (if aInflate=3). 0 is only use the prior, 1 is only use the analysis. 0.5 would weight both equally (i.e., average them)
+post_inflate_alpha  - float. Corresponding value for post_inflate options 1 or 3. 
+
 
 outlier           -  number of standard deviations to set outlier threshold at (where observations are discarded due to being too different from the ensemble values). 3 is default
 
@@ -117,8 +125,6 @@ rvert             -  meters. Vertical covariance localization radius for data as
 cutoff            -  integer. 1 = sharp, 2 = smooth. **** I don't think this is implemented in the LETKF code!
 
 zcutoff           -  meters. maximum height for adjustments
-
-inflate           -  inflation value to start before adaptive inflation takes over.
 
 print_state_stats -  bool. If True, DA statistics are printed in the outfile while the experiment is running. 
 

@@ -1,3 +1,19 @@
+
+!! new code update
+
+! new python namelist options
+! prior_inflate = 0: no prior, 1: Miyoshi (traditional AI), 2: fixed AI value
+
+! post_inflate = 0: nothing, 1: RTPS fixed alpha, 2: RTPS + adapt, 3: RTPP fixed alpha, 4: RTPP +adapt
+
+! post_inflate_alpha = float values. this is the 
+
+
+
+
+
+
+
 !============================================================================================================= 
 MODULE INFLATE_PARAMS
 
@@ -8,7 +24,13 @@ MODULE INFLATE_PARAMS
 ! These parameters are for the Relaxation to Prior Spread (RTPS)
 ! Negative means use adaptive RTPS
 
-  real(kind=4), parameter :: inflate_RTPS = 1.25, eps = 1.0e-10
+  real(kind=4), parameter :: eps = 1.0e-10 ! inflate_RTPS = 1.25,
+
+
+ ! real(kind=4), parameter :: inflate_RTPS = 1.0
+ ! real(kind=4), parameter :: inflate_RTPP = 1.0
+
+ ! save :: inflate_RTPS, inflate_RTPP
 
 ! These parameters are for the Relaxation to Prior Perturbation (RTPP)
 ! Negative means use adaptive RTPP
@@ -18,8 +40,8 @@ MODULE INFLATE_PARAMS
 ! This parameter is for the fixed priors inflation, value > 1 turns off adaptive inflation.
 ! Normal values of 1.1 --> 1.3 (10% - 30%)
 
-  real(kind=4), parameter    :: inflate_PRIOR = 1.1
-  integer(kind=4), parameter :: prior_inflate_flag = 1
+  !real(kind=4), parameter    :: inflate_PRIOR = 1.1
+  !integer(kind=4), parameter :: prior_inflate_flag = 1
 
 ! Choose whether to run Anderson (2007) RCF 
 ! Two options:  (1) use RCF in localization matrix within LETKF (expensive)
@@ -89,14 +111,14 @@ CONTAINS
 
 !============================================================================================================= 
   SUBROUTINE COMPUTE_LETKF(xob, yob, zob, tob, tanalysis, ob, Hx, dep, rdiag, rloc, rhoriz, rvert, rtime,  &
-                           nthreads, cutoff, zcutoff, update_theta, inflate_flag,inflate_RTPP, in_inflate, out_inflate, &
-                           save_weights, read_weights, fnx, fny, fnz, fnobs, fne)
+                           nthreads, cutoff, zcutoff, update_theta, &
+                           prior_inflate, in_inflate, post_inflate, post_inflate_alpha, out_inflate, &
+                           save_weights, read_weights, fnx, fny, fnz, fnobs, fne) 
 
 ! Passed variables
 
     integer,      intent(IN)    :: fnobs, fne
     integer,      intent(IN)    :: fnx, fny, fnz
-    integer,      intent(IN)    :: inflate_flag  ! various values do various inflation (see below).
     integer,      intent(IN)    :: nthreads
     integer,      intent(IN)    :: cutoff
     integer,      intent(IN)    :: update_theta
@@ -111,8 +133,11 @@ CONTAINS
     real(kind=8), intent(IN)    :: rdiag(fnobs)
     real(kind=8), intent(IN)    :: rloc(fnobs)
     real(kind=8), intent(IN)    :: xob(fnobs), yob(fnobs), zob(fnobs), tob(fnobs)
+
+    integer,      intent(IN)    :: prior_inflate  ! various values do various inflation (see below).
+    integer,      intent(IN)    :: post_inflate  ! various values do various inflation (see below).
+    real(kind=8), intent(IN)    :: post_inflate_alpha
     real(kind=8), intent(IN)    :: in_inflate(fnz,fny,fnx)
-    real(kind=8), intent(IN)    :: inflate_RTPP
     real(kind=8), intent(OUT)   :: out_inflate(fnz,fny,fnx)
         
 !-- Local variables
@@ -201,20 +226,15 @@ CONTAINS
       sub_ens_size = 0
     ENDIF
 
-! For right now, ignore the ability to use different kinds of inflation base on state vector
-
-!   var_inflation(:) = 1
-!   write(std_out,*) 
-!   write(std_out,*) "COMPUTE_LETKF: USING VARIABLE DEPENDENT INFLATION SCHEME"
-!   write(std_out,*) var_inflation(:)
-!   write(std_out,*) 
 
 ! Logic for inflation, set defaults, and initialize out_inflate since not all grid points are processed.
 
-    out_inflate(:,:,:) = 1.0
 
-    IF( inflate_flag .eq. 1 ) THEN
-      out_inflate(:,:,:) = in_inflate(:,:,:)
+    !!! PRIOR INFLATION !!!
+    
+    out_inflate(:,:,:) = in_inflate(:,:,:) ! python code handles all set up now. 
+
+    IF( prior_inflate .eq. 1 ) THEN
       write(std_out,*) 
       write(std_out,*) "COMPUTE_LETKF: PRIOR ADAPTIVE INFLATION IS ON"
       write(std_out,*) "               Min value of AI:  ",sqrt(minval(out_inflate))
@@ -223,9 +243,9 @@ CONTAINS
       write(std_out,*) "               Max value of limited AI:  ",sqrt(maxval(out_inflate))
       write(std_out,*) 
     ENDIF
-    
-    IF( prior_inflate_flag .eq. 1 ) THEN
-      out_inflate(:,:,:) = inflate_PRIOR
+
+
+    IF( prior_inflate .eq. 2 ) THEN
       write(std_out,*) 
       write(std_out,*) "COMPUTE_LETKF: FIXED PRIOR INFLATION IS ON"
       write(std_out,*) "               Min value of AI:  ",sqrt(minval(out_inflate))
@@ -233,29 +253,43 @@ CONTAINS
       write(std_out,*) 
     ENDIF
     
-    IF( inflate_flag .eq. 2 ) THEN
-      IF( rcf_flag > 1 ) THEN
-        write(std_out,*) 
-        write(std_out,*) "COMPUTE_LETKF: ADAPTIVE WH2010 RTPS INFLATION IS ON"
-      else
+
+    !!! POSTERIOR INFLATION !!!
+    
+    IF (post_inflate .eq. 1) THEN 
         write(std_out,*) 
         write(std_out,*) "COMPUTE_LETKF: WH2010 RTPS INFLATION IS ON"
-      ENDIF
-      write(std_out,*) "                 Inflation alpha is: ", inflate_RTPS
-      write(std_out,*) 
+        write(std_out,*) "                 Inflation alpha is: ", post_inflate_alpha 
+        write(std_out,*)
     ENDIF
-    
-    IF( inflate_flag .eq. 3 ) THEN
-      IF( rcf_flag > 1 ) THEN
+
+
+    IF (post_inflate .eq. 2) THEN 
+        !inflate_RTPS = post_inflate_alpha ! i am not quite sure how it handles the adaptive alpha yet
+        write(std_out,*) 
+        write(std_out,*) "COMPUTE_LETKF: ADAPTIVE WH2010 RTPS INFLATION IS ON"
+        write(std_out,*) "                 Inflation alpha is: ", post_inflate_alpha 
+        write(std_out,*)
+
+
+    IF (post_inflate .eq. 3) THEN 
         write(std_out,*) 
         write(std_out,*) "COMPUTE_LETKF: ADAPTIVE RELAXATION TO TO PRIOR PERTURBATION (RTPP) is ON"
-      ELSE
+        write(std_out,*) "                 Relaxtion alpha is: ", post_inflate_alpha 
+        write(std_out,*)
+    ENDIF
+
+
+    IF (post_inflate .eq. 4) THEN  ! i am not quite sure how it handles the adaptive alpha yet
+        !inflate_RTPP = post_inflate_alpha
         write(std_out,*) 
         write(std_out,*) "COMPUTE_LETKF: FIXED COEFF RELAXATION TO PRIOR PERTURBATION (RTPP) is ON"
-      ENDIF
-      write(std_out,*) "                 Relaxation alpha is: ", inflate_RTPP
-      write(std_out,*) 
+        write(std_out,*) "                 Relaxtion alpha is: ", post_inflate_alpha 
+        write(std_out,*)
     ENDIF
+
+
+    !!! other settings !!!
 
     write(std_out,*) "COMPUTE_LETKF: POSITIVE DEFINITE SCHEME IS:  ", pos_def_scheme
     write(std_out,*) "COMPUTE_LETKF: POSITIVE DEFINITE FLOOR VALUE:  ", nu0
@@ -344,7 +378,7 @@ CONTAINS
   
                 var(:) = xyz3d(m,:,k,j,i)
 
-                IF( RCF_flag .eq. 1 .and. inflate_flag .gt. 1 ) THEN 
+                IF( RCF_flag .eq. 1 .and. inflate_flag .gt. 1 ) THEN ! post_inflate options 2 and 4
 
                   rcf_coeff(1) = inflate_RTPP  
 
@@ -353,7 +387,7 @@ CONTAINS
 
                   rcf_mean(m) = rcf_mean(m) + rcf_coeff(1)
 
-                ELSE
+                ELSE ! post inflate otpions 1 and 3
             
                   CALL UPDATE(var, trans, mean_wgt, out_inflate(k,j,i), inflate_flag, posdef(m), ne, new1, fnobs, &
                               nvalid, 0, Hx, obindex)

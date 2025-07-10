@@ -47,9 +47,13 @@ forecast_length     = 3600 # 60 minutes
 forecast_freq       = 300  # 5 minutes
 
 obs_include         = ['DBZ', 'VR', 'DBZ0'] #options: DBZ, VR, DBZ0, DBZ0_W(updates w instead of ref)
-obs_error           = {'VR':3.0, 'DBZ':7.0, 'DBZ0':5.0, 'DBZ0_W': 0.5} #{'VR':4.24, 'DBZ':9.899, 'DBZ0':7.071, 'DBZ0_W': 0.5} #{'VR':5.196, 'DBZ':12.124, 'DBZ0':8.660}
-aInflate            = 3  # 1 is letkf adaptive, 3 is RTPP
-RTPP_coefficient    = 0.9
+obs_error           = {'VR':3.0, 'DBZ':7.0, 'DBZ0':5.0, 'DBZ0_W': 0.5} 
+
+prior_inflate       = 3  # 
+prior_inflate_value = 1.0 # leave as 1.0 unless you want to use a fixed inflation value
+post_inflate        = 3
+post_inflate_alpha  = 0.5 # coeffcient, alpha, whhatever you wanna call it for RTPS or RTPP
+
 outlier             = 3
 inlier              = 0.0 # set to 0 to turn off
 nthreads            = 8
@@ -66,7 +70,6 @@ rvert               = 4500.0
 rtime               = -600.0
 cutoff              = 2
 zcutoff             = 10000.0  
-inflate             = 1.0
 print_state_stats   = True
 
 
