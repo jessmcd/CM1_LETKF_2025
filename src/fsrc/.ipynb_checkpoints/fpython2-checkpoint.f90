@@ -13,7 +13,7 @@ MODULE INFLATE_PARAMS
 ! These parameters are for the Relaxation to Prior Perturbation (RTPP)
 ! Negative means use adaptive RTPP
 
-  real(kind=4), parameter :: inflate_RTPP = 0.5
+  !real(kind=4), parameter :: inflate_RTPP = 0.5
 
 ! This parameter is for the fixed priors inflation, value > 1 turns off adaptive inflation.
 ! Normal values of 1.1 --> 1.3 (10% - 30%)
@@ -89,7 +89,7 @@ CONTAINS
 
 !============================================================================================================= 
   SUBROUTINE COMPUTE_LETKF(xob, yob, zob, tob, tanalysis, ob, Hx, dep, rdiag, rloc, rhoriz, rvert, rtime,  &
-                           nthreads, cutoff, zcutoff, update_theta, inflate_flag, in_inflate, out_inflate, &
+                           nthreads, cutoff, zcutoff, update_theta, inflate_flag,inflate_RTPP, in_inflate, out_inflate, &
                            save_weights, read_weights, fnx, fny, fnz, fnobs, fne)
 
 ! Passed variables
@@ -112,6 +112,7 @@ CONTAINS
     real(kind=8), intent(IN)    :: rloc(fnobs)
     real(kind=8), intent(IN)    :: xob(fnobs), yob(fnobs), zob(fnobs), tob(fnobs)
     real(kind=8), intent(IN)    :: in_inflate(fnz,fny,fnx)
+    real(kind=8), intent(IN)    :: inflate_RTPP
     real(kind=8), intent(OUT)   :: out_inflate(fnz,fny,fnx)
         
 !-- Local variables
@@ -345,7 +346,7 @@ CONTAINS
 
                 IF( RCF_flag .eq. 1 .and. inflate_flag .gt. 1 ) THEN 
 
-                  rcf_coeff(1) = inflate_RTPP   
+                  rcf_coeff(1) = inflate_RTPP  
 
                   CALL UPDATE(var, trans, mean_wgt, out_inflate(k,j,i), inflate_flag, posdef(m), ne, new1, fnobs, &
                               nvalid, sub_ens_size, Hx, obindex, rcf_coeff)
@@ -913,6 +914,7 @@ SUBROUTINE UPDATE(var, trans, wa, inflate, inflate_flag, pos_def, ne, new1, &
   real(kind=8),    intent(IN)  :: hdxb(nobs,ne-1)           ! The observaton priors
   integer(kind=4), intent(IN)  :: obIndex(nobs)             ! Index (mask) for valid observations
   integer(kind=4), intent(IN)  :: sub_ens_size              ! The number of sub-ensembles for heirarctical filter
+
   real(kind=8),    intent(INOUT), optional :: adapt_rtpp(1) ! Input:  background value to blend width...
                                                             ! Output: total RTPP value used for update
 

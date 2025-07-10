@@ -97,7 +97,8 @@ defaults = {
                       
 "DA_PARAMS" : {
     "obs_errors":        ob_error_dict,
-    "aInflate":          namelist.aInflate,     
+    "aInflate":          namelist.aInflate, 
+    "RTPP_coefficient":  namelist.RTPP_coefficient,
     "outlier":           namelist.outlier, 
     "inlier":            namelist.inlier,  
     "nthreads":          namelist.nthreads,      

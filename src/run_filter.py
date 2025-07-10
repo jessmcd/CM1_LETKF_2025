@@ -120,11 +120,14 @@ if __name__ == "__main__":
     print(("\n --> Run_Filter:  Number of threads requested is from EXPER file:  %d" % nthreads))
 
 #-------------------------------------------------------------------------------
-# Inflation type
+# Inflation type 
 
   if options.ainflate:
     aInflate = options.ainflate
     print(("\n --> Run_Filter:  using the inflation method from command line:  %d" % (aInflate)))
+    if aInflate == 3:
+      RTPP_Coeff = exper['DA_PARAMS']['RTPP_coefficient']
+      print(("\n --> Run_Filter:  using RTPP Coefficient:  %d" % (RTPP_Coeff)))
   else:
     aInflate = exper['DA_PARAMS']['aInflate']
     print(("\n --> Run_Filter:  using the inflation method from EXPER file:  %d" % (aInflate)))

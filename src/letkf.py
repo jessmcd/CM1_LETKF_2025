@@ -163,6 +163,9 @@ if __name__ == "__main__":
     aInflate = options.ainflate
   else:
     aInflate   = exper['DA_PARAMS']['aInflate']
+
+  if aInflate == 3: inflate_RTPP = exper['DA_PARAMS']['RTPP_coefficient']
+  else: inflate_RTPP = 1 # this is just a useless value pretty much
     
   if aInflate == 0:
     inflate_file_exists = False
@@ -421,7 +424,7 @@ if __name__ == "__main__":
     update_theta = _update_theta
     inflateN = fstate.compute_letkf(xob, yob, zob, tob, tanalysis,
                                     value, Hxf, dep, rdiag, rloc, 
-                                    rhoriz, rvert, rtime, nthreads, cutoff, zcutoff, update_theta, aInflate, inflate,
+                                    rhoriz, rvert, rtime, nthreads, cutoff, zcutoff, update_theta, aInflate,inflate_RTPP, inflate,
                                     saveWeights, readWeights)
                            
 # inflateN always has the adaptive inflation field produced by LETKF core. Write it out...

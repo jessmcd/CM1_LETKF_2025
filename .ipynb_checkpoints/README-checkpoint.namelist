@@ -82,6 +82,8 @@ aInflate          -  integer options for adaptive inflation. (Note that these ha
                       2 => WH2010 RTPS
                       3 => RTPP
 
+RTPP_coefficient  -  float between 0 and 1. This is the scaling factor for RTPP (if aInflate=3). 0 is only use the prior, 1 is only use the analysis. 0.5 would weight both equally (i.e., average them)
+
 outlier           -  number of standard deviations to set outlier threshold at (where observations are discarded due to being too different from the ensemble values). 3 is default
 
 inlier            -  number of standard deviations to set inlier threshold at (where observations are so close to ensemble that they are discarded, theoretically because the increments are too small to be worth the unbalancing of DA). Set to zero to turn off. 
@@ -172,9 +174,9 @@ r_seed            -  seed for random bubble generator - allows for reproducible 
 
 only used if additive_noise is set to True 
 
-min_dbz_4pert      -  dBZ. minimum value of reflectivity that must be exceeded before additive noise is applied (used in option 1 and 3)
+min_dbz_4pert      -  dBZ. minimum value of reflectivity that must be exceeded before additive noise is applied (used in option 1 and 3) [wofs uses 25]
 
-min_inno_4pert     - innovation in dBZ. minimum (absolute) innovation that must be exceeded before additive noise is applied (used in option 3)
+min_inno_4pert     - innovation in dBZ. minimum innovation that must be exceeded before additive noise is applied (used in option 3) [wofs uses 10]
  
 tpert_noise        -  K. Maximum theta perturbation applied in regions that exceed min_dbz_4pert
 
