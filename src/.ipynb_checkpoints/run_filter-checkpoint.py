@@ -41,7 +41,7 @@ if __name__ == "__main__":
   parser.add_option(      "--freq",       dest="freq",      type="int",     help = "Frequency (in secs) of history files in window, \
                                                                                     if freq=width, then DA is synchronous")
   parser.add_option(    "--nthreads",     dest="nthreads",  type="int",     help = "Number of threads for LETKF computation")
-  parser.add_option(    "--aInflate",     dest="ainflate",  type = "int",   help = "Sets type of adaptive inflation (0,1,2,3)", default=None)
+  #parser.add_option(    "--aInflate",     dest="ainflate",  type = "int",   help = "Sets type of adaptive inflation (0,1,2,3)", default=None)
   parser.add_option(    "--HF",           dest="HF",        type = "int",   help = "Sets up writeback skip for HF filter", default=None)
   parser.add_option(    "--obserr",       dest="obserr",    type="string",  nargs=4, help = "")
   parser.add_option(    "--included_obs", dest="obs_inc",   type="string", default='all',  help = "list of observation types to include, in form type1,type2,type3 etc.")
@@ -122,15 +122,13 @@ if __name__ == "__main__":
 #-------------------------------------------------------------------------------
 # Inflation type 
 
-  if options.ainflate:
-    aInflate = options.ainflate
-    print(("\n --> Run_Filter:  using the inflation method from command line:  %d" % (aInflate)))
-    if aInflate == 3:
-      RTPP_Coeff = exper['DA_PARAMS']['RTPP_coefficient']
-      print(("\n --> Run_Filter:  using RTPP Coefficient:  %d" % (RTPP_Coeff)))
-  else:
-    aInflate = exper['DA_PARAMS']['aInflate']
-    print(("\n --> Run_Filter:  using the inflation method from EXPER file:  %d" % (aInflate)))
+  # if options.ainflate:
+  #   aInflate = options.ainflate
+  #   print(("\n --> Run_Filter:  using the inflation method from command line:  %d" % (aInflate)))
+
+  # else:
+  #   aInflate = exper['DA_PARAMS']['aInflate']
+  #   print(("\n --> Run_Filter:  using the inflation method from EXPER file:  %d" % (aInflate)))
 
 #################################################################################################
 #
@@ -164,7 +162,7 @@ if __name__ == "__main__":
 
   cmd = "python letkf.py --exper %s --time %s --nthreads %d " % (options.exper, options.time, nthreads)
   
-  if aInflate:   cmd = "%s --aInflate %d" % (cmd, aInflate)
+  #if aInflate:   cmd = "%s --aInflate %d" % (cmd, aInflate)
   if options.HF != None: cmd = "%s --HF %d" % (cmd, options.HF)
   
   print("\n  "+cmd+"\n")

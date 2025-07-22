@@ -27,9 +27,8 @@ MODULE INFLATE_PARAMS
   real(kind=4), parameter :: eps = 1.0e-10 ! inflate_RTPS = 1.25,
 
 
- ! real(kind=4), parameter :: inflate_RTPS = 1.0
- ! real(kind=4), parameter :: inflate_RTPP = 1.0
-
+  real(kind=4), save :: inflate_RTPS = 1.0
+  real(kind=4), save :: inflate_RTPP = 1.0
  ! save :: inflate_RTPS, inflate_RTPP
 
 ! These parameters are for the Relaxation to Prior Perturbation (RTPP)
@@ -47,7 +46,10 @@ MODULE INFLATE_PARAMS
 ! Two options:  (1) use RCF in localization matrix within LETKF (expensive)
 !               (2) use RCF value and blend with RTPP value from Zhang (2007)
 
-  integer, parameter :: rcf_flag = 0
+! 2025 update = this code no longer suppors RCF 1. It only uses RCF 2, so the rcf_flag is no longer needed.
+! RCF is used if you are using adaptive RTPP or RTPS
+
+  !integer, parameter :: rcf_flag = 0
   integer(kind=4), dimension(5) :: sub_ens = (/5,6,8,10,12/)
 
 ! Parameters for the positive definite code in UPDATE
@@ -193,11 +195,6 @@ CONTAINS
       mean_wgt3D  = 0.0
     ENDIF
 
-!   IF( read_weights ) THEN
-!     allocate(trans3D(ne-1,ne-1,fnz,fny,fnx))
-!     allocate(mean_wgt3D(ne-1,fnz,fny,fnx))
-!     CALL READ_LETKF_WEIGHTS(mean_wgt3d, trans3D, nx, ny, nz, ne-1)
-!   ENDIF
 
     gp_update_count = 0
     total_valid_obs = 0
@@ -210,8 +207,9 @@ CONTAINS
 
 ! Determine whether we need to compute Anderson's reliability coefficient.  If so, determine sub-group size
 
-    IF( rcf_flag > 0 ) THEN  
-      write(std_out,*) "COMPUTE_LETKF:  RCF > 0, ANDERSON'S RELIABILITY COEFFICIENT WILL BE USED IN CALCULATIONS!"
+    !IF( rcf_flag > 0 ) THEN 
+    IF (post_inflate .eq. 2) THEN!IF (post_inflate .eq. 2 .or. post_inflate .eq. 4) THEN
+      write(std_out,*) "COMPUTE_LETKF:  ANDERSON'S RELIABILITY COEFFICIENT WILL BE USED IN CALCULATIONS!"
       DO i = size(sub_ens),1,-1
         IF( mod(fne,sub_ens(i)) .eq. 0 ) THEN
            sub_ens_size = sub_ens(i)
@@ -230,7 +228,7 @@ CONTAINS
 ! Logic for inflation, set defaults, and initialize out_inflate since not all grid points are processed.
 
 
-    !!! PRIOR INFLATION !!!
+    !!! ------------- PRIOR INFLATION ------------- !!!
     
     out_inflate(:,:,:) = in_inflate(:,:,:) ! python code handles all set up now. 
 
@@ -254,37 +252,40 @@ CONTAINS
     ENDIF
     
 
-    !!! POSTERIOR INFLATION !!!
+    !!! ------------- POSTERIOR INFLATION ------------- !!!
     
     IF (post_inflate .eq. 1) THEN 
+        inflate_RTPS = post_inflate_alpha 
         write(std_out,*) 
         write(std_out,*) "COMPUTE_LETKF: WH2010 RTPS INFLATION IS ON"
-        write(std_out,*) "                 Inflation alpha is: ", post_inflate_alpha 
+        write(std_out,*) "                 Inflation alpha is: ", inflate_RTPS 
         write(std_out,*)
     ENDIF
 
 
     IF (post_inflate .eq. 2) THEN 
-        !inflate_RTPS = post_inflate_alpha ! i am not quite sure how it handles the adaptive alpha yet
+        inflate_RTPS = post_inflate_alpha 
         write(std_out,*) 
         write(std_out,*) "COMPUTE_LETKF: ADAPTIVE WH2010 RTPS INFLATION IS ON"
-        write(std_out,*) "                 Inflation alpha is: ", post_inflate_alpha 
+        write(std_out,*) "                 Inflation alpha is starting at: ", inflate_RTPS  
         write(std_out,*)
+    ENDIF
 
 
     IF (post_inflate .eq. 3) THEN 
+        inflate_RTPP = post_inflate_alpha
         write(std_out,*) 
         write(std_out,*) "COMPUTE_LETKF: ADAPTIVE RELAXATION TO TO PRIOR PERTURBATION (RTPP) is ON"
-        write(std_out,*) "                 Relaxtion alpha is: ", post_inflate_alpha 
+        write(std_out,*) "                 Relaxtion alpha is: ", inflate_RTPP 
         write(std_out,*)
     ENDIF
 
 
     IF (post_inflate .eq. 4) THEN  ! i am not quite sure how it handles the adaptive alpha yet
-        !inflate_RTPP = post_inflate_alpha
+        inflate_RTPP = post_inflate_alpha
         write(std_out,*) 
-        write(std_out,*) "COMPUTE_LETKF: FIXED COEFF RELAXATION TO PRIOR PERTURBATION (RTPP) is ON"
-        write(std_out,*) "                 Relaxtion alpha is: ", post_inflate_alpha 
+        write(std_out,*) "COMPUTE_LETKF: RELAXATION TO PRIOR PERTURBATION (RTPP) is ON"
+        write(std_out,*) "                 Relaxtion alpha is starting at: ", inflate_RTPP  
         write(std_out,*)
     ENDIF
 
@@ -339,68 +340,50 @@ CONTAINS
             gp_update_count = gp_update_count + 1
             total_valid_obs = total_valid_obs + nvalid
 
-!-------------->>>   RCF_flag == 2, call LETKF_CORE for each state variable individually   <<<--------------------
 
-            IF( RCF_flag .eq. 2 ) THEN  
+            !-------------->>>   if not adaptive or no post inflation, call LETKF_CORE once and UPDATE for each state variable individually   <<<-------------------- 
 
-              DO m = 1,nxyz3d
-  
-                var(:) = xyz3d(m,:,k,j,i)
-
-                t0 = omp_get_wtime()              ! Compute transformation matrix
-
-                CALL LETKF_CORE(fne, fnobs, nvalid, var, Hx, rdiag, obwgt, dep, obindex, in_inflate(k,j,i), &
-                                trans, mean_wgt, out_inflate(k,j,i), sub_ens_size, rcf_coeff)
-
-                rcf_mean(m) = rcf_mean(m) + rcf_coeff(1)
-                                        
-                t_core = t_core + omp_get_wtime() - t0
-          
-                CALL UPDATE(var, trans, mean_wgt, out_inflate(k,j,i), inflate_flag, posdef(m), ne, new1, fnobs, &
-                            nvalid, 0, Hx, obindex)
-            
-                xyz3d(m,:,k,j,i) = new1(:)
-            
-              ENDDO  ! m-index
-
-!---------------->>>  Call LETKF_CORE once / IF RCF_flag > 1 adaptive inflation methods in UPDATE used
-
-            ELSEIF( RCF_flag < 2 ) THEN
+            IF (post_inflate.eq.0 .or. post_inflate.eq.1 .or. post_inflate.eq.3) THEN 
 
               t0 = omp_get_wtime()              ! Compute transformation matrix
-
               CALL LETKF_CORE(fne, fnobs, nvalid, var, Hx, rdiag, obwgt, dep, obindex, in_inflate(k,j,i), &
                               trans, mean_wgt, out_inflate(k,j,i), 0, rcf_coeff)
                                         
               t_core = t_core + omp_get_wtime() - t0
-
               DO m = 1,nxyz3d
-  
                 var(:) = xyz3d(m,:,k,j,i)
+                CALL UPDATE(var, trans, mean_wgt, out_inflate(k,j,i), post_inflate, posdef(m), ne, new1, fnobs, &
+                              nvalid, 0, Hx, obindex) 
 
-                IF( RCF_flag .eq. 1 .and. inflate_flag .gt. 1 ) THEN ! post_inflate options 2 and 4
-
-                  rcf_coeff(1) = inflate_RTPP  
-
-                  CALL UPDATE(var, trans, mean_wgt, out_inflate(k,j,i), inflate_flag, posdef(m), ne, new1, fnobs, &
-                              nvalid, sub_ens_size, Hx, obindex, rcf_coeff)
-
-                  rcf_mean(m) = rcf_mean(m) + rcf_coeff(1)
-
-                ELSE ! post inflate otpions 1 and 3
+                xyz3d(m,:,k,j,i) = new1(:)
+              ENDDO! m-index
             
-                  CALL UPDATE(var, trans, mean_wgt, out_inflate(k,j,i), inflate_flag, posdef(m), ne, new1, fnobs, &
-                              nvalid, 0, Hx, obindex)
+            
+            
+            !-------------->>>   if adaptive, call LETKF_CORE and UPDATE for each state variable individually   <<<-------------------- 
+            
+            ELSEIF (post_inflate.eq.2 .or. post_inflate.eq.4) THEN
 
-                ENDIF
+              t0 = omp_get_wtime()              ! Compute transformation matrix
+              DO m = 1,nxyz3d
+              
+                var(:) = xyz3d(m,:,k,j,i)
+                
+                CALL LETKF_CORE(fne, fnobs, nvalid, var, Hx, rdiag, obwgt, dep, obindex, in_inflate(k,j,i), &
+                                trans, mean_wgt, out_inflate(k,j,i), sub_ens_size, rcf_coeff)
 
+                rcf_mean(m) = rcf_mean(m) + rcf_coeff(1)               
+                t_core = t_core + omp_get_wtime() - t0
+                CALL UPDATE(var, trans, mean_wgt, out_inflate(k,j,i), post_inflate, posdef(m), ne, new1, fnobs, &
+                            nvalid, 0, Hx, obindex)
+                            
                 xyz3d(m,:,k,j,i) = new1(:)
             
               ENDDO  ! m-index
 
-            ENDIF
+            ENDIF ! post_inflate flate 
 
-!------------------------------------------------------------------------------------------------------------- 
+        
 
             IF( save_weights ) THEN
               trans3D(:,:,k,j,i)  = trans(:,:)
@@ -431,7 +414,7 @@ CONTAINS
   
               var(:) = xyz3d(m,:,k,j,i)
 
-              CALL UPDATE(var, trans, mean_wgt, out_inflate(k,j,i), inflate_flag, posdef(m), ne, new1, fnobs, &
+              CALL UPDATE(var, trans, mean_wgt, out_inflate(k,j,i), post_inflate, posdef(m), ne, new1, fnobs, &
                           nvalid, 0, Hx, obindex)
 
               xyz3d(m,:,k,j,i) = new1(:)
@@ -458,23 +441,17 @@ CONTAINS
     write(std_out,*) "COMPUTE_LETKF:  Number of grid points updated is: ", gp_update_count
     write(std_out,*) "COMPUTE_LETKF:  Number of observations used is: ", total_valid_obs
     write(std_out,*) 
-    
-    IF( RCF_flag .eq. 1 ) THEN   ! print out Mean RCF value for each state variable...
-      rcf_mean(:) = rcf_mean(:) / float(gp_update_count)
-      DO m = 1,nxyz3d
-        write(std_out,FMT='("COMPUTE_LETKF:  State Variable:  ",i2," MEAN RCF Value: ",g15.7)') m, rcf_mean(m)
-      ENDDO
-    ENDIF
 
-    IF( RCF_flag > 1 .and. inflate_flag .eq. 2 ) THEN   ! print out Mean Adaptive RTPS value for each state variable...
+
+    IF( post_inflate .eq. 2) THEN   ! print out Mean Adaptive RTPS value for each state variable...
       rcf_mean(:) = rcf_mean(:) / float(gp_update_count)
       write(std_out,FMT='("COMPUTE_LETKF:  INITIAL RTPS VALUE:  ",g15.7," no inflat <- 0 (value) 1 -> full inflat")') inflate_RTPS
       DO m = 1,nxyz3d
         write(std_out,FMT='("COMPUTE_LETKF:  State Variable:  ",i2," MEAN RTPP Value: ",g15.7)') m, rcf_mean(m)
       ENDDO
     ENDIF
-
-    IF( RCF_flag > 1 .and. inflate_flag .eq. 3 ) THEN   ! print out Mean Adaptive RTPS value for each state variable...
+ 
+    IF( post_inflate .eq. 4 ) THEN   ! print out Mean Adaptive RTPS value for each state variable...
       rcf_mean(:) = rcf_mean(:) / float(gp_update_count)
       write(std_out,FMT='("COMPUTE_LETKF:  INITIAL RTPP VALUE:  ",g15.7," posterior <- 0 (value) 1 -> prior")') inflate_RTPP
       DO m = 1,nxyz3d
@@ -491,76 +468,13 @@ CONTAINS
     deallocate(obwgt)
     deallocate(obindex)
 
-!   IF( save_weights) THEN
-!    CALL WRITE_LETKF_WEIGHTS(mean_wgt3d, trans3D, xc, yc, zc, tanalysis, nx, ny, nz, ne-1)
-!    deallocate(trans3D)
-!    deallocate(mean_wgt3D)
-!  ENDIF
 
    CALL FLUSH(6)
     
   RETURN
   END SUBROUTINE COMPUTE_LETKF
 
-!=============================================================================================================
-!
-!  DRIVE_PEAKF is a OpenMP-enabled driver for the
-!              "Ensemble Adjustment Kalman Filter" (EAKF) from Anderson and Collins (2008).
-!
-!
-!  DRIVE_PEAKF is called from eakf.py as a fortran subroutine called from python, but could easily
-!              be called from a fortran or C program
-!
 
-  INTEGER FUNCTION DRIVE_PESRF(xob, yob, zob, tob, tanalysis, Hxf, obs, obsError, rhoriz, rvert, rtime, &
-                               nthreads, cutoff, zcutoff, inflate, fnobs, fne)
-   
-! Passed variables
-
-    integer,      intent(IN)    :: fnobs, fne
-    integer,      intent(IN)    :: nthreads
-    integer,      intent(IN)    :: cutoff
-    real(kind=8), intent(IN)    :: tanalysis
-    real(kind=8), intent(IN)    :: rhoriz, rvert, rtime
-    real(kind=8), intent(IN)    :: inflate
-    real(kind=8), intent(IN)    :: zcutoff
-
-    real(kind=8), intent(IN)    :: xob(fnobs), yob(fnobs), zob(fnobs), tob(fnobs)
-    real(kind=8), intent(IN)    :: Hxf(fnobs,fne)
-    real(kind=8), intent(IN)    :: obs(fnobs) 
-    real(kind=8), intent(IN)    :: obsError(fnobs)
-    
-  ! Local variables
-  
-    real(kind=4)      :: xg(nx), yg(ny), zg(nz)
-    integer           :: n, nobs, o
-    integer, external :: PESRF
-    integer           :: counts(nxyz3d)                                   ! dummy variable to store ob counts from filter.
-    character(LEN=*), parameter :: debug_file_suffix = 'fortran_ESRF'     ! A file suffix that is used for debug output.
-    
-    DRIVE_PESRF = -1  ! set initial state to error value, then set it later for successful completion
-    
-    nobs = size(obs)
-    
-    xg = xc - xoffset
-    yg = yc - yoffset
-    zg = zc
-    
-    CALL OMP_SET_NUM_THREADS(nthreads)
-    
-  !$OMP PARALLEL DO DEFAULT(SHARED)
-  
-      DO n = 1,nxyz3d
-      
-        counts(n) = PESRF(xyz3d(n,1,1,1,1), nx, ny, nz, fne, xg, yg, zg, &
-                          xob, yob, zob, obs, obsError, Hxf, nobs, &
-                          inflate, posdef(n), cutoff, rhoriz, rvert, zcutoff, debug_file_suffix)
-        
-      ENDDO
-   
-  !$OMP END PARALLEL DO
-    
-  END FUNCTION DRIVE_PESRF
 
 !=============================================================================================================
   SUBROUTINE ALLOCATE_FSTATE(fnx,fny,fnz,fnxyz3d,fne)
@@ -927,7 +841,7 @@ RETURN
 END SUBROUTINE LOCALIZATION1D
 
 !=============================================================================================================   
-SUBROUTINE UPDATE(var, trans, wa, inflate, inflate_flag, pos_def, ne, new1, & 
+SUBROUTINE UPDATE(var, trans, wa, inflate, post_inflate, pos_def, ne, new1, & 
                   nobs, nvalid_obs, sub_ens_size, hdxb, obIndex, adapt_rtpp)
 
   USE INFLATE_PARAMS
@@ -936,7 +850,7 @@ SUBROUTINE UPDATE(var, trans, wa, inflate, inflate_flag, pos_def, ne, new1, &
 !-------------------------------------------------------------------------------------
 
   integer,         intent(IN)  :: pos_def
-  integer,         intent(IN)  :: inflate_flag
+  integer,         intent(IN)  :: post_inflate
   integer,         intent(IN)  :: ne
   real(kind=4),    intent(IN)  :: var(ne)                   ! state vector at a point + mean
   real(kind=8),    intent(IN)  :: trans(ne-1,ne-1)
@@ -984,76 +898,74 @@ SUBROUTINE UPDATE(var, trans, wa, inflate, inflate_flag, pos_def, ne, new1, &
 
   new1(1:ne-1) = matmul(pvar, trans)
 
-! Adaptive inflation RTPS from Whitaker and Hamill (inflate_flag = 2)
+! relaxation to prior spread (RTPS) WH2010 
 
-  IF( inflate_flag .eq. 2 ) THEN
+  IF (post_inflate .eq. 1) THEN ! RTPS with fixed alpha
 
-! Compute background (prior) and analysis (posterior) variances
-
+    ! Compute background (prior) and analysis (posterior) variances
     sigmaB = sqrt( sum(pvar*pvar) / float(ne-2) )
     sigmaA = sqrt( sum(new1(1:ne-1)*new1(1:ne-1)) / float(ne-2) )
-
-! Check to see if its adaptive....
-
-    IF( present(adapt_rtpp) .and. sub_ens_size > 0 ) THEN
-
-      rcf_mean = 0.0d0
-      vartmp   = var(1:ne-1)
-      DO m = 1,nvalid_obs
-        HxfL(:)  = hdxb(obIndex(m),:)
-        rcf0     = F_RCF(vartmp, HxfL, ne-1, sub_ens_size)
-        rcf_mean = rcf_mean + rcp0
-      ENDDO
-      rcf_mean = rcf_mean / float(nvalid_obs)
-      adapt_rtpp(1) = (1.0 - inflate_RTPS) * rcf_mean + inflate_RTPS
-      inflate2      = 1.0 + adapt_rtpp(1)*((sigmaB-sigmaA)/(eps+sigmaA))
-      new1(1:ne-1)  = new1(1:ne-1) * inflate2
-
-    ELSE
-
-      inflate2     = 1.0 + inflate_RTPS*((sigmaB-sigmaA)/(eps+sigmaA))
-      new1(1:ne-1) = new1(1:ne-1) * inflate2
-
-    ENDIF
-
-  ENDIF  ! ENDIF RTPS
-
-! Relaxation to the prior perturbation (RTPP) from Zhang et al (2004) (inflate_flag = 3)
-! Note: inflate_RTPP/adapt_rtpp = 1.0, the prior perturbations replace the new perturbations
-
-  IF( inflate_flag .ge. 3 ) THEN
-
-! Check to see if its adaptive....
-
-    IF( present(adapt_rtpp) .and. sub_ens_size > 0 ) THEN
-
-      rcf_mean = 0.0d0
-      vartmp   = var(1:ne-1)
-      DO m = 1,nvalid_obs
-        HxfL(:)  = hdxb(obIndex(m),:)
-        rcf0     = F_RCF(vartmp, HxfL, ne-1, sub_ens_size)
-        rcf_mean = rcf_mean + rcf0
-!       rcf0     = F_CORR(vartmp, HxfL, ne-1)
-!       rcf_mean = rcf_mean + sqrt(rcf**2)
-!       write(6,*) 'UPDATE RCF: ', rcf0, sqrt(rcf0**2)
-      ENDDO
-      rcf_mean = rcf_mean / float(nvalid_obs)
-!     write(6,*) 'UPDATE CORR_MEAN: ', rcf_mean
-
-! adapt_rtpp(1) is remapped such that 1=prior, 0=posterior perturbations
-
-      adapt_rtpp(1) = adapt_rtpp(1) - (1.0 - adapt_rtpp(1)) * rcf_mean 
-      new1(1:ne-1)  = pvar(1:ne-1) * adapt_rtpp(1) + (1.0 - adapt_rtpp(1)) * new1(1:ne-1)
- 
-    ELSE
-
-! Do the standard blending of prior and posterior perturbations
-
-      new1(1:ne-1) = pvar(1:ne-1) * inflate_RTPP + (1.0 - inflate_RTPP) * new1(1:ne-1)
-
-    ENDIF
+    
+    inflate2     = 1.0 + inflate_RTPS*((sigmaB-sigmaA)/(eps+sigmaA))
+    new1(1:ne-1) = new1(1:ne-1) * inflate2
 
   ENDIF
+  
+
+  IF (post_inflate .eq. 2) THEN ! RTPS with adapative alpha
+  
+   ! Compute background (prior) and analysis (posterior) variances
+    sigmaB = sqrt( sum(pvar*pvar) / float(ne-2) )
+    sigmaA = sqrt( sum(new1(1:ne-1)*new1(1:ne-1)) / float(ne-2) )
+    
+    rcf_mean = 0.0d0
+    vartmp   = var(1:ne-1)
+    DO m = 1,nvalid_obs
+      HxfL(:)  = hdxb(obIndex(m),:)
+      rcf0     = F_RCF(vartmp, HxfL, ne-1, sub_ens_size)
+      rcf_mean = rcf_mean + rcp0
+    ENDDO
+    
+    rcf_mean = rcf_mean / float(nvalid_obs)
+    adapt_rtpp(1) = (1.0 - inflate_RTPS) * rcf_mean + inflate_RTPS
+    inflate2      = 1.0 + adapt_rtpp(1)*((sigmaB-sigmaA)/(eps+sigmaA))
+    new1(1:ne-1)  = new1(1:ne-1) * inflate2
+    
+  ENDIF
+
+    
+
+! Relaxation to the prior perturbation (RTPP) from Zhang et al (2004) 
+! Note: inflate_RTPP/adapt_rtpp = 1.0, the prior perturbations replace the new perturbations
+
+
+  IF (post_inflate .eq. 3) THEN !RTPP with fixed alpha 
+
+   ! write(6,*) 
+   ! write(6,*) "COMPUTE_LETKF: TESTING THAT RTPP IS UPDATING"
+   ! write(6,*) "                 Relaxtion alpha is: ", inflate_RTPP 
+   ! write(6,*)
+    
+    new1(1:ne-1) = pvar(1:ne-1) * inflate_RTPP + (1.0 - inflate_RTPP) * new1(1:ne-1)
+  ENDIF
+  
+
+  IF (post_inflate.eq. 4) THEN !RTPP with adaptive alpha 
+
+    rcf_mean = 0.0d0
+    vartmp   = var(1:ne-1)
+    DO m = 1,nvalid_obs
+      HxfL(:)  = hdxb(obIndex(m),:)
+      rcf0     = F_RCF(vartmp, HxfL, ne-1, sub_ens_size)
+      rcf_mean = rcf_mean + rcf0
+    ENDDO
+    rcf_mean = rcf_mean / float(nvalid_obs)
+
+    adapt_rtpp(1) = adapt_rtpp(1) - (1.0 - adapt_rtpp(1)) * rcf_mean 
+    new1(1:ne-1)  = pvar(1:ne-1) * adapt_rtpp(1) + (1.0 - adapt_rtpp(1)) * new1(1:ne-1)
+
+  ENDIF
+  
 
 ! Add mean back in and its the PRIOR MEAN according to Hunt et al (2007; eq. 25)
 
@@ -1078,292 +990,6 @@ SUBROUTINE UPDATE(var, trans, wa, inflate, inflate_flag, pos_def, ne, new1, &
 RETURN
 END SUBROUTINE UPDATE
 
-!=============================================================================================================
-!
-!  PESRF can do either a single or parallel update using the Ensemble Square Root Kalman Filter 
-! 
-!
-!
-!  PESRF is called from esrf.py as a fortran subroutine called from python, but could easily
-!        be called from a variety of drivers.  
-
-INTEGER FUNCTION PESRF(d, nx, ny, nz, nens, xc, yc, zc, &
-                       x, y, z, ob, ob_var, pHxf, nobs, &
-                       inflate, positive, cutoff, rhoriz, rvert, zcutoff, debug_file_suffix)
-
-  implicit none
-
-! Passed variables
-
-  real,    intent(INOUT)  :: d(nens+1, nz, ny, nx)  ! Model state field to be updated.  D(nens+1,:,:,:) == MEAN(D)
-  real,    intent(IN)     :: xc(nx)                 ! coordinates corresponding to grid indices
-  real,    intent(IN)     :: yc(ny)                 ! "                                       "
-  real,    intent(IN)     :: zc(nz)                 ! "                                       "
-  integer, intent(IN)     :: nx, ny, nz             ! grid dimensions
-  integer, intent(IN)     :: nens                   ! number of ensemble members
-  
-  integer, intent(IN)     :: nobs                   ! Number of observations (can be 1)
-  real,    intent(IN)     :: x(nobs)                ! location of observation in grid coordinates (m)
-  real,    intent(IN)     :: y(nobs)                ! location of observation in grid coordinates (m)
-  real,    intent(IN)     :: z(nobs)                ! location of observation in grid coordinates (m)
-  
-  real(kind=8),intent(IN) :: ob(nobs)               ! observations
-  real(kind=8),intent(IN) :: ob_var(nobs)           ! observation error VARIANCE (not std dev)
-  real(kind=8),intent(IN) :: pHxf(nobs,nens)        ! ensemble members mapped to observations
-
-  real,    intent(IN)     :: inflate                ! covariance inflation factor
-  integer, intent(IN)     :: positive               ! 1 if values are to be forced to
-                                                    !   remain positive (0 otherwise)
-
-  integer, intent(IN)     :: cutoff                 ! cutoff type:  1=sharp, 2=smooth
-  real,    intent(IN)     :: zcutoff                ! maximum altitude for adjustments
-  real,    intent(IN)     :: rhoriz, rvert          ! cutoff radii for ob. influence
-  
-  character(LEN=*), intent(IN) :: debug_file_suffix ! A file suffix that is used for debug output.
-
-! Local variables
-
-  real(kind=8) den                ! Denominator in Kalman matrix element
-  real(kind=8) KG                 ! Kalman gain
-  real(kind=8) beta               ! beta factor
-  integer i, i1, i2               ! grid indices
-  integer j, j1, j2  
-  integer k, k1, k2
-  integer n, o, p
-  integer imin, imax, jmin, jmax, kmin, kmax
-  
-  real(kind=8) af                 ! adjustment factor (localization weight)
-  real(kind=8) dis                ! unitless distance (number of cutoff
-                                  !   radii from grid point)
-  real(kind=8) xrad, yrad, zrad
-  real(kind=8) sd_f
-  
-  real(kind=8) :: sdHxf(nobs)            ! std deviation of Hxfm
-  real(kind=8) :: Hxfm(nobs,nens)        ! ensemble members mapped to observations
-  real(kind=8) :: Hxfbar(nobs)           ! mean Hxf
-
-  real(kind=8) :: Hxfbar2, Hxf_var(nobs), var_ratio
-  real(kind=8) :: v1d(0:nens), v1d_mean
-
-  real(kind=8), parameter :: zero = 0.0d8, min_var_scale = 1.0d-4 
- 
-  character(LEN=17), parameter :: debug_file_prefix = 'ESRF_DIAGNOSTICS.'
-  integer, parameter           :: debug_unit = 21
-  integer, parameter           :: debug = 0        ! debug = 0 - no output to debug_file
-                                                   ! debug = 1 - output incoming obs, ob_var, and some info about Hxf, Hxf_var
-                                                   ! debug = 2 - output of 1, plus information about prior and posterior obs updates
-                                                   ! debug = 3 - all of above, + indices of of what grid pts being updated.
-                                                                 
-! Functions
-
-  integer find_index4, pesrf_local
-  real(kind=8) comp_cov_factor
-  
-! Copy obs into local array and compute spread and mean
-
-  Hxfm = pHxf
-  DO o = 1,nobs
-    Hxfbar(o) = SUM( Hxfm(o,:) ) / float(nens-1)
-    sdHxf(o)  = SUM( (Hxfbar(o) - Hxfm(o,:))**2 ) / float(nens-1)
-  ENDDO
-  
-! Set PESRF = 0, so that the default is no ob is assimilated
-  
-  PESRF = 0
-      
-  IF( debug > 0 ) THEN
-    open(unit=debug_unit,file=debug_file_prefix//debug_file_suffix,status='unknown')
-    write(debug_unit,*) ' PESRF'
-    write(debug_unit,*) '  NENS:  ', nens, '  NOBS:  ', nobs
-    write(debug_unit,*) '  Xmin: ', xc(1),  '  Ymin: ', yc(1),  '  Zmin: ', zc(1)
-    write(debug_unit,*) '  Xmax: ', xc(nx), '  Ymax: ', yc(nx), '  Zmax: ', zc(nz)
-    write(debug_unit,'(a,1x,f7.4,1x,2(a,1x,i3))') ' inflate: ', inflate, '  pos-def: ', positive, ' cutoff_type: ', cutoff 
-    write(debug_unit,'(3(a,1x,f8.2))') ' rhoriz: ', rhoriz, '  rvert: ', rvert, '  zcutoff: ', zcutoff
-    write(debug_unit,*)  
-    write(debug_unit,'(a)') '  INPUT    ob#   ob     ob_var   Hxf_mean   Hxf(1)    Hxf(nens)  new_Hxf_var input_Hxf_var  den  beta'
-  ENDIF
-
-
-! Assume for now we will update variables on a (1:nx, 1:ny, 1:nz) - this assumes the state data are on the A-grid
-
-  imin = 1
-  imax = nx
-  jmin = 1
-  jmax = ny
-  kmin = 1
-  kmax = nz
-  
-  DO o = 1,nobs
-  
-! Since we are changing the obs as we go, we need to update std deviation 
-
-    Hxf_var(o) = SUM( (Hxfbar(o) - Hxfm(o,:))**2 ) / float(nens-1)
-    
-! Since we are changing the obs as we go, we need to update std deviation
-  
-    sdHxf(o) = SQRT( SUM( (Hxfbar(o) - Hxfm(o,:))**2 ) / float(nens-1) )
-
-    den = ob_var(o) + sdHxf(o)**2
-    beta = 1.0 / ( 1.0 + sqrt(ob_var(o)/den) )
-    
-    IF( debug > 0 ) THEN
-      write(debug_unit,'(a,i5,10(2x,f8.3))') 'BEGIN:  ', o, ob(o), ob_var(o), &
-                                             Hxfbar(o), Hxfm(o,1), Hxfm(o,nens), Hxf_var(o), sdHxf(o)**2, &
-                                             den, beta
-    ENDIF
-    
-    i1 = max(imin,   find_index4(x(o)-rhoriz, xc, nx))
-    i2 = min(imax, 1+find_index4(x(o)+rhoriz, xc, nx))
-    j1 = max(jmin,   find_index4(y(o)-rhoriz, yc, ny))
-    j2 = min(jmax, 1+find_index4(y(o)+rhoriz, yc, ny))
-    k1 = max(kmin,   find_index4(z(o)-rvert,  zc, nz))
-    k2 = min(kmax, 1+find_index4(z(o)+rvert,  zc, nz))
-    
-    IF ( debug > 2 ) THEN
-      write(debug_unit,'(a,3x,4(i3,2x))') "INDICES FOR SEARCH:  I1/I2,J1/J2,K1/K2:  ", i1, i2, j1, j2, k1, k2
-    ENDIF
-    
-    pesrf_local = 0
-  
-    DO i = i1,i2
-    
-      xrad = (x(o)-xc(i))
-  
-      DO j = j1,j2
-  
-        yrad = (y(o)-yc(j))
-        
-        DO k = k1,k2
-  
-          zrad = (z(o)-zc(k))
-  
-          dis = sqrt( (xrad/rhoriz)**2 + (yrad/rhoriz)**2 + (zrad/rvert)**2)
-  
-          IF (cutoff == 1) THEN
-  
-            IF (dis <= 1.0) THEN
-              af = 1.0
-            ELSE
-              af = 0.0
-            ENDIF
-  
-          ELSE IF (cutoff == 2) then
-            af = comp_cov_factor(dble(dis),dble(0.5))
-       
-          ELSE
-            write(*,*) 'STATE UPDATE PESRF: -- invalid value of cutoff: ', cutoff
-            stop
-          ENDIF
-  
-          IF ( zc(k) > zcutoff ) af = 0.0
-          
-  ! write(debug_file,*) "AF VALUE FOR I/J/K:  " i,j,k, af
-         
-          IF (af > 0.0) THEN
-  
-            DO n = 1,nens
-              v1d(n) = d(n,     k,j,i)
-            ENDDO
-            v1d(0)   = d(nens+1,k,j,i)
-            
-  ! IF ( ANY(v1d(1:nens) .ne. v1d(0) ) ) write(debug_file,*) "SPREAD EXISTS, PROCESSING I/J/K:  ",i,j,k, 
-      
-            IF ( ANY(v1d(1:nens) .ne. v1d(0) ) ) THEN ! only care if members are different from mean
-      
-              KG   = 0.0
-              sd_f = 0.0
-  
-              DO n = 1,nens
-                KG   = KG + ( v1d(n)  - v1d(0) ) * ( Hxfm(o,n) - Hxfbar(o) )
-              ENDDO
-  
-              KG     = af * KG / (den*(nens-1.0))
-              v1d(0) = v1d(0) + KG*( ob(o) - Hxfbar(o) )
-  
-              DO n = 1,nens
-                v1d(n) = v1d(n) + KG*( ob(o) - beta*Hxfm(o,n) - (1.0-beta)*Hxfbar(o) )
-                v1d(n) = v1d(n) + af*(inflate-1.0)*(v1d(n) - v1d(0))
-              ENDDO
-              
-              IF( positive == 1 ) v1d = max(v1d, 0.0)
-              
-              DO n = 1,nens
-                d(n,k,j,i) = v1d(n)
-              ENDDO
-              d(nens+1,k,j,i) = v1d(0)
-  
-              pesrf_local = 1   ! this tracks if an observation was used, any ob for this point
-  
-            ENDIF ! ANY(v1d(1:nens) .ne. v1d(0)
-            
-          ENDIF ! af > 0.0
-  
-        ENDDO  ! end k
-      ENDDO ! end j
-    ENDDO ! end i
-    
-  ! Accumulate whether an ob was used to update any gridpoint
-
-    PESRF = PESRF + pesrf_local
-  
-  ! Only update rest of Hxf's if dy's NE 0 or if the Hxf variance is at least 0.01% of the observational variance
-          
-    DO p = o + 1,nobs
-  
-      zrad = (z(o) - z(p))
-      yrad = (y(o) - y(p))
-      xrad = (x(o) - x(p))
-  
-      dis = sqrt( (xrad/rhoriz)**2 + (yrad/rhoriz)**2 + (zrad/rvert)**2)
-  
-      IF (cutoff == 1) THEN
-  
-        IF (dis <= 1.0) THEN
-         af = 1.0
-        ELSE
-         af = 0.0
-        ENDIF
-  
-      ELSE IF (cutoff == 2) THEN
-      
-        af = comp_cov_factor(dble(dis),dble(0.5))
-  
-      ELSE
-      
-        write(*,*) 'OBS UPDATE PESRF: -- invalid value of cutoff for obs update: ', cutoff
-        stop
-        
-      ENDIF
-      
-      IF (af > 0.0 .and. z(p) <= zcutoff) THEN
-
-        KG   = 0.0
-  
-        DO n = 1,nens
-          KG   = KG + ( Hxfm(p,n) - Hxfbar(p) ) * ( Hxfm(o,n) - Hxfbar(o) )
-        ENDDO
-        
-        KG = af * KG / (den*(nens-1.0))
-        Hxfbar(p) = Hxfbar(p) + KG*( ob(o) - Hxfbar(o) )
-  
-        DO n = 1,nens
-          Hxfm(p,n) = Hxfm(p,n) + KG*( ob(o) - beta*Hxfm(o,n) - (1.0-beta)*Hxfbar(o) )
-          Hxfm(p,n) = Hxfm(p,n) + af*(inflate-1.0)*(Hxfm(p,n) - Hxfbar(p))
-        ENDDO
-  
-       ENDIF ! af > 0
-  
-    ENDDO  ! ENDDO LOOP for p
-      
-  ENDDO  ! ENDDO LOOP for o
-  
-  IF( debug > 0 ) THEN
-    close(unit=debug_unit)
-  ENDIF
-
-
-RETURN
-END FUNCTION PESRF
 
 !=============================================================================================================   
 FUNCTION COMP_COV_FACTOR(z_in, c)
@@ -1590,513 +1216,6 @@ INTEGER FUNCTION FIND_INDEX4(x, xa, n)
 
 RETURN
 END
-!=============================================================================================================
-!
-!  PEAKF can do either a single or parallel update using the Ensemble Adjustment Kalman Filter 
-!        Anderson and Collins (2008).
-!
-!
-!  PEAKF is called from eakf.py as a fortran subroutine called from python, but could easily
-!        be called from a variety of drivers.  
-  
-INTEGER FUNCTION PEAKF(d, nx, ny, nz, nens, xc, yc, zc, &
-                       x, y, z, ob, ob_var, p_Hxfm, nobs, &
-                       inflate, positive, cutoff, rhoriz, rvert, zcutoff, debug_file_suffix)
-
-  implicit none
-
-! Passed variables
-
-  real,    intent(INOUT)  :: d(nens+1, nz, ny, nx)  ! Model state field to be updated.  D(nens+1,:,:,:) == MEAN(D)
-  real,    intent(IN)     :: xc(nx)                 ! coordinates corresponding to grid indices
-  real,    intent(IN)     :: yc(ny)                 ! "                                       "
-  real,    intent(IN)     :: zc(nz)                 ! "                                       "
-  integer, intent(IN)     :: nx, ny, nz             ! grid dimensions
-  integer, intent(IN)     :: nens                   ! number of ensemble members
-  
-  integer, intent(IN)     :: nobs                   ! Number of observations (can be 1)
-  real(kind=8),intent(IN) :: x(nobs)                ! location of observation in grid coordinates (m)
-  real(kind=8),intent(IN) :: y(nobs)                ! location of observation in grid coordinates (m)
-  real(kind=8),intent(IN) :: z(nobs)                ! location of observation in grid coordinates (m)
-  
-  real(kind=8),intent(IN) :: ob(nobs)               ! observations
-  real(kind=8),intent(IN) :: ob_var(nobs)           ! observation error VARIANCE (not std dev)
-  real(kind=8),intent(IN) :: p_Hxfm(nobs,nens)      ! ensemble members mapped to observations
-
-  real,    intent(IN)     :: inflate                ! covariance inflation factor
-  integer, intent(IN)     :: positive               ! 1 if values are to be forced to
-                                                    !   remain positive (0 otherwise)
-
-  integer, intent(IN)     :: cutoff                 ! cutoff type:  1=sharp, 2=smooth
-  real,    intent(IN)     :: zcutoff                ! maximum altitude for adjustments
-  real,    intent(IN)     :: rhoriz, rvert          ! cutoff radii for ob. influence
-  
-  character(LEN=*), intent(IN) :: debug_file_suffix ! A file suffix that is used for debug output.
-
-! Local variables
-
-  real(kind=8) den                ! Denominator in Kalman matrix element
-  real(kind=8) KG                 ! Kalman gain
-  real(kind=8) beta               ! beta factor
-  integer i, i1, i2               ! grid indices
-  integer j, j1, j2  
-  integer k, k1, k2
-  integer n, o, p
-  integer imin, imax, jmin, jmax, kmin, kmax
-  
-  real(kind=8) af                 ! adjustment factor (localization weight)
-  real(kind=8) dis                ! unitless distance (number of cutoff
-                                  !   radii from grid point)
-  real(kind=8) xrad, yrad, zrad
-  real(kind=8) sd_f
-  
-  real(kind=8) :: sdHxf(nobs)            ! std deviation of Hxfm
-  real(kind=8) :: Hxfm(nobs,nens)        ! ensemble members mapped to observations
-  real(kind=8) :: Hxfbar(nobs)           ! mean Hxf
-
-  real(kind=8) Hxfbar2, Hxf_var(nobs), var_ratio
-  real(kind=8) obs_inc(nens), alpha, dy(nens), aprime(nens)
-  real(kind=8) v1d(nens), v1d_mean
-
-  real(kind=8), parameter :: zero = 0.0d8, min_var_scale = 1.0d-4 
-  integer, parameter :: nthreads = 10
- 
-  character(LEN=17), parameter :: debug_file_prefix = 'EAKF_DIAGNOSTICS.'
-  integer, parameter           :: debug_unit = 21
-  integer, parameter           :: debug = 0        ! debug = 0 - no output to debug_file
-                                                   ! debug = 1 - output incoming obs, ob_var, and some info about Hxf, Hxf_var
-                                                   ! debug = 2 - output of 1, plus information about prior and posterior obs updates
-                                                   ! debug = 3 - all of above, + indices of of what grid pts being updated.                                                                 
-! Functions
-
-  integer, external :: find_index84
-  real(kind=8) comp_cov_factor
-  
-! Copy priors into local arrays, compute input variables
-
-  Hxfm = p_Hxfm
-  DO o = 1,nobs
-    Hxfbar(o) = SUM( Hxfm(o,:) ) / float(nens-1)
-    sdHxf(o)  = SUM( (Hxfbar(o) - Hxfm(o,:))**2 ) / float(nens-1)
-  ENDDO
-  
-! Set PEAKF = 0, so that the default is no ob is assimilated
-  
-  PEAKF = 0
-  
-  IF( debug > 0 ) THEN
-    open(unit=debug_unit,file=debug_file_prefix//debug_file_suffix,status='unknown')
-    write(debug_unit,*) ' PEAKF'
-    write(debug_unit,*) '  NENS:  ', nens, '  NOBS:  ', nobs
-    write(debug_unit,*) '  Xmin: ', xc(1),  '  Ymin: ', yc(1),  '  Zmin: ', zc(1)
-    write(debug_unit,*) '  Xmax: ', xc(nx), '  Ymax: ', yc(nx), '  Zmax: ', zc(nz)
-    write(debug_unit,'(a,1x,f7.4,1x,2(a,1x,i3))') ' inflate: ', inflate, '  pos-def: ', positive, ' cutoff_type: ', cutoff 
-    write(debug_unit,'(3(a,1x,f8.2))') ' rhoriz: ', rhoriz, '  rvert: ', rvert, '  zcutoff: ', zcutoff
-    write(debug_unit,*)  
-    write(debug_unit,'(a)') '  INPUT    ob#   ob     ob_var   Hxf_mean   Hxf(1)    Hxf(nens)  new_Hxf_var input_Hxf_var'
-  ENDIF
-
-! Assume for now we will update variables on a (1:nx, 1:ny, 1:nz) - this assumes the state data are on the A-grid
-
-  imin = 1
-  imax = nx
-  jmin = 1
-  jmax = ny
-  kmin = 1
-  kmax = nz
-    
-  DO o = 1,nobs
-  
-! Since we are changing the obs as we go, we need to update std deviation 
-
-    Hxf_var(o) = SUM( (Hxfbar(o) - Hxfm(o,:))**2 ) / float(nens-1)
-    
-! Compute the new mean
-
-    IF (ob_var(o) /= 0.0) THEN
-    
-      var_ratio = ob_var(o) / (Hxf_var(o) + ob_var(o))
-      Hxfbar2   = var_ratio * (Hxfbar(o)  + ob(o) * Hxf_var(o) / ob_var(o))
-      
-! If obs is a delta function, it becomes new value
-    
-    ELSE
-    
-      var_ratio = 0.0
-      Hxfbar2   = ob(o)
-      
-    ENDIF
-
-! Compute sd ratio and shift (y's)
-
-    alpha = sqrt(var_ratio)
-    dy(:) = alpha * (Hxfm(o,:) - Hxfbar(o)) + Hxfbar2 - Hxfm(o,:)
-    
-    aprime = Hxfm(o,:) - Hxfbar(o)
-    
-    IF( debug > 0 ) THEN
-      write(debug_unit,'(a,i5,12(2x,f8.3))') 'BEGIN:  ', o, ob(o), ob_var(o), &
-                                             Hxfbar(o), Hxfm(o,1), Hxfm(o,nens), Hxf_var(o), sdHxf(o)**2, &
-                                             maxval(aprime), minval(aprime), maxval(dy), minval(dy)
-    ENDIF
-    
-    i1 = max(imin,   find_index84(x(o)-rhoriz, xc, nx))
-    i2 = min(imax, 1+find_index84(x(o)+rhoriz, xc, nx))
-    j1 = max(jmin,   find_index84(y(o)-rhoriz, yc, ny))
-    j2 = min(jmax, 1+find_index84(y(o)+rhoriz, yc, ny))
-    k1 = max(kmin,   find_index84(z(o)-rvert,  zc, nz))
-    k2 = min(kmax, 1+find_index84(z(o)+rvert,  zc, nz))
-    
-    IF ( debug > 2 ) THEN
-      write(debug_unit+1,*) '  X: ', x(o),  '  Y: ', y(o),  '  Z: ', z(o)
-      write(debug_unit+1,'(a,3x,6(i3,2x))') "INDICES FOR SEARCH:  I1/I2,J1/J2,K1/K2:  ", i1, i2, j1, j2, k1, k2
-    ENDIF
-    
-! Only update state if dy's NE 0 or if the Hxf variance is at least 0.01% of the observational variance
-            
-    IF ( ANY(dy(1:nens) .ne. zero) .and. Hxf_var(o) .ge. ob_var(o)*min_var_scale ) THEN 
-    
-      DO i = i1,i2
-      
-        xrad = (x(o)-xc(i))
-    
-        DO j = j1,j2
-    
-          yrad = (y(o)-yc(j))
-          
-          DO k = k1,k2
-    
-            zrad = (z(o)-zc(k))
-    
-            dis = sqrt( (xrad/rhoriz)**2 + (yrad/rhoriz)**2 + (zrad/rvert)**2)
-    
-            IF (cutoff == 1) THEN
-    
-              IF (dis <= 1.0) THEN
-                af = 1.0
-              ELSE
-                af = 0.0
-              ENDIF
-    
-            ELSE IF (cutoff == 2) then
-              af = comp_cov_factor(dble(dis),dble(0.5))
-         
-            ELSE
-              write(*,*) 'PARALLEL_EAKF: -- invalid value of cutoff for state update: ', cutoff
-              stop
-            ENDIF
-    
-            IF ( af > 0.0 .and. zc(k) <= zcutoff ) THEN
-            
-              DO n = 1,nens
-                v1d(n) = d(n,k,j,i)
-              ENDDO
-              v1d_mean = sum(v1d) / float(nens)
-                      
-              beta = sum( (v1d(:) - v1d_mean) * aprime(:) ) 
-
-              beta = af * beta / ((nens-1)*Hxf_var(o))
-                
-              DO n = 1,nens
-                v1d(n) = v1d(n) + beta*dy(n)
-                v1d(n) = v1d(n) + af*(inflate-1.0)*(v1d(n) - v1d_mean)
-              ENDDO
-              
-              IF( positive == 1 ) v1d = max(v1d, 0.0)
-               
-              DO n = 1,nens
-                d(n,k,j,i) = v1d(n)
-              ENDDO
-              d(nens+1,k,j,i) = sum(v1d) / float(nens)
-  
-  ! Set PEAKF = 1, if we actually did update state
-  
-              PEAKF = PEAKF + 1
-    
-            ENDIF ! af > 0.0 .and. zc(k) <= zcutoff
-    
-          ENDDO  ! end k
-          
-        ENDDO ! end j
-        
-      ENDDO ! end i
-
-    ! Only update rest of Hxf's if dy's NE 0 or if the Hxf variance is at least 0.01% of the observational variance
-      
-      DO p = o + 1,nobs
-    
-        zrad = (z(o) - z(p))
-        yrad = (y(o) - y(p))
-        xrad = (x(o) - x(p))
-    
-        dis = sqrt( (xrad/rhoriz)**2 + (yrad/rhoriz)**2 + (zrad/rvert)**2)
-    
-        IF (cutoff == 1) THEN
-    
-          IF (dis <= 1.0) THEN
-           af = 1.0
-          ELSE
-           af = 0.0
-          ENDIF
-    
-        ELSE IF (cutoff == 2) THEN
-        
-          af = comp_cov_factor(dble(dis),dble(0.5))
-    
-        ELSE
-        
-          write(*,*) 'PARALLEL_EAKF: -- invalid value of cutoff for obs update: ', cutoff
-          stop
-          
-        ENDIF
-    
-        IF ( z(p) > zcutoff ) af = 0.0
-           
-        IF (af > 0.0) THEN
-        
-          DO n = 1,nens
-            v1d(n) = Hxfm(p,n)
-          ENDDO
-          v1d_mean = sum(v1d) / float(nens)
-
-          Hxf_var(p) = SUM( (v1d_mean - v1d(:))**2 ) / float(nens-1)
-
-          IF( debug > 1 ) THEN
-            write(debug_unit,'(a,i5,1x,i5,12(1x,f8.3))') 'PRIOR:  ', o,p,ob_var(o),ob_var(p),Hxf_var(p),Hxfbar(p),Hxfm(p,1), &
-                                                Hxfm(p,nens),maxval(Hxfm(p,:)),minval(Hxfm(p,:)), &
-                                                maxval(aprime), minval(aprime), maxval(dy), minval(dy)
-          ENDIF
-          
-        ! Compute regression coefficient here
-
-          beta = sum( (v1d(:) - v1d_mean) * aprime(:) ) 
-          beta = af * beta / ((nens-1)*Hxf_var(o))
-    
-          DO n = 1,nens
-            v1d(n) = v1d(n) + beta*dy(n)
-            v1d(n) = v1d(n) + af*(inflate-1.0)*(v1d(n) - v1d_mean)
-          ENDDO
-          Hxfbar(p)  = SUM(v1d) / float(nens)
-          Hxf_var(p) = SUM( (v1d_mean - v1d(:))**2 ) / float(nens-1)
-          Hxfm(p,:)  = v1d(:)
-         
-          IF( debug > 1 ) THEN
-            write(debug_unit,'(a,i5,1x,i5,8(1x,f8.3))') 'POST:   ', o,p,ob_var(o),ob_var(p),Hxf_var(p),Hxfbar(p), &
-                                                Hxfm(p,1),Hxfm(p,nens),maxval(Hxfm(p,:)),minval(Hxfm(p,:))
-            write(debug_unit,*) 
-          ENDIF
-
-        ENDIF ! af > 0
-    
-      ENDDO  ! ENDDO LOOP for p
-      
-    ENDIF  ! DY != 0 and Hxf_var > ob_var*min_var_scale
-
-  ENDDO  ! ENDDO LOOP for o
-  
-  IF( debug > 0 ) THEN
-    close(unit=debug_unit)
-  ENDIF
-
-RETURN
-END FUNCTION PEAKF
-
-!=============================================================================================================
-!
-!  PEAKF can do either a single or parallel update using the Ensemble Adjustment Kalman Filter 
-!        Anderson and Collins (2008).
-!
-!
-!  PEAKF is called from eakf.py as a fortran subroutine called from python, but could easily
-!        be called from a variety of drivers.  
-  
-INTEGER FUNCTION PEAKF_OB(ob_number, x, y, z, ob, ob_var, p_Hxfm, nobs, nens, &
-                          inflate, positive, cutoff, rhoriz, rvert, zcutoff, nthreads)
-
-  implicit none
-
-! Passed variables
-
-  integer, intent(IN)     :: ob_number              ! grid dimensions
-  integer, intent(IN)     :: nens                   ! number of ensemble members
-  
-  integer, intent(IN)     :: nobs                   ! Number of observations (can be 1)
-  real(kind=8),intent(IN) :: x(nobs)                ! location of observation in grid coordinates (m)
-  real(kind=8),intent(IN) :: y(nobs)                ! location of observation in grid coordinates (m)
-  real(kind=8),intent(IN) :: z(nobs)                ! location of observation in grid coordinates (m)
-  
-  real(kind=8),intent(IN) :: ob(nobs)               ! observations
-  real(kind=8),intent(IN) :: ob_var(nobs)           ! observation error VARIANCE (not std dev)
-  real(kind=8),intent(IN) :: p_Hxfm(nobs,nens)      ! ensemble members mapped to observations
-
-  real,    intent(IN)     :: inflate                ! covariance inflation factor
-  integer, intent(IN)     :: positive               ! 1 if values are to be forced to
-                                                    !   remain positive (0 otherwise)
-
-  integer, intent(IN)     :: cutoff                 ! cutoff type:  1=sharp, 2=smooth
-  real,    intent(IN)     :: zcutoff                ! maximum altitude for adjustments
-  real,    intent(IN)     :: rhoriz, rvert          ! cutoff radii for ob. influence
-  
-  integer, intent(IN)     :: nthreads
-
-! Local variables
-
-  real(kind=8) den                ! Denominator in Kalman matrix element
-  real(kind=8) KG                 ! Kalman gain
-  real(kind=8) beta               ! beta factor
-  integer i, i1, i2               ! grid indices
-  integer j, j1, j2  
-  integer k, k1, k2
-  integer n, o, p
-  integer imin, imax, jmin, jmax, kmin, kmax
-  
-  real(kind=8) af                 ! adjustment factor (localization weight)
-  real(kind=8) dis                ! unitless distance (number of cutoff
-                                  !   radii from grid point)
-  real(kind=8) xrad, yrad, zrad
-  real(kind=8) sd_f
-  
-  real(kind=8) :: sdHxf(nobs)            ! std deviation of Hxfm
-  real(kind=8) :: Hxfm(nobs,nens)        ! ensemble members mapped to observations
-  real(kind=8) :: Hxfbar(nobs)           ! mean Hxf
-
-  real(kind=8) Hxfbar2, Hxf_var(nobs), var_ratio
-  real(kind=8) obs_inc(nens), alpha, dy(nens), aprime(nens)
-  real(kind=8) v1d(nens), v1d_mean
-
-  real(kind=8), parameter :: zero = 0.0d8, min_var_scale = 1.0d-4 
-  
-  character(LEN=17), parameter :: debug_file_prefix = 'PEAKF_OB_DIAGNOSTICS.'
-  integer, parameter           :: debug_unit = 21
-  integer, parameter           :: debug = 0        ! debug = 0 - no output to debug_file
-                                                   ! debug = 1 - output incoming obs, ob_var, and some info about Hxf, Hxf_var
-                                                   ! debug = 2 - output of 1, plus information about prior and posterior obs updates
-                                                   ! debug = 3 - all of above, + indices of of what grid pts being updated.                                                                 
-                                                   
-! Functions
-
-  integer find_index
-  real(kind=8) comp_cov_factor
-  
-! Copy priors into local arrays, compute input variables
-
-  Hxfm = p_Hxfm
-  DO o = ob_number+1,nobs
-    Hxfbar(o) = SUM( Hxfm(o,:) ) / float(nens-1)
-    sdHxf(o)  = SUM( (Hxfbar(o) - Hxfm(o,:))**2 ) / float(nens-1)
-  ENDDO
-  
-! Set PEAKF_OB = 0, so that the default is no ob is assimilated
-  
-  PEAKF_OB = 0
-      
-! Since we are changing the obs as we go, we need to update std deviation
-
-  o = ob_number
-
-  Hxf_var(o) = SUM( (Hxfbar(o) - Hxfm(o,:))**2 ) / float(nens-1)
-  
-! Compute the new mean
-
-  IF (ob_var(o) /= 0.0) THEN
-  
-    var_ratio = ob_var(o) / (Hxf_var(o) + ob_var(o))
-    Hxfbar2   = var_ratio * (Hxfbar(o)  + ob(o) * Hxf_var(o) / ob_var(o))
-    
-! If obs is a delta function, it becomes new value
-  
-  ELSE
-  
-    var_ratio = 0.0
-    Hxfbar2   = ob(o)
-    
-  ENDIF
-
-! Compute sd ratio and shift (y's)
-
-  alpha = sqrt(var_ratio)
-  dy(:) = alpha * (Hxfm(o,:) - Hxfbar(o)) + Hxfbar2 - Hxfm(o,:)
-  
-  aprime = Hxfm(o,:) - Hxfbar(o)
-  
-! Only update rest of Hxf's if dy's NE 0 or if the Hxf variance is at least 0.01% of the observational variance
- 
-  !$OMP PARALLEL DO &
-  !$OMP DEFAULT(SHARED) PRIVATE(p, n, dis, xrad, yrad, zrad, af, Hxf_var, Hxfbar, Hxfm, v1d, v1d_mean, beta) reduction(+: PEAKF_OB)
-    
-    DO p = ob_number+1, nobs
-  
-      zrad = (z(o) - z(p))
-      yrad = (y(o) - y(p))
-      xrad = (x(o) - x(p))
-  
-      dis = sqrt( (xrad/rhoriz)**2 + (yrad/rhoriz)**2 + (zrad/rvert)**2)
-  
-      IF (cutoff == 1) THEN
-  
-        IF (dis <= 1.0) THEN
-         af = 1.0
-        ELSE
-         af = 0.0
-        ENDIF
-  
-      ELSE IF (cutoff == 2) THEN
-      
-        af = comp_cov_factor(dble(dis),dble(0.5))
-  
-      ELSE
-      
-        write(*,*) 'PARALLEL_EAKF: -- invalid value of cutoff for obs update: ', cutoff
-        stop
-        
-      ENDIF
-  
-      IF ( z(p) > zcutoff ) af = 0.0
-         
-      IF (af > 0.0) THEN
-      
-        DO n = 1,nens
-          v1d(n) = Hxfm(p,n)
-        ENDDO
-        v1d_mean = sum(v1d) / float(nens)
-
-        Hxf_var(p) = SUM( (v1d_mean - v1d(:))**2 ) / float(nens-1)
-
-        IF( debug > 1 ) THEN
-          write(debug_unit,'(a,i5,1x,i5,12(1x,f8.3))') 'PRIOR:  ', o,p,ob_var(o),ob_var(p),Hxf_var(p),Hxfbar(p),Hxfm(p,1), &
-                                              Hxfm(p,nens),maxval(Hxfm(p,:)),minval(Hxfm(p,:)), &
-                                              maxval(aprime), minval(aprime), maxval(dy), minval(dy)
-        ENDIF
-        
-        PEAKF_OB = PEAKF_OB + 1
-        
-      ! Compute regression coefficient here
-
-        beta = sum( (v1d(:) - v1d_mean) * aprime(:) ) 
-        beta = af * beta / ((nens-1)*Hxf_var(o))
-  
-        DO n = 1,nens
-          v1d(n) = v1d(n) + beta*dy(n)
-          v1d(n) = v1d(n) + af*(inflate-1.0)*(v1d(n) - v1d_mean)
-        ENDDO
-        Hxfbar(p)  = SUM(v1d) / float(nens)
-        Hxf_var(p) = SUM( (v1d_mean - v1d(:))**2 ) / float(nens-1)
-        Hxfm(p,:)  = v1d(:)
-       
-        IF( debug > 1 ) THEN
-          write(debug_unit,'(a,i5,1x,i5,8(1x,f8.3))') 'POST:   ', o,p,ob_var(o),ob_var(p),Hxf_var(p),Hxfbar(p), &
-                                              Hxfm(p,1),Hxfm(p,nens),maxval(Hxfm(p,:)),minval(Hxfm(p,:))
-          write(debug_unit,*) 
-        ENDIF
-
-      ENDIF ! af > 0
-  
-    ENDDO  ! ENDDO LOOP for p
-    
-  !$OMP END PARALLEL DO
-    
-RETURN
-END FUNCTION PEAKF_OB
 
 !======================================================================================================'
 !
@@ -2110,7 +1229,7 @@ REAL FUNCTION F_RCF(var, Hx, ne, me)
 
   implicit none
   
-  integer(kind=4) ne, me
+  integer(kind=4) ne, me  ! ne is number of obs, me is size of sub ensemble (referred to as hf in common_letkf.f90)
   real(kind=4) :: var(ne)
   real(kind=8) :: Hx(ne)
   

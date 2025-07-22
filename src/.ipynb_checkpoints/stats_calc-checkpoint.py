@@ -39,7 +39,7 @@ if __name__ == "__main__":
     parser.add_option("-s",  "--stats",  dest='stats',  default=False, action="store_true", help = "if True, runs forward operator on posterior files as well and saves all Prior and Posterior files into AllPrior_Post.nc")
     parser.add_option("-f",  "--fcst",  dest="fcst",    default=False, action="store_true", help = "if True, merges all the forecast files into one file called full_ens_fcst.nc")
     parser.add_option(  "--fcst_file",  dest="fcst_file",    default=False, action="store_true", help = "if True, uses code for the forecast experiment file")
-    parser.add_option("-w",  "--wtg",    dest="wtg",    default=False, action="store_true", help = "if True, calculates weak thermal gradient residual for the full ensemble and puts it in WTD.nc")
+    parser.add_option("-w",  "--wtg",    dest="wtg",    default=False, action="store_true", help = "if True, calculates weak thermal gradient residual for the full ensemble and puts it in WTG.nc")
 
     (options, args) = parser.parse_args()
 
@@ -266,9 +266,9 @@ if __name__ == "__main__":
             timedel    = dt.timedelta(seconds = exper['FORECAST']['freq'])
 
         else: # from a typical experiment
-            timedel    = dt.timedelta(seconds = exper['forecast_freq'])
+            #timedel    = dt.timedelta(seconds = exper['forecast_freq'])
             da_end     = dt.datetime.strptime(exper['DA_PARAMS']['DA_end_time'], '%Y-%m-%d %H:%M:%S') 
-            start_time = da_end + timedel
+            start_time = da_end #+ timedel
             end_time   = da_end + dt.timedelta(seconds = exper['forecast_length']) 
     
         timearr = np.arange(start_time, end_time+timedel, timedel)
@@ -320,9 +320,13 @@ if __name__ == "__main__":
         zeta = dvdx-dudy
         
         UH = np.sum(zeta*w*dz[np.newaxis, np.newaxis, :, np.newaxis, np.newaxis], axis=2)
-        del u,v,w,dx,dy,dz,dudy, dvdx, zeta
+        del u,v,dx,dy,dz,dudy, dvdx, zeta
         
         myds['UH_2-5km'] = (('t', 'ne','nj','ni'), UH)
+
+        myds['w_2-5km'] = (('t', 'ne', 'nj', 'ni'), w.mean(axis=2))
+
+        del w
         
         myds.to_netcdf(exper['base_path']+'/full_ens_fcst.nc', format='NETCDF4')
 

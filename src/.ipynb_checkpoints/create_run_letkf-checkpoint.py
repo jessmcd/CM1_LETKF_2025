@@ -98,13 +98,11 @@ defaults = {
 "DA_PARAMS" : {
     "obs_errors":        ob_error_dict,
     # "aInflate":          namelist.aInflate, 
-    # "RTPP_coefficient":  namelist.RTPP_coefficient,
-
 
     "prior_inflate":       namelist.prior_inflate, 
     "prior_inflate_value": namelist.prior_inflate_value, 
-    "post_inflate":        namelist.post_inflate   
-    "post_inflate_alpha":  namelist.post_inflate_alpha
+    "post_inflate":        namelist.post_inflate,   
+    "post_inflate_alpha":  namelist.post_inflate_alpha,
     "outlier":             namelist.outlier, 
     "inlier":              namelist.inlier,  
     "nthreads":            namelist.nthreads,      

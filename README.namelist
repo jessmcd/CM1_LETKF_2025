@@ -78,7 +78,7 @@ obs_error         -  dictionary of errors to use for each observation type (opti
 prior_inflate     -  option to use inflation or adaptive inflation algorithms
                       0 => no adaptive inflation
                       1 => LETKF adaptive inflation (Miyoshi)
-                      2 => fixed value
+                      2 => fixed value (not tested, don't use)
 prior_inflate_value- float. if prior_inflate is set to 2, this is the value that the priors will be multipled by (i.e., a value of 1.1 equals a 5% inflation [sqrt of 1.1 is 1.0488]).
                       this value is ignored if you are using prior_inflate options 0 or 1 (option 0 uses an array of 1s, option 1 starts with an array of 1s and goes from there)
       

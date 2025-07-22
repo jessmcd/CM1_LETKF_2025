@@ -78,7 +78,7 @@ SUBROUTINE letkf_core(nbv,nobs,nobsl,var,hdxb,rdiag,rloc,dep,obIndex,infl_in,tra
   REAL*8,INTENT(IN)    :: rloc(nobs)      ! spatial localization weight
   REAL*8,INTENT(IN)    :: dep(nobs)       ! y - Hx_mean
   INTEGER,INTENT(IN)   :: obIndex(nobs)
-  INTEGER,INTENT(IN)   :: hf
+  INTEGER,INTENT(IN)   :: hf              ! sub ens size
   REAL*8,INTENT(INOUT) :: rcp_return(1)
 
   
@@ -105,9 +105,9 @@ SUBROUTINE letkf_core(nbv,nobs,nobsl,var,hdxb,rdiag,rloc,dep,obIndex,infl_in,tra
 
   LOGICAL, PARAMETER :: wgt_regularization  = .false.
 
-  LOGICAL, PARAMETER :: DEBUG  = .false.
-  LOGICAL, PARAMETER :: DEBUG2 = .false.
-  LOGICAL, PARAMETER :: DEBUG3 = .false.  ! Debug flag for adaptive inflation stats
+  LOGICAL, PARAMETER :: DEBUG  = .true.
+  LOGICAL, PARAMETER :: DEBUG2 = .true.
+  LOGICAL, PARAMETER :: DEBUG3 = .true.  ! Debug flag for adaptive inflation stats
 
   IF ( DEBUG ) THEN
     print *, ""
@@ -143,7 +143,7 @@ SUBROUTINE letkf_core(nbv,nobs,nobsl,var,hdxb,rdiag,rloc,dep,obIndex,infl_in,tra
     ENDDO
   ENDIF
 
-  IF( hf > 0 ) THEN
+  IF( hf > 0 ) THEN ! hf = sub_ens_size
     rcp_return(1) = 0.0
     DO m = 1,nobsl
       HxfL(:)    = hdxb(obIndex(m),:)
@@ -250,9 +250,9 @@ SUBROUTINE letkf_core(nbv,nobs,nobsl,var,hdxb,rdiag,rloc,dep,obIndex,infl_in,tra
   END DO
 
   parm(2)   = max( parm(2) / REAL(nbv-1,r_size), 1.0d-8)
-! parm(3)   = SUM(rlocL)
+
   parm(4)   = (parm(1)-parm(3))/parm(2) - infl_in(1)
-! sigma_o   = 1.0d0/REAL(nobsl,r_size)/MAXVAL(rlocL(1:nobsl))
+
   sigma_o   = 2.0d0/parm(3)*((infl_in(1)*parm(2)+parm(3))/parm(2))**2
   gain      = sigma_b**2 / (sigma_o + sigma_b**2)
   infl_out(1) = infl_in(1) + gain * parm(4)
