@@ -31,6 +31,12 @@ MODULE INFLATE_PARAMS
   real(kind=4), save :: inflate_RTPP = 1.0
  ! save :: inflate_RTPS, inflate_RTPP
 
+
+  ! if you use adaptive RTPP, this constrains the relaxation coefficient
+  real(kind=4), parameter :: RTPP_base = 0.3
+  real(kind=4), parameter :: RTPP_top  = 0.9
+
+
 ! These parameters are for the Relaxation to Prior Perturbation (RTPP)
 ! Negative means use adaptive RTPP
 
@@ -208,8 +214,8 @@ CONTAINS
 ! Determine whether we need to compute Anderson's reliability coefficient.  If so, determine sub-group size
 
     !IF( rcf_flag > 0 ) THEN 
-    IF (post_inflate .eq. 2 .or. post_inflate .eq. 4) THEN
-      write(std_out,*) "COMPUTE_LETKF:  RCF > 0, ANDERSON'S RELIABILITY COEFFICIENT WILL BE USED IN CALCULATIONS!"
+    IF (post_inflate .eq. 2) THEN!IF (post_inflate .eq. 2 .or. post_inflate .eq. 4) THEN
+      write(std_out,*) "COMPUTE_LETKF:  ANDERSON'S RELIABILITY COEFFICIENT WILL BE USED IN CALCULATIONS!"
       DO i = size(sub_ens),1,-1
         IF( mod(fne,sub_ens(i)) .eq. 0 ) THEN
            sub_ens_size = sub_ens(i)
@@ -362,24 +368,54 @@ CONTAINS
             
             !-------------->>>   if adaptive, call LETKF_CORE and UPDATE for each state variable individually   <<<-------------------- 
             
-            ELSEIF (post_inflate.eq.2 .or. post_inflate.eq.4) THEN
+            ELSEIF (post_inflate.eq.2) THEN
 
               t0 = omp_get_wtime()              ! Compute transformation matrix
               DO m = 1,nxyz3d
               
                 var(:) = xyz3d(m,:,k,j,i)
+
+               
                 
                 CALL LETKF_CORE(fne, fnobs, nvalid, var, Hx, rdiag, obwgt, dep, obindex, in_inflate(k,j,i), &
                                 trans, mean_wgt, out_inflate(k,j,i), sub_ens_size, rcf_coeff)
 
                 rcf_mean(m) = rcf_mean(m) + rcf_coeff(1)               
                 t_core = t_core + omp_get_wtime() - t0
+
+                 
                 CALL UPDATE(var, trans, mean_wgt, out_inflate(k,j,i), post_inflate, posdef(m), ne, new1, fnobs, &
                             nvalid, 0, Hx, obindex)
                             
                 xyz3d(m,:,k,j,i) = new1(:)
             
               ENDDO  ! m-index
+
+
+              ELSEIF (post_inflate.eq.4) THEN
+
+                  t0 = omp_get_wtime()              ! Compute transformation matrix
+                  DO m = 1,nxyz3d
+                  
+                    var(:) = xyz3d(m,:,k,j,i)
+    
+                    CALL LETKF_CORE(fne, fnobs, nvalid, var, Hx, rdiag, obwgt, dep, obindex, in_inflate(k,j,i), &
+                                    trans, mean_wgt, out_inflate(k,j,i), 0, rcf_coeff)
+    
+                                 
+                    t_core = t_core + omp_get_wtime() - t0
+    
+                    rcf_coeff(1) = inflate_RTPP 
+                     
+                    CALL UPDATE(var, trans, mean_wgt, out_inflate(k,j,i), post_inflate, posdef(m), ne, new1, fnobs, &
+                                nvalid, 0, Hx, obindex, rcf_coeff)
+    
+                    rcf_mean(m) = rcf_mean(m) + rcf_coeff(1) 
+                                
+                    xyz3d(m,:,k,j,i) = new1(:)
+                
+                  ENDDO  ! m-index
+              
 
             ENDIF ! post_inflate flate 
 
@@ -950,19 +986,34 @@ SUBROUTINE UPDATE(var, trans, wa, inflate, post_inflate, pos_def, ne, new1, &
   ENDIF
   
 
-  IF (post_inflate.eq. 4) THEN !RTPP with adaptive alpha 
+!  IF (post_inflate.eq. 4) THEN !RTPP with adaptive alpha 
+!
+!    rcf_mean = 0.0d0
+!    vartmp   = var(1:ne-1)
+!    DO m = 1,nvalid_obs
+!      HxfL(:)  = hdxb(obIndex(m),:)
+!      rcf0     = F_RCF(vartmp, HxfL, ne-1, sub_ens_size)
+!      rcf_mean = rcf_mean + rcf0
+!    ENDDO
+!    rcf_mean = rcf_mean / float(nvalid_obs)
+!
+!    adapt_rtpp(1) = adapt_rtpp(1) - (1.0 - adapt_rtpp(1)) * rcf_mean 
+!    new1(1:ne-1)  = pvar(1:ne-1) * adapt_rtpp(1) + (1.0 - adapt_rtpp(1)) * new1(1:ne-1)
+!
+!  ENDIF
 
-    rcf_mean = 0.0d0
-    vartmp   = var(1:ne-1)
-    DO m = 1,nvalid_obs
-      HxfL(:)  = hdxb(obIndex(m),:)
-      rcf0     = F_RCF(vartmp, HxfL, ne-1, sub_ens_size)
-      rcf_mean = rcf_mean + rcf0
-    ENDDO
-    rcf_mean = rcf_mean / float(nvalid_obs)
 
-    adapt_rtpp(1) = adapt_rtpp(1) - (1.0 - adapt_rtpp(1)) * rcf_mean 
+    IF (post_inflate.eq. 4) THEN !RTPP with adaptive alpha 
+
+    ! this scales so that lower values of inflation ( less than 1) are mapped down to 0.3 (more analysis)
+    ! and larger values of inflation (greater than 1) are mapped up to 0.9 (more background)
+    !adapt_rtpp(1) = (max( min(inflate, 2.0), 1.0) - 1.0) * (RTPP_top - RTPP_base) + RTPP_base
+
+    ! to have larger values of inflation be mapped to lower relation coefficients (more analysis), use this line instead:
+    adapt_rtpp(1) = -1*(max( min(inflate, 2.0), 1.0) - 2.0) * (RTPP_top - RTPP_base) + RTPP_base
+    
     new1(1:ne-1)  = pvar(1:ne-1) * adapt_rtpp(1) + (1.0 - adapt_rtpp(1)) * new1(1:ne-1)
+
 
   ENDIF
   
@@ -1229,7 +1280,7 @@ REAL FUNCTION F_RCF(var, Hx, ne, me)
 
   implicit none
   
-  integer(kind=4) ne, me
+  integer(kind=4) ne, me  ! ne is number of obs, me is size of sub ensemble (referred to as hf in common_letkf.f90)
   real(kind=4) :: var(ne)
   real(kind=8) :: Hx(ne)
   

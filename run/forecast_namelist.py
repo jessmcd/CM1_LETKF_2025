@@ -2,11 +2,11 @@
 import datetime as dt
 
 # directory that your existing experiment is in
-base_dir             = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_R01"
+base_dir             = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_adaptR"
 ncores               = 64
 
 forecast_output_freq = 300  # 5 minutes, output interval
-forecast_start       = dt.datetime(2024,5,8,21,0)
+forecast_start       = dt.datetime(2024,5,8,20,30)
 forecast_end         = dt.datetime(2024,5,8,22,30) 
 
 

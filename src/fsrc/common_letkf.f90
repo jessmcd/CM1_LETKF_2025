@@ -105,9 +105,9 @@ SUBROUTINE letkf_core(nbv,nobs,nobsl,var,hdxb,rdiag,rloc,dep,obIndex,infl_in,tra
 
   LOGICAL, PARAMETER :: wgt_regularization  = .false.
 
-  LOGICAL, PARAMETER :: DEBUG  = .true.
-  LOGICAL, PARAMETER :: DEBUG2 = .true.
-  LOGICAL, PARAMETER :: DEBUG3 = .true.  ! Debug flag for adaptive inflation stats
+  LOGICAL, PARAMETER :: DEBUG  = .false.
+  LOGICAL, PARAMETER :: DEBUG2 = .false.
+  LOGICAL, PARAMETER :: DEBUG3 = .false.  ! Debug flag for adaptive inflation stats
 
   IF ( DEBUG ) THEN
     print *, ""

@@ -266,7 +266,7 @@ if __name__ == "__main__":
             timedel    = dt.timedelta(seconds = exper['FORECAST']['freq'])
 
         else: # from a typical experiment
-            #timedel    = dt.timedelta(seconds = exper['forecast_freq'])
+            timedel    = dt.timedelta(seconds = exper['forecast_freq'])
             da_end     = dt.datetime.strptime(exper['DA_PARAMS']['DA_end_time'], '%Y-%m-%d %H:%M:%S') 
             start_time = da_end #+ timedel
             end_time   = da_end + dt.timedelta(seconds = exper['forecast_length']) 

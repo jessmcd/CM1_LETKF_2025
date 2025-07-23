@@ -3,10 +3,10 @@
 # just in case one already exists
 rm letkf.out
 
-sed -i  '6s|.*|''base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_Ra"''|' namelist.py
+sed -i  '6s|.*|''base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_adaptR"''|' namelist.py
 sed -i  '43s|.*|''assim_freq          = 180''|' namelist.py
 sed -i  '54s|.*|''post_inflate        = 4''|' namelist.py
-sed -i  '55s|.*|''post_inflate_alpha  = 0.5''|' namelist.py
+sed -i  '55s|.*|''post_inflate_alpha  = 0.0''|' namelist.py
 
 #get experiment filepath
 base_dir=$(python namelist.py)
