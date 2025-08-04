@@ -1007,10 +1007,10 @@ SUBROUTINE UPDATE(var, trans, wa, inflate, post_inflate, pos_def, ne, new1, &
 
     ! this scales so that lower values of inflation ( less than 1) are mapped down to 0.3 (more analysis)
     ! and larger values of inflation (greater than 1) are mapped up to 0.9 (more background)
-    !adapt_rtpp(1) = (max( min(inflate, 2.0), 1.0) - 1.0) * (RTPP_top - RTPP_base) + RTPP_base
+    adapt_rtpp(1) = (max( min(inflate, 2.0), 1.0) - 1.0) * (RTPP_top - RTPP_base) + RTPP_base
 
     ! to have larger values of inflation be mapped to lower relation coefficients (more analysis), use this line instead:
-    adapt_rtpp(1) = -1*(max( min(inflate, 2.0), 1.0) - 2.0) * (RTPP_top - RTPP_base) + RTPP_base
+    !adapt_rtpp(1) = -1*(max( min(inflate, 2.0), 1.0) - 2.0) * (RTPP_top - RTPP_base) + RTPP_base
     
     new1(1:ne-1)  = pvar(1:ne-1) * adapt_rtpp(1) + (1.0 - adapt_rtpp(1)) * new1(1:ne-1)
 

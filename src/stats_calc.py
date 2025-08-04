@@ -325,6 +325,7 @@ if __name__ == "__main__":
         myds['UH_2-5km'] = (('t', 'ne','nj','ni'), UH)
 
         myds['w_2-5km'] = (('t', 'ne', 'nj', 'ni'), w.mean(axis=2))
+        myds['cdbz']    = (('t', 'ne', 'nj', 'ni'), myds.dbz.max(axis=2)) # add in composite reflectivity 
 
         del w
         

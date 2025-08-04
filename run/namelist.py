@@ -3,7 +3,7 @@ import datetime as dt
 
 #### BASIC SETUP #######
 
-base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/CI_3min_adaptR"
+base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/C3_5L07_R5"
 fprefix             = "cm1"
 ne                  = 36
 model               = "cm1r21v1/run/cm1.exe"
@@ -20,8 +20,8 @@ auto_model_start    = False   # allows you to have the program automatically det
 lat0                = 35.23583
 lon0                = -97.46194
 hgt                 = 0
-xoffset             = -160000.0 #-180000.0 
-yoffset             = -115000.0 #-125000.0
+xoffset             = -160000.0 #
+yoffset             = -115000.0 #
 microphysics        = 27 #same as CM1 ptype
 
 # settings to help facilitate experiments: set all to True for a normal experiment
@@ -34,7 +34,7 @@ make_plots          = False  # if you want to make the summary plots at the end 
 #### additional, more specialized settings
 pre_cook            = True #IF THIS IS TRUE = run_setup and run_cook are ignored! It copies the directory below and sets up a new experiment
                            # only do this if you have "locked in" your inital CM1 set up
-cook_path           = '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/Control'#_60
+cook_path           = '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/Control'
 
 ### DATA ASSIMILATION PARAMETERS ###
 
@@ -51,8 +51,8 @@ obs_error           = {'VR':3.0, 'DBZ':7.0, 'DBZ0':5.0, 'DBZ0_W': 0.5}
 
 prior_inflate       = 1  # 
 prior_inflate_value = 1.0 # leave as 1.0 unless you want to use a fixed inflation value
-post_inflate        = 4
-post_inflate_alpha  = 0.0
+post_inflate        = 3
+post_inflate_alpha  = 0.5
 
 outlier             = 3
 inlier              = 0.0 # set to 0 to turn off
@@ -65,7 +65,7 @@ writeFcstMean       = True
 writeAnalMean       = True
 saveWeights         = False
 readWeights         = False
-rhoriz              = 18000.0
+rhoriz              = 7500.0
 rvert               = 4500.0
 rtime               = -600.0
 cutoff              = 2

@@ -86,7 +86,7 @@ post_inflate       -  option to use algorithms to inflate the posteriors.
                       0 => no inflation
                       1 => RTPS (relaxation to prior spread) using a fixed inflation alpha (post_inflate_alpha)
                       2 => RTPS + adaptive
-                      3 => RTPP (relaxation to prior perturbation) using a fixed relaxation alpha (post_inflate_alpha: 1 is analysis only, 0 is prior only, 0.5 would be an average, etc.)
+                      3 => RTPP (relaxation to prior perturbation) using a fixed relaxation alpha (post_inflate_alpha: 0 is analysis only, 1 is prior only, 0.5 would be an average, etc.)
                       4 => RTPP + adaptive
 
 post_inflate_alpha  - float. Corresponding value for post_inflate options 1 or 3. 

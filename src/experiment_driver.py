@@ -123,6 +123,8 @@ if run_fcst:
             time = times[-1].astype(dt.datetime).strftime('%Y,%m,%d,%H,%M,%S')
         else:
             time = DA_start_time.strftime('%Y,%m,%d,%H,%M,%S')
+
+        os.system('sleep 10') # see if this fixes the member001 failing issue
             
         os.system(f"python run_fcst.py -e {exp_name} --run_time {forecast_length} --freq {forecast_freq} -t {time} --ncores {ncores}")
 
