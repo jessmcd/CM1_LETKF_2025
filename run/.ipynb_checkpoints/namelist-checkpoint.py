@@ -3,7 +3,7 @@ import datetime as dt
 
 #### BASIC SETUP #######
 
-base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/C10_3L12_R0"
+base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/C3_3L12_R3"
 fprefix             = "cm1"
 ne                  = 36
 model               = "cm1r21v1/run/cm1.exe"
@@ -34,13 +34,13 @@ make_plots          = False  # if you want to make the summary plots at the end 
 #### additional, more specialized settings
 pre_cook            = True #IF THIS IS TRUE = run_setup and run_cook are ignored! It copies the directory below and sets up a new experiment
                            # only do this if you have "locked in" your inital CM1 set up
-cook_path           = '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/Control'#_60
+cook_path           = '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/Control'
 
 ### DATA ASSIMILATION PARAMETERS ###
 
 DA_start_time       = dt.datetime(2024, 5, 8, 20,0) # if run_assim is false, this is the start of "run forecast" if using a precooked run
 DA_end_time         = dt.datetime(2024, 5, 8, 21,30) # time that DA will end (inclusive)
-assim_freq          = 600
+assim_freq          = 180
 cook_period         = 1800 # 30 minutes
 cook_freq           = 900  # note: cook_period must be evenly divisible by cook_freq
 forecast_length     = 3600 # 60 minutes
@@ -51,8 +51,8 @@ obs_error           = {'VR':3.0, 'DBZ':7.0, 'DBZ0':5.0, 'DBZ0_W': 0.5}
 
 prior_inflate       = 1  # 
 prior_inflate_value = 1.0 # leave as 1.0 unless you want to use a fixed inflation value
-post_inflate        = 0
-post_inflate_alpha  = 0.0
+post_inflate        = 3
+post_inflate_alpha  = 0.3
 
 outlier             = 3
 inlier              = 0.0 # set to 0 to turn off

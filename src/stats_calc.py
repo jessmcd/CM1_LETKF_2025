@@ -321,11 +321,18 @@ if __name__ == "__main__":
         
         UH = np.sum(zeta*w*dz[np.newaxis, np.newaxis, :, np.newaxis, np.newaxis], axis=2)
         del u,v,dx,dy,dz,dudy, dvdx, zeta
-        
-        myds['UH_2-5km'] = (('t', 'ne','nj','ni'), UH)
 
-        myds['w_2-5km'] = (('t', 'ne', 'nj', 'ni'), w.mean(axis=2))
-        myds['cdbz']    = (('t', 'ne', 'nj', 'ni'), myds.dbz.max(axis=2)) # add in composite reflectivity 
+        bs      = myds.th[:, :,0, :, -1].mean(axis=(2)).values
+        thp     = myds.th[:, :,0].values - bs[:,:, np.newaxis, np.newaxis]
+        cp_size = np.where(thp <= -1, 1, 0).sum(axis=(2,3))*(3*3)
+        cp_mean = np.nanmean(np.where(thp<=-1, thp, np.nan), axis=(2,3))
+
+        myds['cp_temp']  = (('t', 'ne'), cp_mean)
+        myds['cp_size']  = (('t', 'ne'), cp_size)
+
+        myds['UH_2-5km'] = (('t', 'ne','nj','ni'), UH)
+        myds['w_2-5km']  = (('t', 'ne', 'nj', 'ni'), w.mean(axis=2))
+        myds['cdbz']     = (('t', 'ne', 'nj', 'ni'), myds.dbz.max(axis=2).values) # add in composite reflectivity 
 
         del w
         
