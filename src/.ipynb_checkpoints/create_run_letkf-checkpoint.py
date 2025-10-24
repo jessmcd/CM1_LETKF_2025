@@ -154,6 +154,14 @@ cm1_nml = {"cm1namelist": [
  ('param2',  'imove', 0),
  ('param2',  'iinit', 0),
  ('param2',  'ihail', namelist.ihail),
+    
+ ('param2',  'ebc', 2),
+ ('param2',  'wbc', 2),
+ ('param2',  'nbc', 2),
+ ('param2',  'sbc', 2),
+
+ ('param3',  'rdalpha', 3.3333333333e-3),
+    
  ('param6',  'stretch_z', namelist.stretch_z),
  ('param6',  'ztop', namelist.ztop),
  ('param6',  'str_bot', namelist.str_bot),

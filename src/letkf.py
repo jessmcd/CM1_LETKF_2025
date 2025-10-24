@@ -183,12 +183,13 @@ if __name__ == "__main__":
         in_time = DT.datetime(int(time[0]),int(time[1]),int(time[2]),int(time[3]),int(time[4]),int(time[5])) - dt
         inflate_file = os.path.join(path, "Inflation_%s.nc" % in_time.strftime("%Y-%m-%d_%H:%M:%S"))
         print(("\n --> LETKF:  Trying to find inflation file: %s" % inflate_file))
-    if os.path.isfile(inflate_file):
-        inflate_file_exists = True
-        print(("\n --> LETKF:  Using inflation file: %s" % inflate_file))
-    else:
-        inflate_file_exists = False
-        print("\n --> LETKF:  Could not find inflation file....none will be used.")
+        
+        if os.path.isfile(inflate_file):
+            inflate_file_exists = True
+            print(("\n --> LETKF:  Using inflation file: %s" % inflate_file))
+        else:
+            inflate_file_exists = False
+            print("\n --> LETKF:  Could not find inflation file....none will be used.")
 
 #-------------------------------------------------------------------------------
 # LETKF Weight I/O flags

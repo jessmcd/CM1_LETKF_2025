@@ -3,15 +3,15 @@ import datetime as dt
 
 #### BASIC SETUP #######
 
-base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/C3_5L09_R0_H2"
+base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/C3_5L09_R0_V2_noAI"
 fprefix             = "cm1"
 ne                  = 36
 model               = "cm1r21v1/run/cm1.exe"
 src                 = "cm1r21v1/run/onefile.F"
 namelist            = "cm1r21v1/run/namelist.input"
 landsfc             = "cm1r21v1/run/LANDUSE.TBL"
-sounding            = "soundings/"
-radar_obs           = "observations/8may24_cm1_5km_obs_multi.csv" #"observations/8may24_cm1_5km_obs.csv"
+sounding            = "soundings/"#"soundings_60mem/"#"soundings/"
+radar_obs           = "observations/8may24_cm1_5km_obs_multi.csv" 
 nthreads            = 8
 ncores              = 64
 
@@ -41,7 +41,7 @@ cook_path           = '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/Control
 DA_start_time       = dt.datetime(2024, 5, 8, 20,0) # if run_assim is false, this is the start of "run forecast" if using a precooked run
 DA_end_time         = dt.datetime(2024, 5, 8, 21,30) # time that DA will end (inclusive)
 assim_freq          = 180
-cook_period         = 1800 # 30 minutes
+cook_period         = 10800#1800 # 30 minutes
 cook_freq           = 900  # note: cook_period must be evenly divisible by cook_freq
 forecast_length     = 3600 # 60 minutes
 forecast_freq       = 300  # 5 minutes
@@ -49,7 +49,7 @@ forecast_freq       = 300  # 5 minutes
 obs_include         = ['DBZ', 'VR', 'DBZ0'] #options: DBZ, VR, DBZ0, DBZ0_W(updates w instead of ref)
 obs_error           = {'VR':3.0, 'DBZ':7.0, 'DBZ0':5.0, 'DBZ0_W': 0.5} 
 
-prior_inflate       = 1  # 
+prior_inflate       = 0
 prior_inflate_value = 1.0 # leave as 1.0 unless you want to use a fixed inflation value
 post_inflate        = 1
 post_inflate_alpha  = 0.0
