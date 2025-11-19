@@ -4,7 +4,7 @@
 # just in case one already exists
 rm letkf.out
 
-sed -i  '6s|.*|''base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/C3_5L07_R5_test2"''|' namelist.py
+sed -i  '6s|.*|''base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/C3_5L07_R5_test3"''|' namelist.py
 sed -i  '43s|.*|''assim_freq          = 180''|' namelist.py
 sed -i  '68s|.*|''rhoriz              = 7500.0''|' namelist.py
 sed -i  '69s|.*|''rvert               = 4500.0''|' namelist.py

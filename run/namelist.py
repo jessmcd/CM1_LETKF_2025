@@ -3,7 +3,7 @@ import datetime as dt
 
 #### BASIC SETUP #######
 
-base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/C3_5L07_R5_test2"
+base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/C3_5L07_R5_test3"
 fprefix             = "cm1"
 ne                  =  36
 model               = "cm1r21v1/run/cm1.exe"

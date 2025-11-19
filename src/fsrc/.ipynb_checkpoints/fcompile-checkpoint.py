@@ -15,7 +15,7 @@ preprocess   = "-DF2PY_REPORT_ON_ARRAY_COPY"
 preprocess   = ""
 fopts        = {'pgf': ['pg',"-tp x64 -fastsse -mp -fPIC",""], \
                 
-                'gnu': ["gnu95","-O1 -funroll-loops -fopenmp -fPIC -fallow-argument-mismatch\
+                'gnu': ["gnu95","-O3 -funroll-loops -fopenmp -fPIC -fallow-argument-mismatch\
                         -I/home/jessica.mcdonald/miniconda3/envs/letkf_env/include",\
                         "-lgomp -L/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib -lnetcdf -lnetcdff \
                         -L/home/jessica.mcdonald/miniconda3/envs/letkf_env/lib -lhdf5 -lhdf5_hl -lz"], 

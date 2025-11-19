@@ -1,3 +1,7 @@
 /run/observations/
 /experiments
 .nfs*
+*.o
+*.mod
+*.out
+*fort.7
