@@ -1,6 +1,0 @@
-Traceback (most recent call last):
-  File "/work/jessica.mcdonald/CM1_LETKF_2025/run/../src/forecast_driver.py", line 6, in <module>
-    import ens
-  File "/work/jessica.mcdonald/CM1_LETKF_2025/src/ens.py", line 48, in <module>
-    from fpython2 import fstate, addbubbles_box, obs_2_grid3d, add_smooth_perts
-ModuleNotFoundError: No module named 'fpython2'
