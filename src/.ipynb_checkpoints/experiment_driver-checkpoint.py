@@ -130,6 +130,22 @@ if run_fcst:
 
         os.system(f"python stats_calc.py -e {exp_name} -f") # combine forecast plots into single file
 
+        ############################
+        # add a check to make sure forecast worked correctly. If it did not, it's probably the member001 issue
+        if os.path.isfile(os.path.join(base_dir, 'full_ens_fcst.nc')) == False:
+    
+            # run CM1
+            src = os.getcwd()
+            os.chdir(os.path.join(base_dir, 'member001'))
+            os.system('mpirun -n 64 cm1.exe >> cm1.out')
+            
+            # now try again
+            os.chdir(src)
+            os.system(f"python stats_calc.py -e {exp_name} -f") # combine forecast plots into single file
+        else:
+            print('all done!')
+        ############################
+
 #--------------------------------------------------------------------------
 # Run some stats if you just did the assimilation
 if run_assim | run_fcst | run_cook:

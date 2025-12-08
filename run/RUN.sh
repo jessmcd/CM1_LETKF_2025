@@ -4,14 +4,14 @@
 # just in case one already exists
 rm letkf.out
 
-sed -i  '6s|.*|''base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/C3_5L07_R5_test3"''|' namelist.py
+sed -i  '6s|.*|''base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/C03_H18_V2_noAI"''|' namelist.py
 sed -i  '43s|.*|''assim_freq          = 180''|' namelist.py
-sed -i  '68s|.*|''rhoriz              = 7500.0''|' namelist.py
-sed -i  '69s|.*|''rvert               = 4500.0''|' namelist.py
+sed -i  '68s|.*|''rhoriz              = 18000.0''|' namelist.py
+sed -i  '69s|.*|''rvert               = 2500.0''|' namelist.py
 
-sed -i  '52s|.*|''prior_inflate       = 1''|' namelist.py
+sed -i  '52s|.*|''prior_inflate       = 0''|' namelist.py
 sed -i  '54s|.*|''post_inflate        = 3''|' namelist.py
-sed -i  '55s|.*|''post_inflate_alpha  = 0.5''|' namelist.py
+sed -i  '55s|.*|''post_inflate_alpha  = 0.0''|' namelist.py
 
 # #get experiment filepath
 base_dir=$(python namelist.py)
@@ -40,3 +40,4 @@ else
 
 fi
 ########################################
+

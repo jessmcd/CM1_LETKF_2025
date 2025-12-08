@@ -80,14 +80,15 @@ SUBROUTINE mtx_eigen(imode,n,a,eival,eivec,nrank_eff,error_flag)
   error_flag = 0
   
   !print*, "AAA"
-! CALL rs(n,n,a8,eival8,imode,eivec8,wrk1,wrk2,ierr)
-
-  eivec8(:,:) = a(:,:)
   
-  CALL kaiser(eivec8, n, n, eival8, trace, sum, ierr)
+    CALL rs(n,n,a8,eival8,imode,eivec8,wrk1,wrk2,ierr)
+
+!   eivec8(:,:) = a(:,:)
+!   
+!   CALL kaiser(eivec8, n, n, eival8, trace, sume, ierr)
   
   IF( ierr/=0 ) THEN
-    WRITE(6,FMT='(A,I2)') '!!! ERROR (mtx_eigen): KAISER error code is ',ierr
+    WRITE(6,FMT='(A,I2)') '!!! ERROR (mtx_eigen): RS error code is ',ierr
     STOP 2
   END IF
   !print*, "BBB"
@@ -386,7 +387,7 @@ IMPLICIT NONE
 
 !!!INTEGER, PARAMETER :: dp = SELECTED_REAL_KIND(14, 60)
 
-INTEGER, INTENT(IN)       :: nrows
+INTEGER, INTENT(IN)          :: nrows
 INTEGER, INTENT(IN)          :: n
 
 REAL (r_dble), INTENT(INOUT) :: a(:,:)

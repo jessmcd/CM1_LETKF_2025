@@ -9,7 +9,7 @@ import netCDF4 as ncdf
 
 import sys
 sys.path.append('../run/')
-import namelist
+import namelist1 as namelist
 os.chdir('../src/') # back to original directory
 print(os.getcwd())
 
@@ -54,7 +54,7 @@ if run_setup & (pre_cook==False):
 
     print('Beginning model set up and cook period')
         
-    os.system(f"python create_run_letkf.py") 
+    os.system(f"python create_run_letkf1.py") 
     os.system(f"python run_fcst.py          -e {exp_name} --ncores {ncores} -i") 
     os.system(f"python ens.py               -e {exp_name} --init0 -t {model_start} --write ")
       
@@ -66,7 +66,7 @@ if run_cook & (pre_cook==False):
 # if cook period has already been made, then simply copy it into your new experiment directory!
 if pre_cook:
     print('copying over existing CM1 ensemble')
-    os.system(f"python create_run_letkf.py")
+    os.system(f"python create_run_letkf1.py")
     os.system(f'cp -rf {cook_path}/member000 {base_dir}') # copy member 000
     
     # find the proper restart file 

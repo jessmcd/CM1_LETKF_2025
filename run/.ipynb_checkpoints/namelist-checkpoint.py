@@ -3,7 +3,7 @@ import datetime as dt
 
 #### BASIC SETUP #######
 
-base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/C3_5L07_R5_test"
+base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/C03_H18_V2_60mem"
 fprefix             = "cm1"
 ne                  =  36
 model               = "cm1r21v1/run/cm1.exe"
@@ -52,7 +52,7 @@ obs_error           = {'VR':3.0, 'DBZ':7.0, 'DBZ0':5.0, 'DBZ0_W': 0.5}
 prior_inflate       = 1
 prior_inflate_value = 1.0 # leave as 1.0 unless you want to use a fixed inflation value
 post_inflate        = 3
-post_inflate_alpha  = 0.5
+post_inflate_alpha  = 0.0
 
 outlier             = 3
 inlier              = 0.0 # set to 0 to turn off
@@ -65,8 +65,8 @@ writeFcstMean       = True
 writeAnalMean       = True
 saveWeights         = False
 readWeights         = False
-rhoriz              = 7500.0
-rvert               = 4500.0
+rhoriz              = 18000.0
+rvert               = 2500.0
 rtime               = -600.0
 cutoff              = 2
 zcutoff             = 10000.0  

@@ -33,14 +33,14 @@ MODULE common_letkf
 ! Constants
 !-----------------------------------------------------------------------
 
-  REAL*8,PARAMETER :: pi=3.1415926535
-  REAL*8,PARAMETER :: gg=9.81
-  REAL*8,PARAMETER :: rd=287.0
-  REAL*8,PARAMETER :: cp=1005.7
-  REAL*8,PARAMETER :: re=6371.3e3
-  REAL*8,PARAMETER :: r_omega=7.292e-5
-  REAL*8,PARAMETER :: t0c=273.15
-  REAL*8,PARAMETER :: undef=-9.99e33
+  REAL(r_dble),PARAMETER :: pi=3.1415926535
+  REAL(r_dble),PARAMETER :: gg=9.81
+  REAL(r_dble),PARAMETER :: rd=287.0
+  REAL(r_dble),PARAMETER :: cp=1005.7
+  REAL(r_dble),PARAMETER :: re=6371.3e3
+  REAL(r_dble),PARAMETER :: r_omega=7.292e-5
+  REAL(r_dble),PARAMETER :: t0c=273.15
+  REAL(r_dble),PARAMETER :: undef=-9.99e33
 
 CONTAINS
 !=======================================================================
@@ -64,43 +64,45 @@ SUBROUTINE letkf_core(nbv,nobs,nobsl,var,hdxb,rdiag,rloc,dep,obIndex,infl_in,tra
 
 ! Passed variables
 
-  INTEGER,INTENT(IN)   :: nobs
-  INTEGER,INTENT(IN)   :: nobsl
-  INTEGER,INTENT(IN)   :: nbv
-  REAL*8,INTENT(IN)    :: infl_in(1)      ! adaptive inflation parameter
-  REAL*8,INTENT(OUT)   :: trans(nbv,nbv)  ! weight matrix (nobs,nobs)
-  REAL*8,INTENT(OUT)   :: wmean(nbv)      ! weights for mean analysis (nbv x 1)
-  REAL*8,INTENT(OUT)   :: infl_out(1)     ! adaptive inflation parameter
+  INTEGER,INTENT(IN)         :: nobs
+  INTEGER,INTENT(IN)         :: nobsl
+  INTEGER,INTENT(IN)         :: nbv
+  REAL(r_dble),INTENT(IN)    :: infl_in(1)      ! adaptive inflation parameter
+  REAL(r_dble),INTENT(OUT)   :: trans(nbv,nbv)  ! weight matrix (nobs,nobs)
+  REAL(r_dble),INTENT(OUT)   :: wmean(nbv)      ! weights for mean analysis (nbv x 1)
+  REAL(r_dble),INTENT(OUT)   :: infl_out(1)     ! adaptive inflation parameter
 
-  REAL*4,INTENT(IN)    :: var(nbv)
-  REAL*8,INTENT(IN)    :: hdxb(nobs,nbv)  ! y - Hx
-  REAL*8,INTENT(IN)    :: rdiag(nobs)     ! observation error
-  REAL*8,INTENT(IN)    :: rloc(nobs)      ! spatial localization weight
-  REAL*8,INTENT(IN)    :: dep(nobs)       ! y - Hx_mean
-  INTEGER,INTENT(IN)   :: obIndex(nobs)
-  INTEGER,INTENT(IN)   :: hf              ! sub ens size
-  REAL*8,INTENT(INOUT) :: rcp_return(1)
+  REAL(r_sngl),INTENT(IN)    :: var(nbv)
+  REAL(r_dble),INTENT(IN)    :: hdxb(nobs,nbv)  ! y - Hx
+  REAL(r_dble),INTENT(IN)    :: rdiag(nobs)     ! observation error
+  REAL(r_dble),INTENT(IN)    :: rloc(nobs)      ! spatial localization weight
+  REAL(r_dble),INTENT(IN)    :: dep(nobs)       ! y - Hx_mean
+  INTEGER,INTENT(IN)         :: obIndex(nobs)
+  INTEGER,INTENT(IN)         :: hf              ! sub ens size
+  REAL(r_dble),INTENT(INOUT) :: rcp_return(1)
 
-  
 ! Local variables
 
-  REAL*8 :: YbL_rinv(nobsl,nbv)
-  REAL*8 :: eivec(nbv,nbv)
-  REAL*8 :: eival(nbv)
-  REAL*8 :: pa(nbv,nbv)
-  REAL*8 :: work1(nbv,nbv)
-  REAL*8 :: work2(nbv,nobsl)
-! REAL*8 :: work3(nbv)                                               ! LJW replaced with wmean, to return mean analysis weights
-  REAL*8 :: Ybl(nobsl,nbv), rdiagL(nobsl), rlocL(nobsl), depL(nobsl) ! LJW changes
-  REAL*8 :: rho, obs_error
-  REAL*8 :: HxfL(nbv), Hxfmean, sdHxf
-  REAL*8 :: parm(4),sigma_o,gain
-  REAL*8 :: mean, stddev, rcp
-  REAL*8, PARAMETER :: rcp_weight = 0.5
-  REAL*8, PARAMETER :: sigma_b = 0.15d0 ! error stdev of parm_infl
   INTEGER :: i,j,k,m
+  INTEGER :: error_flag
+  INTEGER, PARAMETER :: min_obsl = 1    ! Minimum number of to solve for...
   
-  REAL(KIND=4)  :: F_RCF
+  REAL(r_dble) :: YbL_rinv(nobsl,nbv)
+  REAL(r_dble) :: eivec(nbv,nbv)
+  REAL(r_dble) :: eival(nbv)
+  REAL(r_dble) :: pa(nbv,nbv)
+  REAL(r_dble) :: work1(nbv,nbv)
+  REAL(r_dble) :: work2(nbv,nobsl)
+! REAL(r_dble) :: work3(nbv)                                               ! LJW replaced with wmean, to return mean analysis weights
+  REAL(r_dble) :: Ybl(nobsl,nbv), rdiagL(nobsl), rlocL(nobsl), depL(nobsl) ! LJW changes
+  REAL(r_dble) :: rho, obs_error
+  REAL(r_dble) :: HxfL(nbv), Hxfmean, sdHxf
+  REAL(r_dble) :: parm(4),sigma_o,gain
+  REAL(r_dble) :: mean, stddev, rcp
+  REAL(r_dble), PARAMETER :: rcp_weight = 0.5
+  REAL(r_dble), PARAMETER :: sigma_b = 0.15d0 ! error stdev of parm_infl
+  
+  REAL(r_sngl)  :: F_RCF
   EXTERNAL F_RCF
 
   LOGICAL, PARAMETER :: wgt_regularization  = .false.
@@ -117,7 +119,7 @@ SUBROUTINE letkf_core(nbv,nobs,nobsl,var,hdxb,rdiag,rloc,dep,obIndex,infl_in,tra
     print *, 'INFLATE IN: ', infl_in(1)
   ENDIF
   
-  IF(nobsl == 0) THEN
+  IF(nobsl < min_obsl) THEN
     trans = 0.0d0
     DO i=1,nbv
       trans(i,i) = SQRT(infl_in(1))
@@ -181,7 +183,18 @@ SUBROUTINE letkf_core(nbv,nobs,nobsl,var,hdxb,rdiag,rloc,dep,obIndex,infl_in,tra
 !  eigenvalues and eigenvectors of [ hdxb^T Rinv hdxb + (m-1) I ]
 !-----------------------------------------------------------------------
   IF( DEBUG2 )  print *, "Step 5C"
-  CALL mtx_eigen(1,nbv,work1,eival,eivec,i)
+  
+  CALL mtx_eigen(1,nbv,work1,eival,eivec,i, error_flag)
+  
+  IF( error_flag == -1) THEN
+    trans = 0.0d0
+    DO i=1,nbv
+      trans(i,i) = SQRT(infl_in(1))
+      wmean(i)   = SQRT(infl_in(1))
+    END DO
+    infl_out(1)  = infl_in(1)
+    RETURN  
+  ENDIF
 !-----------------------------------------------------------------------
 !  Pa = [ hdxb^T Rinv hdxb + (m-1) I ]inv
 !-----------------------------------------------------------------------

@@ -19,7 +19,7 @@ MODULE INFLATE_PARAMS
 
 ! These parameters bind the maximum amount of multiplicative inflation used (LETKF AI and RTPS)
 
-  real(kind=4), parameter :: min_inflate = 0.99, max_inflate = 9.0
+  real(kind=4), parameter :: min_inflate = 0.5, max_inflate = 9.0
 
 ! These parameters are for the Relaxation to Prior Spread (RTPS)
 ! Negative means use adaptive RTPS
@@ -133,7 +133,9 @@ CONTAINS
     logical,      intent(IN)    :: save_weights
     logical,      intent(IN)    :: read_weights
     real(kind=8), intent(IN)    :: tanalysis, zcutoff
-    real(kind=8), intent(IN)    :: rhoriz, rvert, rtime
+    !real(kind=8), intent(IN)    :: rhoriz, rvert, rtime
+    real(kind=8), intent(IN)    :: rtime
+    real(kind=8), intent(IN)    :: rhoriz(fnobs), rvert(fnobs)
 
     real(kind=8), intent(IN)    :: ob(fnobs)
     real(kind=8), intent(IN)    :: Hx(fnobs,fne)
@@ -177,8 +179,8 @@ CONTAINS
     write(std_out,*) 'COMPUTE_LETKF:  X_GD Max/Min:  ', maxval(xc)-xoffset, minval(xc)-xoffset
     write(std_out,*) 'COMPUTE_LETKF:  Y_GD Max/Min:  ', maxval(yc)-yoffset, minval(yc)-yoffset
     write(std_out,*) 'COMPUTE_LETKF:  Z_GD Max/Min:  ', maxval(zc)-zoffset, minval(zc)-zoffset
-    write(std_out,*) 'COMPUTE_LETKF:  RHORIZ:        ', rhoriz
-    write(std_out,*) 'COMPUTE_LETKF:  RVERT:         ', rvert
+    write(std_out,*) 'COMPUTE_LETKF:  RHORIZ:        ', rhoriz(1)
+    write(std_out,*) 'COMPUTE_LETKF:  RVERT:         ', rvert(1)
     write(std_out,*) 'COMPUTE_LETKF:  RTIME:         ', rtime
     write(std_out,*) 'COMPUTE_LETKF:  Hx shape       ', shape(Hx)
     write(std_out,*) 'COMPUTE_LETKF:  UPDATE THETA FLAG:  ', update_theta
@@ -244,6 +246,7 @@ CONTAINS
       write(std_out,*) "               Min value of AI:  ",sqrt(minval(out_inflate))
       write(std_out,*) "               Max value of AI:  ",sqrt(maxval(out_inflate))
       WHERE( out_inflate > max_inflate ) out_inflate = max_inflate
+      WHERE( out_inflate < min_inflate ) out_inflate = min_inflate
       write(std_out,*) "               Max value of limited AI:  ",sqrt(maxval(out_inflate))
       write(std_out,*) 
     ENDIF
@@ -328,14 +331,15 @@ CONTAINS
         DO k = 1,nz
           z0 = zc(k) 
         
-          IF( z0 .gt. zcutoff + rvert) THEN
+          !IF( z0 .gt. zcutoff + rvert) THEN
+          IF( z0 .gt. zcutoff + maxval(rvert)) THEN ! do the maximum available rvert, we will be more careful within localization 
             cycle
           ENDIF
           
           t0 = omp_get_wtime()
 
           CALL LOCALIZATION(fnobs, xob, yob, zob, tob, x0, y0, z0, tanalysis, rhoriz, rvert, rtime, &
-                            cutoff, obindex, obwgt)
+                            cutoff, obindex, obwgt, zcutoff)!jessmcdo added zcutoff
       
           t_local = t_local + omp_get_wtime() - t0
 
@@ -439,7 +443,8 @@ CONTAINS
           DO k = 1,nz
             z0 = zc(k) 
         
-            IF( z0 .gt. zcutoff + rvert) THEN
+            !IF( z0 .gt. zcutoff + rvert) THEN
+            IF( z0 .gt. zcutoff + maxval(rvert)) THEN ! THIS ISN"T FULLY WORKING 
               cycle
             ENDIF
           
@@ -679,7 +684,7 @@ END MODULE FSTATE
 
 !=============================================================================================================   
 
-SUBROUTINE LOCALIZATION(nobs, xob, yob, zob, tob, x, y, z, t, rhoriz, rvert, rtime, cutoff, obindex, obwgt)
+SUBROUTINE LOCALIZATION(nobs, xob, yob, zob, tob, x, y, z, t, rhoriz, rvert, rtime, cutoff, obindex, obwgt, zcutoff)
 
 ! Passed variables
 !-----------------------------------------------------------------
@@ -689,8 +694,9 @@ SUBROUTINE LOCALIZATION(nobs, xob, yob, zob, tob, x, y, z, t, rhoriz, rvert, rti
   integer,      intent(IN)    :: nobs
   integer,      intent(IN)    :: cutoff
   real(kind=8), intent(IN)    :: x, y, z, t
-  real(kind=8), intent(IN)    :: xob(nobs), yob(nobs), zob(nobs), tob(nobs)
-  real(kind=8), intent(IN)    :: rhoriz, rvert, rtime
+  real(kind=8), intent(IN)    :: xob(nobs), yob(nobs), zob(nobs), tob(nobs), rhoriz(nobs), rvert(nobs)
+  real(kind=8), intent(IN)    :: rtime, zcutoff
+  !real(kind=8), intent(IN)    :: rhoriz, rvert, rtime
   real(kind=8), intent(INOUT) :: obwgt(nobs)
   integer,      intent(INOUT) :: obindex(nobs)
 
@@ -718,16 +724,23 @@ SUBROUTINE LOCALIZATION(nobs, xob, yob, zob, tob, x, y, z, t, rhoriz, rvert, rti
   
     DO n = 1,nobs
 
-    obindex(n) = -1
-    valid(n)  = .false.
-    wgt       = sqrt( ((zob(n)-z)/rvert)**2 + ((yob(n)-y)/rhoriz)**2 + ((xob(n)-x)/rhoriz)**2 ) 
-    twgt      = sqrt( (tob(n)/rtime)**2 )
-    vindex(n) = n
-    obwgt(n)  = 0.0d0
-    IF( wgt .lt. 1.0 .and. twgt .lt. 1.0 ) THEN
-      valid(n) = .true.
-      obwgt(n) = comp_cov_factor(wgt,half)*comp_cov_factor(twgt,half)
-    ENDIF
+      !do another check for cutoff height
+      IF( zob(n) .gt. zcutoff + rvert(n)) THEN !height check
+        cycle
+      ENDIF
+
+      obindex(n) = -1
+      valid(n)  = .false.
+      !wgt       = sqrt( ((zob(n)-z)/rvert)**2 + ((yob(n)-y)/rhoriz)**2 + ((xob(n)-x)/rhoriz)**2 ) 
+      wgt       = sqrt( ((zob(n)-z)/rvert(n))**2 + ((yob(n)-y)/rhoriz(n))**2 + ((xob(n)-x)/rhoriz(n))**2 ) 
+      twgt      = sqrt( (tob(n)/rtime)**2 )
+      vindex(n) = n
+      obwgt(n)  = 0.0d0
+      IF( wgt .lt. 1.0 .and. twgt .lt. 1.0 ) THEN
+        valid(n) = .true.
+        obwgt(n) = comp_cov_factor(wgt,half)*comp_cov_factor(twgt,half)
+      ENDIF
+
 
   ENDDO
 
@@ -738,16 +751,31 @@ SUBROUTINE LOCALIZATION(nobs, xob, yob, zob, tob, x, y, z, t, rhoriz, rvert, rti
 !!!$OMP PARALLEL DO DEFAULT(SHARED) PRIVATE(wgt)
 
     DO n = 1,nobs
-  
+
+      !write(6,*) 'LOCALIZATION:  max/min rhoriz:  ', maxval(rhoriz), minval(rhoriz)
+
       obindex(n) = -1
       valid(n)  = .false.
-      wgt       = sqrt( ((zob(n)-z)/rvert)**2 + ((yob(n)-y)/rhoriz)**2 + ((xob(n)-x)/rhoriz)**2 )
       vindex(n) = n
       obwgt(n)  = 0.0d0
+
+      !do another check for cutoff height
+      IF( zob(n) .gt. zcutoff + rvert(n)) THEN !height check
+        !write(6,*) 'LOCALIZATION:  SKIPPED!  ', zob(n)
+        cycle
+      ENDIF
+  
+      !obindex(n) = -1
+      !valid(n)  = .false.
+      !wgt       = sqrt( ((zob(n)-z)/rvert)**2 + ((yob(n)-y)/rhoriz)**2 + ((xob(n)-x)/rhoriz)**2 )
+      wgt       = sqrt( ((zob(n)-z)/rvert(n))**2 + ((yob(n)-y)/rhoriz(n))**2 + ((xob(n)-x)/rhoriz(n))**2 ) 
+      !vindex(n) = n
+      !obwgt(n)  = 0.0d0
       IF( wgt .lt. 1.0 ) THEN
         valid(n) = .true.
         obwgt(n) = comp_cov_factor(wgt,half)
       ENDIF
+          
 
     ENDDO
 
@@ -765,116 +793,116 @@ END SUBROUTINE LOCALIZATION
 
 !=============================================================================================================   
 
-SUBROUTINE LOCALIZATION1D(nobs, xob, yob, zob, tob, x, y, z, t, rhoriz, rvert, rtime, cutoff, obindex, obwgt)
-
-! Passed variables
-!-----------------------------------------------------------------
-
-  IMPLICIT NONE
-
-  integer,      intent(IN)    :: nobs
-  integer,      intent(IN)    :: cutoff
-  real(kind=8), intent(IN)    :: x, y, z, t
-  real(kind=8), intent(IN)    :: xob(nobs), yob(nobs), zob(nobs), tob(nobs)
-  real(kind=8), intent(IN)    :: rhoriz, rvert, rtime
-  real(kind=8), intent(INOUT) :: obwgt(nobs)
-  integer,      intent(INOUT) :: obindex(nobs)
-
-! Local variables
-!-----------------------------------------------------------------
-  integer       :: n, nvalid, n0, n1
-  real(kind=8)  :: distance
-  real(kind=8)  :: wgt, twgt
-  logical       :: valid(nobs)
-  integer       :: vindex(nobs)
-  integer find_index8
-  
-!---- Functions
-
-  real(kind=8)  :: comp_cov_factor 
-  real(kind=8), parameter :: half = 0.5
-
-!  write(std_out,*) 'LOCALIZATION:  X_OB Max/Min:  ', maxval(xob), minval(xob), x
-!  write(std_out,*) 'LOCALIZATION:  Y_OB Max/Min:  ', maxval(yob), minval(yob), y
-!  write(std_out,*) 'LOCALIZATION:  Z_OB Max/Min:  ', maxval(zob), minval(zob), z
-
-  n0 = 0
-  n1 = 0
-  n0 = find_index8(x-rhoriz, xob, nobs)
-  n1 = find_index8(x+rhoriz, xob, nobs)
-! IF ((n1-n0) > 0) THEN
-!   n0 = find_index(y+rhoriz, yob(nx0:nx1), nx1-nx0)
-!   ny1 = find_index(y-rhoriz, yob(nx0:nx1), nx1-nx0)
-! ELSE
-!   ny0 = 0
-!   ny1 = 0
-! ENDIF
-! IF ((ny1-ny0) > 0) THEN
-!   nz0 = find_index(z+rvert,  zob(ny0:ny1), ny1-ny0)
-!   nz1 = find_index(z-rvert,  zob(ny0:ny1), ny1-ny0)
-! ELSE
-!  nz0 = 0
-!  nz1 = 0
-! ENDIF
-
-  IF ( rtime .gt. 0.0 ) THEN
-  
-!!!!$OMP PARALLEL DO DEFAULT(SHARED) PRIVATE(wgt, twgt)
-  
-   DO n = 1,nobs
-
-    obindex(n) = -1
-    valid(n)  = .false.
-    wgt       = sqrt( ((zob(n)-z)/rvert)**2 + ((yob(n)-y)/rhoriz)**2 + ((xob(n)-x)/rhoriz)**2 ) 
-    twgt      = sqrt( (tob(n)/rtime)**2 )
-    vindex(n) = n
-    obwgt(n)  = 0.0d0
-
-    IF( wgt .lt. 1.0 .and. twgt .lt. 1.0 ) THEN
-      valid(n) = .true.
-      obwgt(n) = comp_cov_factor(wgt,half)*comp_cov_factor(twgt,half)
-    ENDIF
-
-   ENDDO
-
-!!!$OMP END PARALLEL DO
-
-  ELSE
-
-!!!$OMP PARALLEL DO DEFAULT(SHARED) PRIVATE(wgt)
-
-    DO n = 1,nobs
-  
-      obindex(n) = -1
-      valid(n)  = .false.
-      wgt       = sqrt( ((zob(n)-z)/rvert)**2 + ((yob(n)-y)/rhoriz)**2 + ((xob(n)-x)/rhoriz)**2 )
-      vindex(n) = n
-      obwgt(n)  = 0.0d0
-      IF( wgt .lt. 1.0 ) THEN
-        valid(n) = .true.
-        obwgt(n) = comp_cov_factor(wgt,half)
-      ENDIF
-
-    ENDDO
-
-!!!$OMP END PARALLEL DO
-    
-  ENDIF
-  
-! Gather scatter code for compressing indices to front of oindex array
-
-  nvalid = count( valid )
-  obindex(1:nvalid) = pack(vindex, valid)
-
-  IF ((n1-n0) > 0) THEN
-    write(8,FMT='(a,3(f8.1,2x))') 'grid point coordinates:  ', x, y, z
-    write(8,FMT='(a,3(f8.1,2x))') 'min obs point coordinates:  ', xob(n0), yob(n0), zob(n0)
-    write(8,FMT='(a,3(f8.1,2x))') 'max obs point coordinates:  ', xob(n1), yob(n1), zob(n1)
-    write(8,*) 'nvalid / nvalid2:  ', nvalid, n1-n0
-  ENDIF
-  
-RETURN
-END SUBROUTINE LOCALIZATION1D
+!SUBROUTINE LOCALIZATION1D(nobs, xob, yob, zob, tob, x, y, z, t, rhoriz, rvert, rtime, cutoff, obindex, obwgt)
+!
+!! Passed variables
+!!-----------------------------------------------------------------
+!
+!  IMPLICIT NONE
+!
+!  integer,      intent(IN)    :: nobs
+!  integer,      intent(IN)    :: cutoff
+!  real(kind=8), intent(IN)    :: x, y, z, t
+!  real(kind=8), intent(IN)    :: xob(nobs), yob(nobs), zob(nobs), tob(nobs)
+!  real(kind=8), intent(IN)    :: rhoriz, rvert, rtime
+!  real(kind=8), intent(INOUT) :: obwgt(nobs)
+!  integer,      intent(INOUT) :: obindex(nobs)
+!
+!! Local variables
+!!-----------------------------------------------------------------
+!  integer       :: n, nvalid, n0, n1
+!  real(kind=8)  :: distance
+!  real(kind=8)  :: wgt, twgt
+!  logical       :: valid(nobs)
+!  integer       :: vindex(nobs)
+!  integer find_index8
+!  
+!!---- Functions
+!
+!  real(kind=8)  :: comp_cov_factor 
+!  real(kind=8), parameter :: half = 0.5
+!
+!!  write(std_out,*) 'LOCALIZATION:  X_OB Max/Min:  ', maxval(xob), minval(xob), x
+!!  write(std_out,*) 'LOCALIZATION:  Y_OB Max/Min:  ', maxval(yob), minval(yob), y
+!!  write(std_out,*) 'LOCALIZATION:  Z_OB Max/Min:  ', maxval(zob), minval(zob), z
+!
+!  n0 = 0
+!  n1 = 0
+!  n0 = find_index8(x-rhoriz, xob, nobs)
+!  n1 = find_index8(x+rhoriz, xob, nobs)
+!! IF ((n1-n0) > 0) THEN
+!!   n0 = find_index(y+rhoriz, yob(nx0:nx1), nx1-nx0)
+!!   ny1 = find_index(y-rhoriz, yob(nx0:nx1), nx1-nx0)
+!! ELSE
+!!   ny0 = 0
+!!   ny1 = 0
+!! ENDIF
+!! IF ((ny1-ny0) > 0) THEN
+!!   nz0 = find_index(z+rvert,  zob(ny0:ny1), ny1-ny0)
+!!   nz1 = find_index(z-rvert,  zob(ny0:ny1), ny1-ny0)
+!! ELSE
+!!  nz0 = 0
+!!  nz1 = 0
+!! ENDIF
+!
+!  IF ( rtime .gt. 0.0 ) THEN
+!  
+!!!!!$OMP PARALLEL DO DEFAULT(SHARED) PRIVATE(wgt, twgt)
+!  
+!   DO n = 1,nobs
+!
+!    obindex(n) = -1
+!    valid(n)  = .false.
+!    wgt       = sqrt( ((zob(n)-z)/rvert)**2 + ((yob(n)-y)/rhoriz)**2 + ((xob(n)-x)/rhoriz)**2 ) 
+!    twgt      = sqrt( (tob(n)/rtime)**2 )
+!    vindex(n) = n
+!    obwgt(n)  = 0.0d0
+!
+!    IF( wgt .lt. 1.0 .and. twgt .lt. 1.0 ) THEN
+!      valid(n) = .true.
+!      obwgt(n) = comp_cov_factor(wgt,half)*comp_cov_factor(twgt,half)
+!    ENDIF
+!
+!   ENDDO
+!
+!!!!$OMP END PARALLEL DO
+!
+!  ELSE
+!
+!!!!$OMP PARALLEL DO DEFAULT(SHARED) PRIVATE(wgt)
+!
+!    DO n = 1,nobs
+!  
+!      obindex(n) = -1
+!      valid(n)  = .false.
+!      wgt       = sqrt( ((zob(n)-z)/rvert)**2 + ((yob(n)-y)/rhoriz)**2 + ((xob(n)-x)/rhoriz)**2 )
+!      vindex(n) = n
+!      obwgt(n)  = 0.0d0
+!      IF( wgt .lt. 1.0 ) THEN
+!        valid(n) = .true.
+!        obwgt(n) = comp_cov_factor(wgt,half)
+!      ENDIF
+!
+!    ENDDO
+!
+!!!!$OMP END PARALLEL DO
+!    
+!  ENDIF
+!  
+!! Gather scatter code for compressing indices to front of oindex array
+!
+!  nvalid = count( valid )
+!  obindex(1:nvalid) = pack(vindex, valid)
+!
+!  IF ((n1-n0) > 0) THEN
+!    write(8,FMT='(a,3(f8.1,2x))') 'grid point coordinates:  ', x, y, z
+!    write(8,FMT='(a,3(f8.1,2x))') 'min obs point coordinates:  ', xob(n0), yob(n0), zob(n0)
+!    write(8,FMT='(a,3(f8.1,2x))') 'max obs point coordinates:  ', xob(n1), yob(n1), zob(n1)
+!    write(8,*) 'nvalid / nvalid2:  ', nvalid, n1-n0
+!  ENDIF
+!  
+!RETURN
+!END SUBROUTINE LOCALIZATION1D
 
 !=============================================================================================================   
 SUBROUTINE UPDATE(var, trans, wa, inflate, post_inflate, pos_def, ne, new1, & 

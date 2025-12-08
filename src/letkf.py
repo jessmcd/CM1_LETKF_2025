@@ -166,14 +166,7 @@ if __name__ == "__main__":
 
 #-------------------------------------------------------------------------------
 # Inflation type
-  # if options.ainflate:
-  #   aInflate = options.ainflate
-  # else:
-  #   aInflate   = exper['DA_PARAMS']['aInflate']
 
-  # if aInflate == 3: inflate_RTPP = exper['DA_PARAMS']['RTPP_coefficient']
-  # else: inflate_RTPP = 1 # this is just a useless value pretty much
-    
     if prior_inflate == 0:
         inflate_file_exists = False
     else:
@@ -435,13 +428,31 @@ if __name__ == "__main__":
     
     print("\n -->  LETKF:ALL OBS TYPES BEING ASSIMULATED SIMULTANEOUSLY: MULTIPASS==False\n")
     update_theta = _update_theta
+
     
-    
+    # hloc and vloc will stay the same as all other obs, so these arrays hold a single value
+    rh_array = np.array([rhoriz]*nobs)
+    rv_array = np.array([rvert]*nobs)
+
+    #rh_array[kind == 13] = 9000.0 #18000.0 # 18 km
+    #rv_array[kind == 13] = 4500.0 # 4.5 km
+
     inflateN = fstate.compute_letkf(xob, yob, zob, tob, tanalysis,
                                     value, Hxf, dep, rdiag, rloc, 
-                                    rhoriz, rvert, rtime, nthreads, cutoff, zcutoff, update_theta, 
+                                    rh_array, rv_array, rtime, nthreads, cutoff, zcutoff, update_theta, 
                                     prior_inflate, inflate_array, post_inflate, post_inflate_alpha,
                                     saveWeights, readWeights)
+    
+    
+    # inflateN = fstate.compute_letkf(xob, yob, zob, tob, tanalysis,
+    #                                 value, Hxf, dep, rdiag, rloc, 
+    #                                 rhoriz, rvert, rtime, nthreads, cutoff, zcutoff, update_theta, 
+    #                                 prior_inflate, inflate_array, post_inflate, post_inflate_alpha,
+    #                                 saveWeights, readWeights)
+
+    ##### issue where max and min inflation values aren't being enforced ######
+    inflateN[inflateN < 0.5] = 0.5
+    inflateN[inflateN > 9.0] = 9.0
                            
 # inflateN always has the adaptive inflation field produced by LETKF core. Write it out...
     if prior_inflate > 0:
