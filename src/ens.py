@@ -798,8 +798,8 @@ def calcHx(ens, kind, lat, lon, height, elev, azimuth, missing=None):
                 vt     = (dy1*q1 + dy2*q2) / ( dx*dy )
                 b[m,:] = (dz1*vb + dz2*vt) / dz
                 
-        # model's vertical velocity
-        Hx[n,:] = b[0,:]
+            # model's vertical velocity
+            Hx[n,:] = b[0,:]
 
     # END OBS_OP
     # Remove missing Hx's and strip the input data of those points as well...

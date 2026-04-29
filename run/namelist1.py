@@ -3,7 +3,7 @@ import datetime as dt
 
 #### BASIC SETUP #######
 
-base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/C03_H18_V6"
+base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/C05_H09_V4"
 fprefix             = "cm1"
 ne                  =  36
 model               = "cm1r21v1/run/cm1.exe"
@@ -40,8 +40,8 @@ cook_path           = '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/Control
 
 DA_start_time       = dt.datetime(2024, 5, 8, 20,0) # if run_assim is false, this is the start of "run forecast" if using a precooked run
 DA_end_time         = dt.datetime(2024, 5, 8, 21,30) # time that DA will end (inclusive)
-assim_freq          = 180
-cook_period         = 10800#1800 # 30 minutes
+assim_freq          = 300
+cook_period         = 1800 # 30 minutes
 cook_freq           = 900  # note: cook_period must be evenly divisible by cook_freq
 forecast_length     = 3600 # 60 minutes
 forecast_freq       = 300  # 5 minutes
@@ -65,8 +65,8 @@ writeFcstMean       = True
 writeAnalMean       = True
 saveWeights         = False
 readWeights         = False
-rhoriz              = 18000.0
-rvert               = 6500.0
+rhoriz              = 9000.0
+rvert               = 4500.0
 rtime               = -600.0
 cutoff              = 2
 zcutoff             = 10000.0  

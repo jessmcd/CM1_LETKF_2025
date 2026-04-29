@@ -3,7 +3,7 @@ import datetime as dt
 
 #### BASIC SETUP #######
 
-base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/C10_H09_V4_noAI"
+base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/C10_H15_V2_fix"
 fprefix             = "cm1"
 ne                  =  36
 model               = "cm1r21v1/run/cm1.exe"
@@ -16,7 +16,7 @@ nthreads            = 8
 ncores              = 64
 
 model_start         = dt.datetime(2024,5,8,19,30) # manually set this if you're doing a control run!!!
-auto_model_start    = True   # allows you to have the program automatically determine start date/time based on DA parameters
+auto_model_start    = False   # allows you to have the program automatically determine start date/time based on DA parameters
 lat0                = 35.23583
 lon0                = -97.46194
 hgt                 = 0
@@ -25,14 +25,14 @@ yoffset             = -115000.0 #
 microphysics        = 27 #same as CM1 ptype
 
 # settings to help facilitate experiments: set all to True for a normal experiment
-run_setup           = False#False # DA experiment only - ensemble "cook time" has already been done
-run_cook            = False #False  # run the warm up period before DA starts
+run_setup           = False # DA experiment only - ensemble "cook time" has already been done
+run_cook            = False  # run the warm up period before DA starts
 run_assim           = True  # does the assimilation 
 run_forecast        = True # does the forecast
 make_plots          = False  # if you want to make the summary plots at the end (these need work... lol)
 
 #### additional, more specialized settings
-pre_cook            = True #True #IF THIS IS TRUE = run_setup and run_cook are ignored! It copies the directory below and sets up a new experiment
+pre_cook            = True #IF THIS IS TRUE = run_setup and run_cook are ignored! It copies the directory below and sets up a new experiment
                            # only do this if you have "locked in" your inital CM1 set up
 cook_path           = '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/Control'
 
@@ -46,10 +46,10 @@ cook_freq           = 900  # note: cook_period must be evenly divisible by cook_
 forecast_length     = 3600 # 60 minutes
 forecast_freq       = 300  # 5 minutes
 
-obs_include         = ["DBZ", "VR", "DBZ0"] #options: DBZ, VR, DBZ0, DBZ0_W(updates w instead of ref)
+obs_include         = ['DBZ', 'VR', 'DBZ0'] #options: DBZ, VR, DBZ0, DBZ0_W(updates w instead of ref)
 obs_error           = {'VR':3.0, 'DBZ':7.0, 'DBZ0':5.0, 'DBZ0_W': 0.5} 
 
-prior_inflate       = 0
+prior_inflate       = 1
 prior_inflate_value = 1.0 # leave as 1.0 unless you want to use a fixed inflation value
 post_inflate        = 3
 post_inflate_alpha  = 0.0
@@ -65,8 +65,8 @@ writeFcstMean       = True
 writeAnalMean       = True
 saveWeights         = False
 readWeights         = False
-rhoriz              = 9000.0
-rvert               = 4500.0
+rhoriz              = 15000.0
+rvert               = 2500.0
 rtime               = -600.0
 cutoff              = 2
 zcutoff             = 10000.0  
@@ -78,12 +78,12 @@ print_state_stats   = True
 ## other items are not listed because they can't be changed, like
 ## iorigin or file type
 
-nx                  = 128 #256#
-ny                  = 128 #256#
+nx                  = 128
+ny                  = 128
 nz                  = 52
 ppnode              = ncores
-dx                  = 3000.0 #1500.0 #
-dy                  = 3000.0 #1500.0 #
+dx                  = 3000.0
+dy                  = 3000.0
 dz                  = 400.0
 dtl                 = 6.0
 isnd                = 7
@@ -104,7 +104,7 @@ nb                  = 3
 tpert               = 3.0
 wpert               = 1.0
 tdpert              = 0.0
-qvpert              = 5.0 # this is not used
+qvpert              = 5.0
 upert               = 0.0
 vpert               = 0.0
 centerx             =  80000.0
@@ -116,46 +116,3 @@ max_y_offset        = 20000.0
 #max_z               = 1500.0
 bub_horz_radius     = 10000.0
 bub_vert_radius     = 2000.0
-r_seed              = 2147483562
-
-
-### ADDING NOISE TO MODEL FIELDS ###
-
-min_dbz_4pert       = 25
-min_inno_4pert      = 10
-tpert_noise         = 1.0
-wpert_noise         = 0.5
-tdpert_noise        = 0.0
-upert_noise         = 1.0
-vpert_noise         = 1.0
-qvpert_noise        = 1.0
-hradius             = 9000.
-vradius             = 4000.
-r_seed_noise        = 123321
-
-
-#### DONT EDIT BELOW THIS ########
-# this helps RUN.sh properly name/move things or sends out error information
-if __name__ == "__main__":
-
-    error_out = []
-    if (cook_period % cook_freq) != 0:
-        error_out.append('cook period is not evenly divisible by cook_freq, try again.  ')
-        
-    if ((nx % ncores) != 0) | ((ny % ncores) != 0):
-        error_out.append('nx or ny is not evenly divisible by ncores, try again.  ')
-        
-    if ('DBZ0' in obs_include) & ('DBZ0_W' in obs_include):
-        error_out.append('you included both DBZ0 and DBZ0_W. Please only select one.')
-
-    if (assim_freq < 190) & (dtl > 7):
-        error_out.append('You need to decrease your timestep (dtl). If not, comment out lines 146-147 in namelist.py')
-    
-    if len(error_out) != 0:
-        print(error_out)
-    else:
-
-        if base_dir[-1] =='/':
-            print(base_dir[:-1])
-        else:
-            print(base_dir)

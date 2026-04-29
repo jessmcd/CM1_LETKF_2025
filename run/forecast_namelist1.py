@@ -2,7 +2,7 @@
 import datetime as dt
 
 # directory that your existing experiment is in
-base_dir             = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/C10_H09_V4_noAI"
+base_dir             = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/C05_H09_V4"
 ncores               = 64
 
 forecast_output_freq = 300  # 5 minutes, output interval
