@@ -3,8 +3,8 @@ import datetime as dt
 
 #### BASIC SETUP #######
 
-base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/C10_H09_V4_noAI"
-fprefix             = "cm1"
+base_dir            = "/work/jessica.mcdonald/CM1_LETKF_2025/experiments/C03_H12_V6_fine"
+fprefix              = "cm1"
 ne                  =  36
 model               = "cm1r21v1/run/cm1.exe"
 src                 = "cm1r21v1/run/onefile.F"
@@ -16,7 +16,7 @@ nthreads            = 8
 ncores              = 64
 
 model_start         = dt.datetime(2024,5,8,19,30) # manually set this if you're doing a control run!!!
-auto_model_start    = True   # allows you to have the program automatically determine start date/time based on DA parameters
+auto_model_start    = False   # allows you to have the program automatically determine start date/time based on DA parameters
 lat0                = 35.23583
 lon0                = -97.46194
 hgt                 = 0
@@ -25,7 +25,7 @@ yoffset             = -115000.0 #
 microphysics        = 27 #same as CM1 ptype
 
 # settings to help facilitate experiments: set all to True for a normal experiment
-run_setup           = False#False # DA experiment only - ensemble "cook time" has already been done
+run_setup           = False #False # DA experiment only - ensemble "cook time" has already been done
 run_cook            = False #False  # run the warm up period before DA starts
 run_assim           = True  # does the assimilation 
 run_forecast        = True # does the forecast
@@ -34,13 +34,13 @@ make_plots          = False  # if you want to make the summary plots at the end 
 #### additional, more specialized settings
 pre_cook            = True #True #IF THIS IS TRUE = run_setup and run_cook are ignored! It copies the directory below and sets up a new experiment
                            # only do this if you have "locked in" your inital CM1 set up
-cook_path           = '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/Control'
+cook_path           = '/work/jessica.mcdonald/CM1_LETKF_2025/experiments/Control_fine'
 
 ### DATA ASSIMILATION PARAMETERS ###
 
 DA_start_time       = dt.datetime(2024, 5, 8, 20,0) # if run_assim is false, this is the start of "run forecast" if using a precooked run
 DA_end_time         = dt.datetime(2024, 5, 8, 21,30) # time that DA will end (inclusive)
-assim_freq          = 600
+assim_freq          = 180
 cook_period         = 1800 # 30 minutes
 cook_freq           = 900  # note: cook_period must be evenly divisible by cook_freq
 forecast_length     = 3600 # 60 minutes
@@ -49,7 +49,7 @@ forecast_freq       = 300  # 5 minutes
 obs_include         = ["DBZ", "VR", "DBZ0"] #options: DBZ, VR, DBZ0, DBZ0_W(updates w instead of ref)
 obs_error           = {'VR':3.0, 'DBZ':7.0, 'DBZ0':5.0, 'DBZ0_W': 0.5} 
 
-prior_inflate       = 0
+prior_inflate       = 1
 prior_inflate_value = 1.0 # leave as 1.0 unless you want to use a fixed inflation value
 post_inflate        = 3
 post_inflate_alpha  = 0.0
@@ -65,8 +65,8 @@ writeFcstMean       = True
 writeAnalMean       = True
 saveWeights         = False
 readWeights         = False
-rhoriz              = 9000.0
-rvert               = 4500.0
+rhoriz              = 12000.0
+rvert               = 6500.0
 rtime               = -600.0
 cutoff              = 2
 zcutoff             = 10000.0  
@@ -78,14 +78,14 @@ print_state_stats   = True
 ## other items are not listed because they can't be changed, like
 ## iorigin or file type
 
-nx                  = 128 #256#
-ny                  = 128 #256#
+nx                  = 256#128 #256#
+ny                  = 256#128 #256#
 nz                  = 52
 ppnode              = ncores
-dx                  = 3000.0 #1500.0 #
-dy                  = 3000.0 #1500.0 #
+dx                  = 1500.0 #
+dy                  = 1500.0 #
 dz                  = 400.0
-dtl                 = 6.0
+dtl                 = 3.0
 isnd                = 7
 ihail               = 1
 stretch_z           = 1

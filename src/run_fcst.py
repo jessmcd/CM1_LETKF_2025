@@ -93,15 +93,15 @@ if __name__ == '__main__':
 	else:
 		init = False
 		if options.datetime == None:
-			 parser.print_help()
-			 print("\n ==> RUN_FCST: ERROR --> date and time for start time not supplied..EXITING!!!")
-			 sys.exit(-1)
+			parser.print_help()
+			print("\n ==> RUN_FCST: ERROR --> date and time for start time not supplied..EXITING!!!")
+			sys.exit(-1)
 		else:
-			 list = [int(t) for t in options.datetime.split(",")]
-			 startDT    = DT.datetime(list[0],list[1],list[2],list[3],list[4],list[5])
-			 runDT      = DT.datetime(experiment["YEAR"],experiment["MONTH"],experiment["DAY"],experiment["HOUR"],experiment["MINUTE"],experiment["SECOND"])
-			 start_time = (startDT-runDT).seconds
-			 print(("\n ==> RUN_FCST: Date&time supplied: %s, which corresponds to a local model time of %d sec" % (startDT.strftime("%Y %m-%d %H:%M:%S"), start_time)))
+			list = [int(t) for t in options.datetime.split(",")]
+			startDT    = DT.datetime(list[0],list[1],list[2],list[3],list[4],list[5])
+			runDT      = DT.datetime(experiment["YEAR"],experiment["MONTH"],experiment["DAY"],experiment["HOUR"],experiment["MINUTE"],experiment["SECOND"])
+			start_time = (startDT-runDT).seconds
+			print(("\n ==> RUN_FCST: Date&time supplied: %s, which corresponds to a local model time of %d sec" % (startDT.strftime("%Y %m-%d %H:%M:%S"), start_time)))
 
 	if options.run_time == None:
 		print("\n Run_Fcst Script: IMPORTANT:  Run time not supplied...defaulting to init mode!!!")
@@ -123,7 +123,7 @@ if __name__ == '__main__':
 	else:
 		ncores = _ncores
 		print(("\n Run_Fcst Script:  defaulting to %d cores" % ncores))
-	
+
 	if options.range == None:
 		ne = experiment['ne']
 		ne_start = 1
@@ -133,7 +133,7 @@ if __name__ == '__main__':
 		ne = 1 + options.range[1] - options.range[0]
 		ne_start = options.range[0]
 		ne_end   = options.range[1]
-		print(("\n Run_Fcst Script: Number ensemble members supplied  %d  %d" % ne_start, ne_end))
+		print(("\n Run_Fcst Script: Number ensemble members supplied  %d  %d" % (ne_start, ne_end)))
 
 	#-------------------------------------------------------------------------------
 	#
